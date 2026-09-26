@@ -22,7 +22,10 @@ pub(crate) fn decode(bytes: Vec<u8>, partial: bool) -> Option<String> {
 }
 
 fn decode_utf16(body: &[u8], unit: fn([u8; 2]) -> u16, partial: bool) -> Option<String> {
-    let (pairs, _) = body.as_chunks::<2>();
+    let (pairs, remainder) = body.as_chunks::<2>();
+    if !partial && !remainder.is_empty() {
+        return None;
+    }
     let mut units: Vec<u16> = pairs.iter().map(|pair| unit(*pair)).collect();
     if partial
         && units
@@ -31,7 +34,9 @@ fn decode_utf16(body: &[u8], unit: fn([u8; 2]) -> u16, partial: bool) -> Option<
     {
         units.pop();
     }
-    String::from_utf16(&units).ok()
+    String::from_utf16(&units)
+        .ok()
+        .filter(|text| !text.contains('\0'))
 }
 
 fn decode_utf8(bytes: Vec<u8>, partial: bool) -> Option<String> {

@@ -85,6 +85,26 @@ async fn utf16_files_are_decoded_and_judged() {
 }
 
 #[tokio::test]
+async fn broken_utf16_files_are_skipped_as_binary() {
+    let stand_in = StandIn::start().await;
+    let dir = files(&[
+        ("odd.txt", b"\xff\xfea\0b"),
+        ("zero.txt", b"\xff\xfea\0\0\0b\0"),
+    ]);
+
+    stand_in
+        .jevpipe()
+        .current_dir(dir.path())
+        .args(["filter", "Is it?", "--read-files"])
+        .write_stdin("odd.txt\nzero.txt\n")
+        .assert()
+        .code(1)
+        .stderr(contains("2 records, 0 kept, 2 skipped, 0 failed"));
+
+    assert!(stand_in.requests().await.is_empty());
+}
+
+#[tokio::test]
 async fn empty_files_and_directories_are_skipped() {
     let stand_in = StandIn::start().await;
     let dir = files(&[("empty.txt", b"")]);

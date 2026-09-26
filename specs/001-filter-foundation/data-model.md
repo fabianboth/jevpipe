@@ -16,11 +16,14 @@ One unit of input.
 Validation (a failed validation makes the record's decision `failed`):
 
 - Text: the line without its terminator must be valid UTF-8 without NUL bytes (else `not text`).
-- An input that starts with a UTF-16 byte-order mark fails as one record (`UTF-16, convert it to UTF-8`).
+- Line mode: an input that starts with a UTF-16 byte-order mark fails as one record (`UTF-16,
+  convert it to UTF-8`).
 - A file named on the command line that cannot be opened becomes one failed record at its place, with the file name as its content.
-- `--read-files`: the path must exist and be readable (else failed); directories, empty files, files
-  with a NUL byte in the first 8 KiB and non-UTF-8 files are `skipped`; files that start with a UTF-16
-  byte-order mark are decoded, like ripgrep does.
+- `--read-files`: the path must exist and be readable (else failed). A file that starts with a UTF-16
+  byte-order mark is decoded as UTF-16, like ripgrep does (the mark takes precedence over the NUL
+  check, since UTF-16 text is full of zero bytes); it is `skipped` as binary when it does not decode
+  or contains U+0000. Other files are `skipped` when they are directories, empty, have a NUL byte in
+  the first 8 KiB, or are not valid UTF-8.
 
 ## State (sent to the service)
 

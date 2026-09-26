@@ -65,19 +65,15 @@ impl Reader {
     }
 
     fn read_lines(&mut self, input_name: &str, mut reader: impl BufRead) -> ControlFlow<()> {
-        match reader.fill_buf() {
-            Ok(start) if text::is_utf16(start) => {
-                return self.send_failed(input_name.to_owned(), Outcome::failed(Failure::Utf16));
-            }
-            Ok(_) => {}
-            Err(error) => {
-                return self.send_failed(input_name.to_owned(), Outcome::unreadable(&error));
-            }
-        }
+        let mut first_line = true;
         loop {
             let mut raw = Vec::new();
             match reader.read_until(b'\n', &mut raw) {
                 Ok(0) => return ControlFlow::Continue(()),
+                Ok(_) if first_line && text::is_utf16(&raw) => {
+                    return self
+                        .send_failed(input_name.to_owned(), Outcome::failed(Failure::Utf16));
+                }
                 Ok(_) if raw.trim_ascii().is_empty() => {}
                 Ok(_) => {
                     let incoming = self.record(raw);
@@ -87,6 +83,7 @@ impl Reader {
                     return self.send_failed(input_name.to_owned(), Outcome::unreadable(&error));
                 }
             }
+            first_line = false;
         }
     }
 
