@@ -11,6 +11,7 @@ use crate::decision::{Decision, Failure, Outcome};
 
 const BUFFERED_RECORDS: usize = 256;
 const STANDARD_INPUT: &str = "(standard input)";
+const STANDARD_INPUT_ARGUMENT: &str = "-";
 
 pub(crate) struct Record {
     pub(crate) position: usize,
@@ -22,7 +23,7 @@ pub(crate) type Incoming = Result<Record, Decision>;
 
 pub(crate) fn read(mut inputs: Vec<PathBuf>) -> io::Result<impl Stream<Item = Incoming>> {
     if inputs.is_empty() {
-        inputs.push(PathBuf::from("-"));
+        inputs.push(PathBuf::from(STANDARD_INPUT_ARGUMENT));
     }
     let (sender, receiver) = mpsc::channel(BUFFERED_RECORDS);
     let reader = Reader {
@@ -52,27 +53,27 @@ impl Reader {
     }
 
     fn read_input(&mut self, input: &Path) -> ControlFlow<()> {
-        if input == Path::new("-") {
+        if input == Path::new(STANDARD_INPUT_ARGUMENT) {
             return self.read_lines(STANDARD_INPUT, io::stdin().lock());
         }
         let name = input.display().to_string();
         match File::open(input) {
             Ok(file) => self.read_lines(&name, BufReader::new(file)),
-            Err(error) => self.fail(name, &error),
+            Err(error) => self.send_unreadable(name, &error),
         }
     }
 
-    fn read_lines(&mut self, name: &str, mut lines: impl BufRead) -> ControlFlow<()> {
+    fn read_lines(&mut self, input_name: &str, mut reader: impl BufRead) -> ControlFlow<()> {
         loop {
             let mut raw = Vec::new();
-            match lines.read_until(b'\n', &mut raw) {
+            match reader.read_until(b'\n', &mut raw) {
                 Ok(0) => return ControlFlow::Continue(()),
                 Ok(_) if raw.trim_ascii().is_empty() => {}
                 Ok(_) => {
                     let incoming = self.record(raw);
                     self.send(incoming)?;
                 }
-                Err(error) => return self.fail(name.to_owned(), &error),
+                Err(error) => return self.send_unreadable(input_name.to_owned(), &error),
             }
         }
     }
@@ -80,14 +81,14 @@ impl Reader {
     fn record(&mut self, raw: Vec<u8>) -> Incoming {
         let position = self.next_position();
         let line = without_terminator(&raw);
-        let utf8 = str::from_utf8(line).is_ok();
+        let valid_utf8 = str::from_utf8(line).is_ok();
         let text = String::from_utf8_lossy(line).into_owned();
         let record = Record {
             position,
             raw,
             text,
         };
-        if utf8 {
+        if valid_utf8 {
             return Ok(record);
         }
         Err(Decision {
@@ -96,7 +97,7 @@ impl Reader {
         })
     }
 
-    fn fail(&mut self, name: String, error: &io::Error) -> ControlFlow<()> {
+    fn send_unreadable(&mut self, name: String, error: &io::Error) -> ControlFlow<()> {
         let record = Record {
             position: self.next_position(),
             raw: Vec::new(),

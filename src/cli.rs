@@ -12,7 +12,7 @@ Examples:
 
 /// A Unix pipe for typed decisions: stream records in, get calibrated decisions out.
 #[derive(Parser)]
-#[command(version)]
+#[command(version, bin_name = "jevpipe")]
 pub struct Cli {
     #[command(subcommand)]
     pub(crate) command: Command,

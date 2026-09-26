@@ -11,17 +11,10 @@ fn version_reports_the_crate_version() {
 }
 
 #[test]
-fn unknown_flag_fails_with_usage_error() {
-    cargo_bin_cmd!()
-        .arg("--no-such-flag")
-        .assert()
-        .code(2)
-        .stderr(contains("--no-such-flag"));
-}
-
-#[test]
 fn filter_rejects_invalid_usage_before_reading_input() {
-    let cases: [&[&str]; 4] = [
+    let cases: [&[&str]; 6] = [
+        &["--no-such-flag"],
+        &["filter", "Is it?", "--all"],
         &["filter", ""],
         &["filter", "Is it?", "--threshold", "1.5"],
         &["filter", "Is it?", "--concurrency", "0"],
@@ -45,6 +38,7 @@ fn filter_help_describes_every_option() {
         .success();
     let help = String::from_utf8_lossy(&assert.get_output().stdout).into_owned();
     for option in [
+        "Usage: jevpipe filter [OPTIONS] <QUESTION> [FILES]...",
         "<QUESTION>",
         "[FILES]...",
         "--read-files",

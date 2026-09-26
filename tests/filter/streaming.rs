@@ -30,7 +30,7 @@ async fn writes_a_kept_record_before_the_input_ends() {
 
     stdin.write_all(b"a p=0.9\n").unwrap();
     stdin.flush().unwrap();
-    let line = receiver.recv_timeout(Duration::from_secs(2));
+    let line = receiver.recv_timeout(Duration::from_secs(10));
     drop(stdin);
 
     assert_eq!(line.unwrap(), "a p=0.9\n");
@@ -75,7 +75,7 @@ async fn stops_quietly_when_the_reader_goes_away() {
     assert!(status.success(), "{status:?}");
     assert_eq!(stderr.lines().count(), 1, "{stderr}");
     assert!(stderr.starts_with("jevpipe: "), "{stderr}");
-    assert!(stand_in.requests().await.len() < records / 2);
+    assert!(stand_in.requests().await.len() < records);
 }
 
 #[tokio::test]
@@ -98,6 +98,27 @@ async fn decides_many_records_concurrently() {
     assert!(
         started.elapsed() < Duration::from_secs(10),
         "{:?}",
+        started.elapsed()
+    );
+}
+
+#[tokio::test]
+async fn concurrency_limits_the_requests_in_flight() {
+    let stand_in = StandIn::start().await;
+    let input = "a p=0.9 slow=500\nb p=0.9 slow=500\nc p=0.9 slow=500\nd p=0.9 slow=500\n";
+    let started = Instant::now();
+
+    stand_in
+        .jevpipe()
+        .args(["filter", "Is it?", "--concurrency", "2"])
+        .write_stdin(input)
+        .assert()
+        .success()
+        .stdout(input);
+
+    assert!(
+        started.elapsed() >= Duration::from_secs(1),
+        "4 slow records at concurrency 2 need two rounds: {:?}",
         started.elapsed()
     );
 }

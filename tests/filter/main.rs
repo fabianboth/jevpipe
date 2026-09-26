@@ -4,6 +4,7 @@
 )]
 
 mod files;
+mod fixture;
 mod json;
 mod lines;
 mod stand_in;

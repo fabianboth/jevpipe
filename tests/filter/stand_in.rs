@@ -78,8 +78,9 @@ impl Respond for Responder {
 struct Markers {
     probability: Option<f64>,
     fail: Option<(u16, usize)>,
-    fatal: Option<u16>,
+    status: Option<u16>,
     too_large: bool,
+    malformed: bool,
     slow: Option<u64>,
 }
 
@@ -94,9 +95,10 @@ impl Markers {
                     let (status, times) = value.split_once('x').unwrap();
                     markers.fail = Some((status.parse().unwrap(), times.parse().unwrap()));
                 }
-                Some(("fatal", value)) => markers.fatal = Some(value.parse().unwrap()),
+                Some(("status", value)) => markers.status = Some(value.parse().unwrap()),
                 Some(("slow", value)) => markers.slow = Some(value.parse().unwrap()),
                 None if word == "toolarge" => markers.too_large = true,
+                None if word == "malformed" => markers.malformed = true,
                 _ => {}
             }
         }
@@ -104,8 +106,12 @@ impl Markers {
     }
 
     fn answer(&self, attempt: usize) -> ResponseTemplate {
-        if let Some(status) = self.fatal {
+        if let Some(status) = self.status {
             return error(status, "No cookie auth credentials found");
+        }
+        if self.malformed {
+            return ResponseTemplate::new(200)
+                .set_body_json(json!({ "model": "typesafe/jev-test", "answers": {} }));
         }
         if self.too_large {
             return error(

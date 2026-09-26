@@ -15,6 +15,12 @@ pub(crate) struct Summary {
     closed: bool,
 }
 
+pub(crate) enum Exit {
+    Success,
+    NothingKept,
+    Error,
+}
+
 impl Summary {
     pub(crate) fn start() -> Self {
         Self {
@@ -46,11 +52,11 @@ impl Summary {
         self.closed = true;
     }
 
-    pub(crate) fn exit_code(&self) -> ExitCode {
+    pub(crate) fn exit(&self) -> Exit {
         match (self.closed, self.failed, self.kept) {
-            (true, _, _) | (false, 0, 1..) => ExitCode::SUCCESS,
-            (false, 1.., _) => ExitCode::from(2),
-            (false, 0, 0) => ExitCode::FAILURE,
+            (true, _, _) | (false, 0, 1..) => Exit::Success,
+            (false, 1.., _) => Exit::Error,
+            (false, 0, 0) => Exit::NothingKept,
         }
     }
 
@@ -77,6 +83,16 @@ impl fmt::Display for Summary {
             write!(formatter, ", {model}")?;
         }
         Ok(())
+    }
+}
+
+impl From<Exit> for ExitCode {
+    fn from(exit: Exit) -> Self {
+        match exit {
+            Exit::Success => Self::SUCCESS,
+            Exit::NothingKept => Self::FAILURE,
+            Exit::Error => Self::from(2),
+        }
     }
 }
 

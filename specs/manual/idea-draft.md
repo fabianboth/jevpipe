@@ -54,3 +54,5 @@ Records are plain lines or JSONL. Output is JSONL that keeps each record's id, s
 ## Later
 
 Deferred from the first milestone (`specs/001-filter-foundation`): `map` and `serve`, caching identical requests, budgets on records, cost and run time, inverted matching (`-v`), sorting by probability, other providers (TypeSafe directly, a shared key name), JSON records as structured state (when `map` needs fields such as `id`), and the agent skill with the example pipelines.
+
+Learnings for the skill so far: [skill-learnings.md](skill-learnings.md).

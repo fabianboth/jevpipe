@@ -4,8 +4,7 @@ use std::time::Duration;
 use backon::{ExponentialBuilder, Retryable};
 use reqwest::header::RETRY_AFTER;
 use reqwest::{Client, Response, StatusCode};
-use serde::Deserialize;
-use serde_json::{Value, json};
+use serde::{Deserialize, Serialize};
 
 const API_KEY_VARIABLE: &str = "OPENROUTER_API_KEY";
 const BASE_URL_VARIABLE: &str = "JEVPIPE_BASE_URL";
@@ -46,6 +45,13 @@ pub(crate) struct Service {
     model: String,
 }
 
+#[derive(Serialize)]
+#[serde(untagged)]
+pub(crate) enum State<'a> {
+    Text(&'a str),
+    File { path: &'a str, content: &'a str },
+}
+
 pub(crate) struct Answer {
     pub(crate) probability: f64,
     pub(crate) cost: Option<f64>,
@@ -60,6 +66,25 @@ pub(crate) enum ServiceError {
     TooLarge,
     #[error("{0}")]
     Rejected(String),
+}
+
+#[derive(Serialize)]
+struct Request<'a> {
+    model: &'a str,
+    state: &'a State<'a>,
+    questions: Questions<'a>,
+}
+
+#[derive(Serialize)]
+struct Questions<'a> {
+    #[serde(rename = "match")]
+    matched: Question<'a>,
+}
+
+#[derive(Serialize)]
+#[serde(tag = "type", rename_all = "lowercase")]
+enum Question<'a> {
+    Noul { instructions: &'a str },
 }
 
 #[derive(Deserialize)]
@@ -112,7 +137,11 @@ impl Service {
         })
     }
 
-    pub(crate) async fn ask(&self, question: &str, state: &Value) -> Result<Answer, ServiceError> {
+    pub(crate) async fn ask(
+        &self,
+        question: &str,
+        state: &State<'_>,
+    ) -> Result<Answer, ServiceError> {
         (|| self.send(question, state))
             .retry(RETRY)
             .when(|error| matches!(error, ServiceError::Transient { .. }))
@@ -120,51 +149,55 @@ impl Service {
             .await
     }
 
-    async fn send(&self, question: &str, state: &Value) -> Result<Answer, ServiceError> {
-        let request = json!({
-            "model": self.model,
-            "state": state,
-            "questions": { "match": { "type": "noul", "instructions": question } },
-        });
+    async fn send(&self, question: &str, state: &State<'_>) -> Result<Answer, ServiceError> {
+        let request = Request {
+            model: &self.model,
+            state,
+            questions: Questions {
+                matched: Question::Noul {
+                    instructions: question,
+                },
+            },
+        };
         let response = self
             .client
             .post(&self.config.url)
             .bearer_auth(&self.config.api_key)
             .json(&request)
             .send()
-            .await
-            .map_err(|error| ServiceError::from_transport(&error))?;
+            .await?;
         if response.status().is_success() {
-            answer(response).await
+            Answer::from_response(response).await
         } else {
             Err(ServiceError::from_response(response).await)
         }
     }
 }
 
-async fn answer(response: Response) -> Result<Answer, ServiceError> {
-    let body = response
-        .bytes()
-        .await
-        .map_err(|error| ServiceError::from_transport(&error))?;
-    let body: AnswerBody = serde_json::from_slice(&body)
-        .map_err(|error| ServiceError::Rejected(format!("unexpected answer: {error}")))?;
-    Ok(Answer {
-        probability: body.answers.matched.noul,
-        cost: body.usage.and_then(|usage| usage.cost),
-        model: body.model,
-    })
+impl Answer {
+    async fn from_response(response: Response) -> Result<Self, ServiceError> {
+        let body = response.bytes().await?;
+        let body: AnswerBody = serde_json::from_slice(&body)
+            .map_err(|error| ServiceError::Rejected(format!("unexpected answer: {error}")))?;
+        Ok(Self {
+            probability: body.answers.matched.noul,
+            cost: body.usage.and_then(|usage| usage.cost),
+            model: body.model,
+        })
+    }
 }
 
-impl ServiceError {
-    fn from_transport(error: &reqwest::Error) -> Self {
+impl From<reqwest::Error> for ServiceError {
+    fn from(error: reqwest::Error) -> Self {
         if error.is_builder() {
             Self::Rejected(error.to_string())
         } else {
             Self::Transient { retry_after: None }
         }
     }
+}
 
+impl ServiceError {
     async fn from_response(response: Response) -> Self {
         let status = response.status();
         let retry_after = response
@@ -178,7 +211,7 @@ impl ServiceError {
             408 | 429 | 500 | 502 | 503 | 504 | 524 | 529 => Self::Transient { retry_after },
             413 => Self::TooLarge,
             400 if body.contains("max_tokens_exceeded") => Self::TooLarge,
-            _ => Self::Rejected(rejection(status, &body)),
+            _ => Self::Rejected(rejection_message(status, &body)),
         }
     }
 
@@ -190,7 +223,7 @@ impl ServiceError {
     }
 }
 
-fn rejection(status: StatusCode, body: &str) -> String {
+fn rejection_message(status: StatusCode, body: &str) -> String {
     serde_json::from_str::<ErrorBody>(body).map_or_else(
         |_| status.to_string(),
         |body| format!("{status}: {}", body.error.message),

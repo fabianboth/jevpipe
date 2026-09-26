@@ -1,17 +1,10 @@
 use std::fs;
 
+use predicates::prelude::PredicateBooleanExt;
 use predicates::str::contains;
-use tempfile::TempDir;
 
+use crate::fixture::files;
 use crate::stand_in::StandIn;
-
-fn files(entries: &[(&str, &[u8])]) -> TempDir {
-    let dir = TempDir::new().unwrap();
-    for (name, content) in entries {
-        fs::write(dir.path().join(name), content).unwrap();
-    }
-    dir
-}
 
 #[tokio::test]
 async fn prints_the_paths_of_matching_files_in_input_order() {
@@ -97,7 +90,7 @@ async fn a_missing_path_is_reported_and_fails() {
 }
 
 #[tokio::test]
-async fn a_large_file_is_cut_to_fit_and_still_judged() {
+async fn a_large_file_is_cut_to_fit_judged_and_marked_truncated() {
     let stand_in = StandIn::start().await;
     let content = format!("p=0.9 {}", "é".repeat(150_000));
     let dir = files(&[("big.txt", content.as_bytes())]);
@@ -105,16 +98,32 @@ async fn a_large_file_is_cut_to_fit_and_still_judged() {
     stand_in
         .jevpipe()
         .current_dir(dir.path())
-        .args(["filter", "Is it?", "--read-files"])
+        .args(["filter", "Is it?", "--read-files", "--json"])
         .write_stdin("big.txt\n")
         .assert()
         .success()
-        .stdout("big.txt\n");
+        .stdout(contains("\"record\":\"big.txt\"").and(contains("\"truncated\":true")));
 
     let requests = stand_in.requests().await;
     let sent = requests[0]["state"]["content"].as_str().unwrap();
     assert_eq!(sent.chars().count(), 100_000);
     assert!(content.starts_with(sent));
+}
+
+#[tokio::test]
+async fn a_413_answer_fails_the_record_as_too_large_and_the_run_continues() {
+    let stand_in = StandIn::start().await;
+    let dir = files(&[("huge.txt", b"status=413"), ("a.rs", b"p=0.9")]);
+
+    stand_in
+        .jevpipe()
+        .current_dir(dir.path())
+        .args(["filter", "Is it?", "--read-files"])
+        .write_stdin("huge.txt\na.rs\n")
+        .assert()
+        .code(2)
+        .stdout("a.rs\n")
+        .stderr(contains("jevpipe: record 1 (huge.txt): too large\n"));
 }
 
 #[tokio::test]

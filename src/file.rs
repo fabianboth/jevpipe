@@ -1,7 +1,6 @@
 use std::io;
 use std::path::Path;
 
-use serde_json::{Value, json};
 use tokio::fs::{self, File};
 use tokio::io::AsyncReadExt;
 
@@ -12,7 +11,7 @@ const MAX_BYTES: u64 = 400_000;
 const BINARY_PROBE_BYTES: usize = 8 * 1024;
 
 pub(crate) struct Content {
-    pub(crate) state: Value,
+    pub(crate) text: String,
     pub(crate) truncated: bool,
 }
 
@@ -22,20 +21,20 @@ pub(crate) async fn read(path: &Path) -> Result<Content, Outcome> {
     if metadata.is_dir() {
         return Err(Outcome::skipped(Skip::Directory));
     }
-    let bytes = read_start(path).await.map_err(unreadable)?;
+    let bytes = read_prefix(path).await.map_err(unreadable)?;
     if bytes.is_empty() {
         return Err(Outcome::skipped(Skip::Empty));
     }
-    let cut = metadata.len() > MAX_BYTES;
-    let mut text = decode(bytes, cut).ok_or(Outcome::skipped(Skip::Binary))?;
+    let partial = metadata.len() > MAX_BYTES;
+    let mut text = decode(bytes, partial).ok_or(Outcome::skipped(Skip::Binary))?;
     let shortened = shorten(&mut text);
     Ok(Content {
-        state: json!({ "path": path.to_string_lossy(), "content": text }),
-        truncated: cut || shortened,
+        text,
+        truncated: partial || shortened,
     })
 }
 
-async fn read_start(path: &Path) -> io::Result<Vec<u8>> {
+async fn read_prefix(path: &Path) -> io::Result<Vec<u8>> {
     let mut bytes = Vec::new();
     File::open(path)
         .await?
@@ -45,14 +44,14 @@ async fn read_start(path: &Path) -> io::Result<Vec<u8>> {
     Ok(bytes)
 }
 
-fn decode(bytes: Vec<u8>, cut: bool) -> Option<String> {
+fn decode(bytes: Vec<u8>, partial: bool) -> Option<String> {
     let probe = &bytes[..bytes.len().min(BINARY_PROBE_BYTES)];
     if probe.contains(&0) {
         return None;
     }
     match String::from_utf8(bytes) {
         Ok(text) => Some(text),
-        Err(error) if cut && error.utf8_error().error_len().is_none() => {
+        Err(error) if partial && error.utf8_error().error_len().is_none() => {
             let valid = error.utf8_error().valid_up_to();
             let mut bytes = error.into_bytes();
             bytes.truncate(valid);

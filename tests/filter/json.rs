@@ -1,9 +1,7 @@
-use std::fs;
-
 use predicates::str::contains;
 use serde_json::{Value, json};
-use tempfile::TempDir;
 
+use crate::fixture::files;
 use crate::stand_in::StandIn;
 
 fn json_lines(output: &std::process::Output) -> Vec<Value> {
@@ -37,10 +35,11 @@ async fn json_prints_kept_records_as_objects_in_input_order() {
 #[tokio::test]
 async fn json_all_prints_every_record_with_its_outcome() {
     let stand_in = StandIn::start().await;
-    let dir = TempDir::new().unwrap();
-    fs::write(dir.path().join("kept.rs"), "p=0.9").unwrap();
-    fs::write(dir.path().join("dropped.rs"), "p=0.3").unwrap();
-    fs::write(dir.path().join("image.png"), b"\0\0").unwrap();
+    let dir = files(&[
+        ("kept.rs", b"p=0.9"),
+        ("dropped.rs", b"p=0.3"),
+        ("image.png", b"\0\0"),
+    ]);
 
     let output = stand_in
         .jevpipe()
@@ -64,27 +63,6 @@ async fn json_all_prints_every_record_with_its_outcome() {
 }
 
 #[tokio::test]
-async fn json_marks_a_truncated_file() {
-    let stand_in = StandIn::start().await;
-    let dir = TempDir::new().unwrap();
-    fs::write(
-        dir.path().join("big.txt"),
-        format!("p=0.9 {}", "x".repeat(150_000)),
-    )
-    .unwrap();
-
-    let output = stand_in
-        .jevpipe()
-        .current_dir(dir.path())
-        .args(["filter", "Is it?", "--read-files", "--json"])
-        .write_stdin("big.txt\n")
-        .assert()
-        .success();
-
-    assert_eq!(json_lines(output.get_output())[0]["truncated"], true);
-}
-
-#[tokio::test]
 async fn json_keeps_the_exit_status_of_a_run_where_nothing_is_kept() {
     let stand_in = StandIn::start().await;
 
@@ -96,14 +74,4 @@ async fn json_keeps_the_exit_status_of_a_run_where_nothing_is_kept() {
         .code(1)
         .stdout("")
         .stderr(contains("1 records, 0 kept"));
-}
-
-#[test]
-fn all_without_json_is_a_usage_error() {
-    assert_cmd::Command::new(env!("CARGO_BIN_EXE_jevpipe"))
-        .args(["filter", "Is it?", "--all"])
-        .env("OPENROUTER_API_KEY", "test-key")
-        .assert()
-        .code(2)
-        .stderr(contains("--json"));
 }

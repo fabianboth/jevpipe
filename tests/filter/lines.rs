@@ -1,9 +1,9 @@
-use std::fs;
+use std::time::{Duration, Instant};
 
 use predicates::prelude::PredicateBooleanExt;
 use predicates::str::contains;
-use tempfile::TempDir;
 
+use crate::fixture::files;
 use crate::stand_in::StandIn;
 
 fn stderr_lines(output: &std::process::Output) -> Vec<String> {
@@ -48,9 +48,7 @@ async fn sends_the_question_and_the_line_to_the_service() {
 #[tokio::test]
 async fn reads_files_in_argument_order_and_dash_as_standard_input() {
     let stand_in = StandIn::start().await;
-    let dir = TempDir::new().unwrap();
-    fs::write(dir.path().join("a.txt"), "a1 p=0.9\na2 p=0.9\n").unwrap();
-    fs::write(dir.path().join("b.txt"), "b1 p=0.9\n").unwrap();
+    let dir = files(&[("a.txt", b"a1 p=0.9\na2 p=0.9\n"), ("b.txt", b"b1 p=0.9\n")]);
 
     stand_in
         .jevpipe()
@@ -123,6 +121,26 @@ async fn transient_failures_are_retried_until_the_answer_arrives() {
         .stderr(contains("4 records, 3 kept, 0 skipped, 0 failed"));
 
     assert_eq!(stand_in.requests().await.len(), 10);
+}
+
+#[tokio::test]
+async fn retries_wait_only_as_long_as_the_service_asks() {
+    let stand_in = StandIn::start().await;
+    let started = Instant::now();
+
+    stand_in
+        .jevpipe()
+        .args(["filter", "Is it?"])
+        .write_stdin("a p=0.9 fail=503x4\n")
+        .assert()
+        .success()
+        .stdout("a p=0.9 fail=503x4\n");
+
+    assert!(
+        started.elapsed() < Duration::from_secs(5),
+        "Retry-After: 0 was not honoured: {:?}",
+        started.elapsed()
+    );
 }
 
 #[tokio::test]
@@ -233,7 +251,7 @@ async fn a_run_level_error_stops_the_run() {
     let output = stand_in
         .jevpipe()
         .args(["filter", "Is it?"])
-        .write_stdin("a fatal=401\n")
+        .write_stdin("a status=401\n")
         .assert()
         .code(2)
         .stdout("");
@@ -242,6 +260,22 @@ async fn a_run_level_error_stops_the_run() {
     assert_eq!(stderr.len(), 1, "{stderr:?}");
     assert!(stderr[0].starts_with("jevpipe: error: "), "{stderr:?}");
     assert!(stderr[0].contains("No cookie auth credentials found"));
+}
+
+#[tokio::test]
+async fn an_answer_in_an_unexpected_shape_stops_the_run() {
+    let stand_in = StandIn::start().await;
+
+    stand_in
+        .jevpipe()
+        .args(["filter", "Is it?"])
+        .write_stdin("a malformed\n")
+        .assert()
+        .code(2)
+        .stdout("")
+        .stderr(contains(
+            "jevpipe: error: service error: unexpected answer: ",
+        ));
 }
 
 #[tokio::test]
@@ -269,9 +303,7 @@ async fn a_missing_api_key_is_named_before_any_request() {
 #[tokio::test]
 async fn a_named_file_that_does_not_exist_fails_at_its_place_and_the_others_are_judged() {
     let stand_in = StandIn::start().await;
-    let dir = TempDir::new().unwrap();
-    fs::write(dir.path().join("a.txt"), "a p=0.9\n").unwrap();
-    fs::write(dir.path().join("b.txt"), "b p=0.9\n").unwrap();
+    let dir = files(&[("a.txt", b"a p=0.9\n"), ("b.txt", b"b p=0.9\n")]);
 
     stand_in
         .jevpipe()
