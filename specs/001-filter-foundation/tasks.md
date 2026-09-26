@@ -120,7 +120,7 @@ three, all parseable.
 
 - [X] T021 Review `jevpipe filter --help` against SC-007: a `grep` user can run a first semantic search from it alone; tighten help texts in `src/cli.rs`
 - [X] T022 Run every command in quickstart.md against the real service with `OPENROUTER_API_KEY` and note surprises in `specs/001-filter-foundation/quickstart.md`
-- [ ] T023 Run `./check.ps1` (strict, `--locked`) and push the branch; CI passes on Linux, Windows and macOS (SC-006)
+- [X] T023 Run `./check.ps1` (strict, `--locked`) and push the branch; CI passes on Linux, Windows and macOS (SC-006)
 
 ---
 
