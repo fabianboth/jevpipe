@@ -1,0 +1,44 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: "en-US"
+
+reviews:
+  path_filters:
+    - "src/**"
+    - "tests/**"
+    - "examples/**"
+    - "skills/**"
+    - "Cargo.toml"
+    - "clippy.toml"
+    - "deny.toml"
+    - "rustfmt.toml"
+    - "rust-toolchain.toml"
+    - ".github/**"
+    - "check.ps1"
+    - "CLAUDE.md"
+    - "specs/**/*.md"
+    - "!Cargo.lock"
+
+  path_instructions:
+    - path: "src/**/*.rs"
+      instructions: >-
+        Clippy fails CI on the lints in Cargo.toml; skip what it checks and
+        focus on the CLAUDE.md rules a linter can't.
+    - path: "{Cargo.toml,clippy.toml,deny.toml,rustfmt.toml,rust-toolchain.toml}"
+      instructions: >-
+        Flag any change that weakens a lint, a threshold or a deny rule.
+    - path: "skills/**/SKILL.md"
+      instructions: >-
+        Flag any command, flag or output shape that does not match the CLI.
+
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+    drafts: false
+
+  pre_merge_checks:
+    docstrings:
+      mode: "off"
+
+  finishing_touches:
+    docstrings:
+      enabled: false

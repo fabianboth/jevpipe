@@ -1,0 +1,29 @@
+# Rust
+/target/
+**/*.rs.bk
+*.pdb
+
+# dotenv files
+.env
+.env.*
+
+# Editors
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.idea/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+[Dd]esktop.ini
+
+# Project
+/scratch
+/.reviews
+.claude/settings.local.json
