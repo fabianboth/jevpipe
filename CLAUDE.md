@@ -50,4 +50,6 @@ pipelines.
   duplicate crates, sources; the rules live in `deny.toml`).
 - Without `-Fix` every stage runs `--locked`: a `Cargo.lock` that is out of date fails.
 - `-Filter <text>` narrows the test stage to tests whose name contains the text, to iterate fast
-- CI runs the same script on `ubuntu-latest`, `windows-latest` and `macos-latest` and is the authority.
+- `-Stage <names>` runs only those stages (`-Stage test`, `-Stage format,lint`).
+- CI runs the same script and is the authority: every stage on `ubuntu-latest`, the test stage on
+  `windows-latest` and `macos-latest` (format, lint and deny do not depend on the OS).

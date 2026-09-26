@@ -229,17 +229,43 @@ async fn empty_input_exits_1_without_requests() {
 }
 
 #[tokio::test]
-async fn a_line_that_is_not_utf8_fails_without_a_request() {
+async fn lines_that_are_not_text_fail_without_a_request() {
     let stand_in = StandIn::start().await;
 
     stand_in
         .jevpipe()
         .args(["filter", "Is it?"])
-        .write_stdin(b"a p=0.9\n\xff\xfe p=0.9\n".as_slice())
+        .write_stdin(b"a p=0.9\ncaf\xe9 p=0.9\nnul\0 p=0.9\n".as_slice())
         .assert()
         .code(2)
         .stdout("a p=0.9\n")
-        .stderr(contains("jevpipe: record 2 (").and(contains("): not UTF-8")));
+        .stderr(contains("jevpipe: record 2 (").and(contains("): not text")))
+        .stderr(
+            contains("jevpipe: record 3 (").and(contains("3 records, 1 kept, 0 skipped, 2 failed")),
+        );
+
+    assert_eq!(stand_in.requests().await.len(), 1);
+}
+
+#[tokio::test]
+async fn a_utf16_input_fails_as_a_whole_and_the_other_inputs_are_judged() {
+    let stand_in = StandIn::start().await;
+    let dir = files(&[
+        ("windows.txt", b"\xff\xfeC\0a\0n\0?\0\n\0"),
+        ("b.txt", b"b p=0.9\n"),
+    ]);
+
+    stand_in
+        .jevpipe()
+        .current_dir(dir.path())
+        .args(["filter", "Is it?", "windows.txt", "b.txt"])
+        .assert()
+        .code(2)
+        .stdout("b p=0.9\n")
+        .stderr(contains(
+            "jevpipe: record 1 (windows.txt): UTF-16, convert it to UTF-8\n",
+        ))
+        .stderr(contains("2 records, 1 kept, 0 skipped, 1 failed"));
 
     assert_eq!(stand_in.requests().await.len(), 1);
 }

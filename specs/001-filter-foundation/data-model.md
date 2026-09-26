@@ -15,10 +15,12 @@ One unit of input.
 
 Validation (a failed validation makes the record's decision `failed`):
 
-- Text: the line without its terminator must be valid UTF-8.
+- Text: the line without its terminator must be valid UTF-8 without NUL bytes (else `not text`).
+- An input that starts with a UTF-16 byte-order mark fails as one record (`UTF-16, convert it to UTF-8`).
 - A file named on the command line that cannot be opened becomes one failed record at its place, with the file name as its content.
 - `--read-files`: the path must exist and be readable (else failed); directories, empty files, files
-  with a NUL byte in the first 8 KiB, and non-UTF-8 files are `skipped`.
+  with a NUL byte in the first 8 KiB and non-UTF-8 files are `skipped`; files that start with a UTF-16
+  byte-order mark are decoded, like ripgrep does.
 
 ## State (sent to the service)
 
@@ -36,7 +38,7 @@ The outcome for one record. Exactly one of:
 | kept | probability ≥ threshold | default, `--json`, `--all` |
 | dropped | probability < threshold | `--all` only |
 | skipped | reason (`directory`, `empty`, `binary`) | `--all` only |
-| failed | reason (for example `not found`, `not UTF-8`, `too large`, `service unavailable`) | `--all` only, plus one stderr line |
+| failed | reason (for example `not found`, `not text`, `UTF-16, convert it to UTF-8`, `too large`, `service unavailable`) | `--all` only, plus one stderr line |
 
 Every decision also carries `truncated` (only possible with `--read-files`).
 

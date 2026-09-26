@@ -6,6 +6,7 @@ mod output;
 mod record;
 mod service;
 mod summary;
+mod text;
 
 use std::process::ExitCode;
 

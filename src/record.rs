@@ -8,6 +8,7 @@ use futures::Stream;
 use tokio::sync::mpsc;
 
 use crate::decision::{Decision, Failure, Outcome};
+use crate::text;
 
 const BUFFERED_RECORDS: usize = 256;
 const STANDARD_INPUT: &str = "(standard input)";
@@ -59,11 +60,20 @@ impl Reader {
         let name = input.display().to_string();
         match File::open(input) {
             Ok(file) => self.read_lines(&name, BufReader::new(file)),
-            Err(error) => self.send_unreadable(name, &error),
+            Err(error) => self.send_failed(name, Outcome::unreadable(&error)),
         }
     }
 
     fn read_lines(&mut self, input_name: &str, mut reader: impl BufRead) -> ControlFlow<()> {
+        match reader.fill_buf() {
+            Ok(start) if text::is_utf16(start) => {
+                return self.send_failed(input_name.to_owned(), Outcome::failed(Failure::Utf16));
+            }
+            Ok(_) => {}
+            Err(error) => {
+                return self.send_failed(input_name.to_owned(), Outcome::unreadable(&error));
+            }
+        }
         loop {
             let mut raw = Vec::new();
             match reader.read_until(b'\n', &mut raw) {
@@ -73,7 +83,9 @@ impl Reader {
                     let incoming = self.record(raw);
                     self.send(incoming)?;
                 }
-                Err(error) => return self.send_unreadable(input_name.to_owned(), &error),
+                Err(error) => {
+                    return self.send_failed(input_name.to_owned(), Outcome::unreadable(&error));
+                }
             }
         }
     }
@@ -81,32 +93,29 @@ impl Reader {
     fn record(&mut self, raw: Vec<u8>) -> Incoming {
         let position = self.next_position();
         let line = without_terminator(&raw);
-        let valid_utf8 = str::from_utf8(line).is_ok();
+        let is_text = text::is_text(line);
         let text = String::from_utf8_lossy(line).into_owned();
         let record = Record {
             position,
             raw,
             text,
         };
-        if valid_utf8 {
+        if is_text {
             return Ok(record);
         }
         Err(Decision {
             record,
-            outcome: Outcome::failed(Failure::NotUtf8),
+            outcome: Outcome::failed(Failure::NotText),
         })
     }
 
-    fn send_unreadable(&mut self, name: String, error: &io::Error) -> ControlFlow<()> {
+    fn send_failed(&mut self, input_name: String, outcome: Outcome) -> ControlFlow<()> {
         let record = Record {
             position: self.next_position(),
             raw: Vec::new(),
-            text: name,
+            text: input_name,
         };
-        self.send(Err(Decision {
-            record,
-            outcome: Outcome::unreadable(error),
-        }))
+        self.send(Err(Decision { record, outcome }))
     }
 
     fn send(&self, incoming: Incoming) -> ControlFlow<()> {

@@ -39,7 +39,8 @@ pub(crate) enum Skip {
 
 pub(crate) enum Failure {
     Unreadable(io::ErrorKind),
-    NotUtf8,
+    NotText,
+    Utf16,
     TooLarge,
     ServiceUnavailable,
 }
@@ -73,7 +74,8 @@ impl fmt::Display for Failure {
                 formatter.write_str("not found")
             }
             Self::Unreadable(kind) => write!(formatter, "{kind}"),
-            Self::NotUtf8 => formatter.write_str("not UTF-8"),
+            Self::NotText => formatter.write_str("not text"),
+            Self::Utf16 => formatter.write_str("UTF-16, convert it to UTF-8"),
             Self::TooLarge => formatter.write_str("too large"),
             Self::ServiceUnavailable => formatter.write_str("service unavailable"),
         }

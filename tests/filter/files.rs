@@ -54,6 +54,37 @@ async fn binary_and_non_utf8_files_are_skipped_without_a_request() {
 }
 
 #[tokio::test]
+async fn utf16_files_are_decoded_and_judged() {
+    let stand_in = StandIn::start().await;
+    let text = "p=0.9 Can we ship on Friday? \u{1F680}";
+    let little_endian: Vec<u8> = [0xFF, 0xFE]
+        .into_iter()
+        .chain(text.encode_utf16().flat_map(u16::to_le_bytes))
+        .collect();
+    let big_endian: Vec<u8> = [0xFE, 0xFF]
+        .into_iter()
+        .chain(text.encode_utf16().flat_map(u16::to_be_bytes))
+        .collect();
+    let dir = files(&[("le.txt", &little_endian), ("be.txt", &big_endian)]);
+
+    stand_in
+        .jevpipe()
+        .current_dir(dir.path())
+        .args(["filter", "Is it?", "--read-files"])
+        .write_stdin("le.txt\nbe.txt\n")
+        .assert()
+        .success()
+        .stdout("le.txt\nbe.txt\n");
+
+    let requests = stand_in.requests().await;
+    assert!(
+        requests
+            .iter()
+            .all(|request| request["state"]["content"] == text)
+    );
+}
+
+#[tokio::test]
 async fn empty_files_and_directories_are_skipped() {
     let stand_in = StandIn::start().await;
     let dir = files(&[("empty.txt", b"")]);
