@@ -1,9 +1,12 @@
 use std::fmt;
 use std::io;
+use std::ops::RangeInclusive;
 
 use serde::{Serialize, Serializer};
 
 use crate::record::Record;
+
+pub(crate) const PROBABILITY: RangeInclusive<f64> = 0.0..=1.0;
 
 pub(crate) struct Decision {
     pub(crate) record: Record,

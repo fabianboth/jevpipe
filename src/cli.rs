@@ -4,6 +4,8 @@ use std::path::PathBuf;
 use clap::builder::NonEmptyStringValueParser;
 use clap::{Args, Parser, Subcommand};
 
+use crate::decision::PROBABILITY;
+
 const FILTER_EXAMPLES: &str = r#"Needs OPENROUTER_API_KEY in the environment.
 
 Examples:
@@ -73,7 +75,7 @@ fn probability(value: &str) -> Result<f64, String> {
     let number: f64 = value
         .parse()
         .map_err(|_| format!("`{value}` is not a number"))?;
-    if (0.0..=1.0).contains(&number) {
+    if PROBABILITY.contains(&number) {
         Ok(number)
     } else {
         Err(format!("`{value}` is not between 0 and 1"))

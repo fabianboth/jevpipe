@@ -6,6 +6,8 @@ use reqwest::header::RETRY_AFTER;
 use reqwest::{Client, Response, StatusCode};
 use serde::{Deserialize, Serialize};
 
+use crate::decision::PROBABILITY;
+
 const API_KEY_VARIABLE: &str = "OPENROUTER_API_KEY";
 const BASE_URL_VARIABLE: &str = "JEVPIPE_BASE_URL";
 const DEFAULT_BASE_URL: &str = "https://openrouter.ai/api";
@@ -179,8 +181,14 @@ impl Answer {
         let body = response.bytes().await?;
         let body: AnswerBody = serde_json::from_slice(&body)
             .map_err(|error| ServiceError::Rejected(format!("unexpected answer: {error}")))?;
+        let probability = body.answers.matched.noul;
+        if !PROBABILITY.contains(&probability) {
+            return Err(ServiceError::Rejected(format!(
+                "unexpected answer: probability {probability} is not between 0 and 1"
+            )));
+        }
         Ok(Self {
-            probability: body.answers.matched.noul,
+            probability,
             cost: body.usage.and_then(|usage| usage.cost),
             model: body.model,
         })

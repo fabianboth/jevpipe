@@ -289,6 +289,22 @@ async fn a_run_level_error_stops_the_run() {
 }
 
 #[tokio::test]
+async fn a_probability_outside_0_to_1_stops_the_run() {
+    let stand_in = StandIn::start().await;
+
+    stand_in
+        .jevpipe()
+        .args(["filter", "Is it?"])
+        .write_stdin("a p=2\n")
+        .assert()
+        .code(2)
+        .stdout("")
+        .stderr(contains(
+            "jevpipe: error: service error: unexpected answer: probability 2 is not between 0 and 1",
+        ));
+}
+
+#[tokio::test]
 async fn an_answer_in_an_unexpected_shape_stops_the_run() {
     let stand_in = StandIn::start().await;
 
