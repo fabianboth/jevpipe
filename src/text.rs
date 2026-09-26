@@ -1,5 +1,6 @@
 use std::ops::Range;
 
+const UTF8_BOM: [u8; 3] = [0xEF, 0xBB, 0xBF];
 const UTF16_LE_BOM: [u8; 2] = [0xFF, 0xFE];
 const UTF16_BE_BOM: [u8; 2] = [0xFE, 0xFF];
 const HIGH_SURROGATES: Range<u16> = 0xD800..0xDC00;
@@ -39,7 +40,10 @@ fn decode_utf16(body: &[u8], unit: fn([u8; 2]) -> u16, partial: bool) -> Option<
         .filter(|text| !text.contains('\0'))
 }
 
-fn decode_utf8(bytes: Vec<u8>, partial: bool) -> Option<String> {
+fn decode_utf8(mut bytes: Vec<u8>, partial: bool) -> Option<String> {
+    if bytes.starts_with(&UTF8_BOM) {
+        bytes.drain(..UTF8_BOM.len());
+    }
     let probe = &bytes[..bytes.len().min(BINARY_PROBE_BYTES)];
     if probe.contains(&0) {
         return None;

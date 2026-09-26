@@ -22,11 +22,11 @@ pub(crate) async fn read(path: &Path) -> Result<Content, Outcome> {
         return Err(Outcome::skipped(Skip::Directory));
     }
     let bytes = read_prefix(path).await.map_err(unreadable)?;
-    if bytes.is_empty() {
-        return Err(Outcome::skipped(Skip::Empty));
-    }
     let partial = metadata.len() > MAX_BYTES;
     let mut text = text::decode(bytes, partial).ok_or(Outcome::skipped(Skip::Binary))?;
+    if text.is_empty() {
+        return Err(Outcome::skipped(Skip::Empty));
+    }
     let shortened = shorten(&mut text);
     Ok(Content {
         text,

@@ -22,8 +22,9 @@ Validation (a failed validation makes the record's decision `failed`):
 - `--read-files`: the path must exist and be readable (else failed). A file that starts with a UTF-16
   byte-order mark is decoded as UTF-16, like ripgrep does (the mark takes precedence over the NUL
   check, since UTF-16 text is full of zero bytes); it is `skipped` as binary when it does not decode
-  or contains U+0000. Other files are `skipped` when they are directories, empty, have a NUL byte in
-  the first 8 KiB, or are not valid UTF-8.
+  or contains U+0000. Other files are `skipped` when they are directories, have a NUL byte in the
+  first 8 KiB, or are not valid UTF-8. A leading UTF-8 byte-order mark is dropped, and a file with no
+  text left after decoding (including one that holds only a byte-order mark) is `skipped` as empty.
 
 ## State (sent to the service)
 

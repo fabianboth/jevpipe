@@ -32,6 +32,25 @@ async fn prints_the_paths_of_matching_files_in_input_order() {
 }
 
 #[tokio::test]
+async fn a_utf8_byte_order_mark_is_not_sent() {
+    let stand_in = StandIn::start().await;
+    let dir = files(&[("bom.rs", b"\xef\xbb\xbffn a() {} p=0.9")]);
+
+    stand_in
+        .jevpipe()
+        .current_dir(dir.path())
+        .args(["filter", "Is it?", "--read-files"])
+        .write_stdin("bom.rs\n")
+        .assert()
+        .success();
+
+    assert_eq!(
+        stand_in.requests().await[0]["state"]["content"],
+        "fn a() {} p=0.9"
+    );
+}
+
+#[tokio::test]
 async fn binary_and_non_utf8_files_are_skipped_without_a_request() {
     let stand_in = StandIn::start().await;
     let dir = files(&[
@@ -107,18 +126,22 @@ async fn broken_utf16_files_are_skipped_as_binary() {
 #[tokio::test]
 async fn empty_files_and_directories_are_skipped() {
     let stand_in = StandIn::start().await;
-    let dir = files(&[("empty.txt", b"")]);
+    let dir = files(&[
+        ("empty.txt", b""),
+        ("utf8-bom-only.txt", b"\xef\xbb\xbf"),
+        ("utf16-bom-only.txt", b"\xff\xfe"),
+    ]);
     fs::create_dir(dir.path().join("src")).unwrap();
 
     stand_in
         .jevpipe()
         .current_dir(dir.path())
         .args(["filter", "Is it?", "--read-files"])
-        .write_stdin("empty.txt\nsrc\n")
+        .write_stdin("empty.txt\nutf8-bom-only.txt\nutf16-bom-only.txt\nsrc\n")
         .assert()
         .code(1)
         .stdout("")
-        .stderr(contains("2 records, 0 kept, 2 skipped, 0 failed"));
+        .stderr(contains("4 records, 0 kept, 4 skipped, 0 failed"));
 
     assert!(stand_in.requests().await.is_empty());
 }
