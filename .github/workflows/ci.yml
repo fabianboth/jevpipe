@@ -17,14 +17,21 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            stage: format,lint,test,deny
+          - os: windows-latest
+            stage: test
+          - os: macos-latest
+            stage: test
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v7
       - run: rustup toolchain install
       - uses: Swatinem/rust-cache@v2
       - uses: taiki-e/install-action@v2
+        if: contains(matrix.stage, 'deny')
         with:
           tool: cargo-deny
-      - run: ./check.ps1
+      - run: ./check.ps1 -Stage ${{ matrix.stage }}
         shell: pwsh

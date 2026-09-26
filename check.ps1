@@ -1,7 +1,9 @@
 [CmdletBinding()]
 param(
     [switch]$Fix,
-    [string]$Filter
+    [string]$Filter,
+    [ValidateSet('format', 'lint', 'test', 'deny')]
+    [string[]]$Stage = @('format', 'lint', 'test', 'deny')
 )
 
 $ErrorActionPreference = 'Stop'
@@ -11,6 +13,7 @@ Set-Location $PSScriptRoot
 $locked = @(if (-not $Fix) { '--locked' })
 
 function Invoke-Stage([string]$Name, [scriptblock]$Command) {
+    if ($Name -notin $Stage) { return }
     Write-Host "==> $Name" -ForegroundColor Cyan
     & $Command
 }
