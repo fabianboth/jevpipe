@@ -51,5 +51,4 @@ pipelines.
 - Without `-Fix` every stage runs `--locked`: a `Cargo.lock` that is out of date fails.
 - `-Filter <text>` narrows the test stage to tests whose name contains the text, to iterate fast
 - `-Stage <names>` runs only those stages (`-Stage test`, `-Stage format,lint`).
-- CI runs the same script and is the authority: every stage on `ubuntu-latest`, the test stage on
-  `windows-latest` and `macos-latest` (format, lint and deny do not depend on the OS).
+- CI (`.github/workflows/ci.yml`) runs the same script and is the authority.
