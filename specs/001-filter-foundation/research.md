@@ -53,8 +53,12 @@ latest stable releases on crates.io as of 2026-09-26.
 
 ## Record reading
 
-- **Decision**: read input with `tokio::io::AsyncBufReadExt::read_until(b'\n')`, keeping each line's
-  raw bytes including its terminator; a line that is empty or whitespace-only is not a record.
+- **Decision**: read input on a plain `std::thread` with `BufRead::read_until(b'\n')`, keeping each
+  line's raw bytes including its terminator, and hand records to the pipeline through a bounded
+  `tokio::sync::mpsc` channel; a line that is empty or whitespace-only is not a record.
+- **Why not `tokio::io::stdin`**: tokio reads stdin with a blocking read that cannot be cancelled, so
+  the runtime's shutdown waits for the next input line (tokio docs). With `tail -f log | jevpipe … |
+  head -1` jevpipe would never exit. A detached std thread does not hold up the process exit.
 - **Rationale**: FR-013 requires kept records byte-identical to the input, so the original bytes
   (including `\r\n` on Windows files) are what gets written back; the state sent to the service is the
   line without its terminator. A text line that is not valid UTF-8 fails as a record (the service

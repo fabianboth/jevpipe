@@ -15,7 +15,8 @@ end to end on files and stdin, with offline tests.
 - Stateless: a multi-turn driver sends the current state each step; jevpipe keeps no history.
 - Take the wire format from the official TypeSafe API docs, never from guesses or old examples.
 - Lint levels live in the `[lints]` table of `Cargo.toml` (thresholds in `clippy.toml`); change one
-  there, never with `#[allow]` or `#[expect]` in code.
+  there, never with `#[allow]` or `#[expect]` in code. Exception: `#![expect(clippy::unwrap_used)]`
+  at an integration test crate root (rust-clippy#13981).
 - `unsafe` is forbidden.
 - API keys come from the environment, never from a file in the repo. Tests never touch the network.
 
@@ -25,7 +26,7 @@ end to end on files and stdin, with offline tests.
 pipelines.
 
 ## Code Style
-- NO COMMENTS. We strive for self-explanatory code style. Needing one normally means the code is not good enough (names, functions, extraction) — improve the code instead. The exception is a fact the code *cannot* state like an external API's behaviour.
+- NO COMMENTS. We strive for self-explanatory code style. Needing one normally means the code is not good enough (names, functions, extraction) — improve the code instead. The exception is a fact the code *cannot* state like an external API's behaviour. Doc comments on clap types are not comments: they are the `--help` text.
 - Reusable code via functions and types (+ reuse existing code); prefer a proven crate over hand-rolling
 - Max 3 parameters per function besides `self` (clippy enforces 4 counting `self`): extract the type they imply or split the function; a parameter struct only as a last resort
 - One module per concept

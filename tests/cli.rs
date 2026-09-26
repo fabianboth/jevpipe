@@ -18,3 +18,44 @@ fn unknown_flag_fails_with_usage_error() {
         .code(2)
         .stderr(contains("--no-such-flag"));
 }
+
+#[test]
+fn filter_rejects_invalid_usage_before_reading_input() {
+    let cases: [&[&str]; 4] = [
+        &["filter", ""],
+        &["filter", "Is it?", "--threshold", "1.5"],
+        &["filter", "Is it?", "--concurrency", "0"],
+        &["filter", "Is it?", "--request-timeout", "0"],
+    ];
+    for args in cases {
+        cargo_bin_cmd!()
+            .args(args)
+            .env("OPENROUTER_API_KEY", "test-key")
+            .assert()
+            .code(2)
+            .stderr(contains("error:"));
+    }
+}
+
+#[test]
+fn filter_help_describes_every_option() {
+    let assert = cargo_bin_cmd!()
+        .args(["filter", "--help"])
+        .assert()
+        .success();
+    let help = String::from_utf8_lossy(&assert.get_output().stdout).into_owned();
+    for option in [
+        "<QUESTION>",
+        "[FILES]...",
+        "--read-files",
+        "--threshold",
+        "--json",
+        "--all",
+        "--concurrency",
+        "--model",
+        "--request-timeout",
+        "OPENROUTER_API_KEY",
+    ] {
+        assert!(help.contains(option), "missing {option} in:\n{help}");
+    }
+}

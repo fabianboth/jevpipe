@@ -1,6 +1,9 @@
+use std::process::ExitCode;
+
 use clap::Parser;
 use jevpipe::Cli;
 
-fn main() {
-    Cli::parse();
+#[tokio::main]
+async fn main() -> ExitCode {
+    jevpipe::run(Cli::parse()).await
 }

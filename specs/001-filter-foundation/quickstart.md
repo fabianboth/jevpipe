@@ -32,3 +32,12 @@ git ls-files | ./target/release/jevpipe filter "Is this Rust code?" --read-files
 
 Check after each run: the summary line on stderr, and `echo $?` (0 kept something, 1 kept nothing,
 2 something failed).
+
+## Observed on the first real run (2026-09-26)
+
+- The repository's 88 tracked files took 2.4–3.4 s and cost about $0.007 per question.
+- `git ls-files` lists only committed files; add `--others --exclude-standard` to include new ones.
+- "Does this file define command line arguments?" kept `src/cli.rs` (0.99) but also every shell and
+  PowerShell script with a `param` block (0.96–0.99) and the specs describing the CLI. The answers
+  were right, but the question was broader than intended: check `--json --all` before trusting one.
+- "Is this Rust code?" gave 0.97–0.99 for every `.rs` file and also kept `Cargo.toml`.
