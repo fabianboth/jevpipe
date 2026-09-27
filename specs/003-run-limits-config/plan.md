@@ -105,10 +105,13 @@ src/
 └── (answers, decision, file, filter, map, output, questions, reason, record, text: unchanged)
 
 tests/
-├── cli.rs               # CHANGED: help texts (limits, exit 3, config, auth); duration and cost usage errors; config file instead of JEVPIPE_BASE_URL
-├── config.rs            # NEW: user story 2 through the binary (JEVPIPE_CONFIG in a temp dir)
-├── auth.rs              # NEW: user story 3 paths that never reach a keychain (empty/invalid key, key as argument, env var wins)
-├── common/mod.rs        # NEW: the binary with JEVPIPE_CONFIG pointing at a missing file, shared by cli.rs and auth.rs
+├── cli/                 # CHANGED (was cli.rs, plus config.rs and auth.rs): the binary without a service
+│   ├── main.rs
+│   ├── home.rs          # shared: a temp config per test (or a missing one), a test API key so no test reaches the keychain
+│   ├── usage.rs         # usage errors, option values (durations, costs), questions files
+│   ├── help.rs          # every help page: options, limits, exit status, config keys, auth
+│   ├── config.rs        # user story 2: config list | get | set | unset | path, broken files, a closed reader
+│   └── auth.rs          # user story 3 paths that never reach a keychain (empty/invalid key, key as argument)
 └── pipeline/
     ├── stand_in.rs      # CHANGED: base-url via a temp config file; markers cost=<USD>, nocost, limit=key_limit|credits, inflight=<times>
     ├── limits.rs        # NEW: user story 1 (spend, time, 402 cases, resume, exit precedence)

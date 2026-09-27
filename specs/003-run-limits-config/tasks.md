@@ -140,7 +140,7 @@ that never reach a keychain.
 
 - [X] T029 [P] Update `CLAUDE.md` (shape: `filter`, `map`, `config`, `auth`; the environment: `OPENROUTER_API_KEY`, `JEVPIPE_CONFIG`, no `JEVPIPE_BASE_URL`) and `specs/manual/idea-draft.md` (budgets per invocation done; caching dropped, identical requests are rare and provider-side input caching is not live for Jev; OpenRouter only; the config file and stored key)
 - [X] T030 [P] Review every `--help` against FR-022 and contracts/cli.md (new options with `none`, exit status 3, config commands, keys and file location, the ways to provide the key); tighten texts in `src/cli.rs`
-- [ ] T031 Run the quickstart's manual checks on this Windows machine (hidden prompt in Windows Terminal/VS Code, PowerShell, cmd and the Git Bash window, Ctrl+C; the key in Credential Manager; a guarded run with `--max-cost` against the real service) and note results in `specs/003-run-limits-config/quickstart.md`; list the macOS and Linux desktop checks as still to be done by hand
+- [X] T031 Run the quickstart's manual checks on this Windows machine (hidden prompt in Windows Terminal/VS Code, PowerShell, cmd and the Git Bash window, Ctrl+C; the key in Credential Manager; a guarded run with `--max-cost` against the real service) and note results in `specs/003-run-limits-config/quickstart.md`; list the macOS and Linux desktop checks as still to be done by hand
 - [ ] T032 Run `./check.ps1` (strict, `--locked`) and push the branch; CI passes on Linux, Windows and macOS (SC-009)
 
 ---

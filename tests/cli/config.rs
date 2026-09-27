@@ -1,60 +1,10 @@
-#![expect(
-    clippy::unwrap_used,
-    reason = "integration tests: a failed setup should fail the test"
-)]
+use std::io;
+use std::process::Stdio;
 
-use std::fs;
-use std::path::PathBuf;
-
-use assert_cmd::Command;
-use assert_cmd::cargo::cargo_bin_cmd;
 use predicates::str::contains;
-use tempfile::TempDir;
 use toml_edit::DocumentMut;
 
-struct Home {
-    dir: TempDir,
-}
-
-impl Home {
-    fn new() -> Self {
-        Self {
-            dir: TempDir::new().unwrap(),
-        }
-    }
-
-    fn config(&self) -> PathBuf {
-        self.dir.path().join("jevpipe").join("config.toml")
-    }
-
-    fn write(&self, text: &str) {
-        fs::create_dir_all(self.dir.path().join("jevpipe")).unwrap();
-        fs::write(self.config(), text).unwrap();
-    }
-
-    fn read(&self) -> String {
-        fs::read_to_string(self.config()).unwrap()
-    }
-
-    fn jevpipe(&self) -> Command {
-        let mut command = cargo_bin_cmd!();
-        command
-            .env("JEVPIPE_CONFIG", self.config())
-            .env("OPENROUTER_API_KEY", "test-key");
-        command
-    }
-
-    fn config_command(&self, args: &[&str]) -> Command {
-        let mut command = self.jevpipe();
-        command.arg("config").args(args);
-        command
-    }
-
-    fn stdout(&self, args: &[&str]) -> String {
-        let assert = self.config_command(args).assert().success();
-        String::from_utf8_lossy(&assert.get_output().stdout).into_owned()
-    }
-}
+use crate::home::{API_KEY, Home};
 
 #[test]
 fn set_creates_the_file_and_its_directory() {
@@ -220,7 +170,7 @@ fn list_prints_every_setting_as_toml_with_its_origin() {
         list.ends_with("# API key: from OPENROUTER_API_KEY\n"),
         "{list}"
     );
-    assert!(!list.contains("test-key"), "{list}");
+    assert!(!list.contains(API_KEY), "{list}");
 }
 
 #[test]
@@ -271,23 +221,22 @@ fn help_shows_the_configured_defaults_and_falls_back_on_a_broken_file() {
 }
 
 #[test]
-fn config_help_names_the_keys_the_file_and_the_order() {
-    let assert = Home::new()
-        .jevpipe()
-        .args(["config", "--help"])
-        .assert()
-        .success();
-    let help = String::from_utf8_lossy(&assert.get_output().stdout).into_owned();
-    for part in [
-        "list",
-        "get",
-        "set",
-        "unset",
-        "path",
-        "JEVPIPE_CONFIG",
-        "base-url",
-        "max-cost",
-    ] {
-        assert!(help.contains(part), "missing {part} in:\n{help}");
+fn reading_commands_end_quietly_when_the_reader_is_gone() {
+    let home = Home::new();
+    for args in [&["list"][..], &["get", "model"], &["path"]] {
+        let (reader, writer) = io::pipe().unwrap();
+        drop(reader);
+
+        let output = home
+            .command()
+            .arg("config")
+            .args(args)
+            .stdout(writer)
+            .stderr(Stdio::piped())
+            .output()
+            .unwrap();
+
+        assert!(output.status.success(), "{args:?}: {output:?}");
+        assert!(output.stderr.is_empty(), "{args:?}: {output:?}");
     }
 }

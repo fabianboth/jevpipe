@@ -84,5 +84,6 @@ Windows 10, 2026-09-27, debug build:
     order.
   - 200 lines, `--concurrency 1 --max-time 2s`: `time limit 2s reached`, exit 3 after 2.09 s.
 
-Still to do by hand: the hidden prompt and Ctrl+C in Windows Terminal, PowerShell, cmd and the Git
-Bash window; the macOS and Linux desktop keychains.
+- Hidden prompt and Ctrl+C in the Windows terminals: checked by hand.
+
+Still to do by hand: the macOS and Linux desktop keychains.
