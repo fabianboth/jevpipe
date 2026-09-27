@@ -275,24 +275,3 @@ async fn an_answer_in_an_unexpected_shape_stops_the_run() {
         .stdout("")
         .stderr(contains("jevpipe: error: service error: unexpected answer"));
 }
-
-#[tokio::test]
-async fn a_missing_api_key_is_named_before_any_request() {
-    let stand_in = StandIn::start().await;
-
-    for key in [None, Some("")] {
-        let mut command = stand_in.filter();
-        match key {
-            Some(value) => command.env("OPENROUTER_API_KEY", value),
-            None => command.env_remove("OPENROUTER_API_KEY"),
-        };
-        command
-            .write_stdin("a p=0.9\n")
-            .assert()
-            .code(2)
-            .stdout("")
-            .stderr(contains("jevpipe: error: OPENROUTER_API_KEY"));
-    }
-
-    assert!(stand_in.requests().await.is_empty());
-}

@@ -1,8 +1,10 @@
 use std::fmt;
-use std::process::ExitCode;
 use std::time::Instant;
 
+use crate::cost::Cost;
 use crate::decision::Outcome;
+use crate::exit::Exit;
+use crate::limits::StopLine;
 
 pub(crate) struct Summary {
     results_label: &'static str,
@@ -11,15 +13,10 @@ pub(crate) struct Summary {
     skipped: usize,
     failed: usize,
     truncated: usize,
-    cost: Option<f64>,
+    cost: Option<Cost>,
     started: Instant,
     closed: bool,
-}
-
-pub(crate) enum Exit {
-    Success,
-    NothingKept,
-    Error,
+    stop: Option<StopLine>,
 }
 
 impl Summary {
@@ -34,18 +31,16 @@ impl Summary {
             cost: None,
             started: Instant::now(),
             closed: false,
+            stop: None,
         }
     }
 
     pub(crate) fn add(&mut self, outcome: &Outcome) {
         self.records += 1;
         match outcome {
-            Outcome::Answered { reply, truncated } => {
+            Outcome::Answered { truncated, .. } => {
                 if *truncated {
                     self.truncated += 1;
-                }
-                if let Some(cost) = reply.cost {
-                    self.cost = Some(self.cost.unwrap_or_default() + cost);
                 }
             }
             Outcome::Skipped(_) => self.skipped += 1,
@@ -61,11 +56,21 @@ impl Summary {
         self.closed = true;
     }
 
+    pub(crate) fn finish(&mut self, cost: Option<Cost>, stop: Option<StopLine>) {
+        self.cost = cost;
+        self.stop = stop;
+    }
+
+    pub(crate) fn stop(&self) -> Option<&StopLine> {
+        self.stop.as_ref()
+    }
+
     pub(crate) fn exit(&self, without_results: Exit) -> Exit {
-        match (self.closed, self.failed, self.results) {
-            (true, _, _) | (false, 0, 1..) => Exit::Success,
-            (false, 1.., _) => Exit::Error,
-            (false, 0, 0) => without_results,
+        match (self.closed, self.stop.is_some(), self.failed, self.results) {
+            (true, _, _, _) | (false, false, 0, 1..) => Exit::Success,
+            (false, true, _, _) => Exit::Stopped,
+            (false, false, 1.., _) => Exit::Error,
+            (false, false, 0, 0) => without_results,
         }
     }
 }
@@ -81,24 +86,9 @@ impl fmt::Display for Summary {
             write!(formatter, ", {} truncated", self.truncated)?;
         }
         if let Some(cost) = self.cost {
-            write!(formatter, ", ${}", dollars(cost))?;
+            write!(formatter, ", {cost}")?;
         }
         write!(formatter, ", {:.1}s", self.started.elapsed().as_secs_f64())?;
         Ok(())
     }
-}
-
-impl From<Exit> for ExitCode {
-    fn from(exit: Exit) -> Self {
-        match exit {
-            Exit::Success => Self::SUCCESS,
-            Exit::NothingKept => Self::FAILURE,
-            Exit::Error => Self::from(2),
-        }
-    }
-}
-
-fn dollars(amount: f64) -> String {
-    let fixed = format!("{amount:.6}");
-    fixed.trim_end_matches('0').trim_end_matches('.').to_owned()
 }

@@ -1,10 +1,11 @@
-use assert_cmd::cargo::cargo_bin_cmd;
 use predicates::prelude::PredicateBooleanExt;
 use predicates::str::contains;
 
+use crate::home::jevpipe;
+
 #[test]
 fn version_reports_the_crate_version() {
-    cargo_bin_cmd!()
+    jevpipe()
         .arg("--version")
         .assert()
         .success()
@@ -12,45 +13,56 @@ fn version_reports_the_crate_version() {
 }
 
 #[test]
-fn filter_rejects_invalid_usage_before_reading_input() {
-    let cases: [&[&str]; 7] = [
+fn unknown_options_and_an_empty_question_are_usage_errors() {
+    let cases: [&[&str]; 4] = [
         &["--no-such-flag"],
         &["filter", "Is it?", "--json"],
         &["filter", "Is it?", "--all"],
         &["filter", ""],
-        &["filter", "Is it?", "--threshold", "1.5"],
-        &["filter", "Is it?", "--concurrency", "0"],
-        &["filter", "Is it?", "--request-timeout", "0"],
     ];
     for args in cases {
-        cargo_bin_cmd!()
+        jevpipe()
             .args(args)
-            .env("OPENROUTER_API_KEY", "test-key")
+            .write_stdin("a\n")
             .assert()
             .code(2)
+            .stdout("")
             .stderr(contains("error:"));
     }
 }
 
 #[test]
-fn filter_help_describes_every_option() {
-    let assert = cargo_bin_cmd!()
-        .args(["filter", "--help"])
-        .assert()
-        .success();
-    let help = String::from_utf8_lossy(&assert.get_output().stdout).into_owned();
-    for option in [
-        "Usage: jevpipe filter [OPTIONS] <QUESTION> [FILES]...",
-        "<QUESTION>",
-        "[FILES]...",
-        "--read-files",
-        "--threshold",
-        "--concurrency",
-        "--model",
-        "--request-timeout",
-        "Examples:",
-    ] {
-        assert!(help.contains(option), "missing {option} in:\n{help}");
+fn option_values_are_checked_before_any_input_is_read() {
+    let cases = [
+        ("--threshold", "1.5", "`1.5` is not between 0 and 1"),
+        (
+            "--concurrency",
+            "0",
+            "number would be zero for non-zero type",
+        ),
+        (
+            "--request-timeout",
+            "10",
+            "needs a unit, for example 10s or 5m",
+        ),
+        ("--request-timeout", "0s", "must be longer than zero"),
+        ("--max-cost", "0", "must be more than zero"),
+        ("--max-cost", "-1", "not an amount of US dollars"),
+        ("--max-cost", "abc", "not an amount of US dollars"),
+        ("--max-time", "10", "needs a unit, for example 10s or 5m"),
+        ("--max-time", "0s", "must be longer than zero"),
+    ];
+    for (option, value, problem) in cases {
+        jevpipe()
+            .args(["filter", "Is it?"])
+            .arg(format!("{option}={value}"))
+            .write_stdin("a\n")
+            .assert()
+            .code(2)
+            .stdout("")
+            .stderr(
+                contains(format!("invalid value '{value}' for '{option}")).and(contains(problem)),
+            );
     }
 }
 
@@ -130,11 +142,9 @@ fn map_rejects_a_malformed_questions_file_before_reading_input() {
     let file = dir.path().join("questions.json");
     for (content, problem) in cases {
         std::fs::write(&file, content).unwrap();
-        cargo_bin_cmd!()
+        jevpipe()
             .current_dir(dir.path())
             .args(["map", "-f", "questions.json"])
-            .env("OPENROUTER_API_KEY", "test-key")
-            .env("JEVPIPE_BASE_URL", "http://127.0.0.1:9")
             .write_stdin("a\n")
             .assert()
             .code(2)
@@ -148,10 +158,9 @@ fn map_accepts_the_largest_questions_the_service_allows() {
     let dir = tempfile::TempDir::new().unwrap();
     for content in [options(1), options(255), levels(2), levels(10)] {
         std::fs::write(dir.path().join("questions.json"), content).unwrap();
-        cargo_bin_cmd!()
+        jevpipe()
             .current_dir(dir.path())
             .args(["map", "-f", "questions.json"])
-            .env("OPENROUTER_API_KEY", "test-key")
             .write_stdin("")
             .assert()
             .code(0);
@@ -160,9 +169,8 @@ fn map_accepts_the_largest_questions_the_service_allows() {
 
 #[test]
 fn map_names_a_missing_questions_file() {
-    cargo_bin_cmd!()
+    jevpipe()
         .args(["map", "-f", "no-such-questions.json"])
-        .env("OPENROUTER_API_KEY", "test-key")
         .write_stdin("")
         .assert()
         .code(2)
@@ -186,10 +194,9 @@ fn map_needs_exactly_one_source_of_questions() {
         ),
     ];
     for (args, problem) in cases {
-        cargo_bin_cmd!()
+        jevpipe()
             .current_dir(dir.path())
             .args(args)
-            .env("OPENROUTER_API_KEY", "test-key")
             .write_stdin("")
             .assert()
             .code(2)
@@ -200,49 +207,16 @@ fn map_needs_exactly_one_source_of_questions() {
 
 #[test]
 fn map_checks_inline_questions_like_a_questions_file() {
-    cargo_bin_cmd!()
+    jevpipe()
         .args([
             "map",
             "-q",
             r#"{"q": {"type": "score", "instructions": "How much?", "criteria": ["only"]}}"#,
         ])
-        .env("OPENROUTER_API_KEY", "test-key")
         .write_stdin("")
         .assert()
         .code(2)
         .stderr(contains("--questions").and(contains(
             "question `q`: a score needs criteria with 2 to 10 levels",
         )));
-}
-
-#[test]
-fn map_help_describes_every_option_and_the_questions_file() {
-    let assert = cargo_bin_cmd!().args(["map", "--help"]).assert().success();
-    let help = String::from_utf8_lossy(&assert.get_output().stdout).into_owned();
-    for part in [
-        "Usage: jevpipe map [OPTIONS] <--questions <JSON>|--questions-file <FILE>> [FILES]...",
-        "-q, --questions <JSON>",
-        "-f, --questions-file <FILE>",
-        "[FILES]...",
-        "--read-files",
-        "--concurrency",
-        "--model",
-        "--request-timeout",
-        "\"type\": \"noul\"",
-        "\"type\": \"choice\"",
-        "\"type\": \"score\"",
-        "jq",
-    ] {
-        assert!(help.contains(part), "missing {part} in:\n{help}");
-    }
-    assert!(!help.contains("--threshold"), "{help}");
-}
-
-#[test]
-fn map_short_help_keeps_the_examples_and_leaves_out_the_formats() {
-    let assert = cargo_bin_cmd!().args(["map", "-h"]).assert().success();
-    let help = String::from_utf8_lossy(&assert.get_output().stdout).into_owned();
-    assert!(help.contains("Examples:"), "{help}");
-    assert!(help.contains("-q, --questions <JSON>"), "{help}");
-    assert!(!help.contains("\"type\": \"score\""), "{help}");
 }

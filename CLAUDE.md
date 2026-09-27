@@ -7,8 +7,9 @@ line per record with its answers. The decisions come from Jev
 jevpipe makes the many small yes/no, pick-one or score judgments inside it, and only the outcome reaches
 the agent's context. The draft idea lives in `specs/manual/idea-draft.md`.
 
-Shape: a single Rust binary with the subcommands `filter` and `map`, plus an agent skill
-(`skills/jevpipe/SKILL.md`) that teaches coding agents when to reach for it.
+Shape: a single Rust binary with the subcommands `filter` and `map` (plus `config` for the user's
+defaults and `auth` for the stored API key), and an agent skill (`skills/jevpipe/SKILL.md`) that
+teaches coding agents when to reach for it.
 
 ## Project Rules
 - Decide, don't act: no planning, no text generation, no executing actions. The calling script owns that.
@@ -18,7 +19,9 @@ Shape: a single Rust binary with the subcommands `filter` and `map`, plus an age
   there, never with `#[allow]` or `#[expect]` in code. Exception: `#![expect(clippy::unwrap_used)]`
   at an integration test crate root (rust-clippy#13981).
 - `unsafe` is forbidden.
-- API keys come from the environment, never from a file in the repo. Tests never touch the network.
+- The API key comes from `OPENROUTER_API_KEY` or the OS keychain, never from a file in the repo.
+  Tests never touch the network, the real keychain or the user's config: binary tests set
+  `JEVPIPE_CONFIG` to a temp file, whose `base-url` points at the local stand-in.
 
 ## Layout
 `src/` for product code (`main.rs` only wires the CLI; the logic lives in the library crate `lib.rs`),
@@ -34,7 +37,7 @@ pipelines.
 - Exhaustive `match`: list the variants (`A | B => Err(...)`), never `_` on an enum, so a new variant fails to compile until every `match` handles it; for a foreign `#[non_exhaustive]` enum use `==` or `matches!`
 - No `unwrap`, `expect` or `panic!` in product code: return an error with context
 - Private by default; `pub` only where another crate needs it (the binary or the integration tests)
-- Tests use the real product (the real binary against a local stub of the API, never a code-built copy) and assert behaviour, not authored values
+- Tests use the real product (the real binary against local stand-ins, never a code-built copy) and assert behaviour, not authored values; only what the binary cannot be pointed away from (the OS keychain) is tested in-process against a stand-in
 
 ## Way of working
 - Your knowledge about Rust crates, the TypeSafe API, Jev and OpenRouter is potentially incomplete or outdated. Research in the web (and don't fall for old resources)

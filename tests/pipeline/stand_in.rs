@@ -1,9 +1,12 @@
 use std::collections::HashMap;
+use std::fs;
+use std::path::PathBuf;
 use std::process::Command;
 use std::sync::Mutex;
 use std::time::Duration;
 
 use serde_json::{Map, Value, json};
+use tempfile::TempDir;
 use wiremock::matchers::{method, path};
 use wiremock::{Mock, MockServer, Request, Respond, ResponseTemplate};
 
@@ -11,6 +14,7 @@ use crate::fixture::QUESTIONS;
 
 pub(crate) struct StandIn {
     server: MockServer,
+    config_dir: TempDir,
 }
 
 impl StandIn {
@@ -21,7 +25,19 @@ impl StandIn {
             .respond_with(Responder::default())
             .mount(&server)
             .await;
-        Self { server }
+        let config_dir = TempDir::new().unwrap();
+        let stand_in = Self { server, config_dir };
+        stand_in.configure("");
+        stand_in
+    }
+
+    pub(crate) fn config(&self) -> PathBuf {
+        self.config_dir.path().join("config.toml")
+    }
+
+    pub(crate) fn configure(&self, settings: &str) {
+        let base_url = format!("base-url = \"{}\"\n", self.server.uri());
+        fs::write(self.config(), base_url + settings).unwrap();
     }
 
     pub(crate) async fn requests(&self) -> Vec<Value> {
@@ -37,7 +53,7 @@ impl StandIn {
     pub(crate) fn command(&self) -> Command {
         let mut command = Command::new(env!("CARGO_BIN_EXE_jevpipe"));
         command
-            .env("JEVPIPE_BASE_URL", self.server.uri())
+            .env("JEVPIPE_CONFIG", self.config())
             .env("OPENROUTER_API_KEY", "test-key")
             .env("NO_PROXY", "127.0.0.1");
         command
@@ -99,6 +115,17 @@ struct Markers {
     malformed: bool,
     wrong_type: bool,
     slow: Option<u64>,
+    cost: Cost,
+    limit: Option<String>,
+    in_flight: Option<usize>,
+}
+
+#[derive(Default)]
+enum Cost {
+    #[default]
+    Usual,
+    Of(f64),
+    Missing,
 }
 
 impl Markers {
@@ -116,9 +143,13 @@ impl Markers {
                 }
                 Some(("status", value)) => markers.status = Some(value.parse().unwrap()),
                 Some(("slow", value)) => markers.slow = Some(value.parse().unwrap()),
+                Some(("cost", value)) => markers.cost = Cost::Of(value.parse().unwrap()),
+                Some(("limit", value)) => markers.limit = Some(format!("openrouter_{value}")),
+                Some(("inflight", value)) => markers.in_flight = Some(value.parse().unwrap()),
                 None if word == "toolarge" => markers.too_large = true,
                 None if word == "malformed" => markers.malformed = true,
                 None if word == "wrongtype" => markers.wrong_type = true,
+                None if word == "nocost" => markers.cost = Cost::Missing,
                 _ => {}
             }
         }
@@ -128,6 +159,15 @@ impl Markers {
     fn respond(&self, questions: &Value, attempt: usize) -> ResponseTemplate {
         if let Some(status) = self.status {
             return error(status, "No cookie auth credentials found");
+        }
+        if let Some(source) = &self.limit {
+            return payment_required(source);
+        }
+        if let Some(times) = self.in_flight
+            && attempt <= times
+        {
+            return payment_required("openrouter_in_flight_budget")
+                .insert_header("Retry-After", "0");
         }
         if self.malformed {
             return ResponseTemplate::new(200)
@@ -144,10 +184,16 @@ impl Markers {
         {
             return error(status, "Provider returned error").insert_header("Retry-After", "0");
         }
+        let mut usage = json!({ "input_tokens": 310, "output_tokens": 20 });
+        match self.cost {
+            Cost::Usual => usage["cost"] = json!(0.00001),
+            Cost::Of(cost) => usage["cost"] = json!(cost),
+            Cost::Missing => {}
+        }
         ResponseTemplate::new(200).set_body_json(json!({
             "model": "typesafe/jev-test",
             "answers": self.answers(questions),
-            "usage": { "input_tokens": 310, "output_tokens": 20, "cost": 0.00001 },
+            "usage": usage,
             "id": "gen-dec-test",
             "provider": "TypeSafe"
         }))
@@ -214,4 +260,14 @@ impl Markers {
 fn error(status: u16, message: &str) -> ResponseTemplate {
     ResponseTemplate::new(status)
         .set_body_json(json!({ "error": { "message": message, "code": status } }))
+}
+
+fn payment_required(limit_source: &str) -> ResponseTemplate {
+    ResponseTemplate::new(402).set_body_json(json!({
+        "error": {
+            "code": 402,
+            "message": "Payment required",
+            "metadata": { "reason": "limit", "limit_source": limit_source }
+        }
+    }))
 }

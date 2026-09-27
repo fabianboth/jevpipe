@@ -1,16 +1,42 @@
-use std::num::{NonZeroU64, NonZeroUsize};
 use std::path::PathBuf;
 
 use clap::error::ErrorKind;
-use clap::{Args, CommandFactory, Parser, Subcommand};
+use clap::{Args, CommandFactory, FromArgMatches, Parser, Subcommand};
 
 use crate::answers::PROBABILITY;
+use crate::config::{self, Config};
 use crate::filter;
 use crate::questions::Questions;
+use crate::settings::{self, Settings};
 
-const FILTER_EXAMPLES: &str = r#"Examples:
+macro_rules! filter_examples {
+    () => {
+        r#"Examples:
   git ls-files | jevpipe filter "Does this file parse command line arguments?" --read-files
-  jevpipe filter "Is this line an error worth a closer look?" app.log | head -20"#;
+  jevpipe filter "Is this line an error worth a closer look?" app.log | head -20"#
+    };
+}
+
+macro_rules! stopped_and_failed {
+    () => {
+        "  2  a record failed, or an error stopped the run
+  3  a limit stopped the run early; standard error names the line to resume from
+"
+    };
+}
+
+const FILTER_EXAMPLES: &str = filter_examples!();
+
+const FILTER_HELP: &str = concat!(
+    "Exit status:
+  0  at least one record was kept
+  1  no record was kept
+",
+    stopped_and_failed!(),
+    "
+",
+    filter_examples!()
+);
 
 macro_rules! map_examples {
     () => {
@@ -32,14 +58,40 @@ A noul is yes/no, a choice picks one of 1-255 options, a score rates on 2-10 lev
 Output, one JSON line per record: {"record": "<line>", "answers": {"<name>": {...}, ...}}
 or {"record": "<line>", "outcome": "skipped" | "failed", "reason": "<why>"}
 
+Exit status:
+  0  no record failed
 "#,
+    stopped_and_failed!(),
+    "
+",
     map_examples!()
 );
+
+const CONFIG_HELP: &str = r"Show or change the defaults for filter and map in the user config file
+
+Each option of filter and map that has a default is a key of the same name, such as max-cost;
+base-url is the address of the service (default https://openrouter.ai/api). An option on the
+command line beats the file, and the file beats the built-in default.
+
+The file is config.toml in the user config directory: %APPDATA%\jevpipe on Windows,
+$XDG_CONFIG_HOME/jevpipe or ~/.config/jevpipe elsewhere. JEVPIPE_CONFIG names another file.";
+
+const AUTH_HELP: &str = r#"Store or remove the OpenRouter API key in the system keychain
+
+filter and map take the key from OPENROUTER_API_KEY when it is set, otherwise from the keychain:
+Credential Manager on Windows, the login keychain on macOS, the Secret Service on Linux.
+
+Examples:
+  jevpipe auth set-key
+  echo "$OPENROUTER_API_KEY" | jevpipe auth set-key"#;
+
+const SET_KEY_EXAMPLE: &str = r#"Example:
+  echo "$OPENROUTER_API_KEY" | jevpipe auth set-key"#;
 
 /// A Unix pipe for typed decisions: stream records in, get calibrated decisions out.
 #[derive(Parser)]
 #[command(version, bin_name = "jevpipe")]
-pub struct Cli {
+pub(crate) struct Cli {
     #[command(subcommand)]
     pub(crate) command: Commands,
 }
@@ -49,11 +101,9 @@ pub(crate) enum Commands {
     /// Keep the records for which the answer to a yes/no question is yes
     ///
     /// Like grep, but the match is a question: prints the lines answered yes, unchanged and in
-    /// input order. With --read-files, each line is a file path and the file's content is judged.
-    ///
-    /// Exit status: 0 when something was kept, 1 when nothing was, 2 when a record failed or the
-    /// run stopped on an error. A one-line summary goes to standard error.
-    #[command(after_help = FILTER_EXAMPLES)]
+    /// input order. With --read-files, each line is a file path and the file's path and content
+    /// are judged. A one-line summary goes to standard error.
+    #[command(after_help = FILTER_EXAMPLES, after_long_help = FILTER_HELP)]
     Filter(FilterArgs),
 
     /// Ask several typed questions about every record and print the answers as JSON lines
@@ -61,11 +111,60 @@ pub(crate) enum Commands {
     /// Each record is sent once with all the questions. Prints one JSON line per
     /// record, in input order, as soon as it is answered: pipe it through jq to select and project.
     /// With --read-files, each line is a file path and the file's path and content are judged.
-    ///
-    /// Exit status: 0 when no record failed, 2 when one did or the run stopped on an error. A
-    /// one-line summary goes to standard error.
+    /// A one-line summary goes to standard error.
     #[command(after_help = MAP_EXAMPLES, after_long_help = MAP_HELP)]
     Map(MapArgs),
+
+    /// Show or change the defaults for filter and map in the user config file
+    #[command(subcommand, long_about = CONFIG_HELP)]
+    Config(ConfigCommand),
+
+    /// Store or remove the API key in the system keychain
+    #[command(subcommand, long_about = AUTH_HELP)]
+    Auth(AuthCommand),
+}
+
+#[derive(Subcommand)]
+pub(crate) enum AuthCommand {
+    /// Read the API key from standard input and store it in the keychain, replacing a stored key
+    ///
+    /// On a terminal it asks for the key and hides the typing; a piped key is read without asking.
+    #[command(after_help = SET_KEY_EXAMPLE)]
+    SetKey,
+
+    /// Remove the stored API key from the keychain
+    RemoveKey,
+}
+
+#[derive(Subcommand)]
+pub(crate) enum ConfigCommand {
+    /// Print every setting with its value and where it comes from, as TOML
+    List,
+
+    /// Print the value of one setting
+    Get {
+        #[arg(help = config::key_names())]
+        key: String,
+    },
+
+    /// Store a setting in the config file, checked like the option
+    Set {
+        #[arg(help = config::key_names())]
+        key: String,
+
+        /// The value, written as for the option, e.g. 20s or none
+        #[arg(allow_hyphen_values = true)]
+        value: String,
+    },
+
+    /// Remove a setting from the config file, so its default applies again
+    Unset {
+        /// The key to remove; a misspelled key can be removed too
+        key: String,
+    },
+
+    /// Print the path of the config file, whether or not it exists
+    Path,
 }
 
 #[derive(Args)]
@@ -73,9 +172,6 @@ pub(crate) struct FilterArgs {
     /// The yes/no question asked about every record
     #[arg(value_name = "QUESTION", value_parser = filter::question)]
     pub(crate) question: Questions,
-
-    /// Files to read records from, in order; none or - reads standard input
-    pub(crate) files: Vec<PathBuf>,
 
     /// Keep a record when the probability of yes is at least this (0 to 1)
     #[arg(long, value_name = "P", default_value_t = 0.5, value_parser = probability)]
@@ -89,9 +185,6 @@ pub(crate) struct FilterArgs {
 pub(crate) struct MapArgs {
     #[command(flatten)]
     pub(crate) questions: QuestionsSource,
-
-    /// Files to read records from, in order; none or - reads standard input
-    pub(crate) files: Vec<PathBuf>,
 
     #[command(flatten)]
     pub(crate) run: RunArgs,
@@ -111,21 +204,34 @@ pub(crate) struct QuestionsSource {
 
 #[derive(Args)]
 pub(crate) struct RunArgs {
+    /// Files to read records from, in order; none or - reads standard input
+    pub(crate) files: Vec<PathBuf>,
+
     /// Treat each record as a file path: judge the file's path and content
     #[arg(long)]
     pub(crate) read_files: bool,
 
-    /// Maximum requests in flight
-    #[arg(long, value_name = "N", default_value = "100")]
-    pub(crate) concurrency: NonZeroUsize,
+    #[command(flatten)]
+    pub(crate) settings: Settings,
+}
 
-    /// Model to ask; pin a version such as typesafe/jev-1.13 for reproducible runs
-    #[arg(long, default_value = "~typesafe/jev-latest")]
-    pub(crate) model: String,
-
-    /// Abandon a request after this many seconds and retry it
-    #[arg(long, value_name = "SECS", default_value = "10")]
-    pub(crate) request_timeout: NonZeroU64,
+impl Cli {
+    pub(crate) fn parse_with(config: Option<&Config>) -> Self {
+        let mut command = Self::command();
+        if let Some(config) = config {
+            let names: Vec<_> = command
+                .get_subcommands()
+                .map(|subcommand| subcommand.get_name().to_owned())
+                .collect();
+            for name in names {
+                command = command.mut_subcommand(name, |subcommand| {
+                    settings::with_defaults(subcommand, config.settings())
+                });
+            }
+        }
+        let matches = command.get_matches();
+        Self::from_arg_matches(&matches).unwrap_or_else(|error| error.exit())
+    }
 }
 
 impl QuestionsSource {

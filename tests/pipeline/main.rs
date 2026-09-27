@@ -3,9 +3,11 @@
     reason = "integration tests: a failed setup should fail the test"
 )]
 
+mod config;
 mod filter_files;
 mod filter_lines;
 mod fixture;
+mod limits;
 mod map_answers;
 mod map_files;
 mod stand_in;
