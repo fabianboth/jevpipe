@@ -1,0 +1,28 @@
+[build-system]
+requires = ["maturin>=1.15,<2"]
+build-backend = "maturin"
+
+[project]
+name = "jevpipe"
+dynamic = ["version"]
+description = "A Unix pipe for typed decisions: stream records in, get calibrated decisions out."
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+requires-python = ">=3.8"
+keywords = ["cli", "llm", "classification", "coding-agents", "unix-pipe"]
+classifiers = [
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Rust",
+  "Topic :: Utilities",
+]
+
+[project.urls]
+Repository = "https://github.com/fabianboth/jevpipe"
+Issues = "https://github.com/fabianboth/jevpipe/issues"
+
+[tool.maturin]
+bindings = "bin"
+strip = true
