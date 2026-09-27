@@ -6,7 +6,7 @@ Replaces [../../001-filter-foundation/contracts/cli.md](../../001-filter-foundat
 
 ```text
 jevpipe filter [OPTIONS] <QUESTION> [FILES]...
-jevpipe map [OPTIONS] <QUESTIONS_FILE> [FILES]...
+jevpipe map [OPTIONS] <--questions <JSON>|--questions-file <FILE>> [FILES]...
 ```
 
 Records come from each `FILE` in order, or from standard input when no `FILE` is given or a `FILE`
@@ -16,6 +16,8 @@ is `-`. Each non-blank line is one record, sent as text (JSONL lines too).
 
 | Option | Commands | Default | Meaning |
 |---|---|---|---|
+| `-q, --questions <JSON>` | `map` | — | the questions inline; exactly one of `-q` and `-f` is required |
+| `-f, --questions-file <FILE>` | `map` | — | read the questions from this file |
 | `--read-files` | both | off | each record is a file path; the file's path and content are judged |
 | `--threshold <P>` | `filter` | `0.5` | keep a record when its probability is ≥ P; P in 0..=1 |
 | `--concurrency <N>` | both | `100` | maximum requests in flight; N ≥ 1 |
@@ -24,9 +26,9 @@ is `-`. Each non-blank line is one record, sent as text (JSONL lines too).
 
 Removed: `filter --json` and `filter --all` (use `map`).
 
-## Questions file (`map`)
+## Questions (`map`)
 
-A JSON object of named questions in the System One format ([../contracts/service.md](service.md)),
+Inline with `-q` or in a file with `-f`: a JSON object of named questions in the System One format ([../contracts/service.md](service.md)),
 sent unchanged:
 
 ```json
@@ -43,7 +45,7 @@ Checked while the arguments are parsed, before any input is read; a failure is a
 (exit 2):
 
 ```text
-error: invalid value 'questions.json' for '<QUESTIONS_FILE>': question `kind`: a choice needs criteria with 1 to 255 options
+error: invalid value 'questions.json' for '--questions-file <FILE>': question `kind`: a choice needs criteria with 1 to 255 options
 ```
 
 ## Environment
@@ -75,11 +77,11 @@ One line per failed record or input, then exactly one summary line:
 ```text
 jevpipe: line 4: not found
 jevpipe: missing.txt: not found
-jevpipe: 4 records, 2 answered, 1 skipped, 1 failed, 1 truncated, $0.0021, 0.8s, typesafe/jev-1.13-20260917
+jevpipe: 4 records, 2 answered, 1 skipped, 1 failed, 1 truncated, $0.0021, 0.8s
 ```
 
 `filter` says `kept` instead of `answered`. `truncated` is omitted when zero, the cost when the service
-reports none, the model when no request was made. A run-level error replaces the summary with
+reports none. A run-level error replaces the summary with
 `jevpipe: error: <message>`. Record content never appears on standard error.
 
 ## Exit status

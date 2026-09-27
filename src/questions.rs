@@ -37,8 +37,12 @@ struct Question {
 impl Questions {
     pub(crate) fn load(path: &str) -> Result<Self, String> {
         let text = fs::read_to_string(path).map_err(|error| Failure::from(error).to_string())?;
+        Self::parse(&text)
+    }
+
+    pub(crate) fn parse(text: &str) -> Result<Self, String> {
         let raw: Box<RawValue> =
-            serde_json::from_str(&text).map_err(|error| format!("not JSON: {error}"))?;
+            serde_json::from_str(text).map_err(|error| format!("not JSON: {error}"))?;
         let parsed: Value =
             serde_json::from_str(raw.get()).map_err(|error| format!("not JSON: {error}"))?;
         let questions = parsed

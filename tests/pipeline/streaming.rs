@@ -148,7 +148,7 @@ async fn map_answers_each_step_before_the_next_line_is_written() {
     let mut child = stand_in
         .command()
         .current_dir(dir.path())
-        .args(["map", "questions.json"])
+        .args(["map", "-f", "questions.json"])
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .stderr(Stdio::null())
@@ -186,7 +186,7 @@ async fn map_stops_quietly_when_the_reader_goes_away() {
     let mut child = stand_in
         .command()
         .current_dir(dir.path())
-        .args(["map", "questions.json"])
+        .args(["map", "-f", "questions.json"])
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .stderr(Stdio::piped())
@@ -234,7 +234,7 @@ async fn map_answers_many_records_concurrently() {
     stand_in
         .jevpipe()
         .current_dir(dir.path())
-        .args(["map", "questions.json"])
+        .args(["map", "-f", "questions.json"])
         .write_stdin(input)
         .assert()
         .success()

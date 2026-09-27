@@ -26,8 +26,9 @@ pub async fn run(cli: Cli) -> ExitCode {
             let filter = Filter::new(args.question, args.threshold);
             pipeline::run(filter, args.files, args.run).await
         }
-        cli::Command::Map(args) => {
-            pipeline::run(Map::new(args.questions), args.files, args.run).await
-        }
+        cli::Command::Map(args) => match args.questions.into_questions() {
+            Ok(questions) => pipeline::run(Map::new(questions), args.files, args.run).await,
+            Err(error) => error.exit(),
+        },
     }
 }

@@ -5,8 +5,8 @@
 
 ## Summary
 
-Add `jevpipe map <QUESTIONS_FILE> [FILES]...`: the questions file (System One `questions`, checked,
-then sent byte for byte) is asked about every record in one request, and each record gets one JSON
+Add `jevpipe map (-q <JSON> | -f <FILE>) [FILES]...`: the questions (System One `questions`, inline
+or from a file, checked, then sent byte for byte) is asked about every record in one request, and each record gets one JSON
 line `{"record", "answers"}` (or `outcome`/`reason`) in input order. `filter` loses `--json`/`--all`
 and becomes pure grep. Both commands share one pipeline: the service client takes the run's questions
 instead of a fixed noul, `filter` sending a single noul named `match`. Records carry line numbers

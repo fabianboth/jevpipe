@@ -14,7 +14,7 @@ the TypeSafe docs on 2026-09-27 (see [../research.md](../research.md)).
 }
 ```
 
-One request per record. `questions` is the questions file verbatim (`map`) or
+One request per record. `questions` is `map`'s questions verbatim (from `-q` or `-f`) or
 `{"match": {"type": "noul", "instructions": "<QUESTION>"}}` (`filter`).
 
 ## Response (`200`)
@@ -32,7 +32,7 @@ One request per record. `questions` is the questions file verbatim (`map`) or
 }
 ```
 
-Fields jevpipe reads: `model`, `answers` (each answer's `type`, plus `noul` for `filter`), and
+Fields jevpipe reads: `answers` (each answer's `type`, plus `noul` for `filter`), and
 `usage.cost` (optional). Unknown fields are ignored; `map` passes `answers` through whole.
 
 An answer missing for an asked question, of another type than asked, or a `noul` outside 0..=1

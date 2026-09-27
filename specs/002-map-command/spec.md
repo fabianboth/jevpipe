@@ -33,7 +33,8 @@ questions.
 ### User Story 1 - Ask several typed questions about every record (Priority: P1)
 
 A developer or agent writes the questions once into a small JSON file, in the service's documented
-question format, and pipes records through `jevpipe map questions.json`. Each record is sent once with
+question format, and pipes records through `jevpipe map -f questions.json` (or passes the same JSON
+inline with `-q`). Each record is sent once with
 all questions; each output line holds the record and the answers, ready for `jq`.
 
 **Why this priority**: It is the new capability of this milestone: labelling, triage and scoring of
@@ -46,11 +47,11 @@ request per line carrying all three questions.
 
 **Acceptance Scenarios**:
 
-1. **Given** a questions file with a yes/no, a choice and a score question and three lines on standard input, **When** the user runs `jevpipe map questions.json`, **Then** exactly one request per line is sent carrying all three questions, and standard output holds three JSON lines in input order, each `{"record": "<the line>", "answers": {...}}`.
+1. **Given** a questions file with a yes/no, a choice and a score question and three lines on standard input, **When** the user runs `jevpipe map -f questions.json`, **Then** exactly one request per line is sent carrying all three questions, and standard output holds three JSON lines in input order, each `{"record": "<the line>", "answers": {...}}`.
 2. **Given** an answered record, **Then** its `answers` hold every question by the name used in the questions file, exactly as the service returned them (for example the chosen option with its probabilities and confidence, or the score with its levels).
 3. **Given** a JSONL line such as `{"test":"login_timeout"}`, **When** it is answered, **Then** it is sent as text and appears in `record` as that text, so `jq '.record | fromjson | .test'` recovers its fields.
-4. **Given** two files named after the questions file, **When** the user runs `jevpipe map questions.json a.txt b.txt`, **Then** the records of `a.txt` are answered and printed before those of `b.txt`.
-5. **Given** every record answered, **When** the run finishes, **Then** the exit status is 0 and one summary line (records, answered, skipped, failed, cost, duration, model) is written to standard error.
+4. **Given** two files named after the questions, **When** the user runs `jevpipe map -f questions.json a.txt b.txt`, **Then** the records of `a.txt` are answered and printed before those of `b.txt`.
+5. **Given** every record answered, **When** the run finishes, **Then** the exit status is 0 and one summary line (records, answered, skipped, failed, cost, duration) is written to standard error.
 6. **Given** a record that still fails after all retries, **When** the run finishes, **Then** it has its own output line with `"outcome": "failed"` and a short reason instead of answers, all other records are answered, standard error names its line number, and the exit status is 2.
 7. **Given** a driver that writes one line, waits for the answer and only then writes the next, **When** each line arrives, **Then** its answer line is written without waiting for further input, so one `map` process can also serve a step-by-step loop.
 
@@ -59,7 +60,7 @@ request per line carrying all three questions.
 ### User Story 2 - Ask questions about files (Priority: P2)
 
 A developer or agent pipes a list of file paths (for example from `git ls-files`) into
-`jevpipe map questions.json --read-files`; each file's path and content are judged, and each output
+`jevpipe map -f questions.json --read-files`; each file's path and content are judged, and each output
 line carries the path as its record.
 
 **Why this priority**: It extends the flagship "semantic grep" to several complex questions per file,
@@ -71,7 +72,7 @@ skipped line, and the run exits 0.
 
 **Acceptance Scenarios**:
 
-1. **Given** a list of paths, **When** the user runs `jevpipe map questions.json --read-files`, **Then** each file's path and content are judged, and each output line's `record` is the path as read.
+1. **Given** a list of paths, **When** the user runs `jevpipe map -f questions.json --read-files`, **Then** each file's path and content are judged, and each output line's `record` is the path as read.
 2. **Given** a binary, non-UTF-8 or empty file or a directory, **When** it is processed, **Then** it gets an output line with `"outcome": "skipped"` and a reason, no service call is made, and the exit status is not affected.
 3. **Given** a path that does not exist, **When** it is processed, **Then** it gets an output line with `"outcome": "failed"` and the reason "not found", and the exit status is 2.
 4. **Given** a file larger than the service accepts, **When** it is processed, **Then** its content is cut to fit, it is still answered, and its output line carries `"truncated": true`.
@@ -102,7 +103,7 @@ input with a failing record and check standard error names the line number but n
 
 ### Edge Cases
 
-- **Questions file missing, unreadable, not JSON, or not a non-empty object of questions**: usage error with a message naming the problem (and the question, where one is at fault), before any input is read or request sent, exit status 2.
+- **Neither or both of `-q` and `-f` given; questions file missing or unreadable; questions not JSON or not a non-empty object of questions**: usage error with a message naming the problem (and the question, where one is at fault), before any input is read or request sent, exit status 2.
 - **A question with an unknown type, without instructions, or without the criteria its type needs** (options for a choice, levels for a score), **or outside the documented limits** (more than 255 options, fewer than 2 or more than 10 levels): usage error as above. Anything else the service rejects stops the run at the first request with the service's message, as any run-level error does.
 - **Question names** are free: whatever names the file uses are sent and come back in `answers`. The output's own fields (`record`, `answers`, `outcome`, `reason`, `truncated`) never collide with them because the answers are nested.
 - **A response that lacks an answer for one of the questions, or carries one of the wrong type**: the run stops with an "unexpected answer" error and exit status 2, as `filter` does for an answer in an unexpected shape: the service is not behaving as documented, and every further record would meet the same problem.
@@ -122,14 +123,14 @@ input with a failing record and check standard error names the line number but n
 **Commands**
 
 - **FR-001**: jevpipe MUST offer exactly two commands, `filter` and `map`.
-- **FR-002**: `jevpipe map <QUESTIONS_FILE> [FILE...]` MUST read the questions from `QUESTIONS_FILE` and the records from the named files in argument order, or from standard input when no file is named or a file is named `-`.
+- **FR-002**: `jevpipe map (-q <JSON> | -f <FILE>) [FILE...]` MUST take the questions inline from `-q`/`--questions` or from the file named by `-f`/`--questions-file` (exactly one of the two) and read the records from the named files in argument order, or from standard input when no file is named or a file is named `-`.
 - **FR-003**: Both commands MUST accept `--read-files`, `--concurrency`, `--model` and `--request-timeout` with the meaning and defaults of the first milestone; `--threshold` MUST remain `filter`-only.
 - **FR-004**: `filter` MUST no longer accept `--json` or `--all`.
 
 **Questions**
 
-- **FR-005**: The questions file MUST hold a JSON object of named questions in the service's documented format: each question has a `type` (`noul`, `choice` or `score`) and `instructions`; a choice has `criteria` mapping option names to descriptions; a score has `criteria` as a list of levels from low to high; a yes/no question may have `criteria`. The file's content MUST be sent as the request's questions unchanged.
-- **FR-006**: Before reading any input, `map` MUST check the questions file's shape (valid JSON, a non-empty object, each question an object with a known type, instructions, and the criteria its type requires within the documented limits: 1 to 255 options for a choice, 2 to 10 levels for a score) and reject a malformed file as a usage error naming the problem.
+- **FR-005**: The questions (inline or in the file) MUST be a JSON object of named questions in the service's documented format: each question has a `type` (`noul`, `choice` or `score`) and `instructions`; a choice has `criteria` mapping option names to descriptions; a score has `criteria` as a list of levels from low to high; a yes/no question may have `criteria`. They MUST be sent as the request's questions unchanged.
+- **FR-006**: Before reading any input, `map` MUST check the questions' shape (valid JSON, a non-empty object, each question an object with a known type, instructions, and the criteria its type requires within the documented limits: 1 to 255 options for a choice, 2 to 10 levels for a score) and reject malformed questions as a usage error naming the problem.
 - **FR-007**: Each record MUST be answered with a single request carrying all questions.
 
 **Records**
@@ -147,12 +148,12 @@ input with a failing record and check standard error names the line number but n
 **Standard error (both commands)**
 
 - **FR-014**: Each failed record MUST be reported on standard error by its line number and reason only, never with the record's content; a failed input file MUST be reported by its file name.
-- **FR-015**: Every run MUST end with exactly one summary line on standard error: records, the command's result count (kept for `filter`, answered for `map`), skipped, failed, truncated files when any, total cost reported by the service, duration, and the model that answered.
+- **FR-015**: Every run MUST end with exactly one summary line on standard error: records, the command's result count (kept for `filter`, answered for `map`), skipped, failed, truncated files when any, total cost reported by the service, and duration. The model is not shown: pin one with `--model` for reproducible runs.
 
 **Unchanged from the first milestone**
 
 - **FR-016**: Concurrency, retries, per-request timeout, run-level errors, configuration through `OPENROUTER_API_KEY` and `JEVPIPE_BASE_URL`, the default model and stopping when the output consumer goes away MUST work for `map` as they do for `filter`.
-- **FR-017**: `jevpipe map --help` MUST describe the command, every option and the questions file format with an example.
+- **FR-017**: `jevpipe map --help` MUST describe the command, every option and the questions format with an example.
 
 **Verification**
 
@@ -161,10 +162,10 @@ input with a failing record and check standard error names the line number but n
 ### Key Entities
 
 - **Record**: one non-blank input line (a file path with `--read-files`), with its line number in the whole input.
-- **Questions**: the named, typed questions from the questions file, the same for every record in a run; sent unchanged.
+- **Questions**: the named, typed questions given with `-q` or `-f`, the same for every record in a run; sent unchanged.
 - **Answers**: the service's answers for one record, one per question name, passed through as returned.
 - **Outcome**: per record, one of answered (with answers), skipped (deliberately not judged) or failed (could not be decided), each with a short reason when not answered.
-- **Run summary**: counts of records, results, skipped, failed and truncated, total cost, duration and model; determines the exit status.
+- **Run summary**: counts of records, results, skipped, failed and truncated, total cost and duration; determines the exit status.
 
 ## Success Criteria *(mandatory)*
 
@@ -175,7 +176,7 @@ input with a failing record and check standard error names the line number but n
 - **SC-003**: 1,000 short records with three questions are answered in under 30 seconds under normal service conditions.
 - **SC-004**: In a step loop that writes one record and waits, each answer is written within 1 second of the service's reply.
 - **SC-005**: No record content ever appears on standard error, in 100% of test scenarios, including failures of records larger than 100,000 characters.
-- **SC-006**: A malformed questions file is rejected before any request is sent, in 100% of test scenarios.
+- **SC-006**: Malformed questions, inline or in a file, are rejected before any request is sent, in 100% of test scenarios.
 - **SC-007**: The full automated test suite passes on Linux, Windows and macOS with no network access and no API key.
 - **SC-008**: An agent that knows `jq` can write a triage pipeline (two questions, select one label) from `jevpipe map --help` alone.
 
@@ -183,7 +184,7 @@ input with a failing record and check standard error names the line number but n
 
 - Records are sent as text only: the first milestone's spike sent the same record as a JSON object and as its text and got the same probabilities (0.82–0.83) and nearly the same token count. Structured state can return if a measurement shows it helps.
 - The output echoes the record, like `grep` prints the lines it matches: `map`'s output is meant for `jq` and the calling script, not for an agent to read whole, so selecting and projecting in the pipe keeps the agent's context small. A failed record keeps its line on standard output so a step-loop driver waiting for one answer per record never hangs, and a script can see which record got no answer.
-- The questions file follows the service's documented format verbatim (TypeSafe's System One `questions` object, checked against the official docs on 2026-09-27), so users learn one format and new question fields reach the service without a jevpipe change.
+- The questions are given inline (`-q`, handy for agents: one command, no file to write or clean up) or from a file (`-f`, handy for people and long question sets), as two options of which exactly one is required, like `grep -e` / `grep -f`. They follow the service's documented format verbatim (TypeSafe's System One `questions` object, checked against the official docs on 2026-09-27), so users learn one format and new question fields reach the service without a jevpipe change.
 - A step loop runs one `map` per step. The extra connection setup per step (roughly 50–150 ms) is accepted; per-record questions for a long-running loop can follow if it matters.
 - Removing `filter`'s `--json` and `--all` is a breaking change; the first milestone was not released, so no compatibility period is needed.
 

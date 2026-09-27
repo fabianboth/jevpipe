@@ -17,7 +17,7 @@ async fn answers_each_file_with_its_path_as_the_record() {
     let output = stand_in
         .jevpipe()
         .current_dir(dir.path())
-        .args(["map", "questions.json", "--read-files"])
+        .args(["map", "-f", "questions.json", "--read-files"])
         .write_stdin("a.rs\nb.rs\r\n")
         .assert()
         .success()
@@ -49,7 +49,7 @@ async fn files_that_are_not_judged_get_a_skipped_line_without_a_request() {
     let output = stand_in
         .jevpipe()
         .current_dir(dir.path())
-        .args(["map", "questions.json", "--read-files"])
+        .args(["map", "-f", "questions.json", "--read-files"])
         .write_stdin("image.png\nlatin1.txt\nempty.txt\nsrc\n")
         .assert()
         .code(0)
@@ -75,7 +75,7 @@ async fn a_missing_path_gets_a_failed_line() {
     let output = stand_in
         .jevpipe()
         .current_dir(dir.path())
-        .args(["map", "questions.json", "--read-files"])
+        .args(["map", "-f", "questions.json", "--read-files"])
         .write_stdin("a.rs\ngone.rs\n")
         .assert()
         .code(2)
@@ -98,7 +98,7 @@ async fn a_large_file_is_cut_to_fit_answered_and_marked_truncated() {
     let output = stand_in
         .jevpipe()
         .current_dir(dir.path())
-        .args(["map", "questions.json", "--read-files"])
+        .args(["map", "-f", "questions.json", "--read-files"])
         .write_stdin("big.txt\nsmall.txt\n")
         .assert()
         .success();

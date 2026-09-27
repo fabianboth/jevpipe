@@ -13,7 +13,7 @@ async fn answers_every_question_about_each_line_in_input_order() {
     let output = stand_in
         .jevpipe()
         .current_dir(dir.path())
-        .args(["map", "questions.json"])
+        .args(["map", "-f", "questions.json"])
         .write_stdin("a p=0.9 choice=real level=2 slow=300\nb p=0.2\nc choice=flaky level=1\n")
         .assert()
         .success();
@@ -56,7 +56,13 @@ async fn sends_one_request_per_line_with_the_questions_file_unchanged() {
     stand_in
         .jevpipe()
         .current_dir(dir.path())
-        .args(["map", "questions.json", "--model", "typesafe/jev-1.13"])
+        .args([
+            "map",
+            "-f",
+            "questions.json",
+            "--model",
+            "typesafe/jev-1.13",
+        ])
         .write_stdin("a\nb\nc\n")
         .assert()
         .success();
@@ -82,7 +88,7 @@ async fn a_json_line_is_sent_as_text_and_comes_back_as_its_text() {
     let output = stand_in
         .jevpipe()
         .current_dir(dir.path())
-        .args(["map", "questions.json"])
+        .args(["map", "-f", "questions.json"])
         .write_stdin(format!("{line}\n"))
         .assert()
         .success();
@@ -101,7 +107,7 @@ async fn reads_files_in_argument_order() {
     let output = stand_in
         .jevpipe()
         .current_dir(dir.path())
-        .args(["map", "questions.json", "a.txt", "b.txt"])
+        .args(["map", "-f", "questions.json", "a.txt", "b.txt"])
         .assert()
         .success();
 
@@ -120,7 +126,7 @@ async fn exits_0_with_one_summary_line_when_every_record_is_answered() {
     let output = stand_in
         .jevpipe()
         .current_dir(dir.path())
-        .args(["map", "questions.json"])
+        .args(["map", "-f", "questions.json"])
         .write_stdin("a\nb\nc\n")
         .assert()
         .code(0);
@@ -131,10 +137,7 @@ async fn exits_0_with_one_summary_line_when_every_record_is_answered() {
         stderr.starts_with("jevpipe: 3 records, 3 answered, 0 skipped, 0 failed, $0.00003, "),
         "{stderr}"
     );
-    assert!(
-        stderr.trim_end().ends_with("s, typesafe/jev-test"),
-        "{stderr}"
-    );
+    assert!(stderr.trim_end().ends_with('s'), "{stderr}");
 }
 
 #[tokio::test]
@@ -145,7 +148,7 @@ async fn a_record_failing_after_all_retries_gets_a_failed_line_and_the_others_ar
     let output = stand_in
         .jevpipe()
         .current_dir(dir.path())
-        .args(["map", "questions.json"])
+        .args(["map", "-f", "questions.json"])
         .write_stdin("a p=0.9\nb fail=503x9\nc\n")
         .assert()
         .code(2)
@@ -171,7 +174,7 @@ async fn empty_input_exits_0_without_requests() {
     stand_in
         .jevpipe()
         .current_dir(dir.path())
-        .args(["map", "questions.json"])
+        .args(["map", "-f", "questions.json"])
         .write_stdin("\n\n")
         .assert()
         .code(0)
@@ -191,7 +194,7 @@ async fn an_answer_missing_a_question_stops_the_run() {
     stand_in
         .jevpipe()
         .current_dir(dir.path())
-        .args(["map", "questions.json"])
+        .args(["map", "-f", "questions.json"])
         .write_stdin("a malformed\n")
         .assert()
         .code(2)
@@ -209,10 +212,27 @@ async fn a_run_level_error_stops_the_run() {
     stand_in
         .jevpipe()
         .current_dir(dir.path())
-        .args(["map", "questions.json"])
+        .args(["map", "-f", "questions.json"])
         .write_stdin("a status=401\n")
         .assert()
         .code(2)
         .stdout("")
         .stderr(contains("jevpipe: error: ").and(contains("No cookie auth credentials found")));
+}
+
+#[tokio::test]
+async fn inline_questions_are_sent_like_a_questions_file() {
+    let stand_in = StandIn::start().await;
+
+    let output = stand_in
+        .jevpipe()
+        .args(["map", "-q", QUESTIONS])
+        .write_stdin("a p=0.9 choice=real\n")
+        .assert()
+        .success();
+
+    let asked: Value = serde_json::from_str(QUESTIONS).unwrap();
+    assert_eq!(stand_in.requests().await[0]["questions"], asked);
+    let lines = json_lines(output.get_output());
+    assert_eq!(lines[0]["answers"]["kind"]["choice"], "real");
 }

@@ -4,7 +4,7 @@ use predicates::str::contains;
 use crate::fixture::{json_lines, questions};
 use crate::stand_in::StandIn;
 
-const COMMANDS: [[&str; 2]; 2] = [["filter", "Is it?"], ["map", "questions.json"]];
+const COMMANDS: [&[&str]; 2] = [&["filter", "Is it?"], &["map", "-f", "questions.json"]];
 
 fn stderr(output: &std::process::Output) -> String {
     String::from_utf8_lossy(&output.stderr).into_owned()
@@ -100,7 +100,7 @@ async fn map_writes_no_line_for_an_input_that_cannot_be_read() {
     let output = stand_in
         .jevpipe()
         .current_dir(dir.path())
-        .args(["map", "questions.json", "a.txt", "gone.txt", "b.txt"])
+        .args(["map", "-f", "questions.json", "a.txt", "gone.txt", "b.txt"])
         .assert()
         .code(2);
 

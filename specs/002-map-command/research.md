@@ -68,10 +68,17 @@ shape. OpenRouter adds `usage.cost`.
 
 ## CLI shape
 
-- **Decision**: `filter` and `map` each declare their own positionals (`<QUESTION>` or
-  `<QUESTIONS_FILE>`, then `[FILES]...`) and flatten one shared `#[derive(Args)]` struct with the
-  flags `--read-files`, `--concurrency`, `--model` and `--request-timeout`. `map`'s `after_help`
-  shows a questions file with all three types.
+- **Decision**: `filter` declares `<QUESTION>`, then `[FILES]...`. `map` takes its questions from
+  `-q/--questions <JSON>` or `-f/--questions-file <FILE>`, a clap argument group with
+  `required = true, multiple = false`, and all its positionals are `[FILES]...`. Both flatten one
+  shared `#[derive(Args)]` struct with `--read-files`, `--concurrency`, `--model` and
+  `--request-timeout`. `map`'s `after_help` shows the questions with all three types.
+- **Why two options for `map`**: inline questions suit agents (one command, no file to write or
+  clean up), a file suits people and long question sets. A grep-style positional with `-f` would
+  need hand-rolled parsing: clap cannot turn the first positional into a file when `-f` is given
+  (a prototype assigned it to the questions). `@file` (curl style) collides with PowerShell's
+  splatting operator. Sniffing a leading `{` gives one argument two meanings. clap's derive does
+  not support an enum for the two options, so they are two `Option` fields in a required group.
 - **Rationale**: positionals stay in their natural order per command without relying on the order of
   flattened fields; the shared flags are defined once.
 

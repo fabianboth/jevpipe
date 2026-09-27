@@ -24,17 +24,20 @@ cat > triage.json <<'EOF'
 EOF
 
 # label every record, keep only what the script needs
-./target/release/jevpipe map triage.json failures.jsonl \
+./target/release/jevpipe map -f triage.json failures.jsonl \
   | jq -c 'select(.answers.kind.choice == "flaky") | .record | fromjson | .test'
 
 # several questions about each file in one call
-git ls-files | ./target/release/jevpipe map questions.json --read-files | jq -c '{record, answers}'
+git ls-files | ./target/release/jevpipe map -f questions.json --read-files | jq -c '{record, answers}'
 
 # selection and labels in one pass: put the yes/no question into the file, select with jq
-./target/release/jevpipe map triage.json failures.jsonl | jq -c 'select(.answers.relevant.noul >= 0.8)'
+./target/release/jevpipe map -f triage.json failures.jsonl | jq -c 'select(.answers.relevant.noul >= 0.8)'
 
 # one step of a loop: one state in, one answer out
-echo "$PAGE_STATE" | ./target/release/jevpipe map step.json
+echo "$PAGE_STATE" | ./target/release/jevpipe map -q "$STEP_QUESTIONS"
+
+# inline questions: no file to write
+./target/release/jevpipe map -q '{"error": {"type": "noul", "instructions": "Is this line an error?"}}' app.log
 
 # filter is unchanged, apart from --json/--all being gone
 git ls-files | ./target/release/jevpipe filter "Does this file define command line arguments?" --read-files

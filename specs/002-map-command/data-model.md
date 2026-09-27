@@ -15,7 +15,7 @@ The questions sent with every request of a run.
 
 Built from:
 
-- `map`: the questions file, after the shape check (research.md): a non-empty object; every question
+- `map`: the questions from `-q` or `-f`, after the shape check (research.md): a non-empty object; every question
   an object with a known `type` and non-null `instructions`; `choice.criteria` an object with 1 to 255
   entries; `score.criteria` an array with 2 to 10 entries; `noul.criteria`, when present, an object.
   Any failure is a usage error naming the file and, where one is at fault, the question.
@@ -79,7 +79,7 @@ Standard error (both commands): `jevpipe: line <N>: <reason>` per failed record,
 | results | `filter`: kept; `map`: answered |
 | skipped, failed | counts |
 | truncated *(new)* | answered records whose file content was cut; printed only when > 0 |
-| cost, duration, model | as before |
+| cost, duration | as before; the model is no longer shown |
 
 Exit status:
 

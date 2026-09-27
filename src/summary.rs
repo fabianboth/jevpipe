@@ -12,7 +12,6 @@ pub(crate) struct Summary {
     failed: usize,
     truncated: usize,
     cost: Option<f64>,
-    model: Option<String>,
     started: Instant,
     closed: bool,
 }
@@ -33,7 +32,6 @@ impl Summary {
             failed: 0,
             truncated: 0,
             cost: None,
-            model: None,
             started: Instant::now(),
             closed: false,
         }
@@ -52,7 +50,6 @@ impl Summary {
                 if let Some(cost) = reply.cost {
                     self.cost = Some(self.cost.unwrap_or_default() + cost);
                 }
-                self.model = Some(reply.model.clone());
             }
             Outcome::Skipped(_) => self.skipped += 1,
             Outcome::Failed(_) => self.failed += 1,
@@ -86,9 +83,6 @@ impl fmt::Display for Summary {
             write!(formatter, ", ${}", dollars(cost))?;
         }
         write!(formatter, ", {:.1}s", self.started.elapsed().as_secs_f64())?;
-        if let Some(model) = &self.model {
-            write!(formatter, ", {model}")?;
-        }
         Ok(())
     }
 }

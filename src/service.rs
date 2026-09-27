@@ -59,7 +59,6 @@ pub(crate) enum State<'a> {
 pub(crate) struct Reply {
     pub(crate) answers: Answers,
     pub(crate) cost: Option<f64>,
-    pub(crate) model: String,
 }
 
 #[derive(Debug, thiserror::Error)]
@@ -81,7 +80,6 @@ struct Request<'a> {
 
 #[derive(Deserialize)]
 struct ReplyBody {
-    model: String,
     answers: Box<RawValue>,
     usage: Option<Usage>,
 }
@@ -162,7 +160,6 @@ impl Reply {
         Ok(Self {
             answers: Answers::check(body.answers, questions).map_err(ServiceError::Rejected)?,
             cost: body.usage.and_then(|usage| usage.cost),
-            model: body.model,
         })
     }
 }

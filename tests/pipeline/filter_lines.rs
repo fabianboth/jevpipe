@@ -89,7 +89,7 @@ async fn exits_0_with_one_summary_line_when_something_is_kept() {
         stderr[0].starts_with("jevpipe: 2 records, 1 kept, 0 skipped, 0 failed, $0.00002, "),
         "{stderr:?}"
     );
-    assert!(stderr[0].ends_with("s, typesafe/jev-test"), "{stderr:?}");
+    assert!(stderr[0].ends_with('s'), "{stderr:?}");
 }
 
 #[tokio::test]

@@ -1,7 +1,8 @@
 use std::num::{NonZeroU64, NonZeroUsize};
 use std::path::PathBuf;
 
-use clap::{Args, Parser, Subcommand};
+use clap::error::ErrorKind;
+use clap::{Args, CommandFactory, Parser, Subcommand};
 
 use crate::answers::PROBABILITY;
 use crate::filter;
@@ -15,9 +16,10 @@ Examples:
 
 const MAP_EXAMPLES: &str = r#"Needs OPENROUTER_API_KEY in the environment.
 
-Questions file: named questions in TypeSafe's System One format, sent unchanged. A noul is a yes/no
-question answered with a probability; a choice picks one of its criteria (option: description, 1 to
-255 options); a score rates on its criteria (levels from low to high, 2 to 10):
+Questions, inline with -q or in a file with -f: named questions in TypeSafe's System One format,
+sent unchanged. A noul is a yes/no question answered with a probability; a choice picks one of its
+criteria (option: description, 1 to 255 options); a score rates on its criteria (levels from low to
+high, 2 to 10):
   {
     "relevant": {"type": "noul", "instructions": "Is this failure worth a closer look?"},
     "kind": {"type": "choice", "instructions": "What kind of failure is this?",
@@ -35,8 +37,9 @@ Output, one line per record:
 "truncated": true is added when --read-files had to cut the file.
 
 Examples:
-  jevpipe map triage.json failures.log | jq -r 'select(.answers.kind.choice == "flaky") | .record'
-  git ls-files | jevpipe map triage.json --read-files | jq -c '{record, severity: .answers.severity.score}'"#;
+  jevpipe map -f triage.json failures.log | jq -r 'select(.answers.kind.choice == "flaky") | .record'
+  git ls-files | jevpipe map -f triage.json --read-files | jq -c '{record, severity: .answers.severity.score}'
+  jevpipe map -q '{"error": {"type": "noul", "instructions": "Is this line an error?"}}' app.log"#;
 
 /// A Unix pipe for typed decisions: stream records in, get calibrated decisions out.
 #[derive(Parser)]
@@ -60,7 +63,7 @@ pub(crate) enum Command {
 
     /// Ask several typed questions about every record and print the answers as JSON lines
     ///
-    /// Each record is sent once with all questions of the questions file. Prints one JSON line per
+    /// Each record is sent once with all the questions. Prints one JSON line per
     /// record, in input order, as soon as it is answered: pipe it through jq to select and project.
     /// With --read-files, each line is a file path and the file's path and content are judged.
     ///
@@ -89,15 +92,26 @@ pub(crate) struct FilterArgs {
 
 #[derive(Args)]
 pub(crate) struct MapArgs {
-    /// JSON file of named questions (format below)
-    #[arg(value_name = "QUESTIONS_FILE", value_parser = Questions::load)]
-    pub(crate) questions: Questions,
+    #[command(flatten)]
+    pub(crate) questions: QuestionsSource,
 
     /// Files to read records from, in order; none or - reads standard input
     pub(crate) files: Vec<PathBuf>,
 
     #[command(flatten)]
     pub(crate) run: RunArgs,
+}
+
+#[derive(Args)]
+#[group(required = true, multiple = false)]
+pub(crate) struct QuestionsSource {
+    /// The questions as JSON (format below)
+    #[arg(short = 'q', long = "questions", value_name = "JSON", value_parser = Questions::parse)]
+    inline: Option<Questions>,
+
+    /// Read the questions from this JSON file (format below)
+    #[arg(short = 'f', long = "questions-file", value_name = "FILE", value_parser = Questions::load)]
+    file: Option<Questions>,
 }
 
 #[derive(Args)]
@@ -117,6 +131,17 @@ pub(crate) struct RunArgs {
     /// Abandon a request after this many seconds and retry it
     #[arg(long, value_name = "SECS", default_value = "10")]
     pub(crate) request_timeout: NonZeroU64,
+}
+
+impl QuestionsSource {
+    pub(crate) fn into_questions(self) -> Result<Questions, clap::Error> {
+        self.inline.or(self.file).ok_or_else(|| {
+            Cli::command().error(
+                ErrorKind::MissingRequiredArgument,
+                "give the questions with --questions or --questions-file",
+            )
+        })
+    }
 }
 
 fn probability(value: &str) -> Result<f64, String> {

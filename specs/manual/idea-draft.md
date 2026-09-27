@@ -18,11 +18,11 @@ git ls-files | jevpipe filter "handles player input buffering" --read-files
 git diff | jevpipe filter "a change unrelated to increasing the buffer size"
 
 # label a stream of records: several typed questions in one request per record
-jevpipe map triage.json failures.jsonl | jq -c 'select(.answers.kind.choice == "flaky") | .record'
+jevpipe map -f triage.json failures.jsonl | jq -c 'select(.answers.kind.choice == "flaky") | .record'
 
 # interactive loop (browser, game engine, test runner): one `map` per step,
-# with that step's questions file
-echo "$PAGE_STATE" | jevpipe map step.json
+# with that step's questions inline
+echo "$PAGE_STATE" | jevpipe map -q "$STEP_QUESTIONS"
 ```
 
 Records are lines (plain text or JSONL, sent as text) or file paths. `filter` prints the kept lines unchanged, so it composes with `head`, `xargs` and `wc`; `map` prints one JSON line per record with the record and its answers, for `jq`.
