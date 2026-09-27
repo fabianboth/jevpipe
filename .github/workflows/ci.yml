@@ -35,3 +35,10 @@ jobs:
           tool: cargo-deny
       - run: ./check.ps1 -Stage ${{ matrix.stage }}
         shell: pwsh
+
+  ci-success:
+    needs: check
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - run: test "${{ needs.check.result }}" = success
