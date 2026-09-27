@@ -8,20 +8,34 @@ publish = false
 
 [dependencies]
 backon = "1.6.0"
-clap = { version = "4.6.7", features = ["derive"] }
+clap = { version = "4.6.7", features = ["derive", "string"] }
 encoding_rs = "0.8.42"
+etcetera = "0.11.0"
 futures = "0.3.34"
+humantime = "2.4.0"
+keyring-core = "1.0.0"
 reqwest = { version = "0.13.5", features = ["json"] }
 serde = { version = "1.0.229", features = ["derive"] }
 serde_json = { version = "1.0.151", features = ["raw_value"] }
 thiserror = "2.0.21"
-tokio = { version = "1.53.1", features = ["rt-multi-thread", "macros", "sync", "fs", "io-util"] }
+tokio = { version = "1.53.1", features = ["rt-multi-thread", "macros", "sync", "fs", "io-util", "signal", "time"] }
+toml_edit = "0.25.15"
 
 [dev-dependencies]
 assert_cmd = "2.2.2"
 predicates = "3.1.4"
 tempfile = "3.27.0"
 wiremock = "0.6.5"
+
+[target.'cfg(windows)'.dependencies]
+winapi-util = "0.1.11"
+windows-native-keyring-store = { version = "1.1.0", default-features = false }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+zbus-secret-service-keyring-store = { version = "1.0.1", default-features = false, features = ["rt-async-io-crypto-rust"] }
+
+[target.'cfg(unix)'.dependencies]
+rustix = { version = "1.1.5", features = ["termios", "stdio"] }
 
 [lints.rust]
 unsafe_code = "forbid"

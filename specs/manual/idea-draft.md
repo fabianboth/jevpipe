@@ -31,10 +31,10 @@ Records are lines (plain text or JSONL, sent as text) or file paths. `filter` pr
 
 - **Decide, don't act.** No planning, no text generation, no executing actions. The calling script owns all of that.
 - **Stateless.** For multi-turn loops, the driver keeps the history and sends the current state each step.
-- **Cheap to rerun.** Cache identical requests, so agents re-running a pipeline pay nothing.
-- **Safe to run unattended.** Budgets on records, spend and time. Clean exit codes. A one-line summary on stderr.
+- **Cheap to rerun.** A run stopped by a limit names the input line to resume from, so a rerun pays only for the rest.
+- **Safe to run unattended.** Per-run limits on spend and time (`--max-cost`, `--max-time`); OpenRouter's key limit and credits stop a run the same way. Clean exit codes. A one-line summary on stderr.
 - **Fast.** Near-zero startup, efficient batching and concurrency for bulk input, low latency per step in a loop.
-- **JEV-compatible.** Connects to the TypeSafe API on OpenRouter.
+- **JEV-compatible.** Connects to the TypeSafe API on OpenRouter, and only there. Defaults live in a user config file (`jevpipe config`), the API key in `OPENROUTER_API_KEY` or the system keychain (`jevpipe auth set-key`).
 
 ## Constraints
 
@@ -49,10 +49,24 @@ Records are lines (plain text or JSONL, sent as text) or file paths. `filter` pr
 
 ## Next
 
-The agent skill and the example pipelines (deliverables 2 and 3).
+1. **004 Release and skill.** Prebuilt binaries for Linux, macOS and Windows (x64 and arm64) via
+   cargo-dist on a version tag: GitHub Releases with shell and PowerShell install scripts, plus npm
+   (`jevpipe`, reserved with a 0.0.0 placeholder by the npm account `bothlabs`). The skill `skills/jevpipe/SKILL.md` is written from
+   what is known so far and installs separately through `npx skills add` or `gh skill install`; it
+   carries no binary and no install steps, only a pointer to the README when `jevpipe` is missing.
+   The README covers installation and the API key. Tried on the private repo with a pre-release tag.
+2. **005 Calibration study.** Labeled gold-standard sets per use case; precision and recall per
+   threshold, calibration, run time, throughput and cost per 1,000 records, against grep and a
+   general LLM as baselines; trigger and task evals for the skill (developer tooling in the repo,
+   not shipped, run by hand). Results set the defaults, revise the skill, and go into the README
+   with date and model version. The example pipelines (deliverable 3) come out of these use cases.
+3. The repo goes public at the end of 004, with a README, a license and a first release; 005 adds
+   the numbers behind "calibrated".
 
 ## Later
 
-Deferred: caching identical requests, budgets on records, cost and run time, inverted matching (`-v`), sorting by probability, other providers (TypeSafe directly, a shared key name), per-record questions for a long-running step loop, and JSON records as structured state (if a measurement shows it helps).
+Deferred: budgets on records, inverted matching (`-v`), sorting by probability, per-record questions for a long-running step loop, and JSON records as structured state (if a measurement shows it helps).
+
+Dropped: caching identical requests (identical requests are rare, and provider-side input caching is not live for Jev) and providers other than OpenRouter.
 
 Learnings for the skill so far: [skill-learnings.md](skill-learnings.md).

@@ -7,8 +7,9 @@ line per record with its answers. The decisions come from Jev
 jevpipe makes the many small yes/no, pick-one or score judgments inside it, and only the outcome reaches
 the agent's context. The draft idea lives in `specs/manual/idea-draft.md`.
 
-Shape: a single Rust binary with the subcommands `filter` and `map`, plus an agent skill
-(`skills/jevpipe/SKILL.md`) that teaches coding agents when to reach for it.
+Shape: a single Rust binary with the subcommands `filter` and `map` (plus `config` for the user's
+defaults and `auth` for the stored API key), and an agent skill (`skills/jevpipe/SKILL.md`) that
+teaches coding agents when to reach for it.
 
 ## Project Rules
 - Decide, don't act: no planning, no text generation, no executing actions. The calling script owns that.
@@ -18,7 +19,9 @@ Shape: a single Rust binary with the subcommands `filter` and `map`, plus an age
   there, never with `#[allow]` or `#[expect]` in code. Exception: `#![expect(clippy::unwrap_used)]`
   at an integration test crate root (rust-clippy#13981).
 - `unsafe` is forbidden.
-- API keys come from the environment, never from a file in the repo. Tests never touch the network.
+- The API key comes from `OPENROUTER_API_KEY` or the OS keychain, never from a file in the repo.
+  Tests never touch the network, the real keychain or the user's config: binary tests set
+  `JEVPIPE_CONFIG` to a temp file, whose `base-url` points at the local stand-in.
 
 ## Layout
 `src/` for product code (`main.rs` only wires the CLI; the logic lives in the library crate `lib.rs`),

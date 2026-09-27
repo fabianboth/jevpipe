@@ -65,3 +65,24 @@ Keychain, per platform (set, run without `OPENROUTER_API_KEY`, remove):
 | Linux without Secret Service (WSL, container) | `auth set-key` fails with "no keychain available here …; set OPENROUTER_API_KEY instead"; runs with the variable work |
 
 Spike results these checks repeat are recorded in [research.md](research.md) R7–R9.
+
+### Results
+
+Windows 10, 2026-09-27, debug build:
+
+- Credential Manager: a piped `auth set-key` stored `openrouter-api-key.jevpipe`, `config list` then
+  said `# API key: from the keychain`, `auth remove-key` removed it and a second one said
+  `no API key stored`.
+- The macOS and Linux keychain and prompt code compiles and passes clippy
+  (`cargo clippy --target aarch64-apple-darwin` and `x86_64-unknown-linux-gnu` on those modules;
+  the full crate needs a C cross compiler for `aws-lc-sys`).
+
+- Real service, key from the keychain (`OPENROUTER_API_KEY` unset), release build:
+  - `filter` over 20 lines, `--concurrency 1 --max-cost 0.0001`: stopped after 9 records
+    (`$0.000107 spent`, one request over), `input from line 10 on was not processed`, exit 3.
+  - Rerun over `tail -n +10`: exit 0; both outputs joined equal every error line of the input, in
+    order.
+  - 200 lines, `--concurrency 1 --max-time 2s`: `time limit 2s reached`, exit 3 after 2.09 s.
+
+Still to do by hand: the hidden prompt and Ctrl+C in Windows Terminal, PowerShell, cmd and the Git
+Bash window; the macOS and Linux desktop keychains.

@@ -1,9 +1,9 @@
 use std::io::{self, Write};
 
 use crate::decision::{Decision, Outcome};
+use crate::exit::Exit;
 use crate::pipeline::Command;
 use crate::questions::{Questions, QuestionsError};
-use crate::summary::Exit;
 
 const QUESTION: &str = "match";
 

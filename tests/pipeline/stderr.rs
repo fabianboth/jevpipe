@@ -100,3 +100,32 @@ async fn the_summary_counts_truncated_files_only_when_there_are_any() {
         assert!(!stderr(output.get_output()).contains("truncated"));
     }
 }
+
+#[tokio::test]
+async fn a_broken_config_file_stops_the_run_before_any_request() {
+    let stand_in = StandIn::start().await;
+    let config = stand_in.config().display().to_string();
+    let cases = [
+        (
+            "concurency = 4\n",
+            "unknown key `concurency`; the keys are base-url, concurrency, max-cost, max-time, model, request-timeout",
+        ),
+        (
+            "concurrency = 0\n",
+            "invalid value '0' for `concurrency`: number would be zero for non-zero type",
+        ),
+    ];
+    for (settings, problem) in cases {
+        stand_in.configure(settings);
+
+        stand_in
+            .filter()
+            .write_stdin("a p=0.9\n")
+            .assert()
+            .code(2)
+            .stdout("")
+            .stderr(contains(format!("jevpipe: error: {config}: {problem}")));
+    }
+
+    assert!(stand_in.requests().await.is_empty());
+}

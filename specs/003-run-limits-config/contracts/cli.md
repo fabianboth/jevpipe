@@ -72,7 +72,7 @@ Config errors (exit 2, before any input is read, for `filter`, `map`, `config li
 
 ```text
 jevpipe: error: C:\Users\me\AppData\Roaming\jevpipe\config.toml: unknown key `concurency`; the keys are base-url, concurrency, max-cost, max-time, model, request-timeout
-jevpipe: error: /home/me/.config/jevpipe/config.toml: `concurrency`: invalid value '0': number would be zero for non-zero type
+jevpipe: error: /home/me/.config/jevpipe/config.toml: invalid value '0' for `concurrency`: number would be zero for non-zero type
 jevpipe: error: /home/me/.config/jevpipe/config.toml: TOML parse error at line 2, column 7 …
 ```
 

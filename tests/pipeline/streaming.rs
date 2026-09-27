@@ -145,7 +145,7 @@ async fn a_request_that_hangs_is_abandoned_and_retried() {
 
     stand_in
         .filter()
-        .args(["--request-timeout", "1"])
+        .args(["--request-timeout", "1s"])
         .write_stdin("a p=0.9 slow=1500\n")
         .assert()
         .success()

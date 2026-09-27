@@ -83,27 +83,34 @@ src/
 ├── cli.rs               # CHANGED: `config` and `auth` subcommands; RunArgs = --read-files + flattened Settings; help texts
 ├── settings.rs          # NEW: Settings args (model, concurrency, request-timeout, max-cost, max-time) with their value parsers (duration via humantime, Limit<T> = none | value); keys; value check via the flag parser; config values as clap defaults
 ├── config/
-│   ├── mod.rs           # NEW: the config file: path (JEVPIPE_CONFIG, etcetera), load + check (toml_edit), base-url, origins
+│   ├── mod.rs           # NEW: the loaded config (load + check), base-url, each value's origin
+│   ├── keys.rs          # NEW: the keys, their defaults and valid values (settings keys + base-url)
+│   ├── file.rs          # NEW: the TOML file: path (JEVPIPE_CONFIG, etcetera), read, write, set, unset (toml_edit)
 │   └── command.rs       # NEW: config list | get | set | unset | path
 ├── auth/
 │   ├── mod.rs           # NEW: API key lookup (env, then keychain); the key rules
 │   ├── keychain.rs      # NEW: default store per platform; get / set / remove; errors
 │   ├── security.rs      # NEW (macOS): keyring-core store over /usr/bin/security
 │   ├── prompt.rs        # NEW: one line from stdin with echo off on stdin; Ctrl+C restores
-│   └── command.rs       # NEW: auth set-key | remove-key
+│   ├── command.rs       # NEW: auth set-key | remove-key
+│   └── tests.rs         # NEW: in-process lookup and set/remove tests against the mock store
 ├── cost.rs              # NEW: Cost, an amount in nano-dollars: from the service's cost, from --max-cost, display
 ├── limits.rs            # NEW: Limits of one run: spend (atomic) against max-cost, the deadline, the stop reason (first wins), the stop line
 ├── pipeline.rs          # CHANGED: asks Limits before sending; Unprocessed; input ends at the stop; deadline arm; drain; resume line
-├── service.rs           # CHANGED: ServiceConfig from base-url + key; 402 by limit_source; cost as Cost
-├── summary.rs           # CHANGED: cost read from Limits; stop; Exit::Stopped (3), Exit::Interrupted (130); precedence
+├── service/
+│   ├── mod.rs           # CHANGED (was service.rs): ServiceConfig from base-url + key; request, reply, cost as Cost
+│   └── error.rs         # NEW: error classes, 402 by limit_source
+├── exit.rs              # NEW (from summary.rs): Exit incl. Stopped (3) and Interrupted (130); fail() for "error: …", exit 2
+├── summary.rs           # CHANGED: cost read from Limits; stop; exit precedence
 └── (answers, decision, file, filter, map, output, questions, reason, record, text: unchanged)
 
 tests/
 ├── cli.rs               # CHANGED: help texts (limits, exit 3, config, auth); duration and cost usage errors; config file instead of JEVPIPE_BASE_URL
 ├── config.rs            # NEW: user story 2 through the binary (JEVPIPE_CONFIG in a temp dir)
 ├── auth.rs              # NEW: user story 3 paths that never reach a keychain (empty/invalid key, key as argument, env var wins)
+├── common/mod.rs        # NEW: the binary with JEVPIPE_CONFIG pointing at a missing file, shared by cli.rs and auth.rs
 └── pipeline/
-    ├── stand_in.rs      # CHANGED: base-url via a temp config file; markers cost:<USD>, limit:key|credits, inflight:<times>
+    ├── stand_in.rs      # CHANGED: base-url via a temp config file; markers cost=<USD>, nocost, limit=key_limit|credits, inflight=<times>
     ├── limits.rs        # NEW: user story 1 (spend, time, 402 cases, resume, exit precedence)
     └── …                # existing files: --request-timeout values get units
 ```

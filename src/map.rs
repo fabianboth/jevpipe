@@ -4,9 +4,9 @@ use serde::Serialize;
 use serde_json::value::RawValue;
 
 use crate::decision::{Decision, Outcome};
+use crate::exit::Exit;
 use crate::pipeline::Command;
 use crate::questions::Questions;
-use crate::summary::Exit;
 
 pub(crate) struct Map {
     questions: Questions,
