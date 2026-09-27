@@ -8,6 +8,9 @@ reviews:
     - "examples/**"
     - "skills/**"
     - "Cargo.toml"
+    - "pyproject.toml"
+    - "README.md"
+    - "LICENSE"
     - "clippy.toml"
     - "deny.toml"
     - "rustfmt.toml"
@@ -29,6 +32,10 @@ reviews:
     - path: "skills/**/SKILL.md"
       instructions: >-
         Flag any command, flag or output shape that does not match the CLI.
+    - path: "README.md"
+      instructions: >-
+        Flag any command, flag or output shape that does not match the CLI, and
+        any relative link (the README is also the PyPI description).
 
   auto_review:
     enabled: true
