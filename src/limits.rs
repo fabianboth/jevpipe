@@ -14,9 +14,14 @@ pub(crate) struct Limits {
     spent: AtomicU64,
     costed: AtomicBool,
     max_cost: Limit<Cost>,
-    max_time: Limit<Duration>,
-    started: Instant,
+    deadline: Limit<Deadline>,
     stop: watch::Sender<Option<Stop>>,
+}
+
+#[derive(Clone, Copy)]
+struct Deadline {
+    at: Instant,
+    limit: Duration,
 }
 
 #[derive(Clone, Copy)]
@@ -36,16 +41,26 @@ pub(crate) struct StopLine {
 #[error("the service reported no cost, so --max-cost cannot be enforced")]
 pub(crate) struct NoCost;
 
+#[derive(Debug, thiserror::Error)]
+#[error("--max-time {} is too long", humantime::format_duration(*.0))]
+pub(crate) struct TooLong(Duration);
+
 impl Limits {
-    pub(crate) fn new(settings: &Settings) -> Self {
-        Self {
+    pub(crate) fn new(settings: &Settings) -> Result<Self, TooLong> {
+        let deadline = match settings.max_time {
+            Limit::At(limit) => Limit::At(Deadline {
+                at: Instant::now().checked_add(limit).ok_or(TooLong(limit))?,
+                limit,
+            }),
+            Limit::Unlimited => Limit::Unlimited,
+        };
+        Ok(Self {
             spent: AtomicU64::new(0),
             costed: AtomicBool::new(false),
             max_cost: settings.max_cost,
-            max_time: settings.max_time,
-            started: Instant::now(),
+            deadline,
             stop: watch::Sender::new(None),
-        }
+        })
     }
 
     pub(crate) fn may_send(&self) -> bool {
@@ -86,10 +101,12 @@ impl Limits {
     }
 
     pub(crate) async fn until_deadline(&self) {
-        match self.max_time {
-            Limit::At(limit) => {
-                time::sleep_until(self.started + limit).await;
-                self.stop(Stop::Time { limit });
+        match self.deadline {
+            Limit::At(deadline) => {
+                time::sleep_until(deadline.at).await;
+                self.stop(Stop::Time {
+                    limit: deadline.limit,
+                });
             }
             Limit::Unlimited => future::pending().await,
         }

@@ -137,6 +137,25 @@ async fn the_time_limit_stops_a_run_waiting_for_input() {
     );
 }
 
+#[cfg(unix)]
+#[tokio::test]
+async fn a_time_limit_beyond_the_clock_is_refused_before_any_request() {
+    let stand_in = StandIn::start().await;
+
+    stand_in
+        .filter()
+        .args(["--max-time", "500000000000years"])
+        .write_stdin("a p=0.9\n")
+        .assert()
+        .code(2)
+        .stdout("")
+        .stderr(contains(
+            "jevpipe: error: --max-time 500000000000years is too long\n",
+        ));
+
+    assert!(stand_in.requests().await.is_empty());
+}
+
 #[tokio::test]
 async fn a_rerun_from_the_resume_line_completes_the_output() {
     let stand_in = StandIn::start().await;

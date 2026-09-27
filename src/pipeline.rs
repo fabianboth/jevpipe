@@ -11,7 +11,7 @@ use crate::config::Config;
 use crate::decision::{Decision, Outcome};
 use crate::exit::{self, Exit};
 use crate::file::{self, Unjudged};
-use crate::limits::{Limits, NoCost, Stop};
+use crate::limits::{Limits, NoCost, Stop, TooLong};
 use crate::output::{Delivery, Output, report};
 use crate::questions::Questions;
 use crate::reason::Failure;
@@ -44,6 +44,8 @@ enum RunError {
     Rejected(String),
     #[error(transparent)]
     NoCost(#[from] NoCost),
+    #[error(transparent)]
+    TooLong(#[from] TooLong),
 }
 
 enum Decided {
@@ -181,7 +183,7 @@ impl<'a> Judge<'a> {
             } else {
                 Subject::Line
             },
-            limits: Limits::new(&args.settings),
+            limits: Limits::new(&args.settings)?,
         })
     }
 

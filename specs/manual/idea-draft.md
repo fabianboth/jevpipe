@@ -51,7 +51,8 @@ Records are lines (plain text or JSONL, sent as text) or file paths. `filter` pr
 
 1. **004 Release and skill.** Prebuilt binaries for Linux, macOS and Windows (x64 and arm64) via
    cargo-dist on a version tag: GitHub Releases with shell and PowerShell install scripts, plus npm
-   (`jevpipe`, reserved with a 0.0.0 placeholder by the npm account `bothlabs`). The skill `skills/jevpipe/SKILL.md` is written from
+   (`jevpipe`, reserved with a 0.0.0 placeholder by the npm account `bothlabs`; published from CI through npm
+   trusted publishing, no stored token). The skill `skills/jevpipe/SKILL.md` is written from
    what is known so far and installs separately through `npx skills add` or `gh skill install`; it
    carries no binary and no install steps, only a pointer to the README when `jevpipe` is missing.
    The README covers installation and the API key. Tried on the private repo with a pre-release tag.
