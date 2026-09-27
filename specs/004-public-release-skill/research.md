@@ -156,11 +156,14 @@ settings and runners, and the maintainer's existing PyPI projects (`reviewloop`,
 - **Done**: gitleaks 8.30.1 over all refs found only the fake `sk-or-v1-secret-9f8e7d` in
   `tests/auth.rs`; the maintainer switched the repository to public; secret scanning and push
   protection are enabled; the default workflow token is read-only.
-- **Protecting `main`** (after this feature is merged): a repository ruleset on `~DEFAULT_BRANCH`:
-  no deletion, no force push, pull request required with 0 approvals (a sole maintainer cannot
-  approve their own), required status check `ci-success`; no bypass actors; tags unaffected. Matrix
-  check names contain every matrix value, so `ci.yml` gains the aggregating job `ci-success` (needs
-  `check`, `if: always()`, fails unless all succeeded) and only that is required.
+- **Protecting `main`** (created 2026-09-27, before the merge, since PR #4 already met every rule): a
+  repository ruleset on `~DEFAULT_BRANCH`: no deletion, no force push, signed commits (all commits
+  were already signed), pull request required with 0 approvals (a sole maintainer cannot approve
+  their own) and every review thread resolved, required status check `ci-success`; no bypass
+  actors; tags unaffected. Not used: branches up to date (only churn for one maintainer), linear
+  history (merge and squash are both in use), lock branch (it would block merging too). Matrix check
+  names contain every matrix value, so `ci.yml` has the aggregating job `ci-success` (needs `check`,
+  `if: always()`, fails unless all succeeded) and only that is required.
 - **Deferred**: private vulnerability reporting with `SECURITY.md`, Dependabot, CodeQL.
 
 ## R10. Keeping docs and CLI in step

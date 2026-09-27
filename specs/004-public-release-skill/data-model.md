@@ -39,8 +39,9 @@ below are release and repository artifacts.
 - Done: public; secret scanning and push protection on; default workflow token read-only.
 - Environments: `testpypi` and `pypi`, both limited to tags `v[0-9]*.[0-9]*.[0-9]*`; `pypi` with the
   maintainer as required reviewer.
-- After the merge: ruleset `main` on the default branch: no deletion, no force push, pull request
-  required (0 approvals), required status check `ci-success`; no bypass actors; tags unaffected.
+- Ruleset `main` on the default branch (active since 2026-09-27): no deletion, no force push, signed
+  commits, pull request required (0 approvals, all review threads resolved), required status check
+  `ci-success`; no bypass actors; tags unaffected.
 - Outside GitHub: pending trusted publishers for `jevpipe` on pypi.org and test.pypi.org
   (`fabianboth/jevpipe`, `release.yml`, environment `pypi` / `testpypi`); npm `jevpipe@0.0.0` stays
   as the name reservation.
