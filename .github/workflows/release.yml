@@ -80,6 +80,7 @@ jobs:
             runner: windows-latest
           - target: aarch64-pc-windows-msvc
             runner: windows-11-arm
+            python: cpython-3.13-windows-aarch64-none
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 10
     permissions:
@@ -92,8 +93,10 @@ jobs:
       - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
       - name: Install the wheel
         shell: bash
+        env:
+          PYTHON_REQUEST: ${{ matrix.python }}
         run: |
-          uv tool install --managed-python --no-index --find-links wheels jevpipe
+          uv tool install --managed-python ${PYTHON_REQUEST:+--python "$PYTHON_REQUEST"} --no-index --find-links wheels jevpipe
           uv tool dir --bin >> "$GITHUB_PATH"
       - name: Smoke test
         shell: bash
