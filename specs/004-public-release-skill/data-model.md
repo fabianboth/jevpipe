@@ -11,8 +11,8 @@ below are release and repository artifacts.
   generated notes and the same wheels.
 - **States**: tagged → built (all six or nothing) → checked on each platform → on TestPyPI →
   approved → on PyPI → GitHub Release. A failure stops the chain; nothing reaches PyPI without
-  approval, and no GitHub Release exists without a PyPI release. A run that fails before the approval
-  is fixed and the tag set again.
+  approval, and no GitHub Release exists without a PyPI release. A run that fails before the TestPyPI
+  upload is fixed and the tag set again; after it, the fix ships as the next patch version.
 
 ## Platform
 

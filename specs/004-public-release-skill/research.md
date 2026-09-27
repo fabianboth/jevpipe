@@ -72,7 +72,8 @@ settings and runners, and the maintainer's existing PyPI projects (`reviewloop`,
   2. `check` (six runners): install from the built wheels with
      `uv tool install --no-index --find-links wheels jevpipe`, then the smoke test (R5).
   3. `testpypi` (environment `testpypi`): upload with `pypa/gh-action-pypi-publish` to
-     `https://test.pypi.org/legacy/`, `skip-existing: true`; the trial run of the upload itself.
+     `https://test.pypi.org/legacy/`; the trial run of the upload itself. No `skip-existing`: it would
+     let a rerun keep older TestPyPI files while newly built ones go to PyPI.
   4. `pypi` (environment `pypi`, **required reviewer**): upload with `pypa/gh-action-pypi-publish`.
   5. `github-release`: `gh release create <tag> --verify-tag --generate-notes` with the wheels.
 - **One check, before any upload**: TestPyPI and PyPI serve the same bytes, so installing again from
@@ -88,7 +89,7 @@ settings and runners, and the maintainer's existing PyPI projects (`reviewloop`,
   `persist-credentials: false`; third-party actions are pinned by SHA.
 - **Improvements over the earlier projects**: a required reviewer and a version-tag policy on the
   environments (theirs have none, so every tag goes straight to PyPI); attestations; installing and
-  running every wheel on its platform before the upload; `skip-existing`; SHA pinning; the GitHub
+  running every wheel on its platform before the upload; SHA pinning; the GitHub
   Release only after PyPI succeeded.
 - **Environments** (via `gh api`; required reviewers are free on public repositories): `pypi` with the
   maintainer as reviewer (`prevent_self_review: false`) and a deployment tag policy
@@ -112,8 +113,9 @@ settings and runners, and the maintainer's existing PyPI projects (`reviewloop`,
 ## R6. Versions and tags
 
 - Only tags `vMAJOR.MINOR.PATCH` release; no pre-releases. The first release is 0.1.0 itself: a
-  failure before the approval publishes nothing to PyPI, so the fix is followed by setting the tag
-  again (TestPyPI keeps the first files of a version, which is harmless for a trial index).
+  failure publishes nothing to PyPI. Before the TestPyPI upload, the fix is followed by setting the
+  tag again; once TestPyPI has the version (its files can never be replaced), the fix ships as the
+  next patch version, so TestPyPI always staged exactly the files that reach PyPI.
 - The first step of `build` fails the run when the tag and `Cargo.toml` differ.
 - `gh skill install` without a version installs the skill from the latest tagged release;
   `npx skills` follows the default branch.

@@ -111,10 +111,17 @@ fn frontmatter_name(skill: &str) -> Option<&str> {
 }
 
 fn link_targets(text: &str) -> Vec<&str> {
-    text.split("](")
+    let inline = text
+        .split("](")
         .skip(1)
-        .filter_map(|rest| rest.split(')').next())
-        .collect()
+        .filter_map(|rest| rest.split(')').next());
+    let references = text
+        .lines()
+        .map(str::trim_start)
+        .filter(|line| line.starts_with('['))
+        .filter_map(|line| line.split_once("]:"))
+        .map(|(_, target)| target.trim());
+    inline.chain(references).collect()
 }
 
 #[test]
@@ -147,11 +154,22 @@ fn readme_has_no_relative_links() {
     let readme = fs::read_to_string(repository().join("README.md")).unwrap();
     let relative: Vec<&str> = link_targets(&readme)
         .into_iter()
-        .filter(|target| !target.starts_with("https://") && !target.starts_with('#'))
+        .filter(|target| !target.starts_with("https://"))
         .collect();
     assert!(
         relative.is_empty(),
         "README.md is also the PyPI description, where relative links break: {relative:?}"
+    );
+}
+
+#[test]
+fn link_targets_include_reference_definitions() {
+    let text = "[a](https://example.com/a) ![b](b.png)
+[c]: docs/c.md
+  [d]: #d";
+    assert_eq!(
+        link_targets(text),
+        ["https://example.com/a", "b.png", "docs/c.md", "#d"]
     );
 }
 

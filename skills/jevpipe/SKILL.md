@@ -94,7 +94,7 @@ What goes in:
 
 - **File paths**, one per line, from `git ls-files`, `rg --files -g '*.py'` or `find`, with
   `--read-files` so that each file's path and content are judged. Directories, empty and binary files
-  are skipped; very large files are cut to fit and marked `"truncated": true` in map's output.
+  are skipped; large files are cut to fit, and map marks such an answered row `"truncated": true`.
 - **Lines** from logs, command output or `git log --oneline`, or one JSON object per line. Each line
   is one record, so flatten a multi-line item into one line first (for example with `jq -c`).
 

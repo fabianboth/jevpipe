@@ -223,7 +223,7 @@ scanning with push protection is on and `main` requires a pull request with pass
 - **FR-024**: `.vscode/settings.json` MUST keep only the clippy check setting.
 - **FR-025**: Before the switch, the history of every branch and tag that becomes public MUST be scanned for secrets, with no finding. (Done 2026-09-27.)
 - **FR-026**: After the switch, secret scanning with push protection MUST be on (done 2026-09-27), and `main` MUST accept changes only through pull requests whose CI passed.
-- **FR-027**: The first release is 0.1.0 itself, without a separate release candidate: everything before the approval publishes nothing to PyPI, so a failed run is fixed and the tag set again.
+- **FR-027**: The first release is 0.1.0 itself, without a separate release candidate: everything before the approval publishes nothing to PyPI, so a run that fails before the TestPyPI upload is fixed and the tag set again, and one that fails after it is fixed in the next patch version.
 
 ### Key Entities
 

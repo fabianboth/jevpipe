@@ -26,8 +26,33 @@ read-only default token.
 
 1. PR from `004-public-release-skill`, CI green (including `ci-success`), merge.
 2. Create the ruleset on `main` (research R9: deletion, non_fast_forward, pull_request with 0
-   approvals, required status check `ci-success`, no bypass actors) with
-   `gh api -X POST repos/fabianboth/jevpipe/rulesets`.
+   approvals, required status check `ci-success`, no bypass actors):
+
+   ```sh
+   gh api -X POST repos/fabianboth/jevpipe/rulesets --input - <<'EOF'
+   {
+     "name": "main",
+     "target": "branch",
+     "enforcement": "active",
+     "bypass_actors": [],
+     "conditions": {"ref_name": {"include": ["~DEFAULT_BRANCH"], "exclude": []}},
+     "rules": [
+       {"type": "deletion"},
+       {"type": "non_fast_forward"},
+       {"type": "pull_request", "parameters": {
+         "required_approving_review_count": 0,
+         "dismiss_stale_reviews_on_push": false,
+         "require_code_owner_review": false,
+         "require_last_push_approval": false,
+         "required_review_thread_resolution": false,
+         "allowed_merge_methods": ["merge", "squash", "rebase"]}},
+       {"type": "required_status_checks", "parameters": {
+         "strict_required_status_checks_policy": false,
+         "required_status_checks": [{"context": "ci-success", "integration_id": 15368}]}}
+     ]
+   }
+   EOF
+   ```
 3. Check: a direct `git push origin HEAD:main` of a scratch commit is refused.
 
 ## 3. Release v0.1.0
@@ -40,8 +65,10 @@ read-only default token.
 4. https://pypi.org/project/jevpipe/ shows 0.1.0 with attestations on each file; a GitHub Release
    `v0.1.0` with notes and the six wheels; `uv tool install jevpipe` on any machine installs 0.1.0.
 
-On a failure before the approval: fix on a branch, merge, and **(maintainer)** move the tag
-(`git tag -f v0.1.0 && git push -f origin v0.1.0`) and let it run again. Nothing reached PyPI.
+On a failure before the `testpypi` job uploaded anything: fix on a branch, merge, and
+**(maintainer)** move the tag (`git tag -f v0.1.0 && git push -f origin v0.1.0`) and let it run
+again. Once TestPyPI has 0.1.0 (its files can never be replaced), ship the fix as 0.1.1 instead:
+bump `Cargo.toml`, merge, tag `v0.1.1`. Nothing reached PyPI either way.
 
 ## 4. Skill
 

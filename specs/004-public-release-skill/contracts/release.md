@@ -12,7 +12,7 @@ equal `package.version` in `Cargo.toml`. Other tags, branch pushes and pull requ
 |---|---|---|---|
 | build (×6) | the build runners (data-model) | tag equals `Cargo.toml` version; `maturin build --release --locked`; Linux: musl, tagged `manylinux_2_17` + `musllinux_1_1` | – |
 | check (×6) | the check runners (data-model), each with its own platform's wheel | `uv tool install --managed-python --no-index --find-links wheels jevpipe`, then the smoke test | build |
-| testpypi | ubuntu | upload all wheels to TestPyPI, `skip-existing`; environment `testpypi` | check |
+| testpypi | ubuntu | upload all wheels to TestPyPI (no `skip-existing`: a version already there fails the run, so PyPI only ever gets the files staged by the same run); environment `testpypi` | check |
 | pypi | ubuntu | upload all wheels to PyPI with attestations; environment `pypi` (**required reviewer**) | testpypi |
 | github-release | ubuntu | `gh release create v<version> --verify-tag --generate-notes` with the wheels | pypi |
 
