@@ -88,7 +88,7 @@ before the approval, nothing is on PyPI and the tag can be set again after the f
 
 ### User Story 3 - A coding agent learns when and how to use jevpipe (Priority: P2)
 
-A developer installs the skill with `npx skills add fabianboth/jevpipe` (or `gh skill install`). From
+A developer installs the skill with `npx skills add fabianboth/jevpipe --skill jevpipe` (or `gh skill install`). From
 then on, when their coding agent faces many small judgments (which of 300 files deal with retries,
 which log lines are real errors, triage of a list of issues), it reaches for `jevpipe filter` or
 `jevpipe map` with a spend limit, a sensible threshold and a well-phrased question, reads only the
@@ -107,7 +107,7 @@ and check that only the skill folder arrives. Then, in a coding agent with the s
 
 **Acceptance Scenarios**:
 
-1. **Given** the public repository, **When** a user runs `npx skills add fabianboth/jevpipe` or `gh skill install fabianboth/jevpipe jevpipe`, **Then** only the skill folder is installed (a few kilobytes, no source code, no binary), and the agent lists the skill as `jevpipe`.
+1. **Given** the public repository, **When** a user runs `npx skills add fabianboth/jevpipe --skill jevpipe` or `gh skill install fabianboth/jevpipe jevpipe`, **Then** only the skill folder is installed (a few kilobytes, no source code, no binary), and the agent lists the skill as `jevpipe`.
 2. **Given** a task with many independent judgments over records, files or lines, **When** the agent has the skill, **Then** it uses `filter` for one yes/no question and `map` for several questions or choice and score answers, sets `--max-cost`, and reads the summary on standard error.
 3. **Given** a task that an exact text search, a count or a calculation answers, or one that needs generated text, **When** the agent has the skill, **Then** the skill tells it not to use jevpipe.
 4. **Given** `jevpipe` is not on the path, **When** the agent would use it, **Then** the skill tells it to stop and tell the user that jevpipe needs installing, with the link to the README; it does not try to build or install it.

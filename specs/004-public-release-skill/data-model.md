@@ -21,8 +21,8 @@ below are release and repository artifacts.
 | Linux x64 | `x86_64-unknown-linux-musl` | `ubuntu-latest` (musllinux container) | `ubuntu-latest` |
 | Linux arm64 | `aarch64-unknown-linux-musl` | `ubuntu-latest` (musllinux container) | `ubuntu-24.04-arm` |
 | macOS x64 | `x86_64-apple-darwin` | `macos-15-intel` | `macos-15-intel` |
-| macOS arm64 | `aarch64-apple-darwin` | `macos-14` | `macos-latest` |
-| Windows x64 | `x86_64-pc-windows-msvc` | `windows-2022` | `windows-latest` |
+| macOS arm64 | `aarch64-apple-darwin` | `macos-latest` | `macos-latest` |
+| Windows x64 | `x86_64-pc-windows-msvc` | `windows-latest` | `windows-latest` |
 | Windows arm64 | `aarch64-pc-windows-msvc` | `windows-11-arm` | `windows-11-arm` |
 
 ## Agent skill

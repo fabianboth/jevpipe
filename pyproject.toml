@@ -25,4 +25,3 @@ Issues = "https://github.com/fabianboth/jevpipe/issues"
 
 [tool.maturin]
 bindings = "bin"
-strip = true

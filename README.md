@@ -80,7 +80,7 @@ question format and the exit statuses; `jevpipe config --help` shows how to chan
 ## Use it from a coding agent
 
 ```sh
-npx skills add fabianboth/jevpipe
+npx skills add fabianboth/jevpipe --skill jevpipe
 ```
 
 Or `gh skill install fabianboth/jevpipe jevpipe`. The skill teaches the agent when jevpipe beats

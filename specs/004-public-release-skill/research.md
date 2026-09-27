@@ -34,8 +34,8 @@ settings and runners, and the maintainer's existing PyPI projects (`reviewloop`,
   | Linux x64 | `x86_64-unknown-linux-musl` | `ubuntu-latest` (musllinux container) |
   | Linux arm64 | `aarch64-unknown-linux-musl` | `ubuntu-latest` (musllinux container) |
   | macOS x64 | `x86_64-apple-darwin` | `macos-15-intel` |
-  | macOS arm64 | `aarch64-apple-darwin` | `macos-14` |
-  | Windows x64 | `x86_64-pc-windows-msvc` | `windows-2022` |
+  | macOS arm64 | `aarch64-apple-darwin` | `macos-latest` |
+  | Windows x64 | `x86_64-pc-windows-msvc` | `windows-latest` |
   | Windows arm64 | `aarch64-pc-windows-msvc` | `windows-11-arm` |
 - **Linux**: static musl builds tagged both `manylinux_2_17` and `musllinux_1_1` (uv's approach:
   `manylinux: musllinux_1_1`, `--compatibility pypi --compatibility 2_17`), so one wheel serves glibc
@@ -51,10 +51,11 @@ settings and runners, and the maintainer's existing PyPI projects (`reviewloop`,
 ## R3. Packaging (`pyproject.toml`)
 
 - [P] At the repository root: `build-backend = "maturin"` (`requires = ["maturin>=1.15,<2"]`),
-  `[tool.maturin] bindings = "bin"`, `strip = true`; `[project]` with `name = "jevpipe"`,
+  `[tool.maturin] bindings = "bin"`; `[project]` with `name = "jevpipe"`,
   `dynamic = ["version"]` (taken from `Cargo.toml`), `description`,
   `readme = "README.md"`, `license = "Apache-2.0"`, `license-files = ["LICENSE"]`,
-  `requires-python = ">=3.8"`, keywords, classifiers, `[project.urls]` Repository.
+  `requires-python = ">=3.8"`, keywords, classifiers, `[project.urls]` Repository. No
+  `strip` there: the release profile in `Cargo.toml` already strips.
 - maturin ignores `publish = false`; cargo-deny and `check.ps1` never read `pyproject.toml`. The wheel
   holds `jevpipe-<v>.data/scripts/jevpipe[.exe]`, METADATA, a CycloneDX SBOM and the license.
 - **No sdist**: an unsupported platform gets a clean "no matching distribution" instead of an
@@ -129,9 +130,12 @@ settings and runners, and the maintainer's existing PyPI projects (`reviewloop`,
   (use it whenever …, even if jevpipe is not named); it names multi-step bulk tasks, since simple
   one-step tasks rarely trigger a skill; imperative voice, examples, explain *why* instead of
   capital-letter rules; state only what the model lacks; one default plus an escape hatch.
-- **Installers**: `npx skills add fabianboth/jevpipe` (`-g` for all projects) and
+- **Installers**: `npx skills add fabianboth/jevpipe --skill jevpipe` (`-g` for all projects) and
   `gh skill install fabianboth/jevpipe jevpipe` (gh ≥ 2.90, `--scope user`) both find
-  `skills/*/SKILL.md` and copy only that folder; a root `SKILL.md` would shadow it.
+  `skills/*/SKILL.md` and copy only that folder; a root `SKILL.md` would shadow it. `npx skills` also
+  finds the development skills in `.claude/skills/` (spec-kit, reviewloop: 16 in all), so the
+  documented command names the skill with `--skill jevpipe`; marking those skills `internal: true`
+  would be undone by every spec-kit upgrade.
 - **Decision**: no `allowed-tools` (every run spends the user's credit, so the user keeps approving
   runs); `metadata.jevpipe-version: "0.1.0"`; no `references/` for now (~200 lines). Comparable skills
   (gh-skill, agent-browser) do not handle secrets; the key rule is new ground.

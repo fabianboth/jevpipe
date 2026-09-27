@@ -71,11 +71,14 @@ fn flag_words(text: &str) -> Vec<String> {
 fn documented_flags(text: &str) -> BTreeSet<String> {
     let mut flags = BTreeSet::new();
     for line in text.lines() {
-        for segment in line
-            .split('|')
-            .filter(|segment| segment.contains("jevpipe"))
-        {
-            flags.extend(flag_words(segment));
+        for segment in line.split('|') {
+            flags.extend(
+                segment
+                    .split_whitespace()
+                    .skip_while(|word| word.trim_matches(['`', '(']) != "jevpipe")
+                    .skip(1)
+                    .flat_map(flag_words),
+            );
         }
         for span in line.split('`').skip(1).step_by(2) {
             if span.starts_with("--") {
@@ -175,7 +178,7 @@ fn link_targets_include_reference_definitions() {
 
 #[test]
 fn documented_flags_ignore_other_commands() {
-    let text = "rg --files -g '*.rs' | jevpipe filter \"q\" --read-files\nuse `--max-cost 0.50` and `git log --oneline`";
+    let text = "rg --files -g '*.rs' | jevpipe filter \"q\" --read-files\nnpx skills add fabianboth/jevpipe --skill jevpipe\nuse `--max-cost 0.50` and `git log --oneline`";
     assert_eq!(
         documented_flags(text),
         BTreeSet::from(["--read-files".to_owned(), "--max-cost".to_owned()])

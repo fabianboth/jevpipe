@@ -24,7 +24,7 @@ relative links broken and alerts as literal text. Shape from research R8.
    questions and `jq`, with one output line; a line pointing to `jevpipe filter --help` and
    `jevpipe map --help` for exit statuses, question types and all flags; `jq` recommended for
    `map`, with its install link.
-6. **Use it from a coding agent**: `npx skills add fabianboth/jevpipe` (or
+6. **Use it from a coding agent**: `npx skills add fabianboth/jevpipe --skill jevpipe` (or
    `gh skill install fabianboth/jevpipe jevpipe`); one sentence on what the skill teaches.
 7. **Cost**: every record is a request billed to your OpenRouter credit; cap a run with
    `--max-cost 0.50` (and `--max-time 10m`); a stopped run exits 3 and names the line to resume from.

@@ -25,10 +25,10 @@ jobs:
             runner: macos-15-intel
             manylinux: auto
           - target: aarch64-apple-darwin
-            runner: macos-14
+            runner: macos-latest
             manylinux: auto
           - target: x86_64-pc-windows-msvc
-            runner: windows-2022
+            runner: windows-latest
             manylinux: auto
           - target: aarch64-pc-windows-msvc
             runner: windows-11-arm

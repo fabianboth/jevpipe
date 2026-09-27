@@ -72,7 +72,7 @@ bump `Cargo.toml`, merge, tag `v0.1.1`. Nothing reached PyPI either way.
 
 ## 4. Skill
 
-1. In a temporary project: `npx skills add fabianboth/jevpipe` → only `SKILL.md` arrives (under
+1. In a temporary project: `npx skills add fabianboth/jevpipe --skill jevpipe` → only `SKILL.md` arrives (under
    50 KB); the agent lists the skill `jevpipe`. Also `gh skill install fabianboth/jevpipe jevpipe`.
 2. **(maintainer, costs a few cents)** In a coding agent with the skill and a key, in this
    repository: "which files deal with retrying failed requests?" → the agent runs `jevpipe filter`
