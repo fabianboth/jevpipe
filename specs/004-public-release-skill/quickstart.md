@@ -70,8 +70,10 @@ If the run fails:
 
 - **Before the `testpypi` job uploaded anything**: fix on a branch, merge, and **(maintainer)** move
   the tag (`git tag -f v0.1.0 && git push -f origin v0.1.0`) and let it run again.
-- **After TestPyPI, before PyPI** (TestPyPI files can never be replaced): ship the fix as 0.1.1, by
-  bumping `Cargo.toml`, merging and tagging `v0.1.1`. Nothing reached PyPI.
+- **After TestPyPI, before PyPI**: if the cause lies outside the package (such as the publisher
+  settings on pypi.org), fix it and rerun the failed job (`gh run rerun <run-id> --failed`), which
+  publishes the same files. If the package itself must change, ship it as 0.1.1 by bumping
+  `Cargo.toml`, merging and tagging `v0.1.1`, since TestPyPI never replaces files.
 - **Only `github-release` failed**: 0.1.0 is on PyPI already. Rerun the failed job from the run's
   page (`gh run rerun <run-id> --failed`); no new version is needed.
 
