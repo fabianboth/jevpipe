@@ -97,7 +97,7 @@ input with a failing record and check standard error names the line number but n
 2. **Given** input whose fourth line fails, **When** `filter` or `map` finishes, **Then** standard error holds `jevpipe: line 4: <reason>` and not the line's content.
 3. **Given** input with blank lines, **When** a record fails, **Then** its line number counts the blank lines, so it matches the line in the input.
 4. **Given** `--read-files` and a file cut to fit, **When** `filter` or `map` finishes, **Then** the summary line reports how many files were truncated.
-5. **Given** everything else, **When** `filter` runs, **Then** it behaves as in the first milestone: kept lines byte-identical and in input order, the same thresholds and exit statuses.
+5. **Given** everything else, **When** `filter` runs, **Then** it behaves as in the first milestone: kept lines byte-identical (a last line without a line terminator gets `\n`) and in input order, the same thresholds and exit statuses.
 
 ---
 

@@ -48,7 +48,7 @@ fn filter_help_describes_every_option() {
         "--concurrency",
         "--model",
         "--request-timeout",
-        "OPENROUTER_API_KEY",
+        "Examples:",
     ] {
         assert!(help.contains(option), "missing {option} in:\n{help}");
     }
@@ -228,7 +228,6 @@ fn map_help_describes_every_option_and_the_questions_file() {
         "--concurrency",
         "--model",
         "--request-timeout",
-        "OPENROUTER_API_KEY",
         "\"type\": \"noul\"",
         "\"type\": \"choice\"",
         "\"type\": \"score\"",
@@ -237,4 +236,13 @@ fn map_help_describes_every_option_and_the_questions_file() {
         assert!(help.contains(part), "missing {part} in:\n{help}");
     }
     assert!(!help.contains("--threshold"), "{help}");
+}
+
+#[test]
+fn map_short_help_keeps_the_examples_and_leaves_out_the_formats() {
+    let assert = cargo_bin_cmd!().args(["map", "-h"]).assert().success();
+    let help = String::from_utf8_lossy(&assert.get_output().stdout).into_owned();
+    assert!(help.contains("Examples:"), "{help}");
+    assert!(help.contains("-q, --questions <JSON>"), "{help}");
+    assert!(!help.contains("\"type\": \"score\""), "{help}");
 }

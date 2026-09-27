@@ -8,38 +8,33 @@ use crate::answers::PROBABILITY;
 use crate::filter;
 use crate::questions::Questions;
 
-const FILTER_EXAMPLES: &str = r#"Needs OPENROUTER_API_KEY in the environment.
-
-Examples:
+const FILTER_EXAMPLES: &str = r#"Examples:
   git ls-files | jevpipe filter "Does this file parse command line arguments?" --read-files
   jevpipe filter "Is this line an error worth a closer look?" app.log | head -20"#;
 
-const MAP_EXAMPLES: &str = r#"Needs OPENROUTER_API_KEY in the environment.
-
-Questions, inline with -q or in a file with -f: named questions in TypeSafe's System One format,
-sent unchanged. A noul is a yes/no question answered with a probability; a choice picks one of its
-criteria (option: description, 1 to 255 options); a score rates on its criteria (levels from low to
-high, 2 to 10):
-  {
-    "relevant": {"type": "noul", "instructions": "Is this failure worth a closer look?"},
-    "kind": {"type": "choice", "instructions": "What kind of failure is this?",
-             "criteria": {"flaky": "infra or timing", "real": "deterministic bug"}},
-    "severity": {"type": "score", "instructions": "How severe is this failure?",
-                 "criteria": ["cosmetic", "annoying", "blocking"]}
-  }
-
-Output, one line per record:
-  {"record": "<line>", "answers": {
-     "relevant": {"type": "noul", "noul": 0.82},
-     "kind": {"type": "choice", "choice": "flaky", "probabilities": {...}, "confidence": 0.9},
-     "severity": {"type": "score", "score": 1.04, "legend": {...}, "probabilities": {...}, ...}}}
-  {"record": "<line>", "outcome": "skipped" or "failed", "reason": "<why>"}
-"truncated": true is added when --read-files had to cut the file.
-
-Examples:
+macro_rules! map_examples {
+    () => {
+        r#"Examples:
   jevpipe map -f triage.json failures.log | jq -r 'select(.answers.kind.choice == "flaky") | .record'
-  git ls-files | jevpipe map -f triage.json --read-files | jq -c '{record, severity: .answers.severity.score}'
-  jevpipe map -q '{"error": {"type": "noul", "instructions": "Is this line an error?"}}' app.log"#;
+  jevpipe map -q '{"error": {"type": "noul", "instructions": "Is this line an error?"}}' app.log"#
+    };
+}
+
+const MAP_EXAMPLES: &str = map_examples!();
+
+const MAP_HELP: &str = concat!(
+    r#"Questions (-q or -f): a JSON object of named questions in TypeSafe's System One format, e.g.
+  {"relevant": {"type": "noul", "instructions": "Worth a closer look?"},
+   "kind": {"type": "choice", "instructions": "What kind?", "criteria": {"flaky": "timing", "real": "bug"}},
+   "severity": {"type": "score", "instructions": "How severe?", "criteria": ["low", "medium", "high"]}}
+A noul is yes/no, a choice picks one of 1-255 options, a score rates on 2-10 levels (low to high).
+
+Output, one JSON line per record: {"record": "<line>", "answers": {"<name>": {...}, ...}}
+or {"record": "<line>", "outcome": "skipped" | "failed", "reason": "<why>"}
+
+"#,
+    map_examples!()
+);
 
 /// A Unix pipe for typed decisions: stream records in, get calibrated decisions out.
 #[derive(Parser)]
@@ -69,7 +64,7 @@ pub(crate) enum Commands {
     ///
     /// Exit status: 0 when no record failed, 2 when one did or the run stopped on an error. A
     /// one-line summary goes to standard error.
-    #[command(after_help = MAP_EXAMPLES)]
+    #[command(after_help = MAP_EXAMPLES, after_long_help = MAP_HELP)]
     Map(MapArgs),
 }
 

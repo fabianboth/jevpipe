@@ -62,7 +62,7 @@ unknown option.
 
 ## Phase 3: User Story 1 - Ask several typed questions about every record (Priority: P1) 🎯 MVP
 
-**Goal**: `jevpipe map <QUESTIONS_FILE> [FILES]...` asks all questions about each record in one
+**Goal**: `jevpipe map (-q <JSON> | -f <FILE>) [FILES]...` asks all questions about each record in one
 request and writes one JSON line per record.
 
 **Independent Test**: three lines through `map` with a noul, a choice and a score question; three
@@ -71,13 +71,13 @@ JSON lines in order with the stand-in's answers, one request per line carrying a
 ### Tests for User Story 1
 
 - [X] T015 [P] [US1] Write `tests/pipeline/map_answers.rs`, one test per behaviour: three lines with a noul, a choice and a score question give three lines `{"record", "answers"}` in input order with exactly the stand-in's answers, and the stand-in received one request per line whose `questions` equal the file's content (US1-1, US1-2, SC-001, SC-002); a JSONL line is sent as a string state and comes back as a string `record` that parses as the original object (US1-3); two files in argument order (US1-4); exit 0 with `3 records, 3 answered, 0 skipped, 0 failed` (US1-5); a record failing after all retries gets `{"record", "outcome": "failed", "reason": "service unavailable"}`, the others are answered, stderr has `jevpipe: line N: service unavailable`, exit 2 (US1-6); empty input exits 0 with zero requests; `malformed` (no answers) stops the run with `unexpected answer`, exit 2; `status=401` stops the run with `jevpipe: error:`, exit 2
-- [X] T016 [P] [US1] Add to `tests/cli.rs` (no stand-in needed): each malformed questions file is a usage error with exit 2 and a message naming the file (and the question where one is at fault): missing file, not JSON, not an object, empty object, unknown `type`, missing or null `instructions`, choice without `criteria` or with 0 or 256 options, score with 1 or 11 levels or non-array criteria, noul `criteria` that is not an object (FR-006, SC-006); `map --help` shows `Usage: jevpipe map [OPTIONS] <QUESTIONS_FILE> [FILES]...`, every option of contracts/cli.md for `map`, and a questions file example (FR-017)
+- [X] T016 [P] [US1] Add to `tests/cli.rs` (no stand-in needed): each malformed questions file is a usage error with exit 2 and a message naming the file (and the question where one is at fault): missing file, not JSON, not an object, empty object, unknown `type`, missing or null `instructions`, choice without `criteria` or with 0 or 256 options, score with 1 or 11 levels or non-array criteria, noul `criteria` that is not an object (FR-006, SC-006); `map --help` shows `Usage: jevpipe map [OPTIONS] <--questions <JSON>|--questions-file <FILE>> [FILES]...`, every option of contracts/cli.md for `map`, and a questions file example (FR-017)
 - [X] T017 [P] [US1] Add to `tests/pipeline/streaming.rs`: with stdin held open, `map` writes the answer to a first line within 1 s, before the second line is written (US1-7, SC-004); `map` stops quietly when the reader goes away, exit 0; 200 records with three questions and `slow=300` finish in under 10 s at the default concurrency (SC-003)
 
 ### Implementation for User Story 1
 
 - [X] T018 [US1] Add loading to `src/questions.rs` (research.md "Questions file"): read the file, keep it as `Box<RawValue>`, parse it a second time into typed structs and check the shape (non-empty object; known `type`; non-null `instructions`; choice `criteria` an object with 1 to 255 entries; score `criteria` an array with 2 to 10 entries; noul `criteria` an object when present); errors carry the file name and the question name, e.g. ``questions.json: question `kind`: a choice needs criteria with 1 to 255 options``
-- [X] T019 [US1] Add the `map` subcommand to `src/cli.rs`: positional `questions_file` (`PathBuf`), then `files`, the shared flags flattened; long help per contracts/cli.md with the questions file example from quickstart.md in `after_help`
+- [X] T019 [US1] Add the `map` subcommand to `src/cli.rs`: the questions from `-q/--questions <JSON>` or `-f/--questions-file <FILE>` (a required group, exactly one; changed after implementation from a positional questions file, see research.md "CLI shape"), then `files`, the shared flags flattened; long help per contracts/cli.md with the questions file example from quickstart.md in `after_help`
 - [X] T020 [US1] Create `src/map.rs` with the `Command` implementation (point 1): its own serializable line structs `{ record, answers, truncated }` (`answers` written as the `RawValue`, `truncated` skipped when false) and `{ record, outcome, reason }`; `record` is the record's text (lossy for a line that is not text); every decision is written; result label `answered`; exit `Success` unless something failed; load the questions (T018) before `pipeline::run`, a load error exits 2 with `jevpipe: error: …` before any input is read
 - [X] T021 [US1] Declare `map` in `src/lib.rs` and dispatch the subcommand
 
@@ -119,7 +119,7 @@ never the record; `filter --json` is rejected.
 - [X] T026 [P] Update `CLAUDE.md` (planned shape: subcommands `filter` and `map`, no `serve`) and `specs/manual/idea-draft.md` (no `serve`; the step loop runs one `map` per step; the "Later" list: caching, budgets, `-v`, sorting, other providers, per-record questions, structured state, the agent skill and examples)
 - [X] T027 [P] Review `jevpipe map --help` against SC-008: an agent that knows `jq` can write a two-question triage pipeline from it alone; tighten help texts in `src/cli.rs`
 - [X] T028 Run every command in quickstart.md against the real service with `OPENROUTER_API_KEY` and note surprises in `specs/002-map-command/quickstart.md`
-- [ ] T029 Run `./check.ps1` (strict, `--locked`) and push the branch; CI passes on Linux, Windows and macOS (SC-007)
+- [X] T029 Run `./check.ps1` (strict, `--locked`) and push the branch; CI passes on Linux, Windows and macOS (SC-007)
 
 ---
 
@@ -145,7 +145,7 @@ never the record; `filter --json` is rejected.
 
 1. **Foundation first**: Phases 1–2 refactor the first milestone onto the shared engine; every `filter`
    test passing at the checkpoint shows the refactor kept its behaviour.
-2. **MVP**: US1. Stop and verify: `printf 'a\nb\n' | jevpipe map q.json` works against the real
+2. **MVP**: US1. Stop and verify: `printf 'a\nb\n' | jevpipe map -f q.json` works against the real
    service with three question types, all US1 tests pass.
 3. **Increment**: US2 (`--read-files` for `map`), then US3 (standard error and truncation).
 4. **Finish**: Polish, push, CI green on all three platforms.

@@ -28,7 +28,7 @@ EOF
   | jq -c 'select(.answers.kind.choice == "flaky") | .record | fromjson | .test'
 
 # several questions about each file in one call
-git ls-files | ./target/release/jevpipe map -f questions.json --read-files | jq -c '{record, answers}'
+git ls-files | ./target/release/jevpipe map -f triage.json --read-files | jq -c '{record, answers}'
 
 # selection and labels in one pass: put the yes/no question into the file, select with jq
 ./target/release/jevpipe map -f triage.json failures.jsonl | jq -c 'select(.answers.relevant.noul >= 0.8)'

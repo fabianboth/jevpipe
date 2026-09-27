@@ -56,7 +56,8 @@ threshold. The first milestone's kept/dropped outcomes and their JSON form are g
 
 ## Output lines
 
-`filter` stdout: the raw bytes of each kept record (unchanged).
+`filter` stdout: the raw bytes of each kept record (unchanged; a last line without a line terminator
+gets `\n`).
 
 `map` stdout, one per record, in input order:
 
