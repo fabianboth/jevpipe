@@ -5,6 +5,7 @@
 
 mod auth;
 mod config;
+mod docs;
 mod help;
 mod home;
 mod usage;
