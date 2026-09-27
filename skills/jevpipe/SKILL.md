@@ -157,7 +157,7 @@ TypeSafe's guidance ([confidence](https://docs.typesafe.ai/confidence.md)):
 
 Every record is a paid request, and the cost follows its size: about $0.01 per 1,000 short lines and
 $0.20 per 1,000 source files. If the user has set a spending cap (`jevpipe config get max-cost`), a
-run stops by itself once it reaches it.
+run stops sending requests once it reaches it.
 
 Narrow the input first by what is certain, such as file types, directories or leaving out vendored and
 generated files (`git ls-files '*.rs'`). That saves cost and keeps unrelated records out.
