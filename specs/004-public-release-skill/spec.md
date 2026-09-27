@@ -153,7 +153,7 @@ scanning with push protection is on and `main` requires a pull request with pass
 
 **Acceptance Scenarios**:
 
-1. **Given** the shared `.claude/settings.json`, **When** a session ends or asks for permission on any operating system, **Then** no notify hook runs from the repository; the maintainer's own notifications keep working from their user-level settings.
+1. **Given** the shared `.claude/settings.json`, **When** a session ends or asks for permission on any operating system, **Then** no notify hook runs from the repository; the maintainer's own notifications keep working from their own gitignored `.claude/settings.local.json`.
 2. **Given** the shared `.claude/settings.json`, **When** it is compared with before, **Then** its permissions (allow and deny) are unchanged.
 3. **Given** `.vscode/settings.json`, **When** the repository is opened in VS Code, **Then** the clippy check setting applies and no custom workbench colors do.
 4. **Given** the history of every branch and tag that will be public, **When** it is scanned for secrets, **Then** none is found.

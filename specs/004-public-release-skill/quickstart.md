@@ -11,8 +11,8 @@ read-only default token.
    METADATA shows the README as description, `Apache-2.0` and the repository URL;
    `uv tool install --no-index --find-links target/wheels jevpipe` in an isolated `UV_TOOL_DIR`
    gives a working `jevpipe --version`.
-3. Notify hooks: `~/.claude/settings.json` holds them next to the existing `SubagentStart` hook,
-   `~/.claude/scripts/notify.ps1` exists; a new session in this repository still notifies, and the
+3. Notify hooks: the gitignored `.claude/settings.local.json` holds them, `.claude/scripts/notify.ps1`
+   stays untracked (`.git/info/exclude`); a new session in this repository still notifies, and the
    repository's `.claude/settings.json` has no `hooks`.
 4. Environments exist: `gh api repos/fabianboth/jevpipe/environments --jq '.environments[].name'`
    lists `pypi` and `testpypi`; `pypi` has the maintainer as required reviewer; both allow only

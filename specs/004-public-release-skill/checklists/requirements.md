@@ -48,9 +48,9 @@
 - Decided with the user (2026-09-27): releases run on version tags; installs are checked by CI on all
   six platforms, not by hand (FR-010a); the skill is written with the `skill-creator` skill (FR-017a).
 - Proposed, awaiting the user: `check.ps1` stays PowerShell 7, which runs on Linux and macOS as well.
-- Decided with the user (2026-09-27): the notify hooks and script move to the user-level
-  `~/.claude/settings.json` and `~/.claude/scripts/`, merged into the existing `hooks` block there
-  without touching the hooks already present.
+- Decided with the user (2026-09-27, revised during implementation): the notify hooks move to the
+  project-local, gitignored `.claude/settings.local.json`; the script stays at
+  `.claude/scripts/notify.ps1`, untracked through `.git/info/exclude`.
 - Revised again with the user (2026-09-27): PyPI is the only channel for 0.1.0; install scripts
   (cargo-dist) are deferred, so there is one build tool (maturin) and one workflow, `release.yml`,
   with TestPyPI as staging, an approval gate before PyPI and the GitHub Release created last. This

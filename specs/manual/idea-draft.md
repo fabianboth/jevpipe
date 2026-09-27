@@ -57,14 +57,15 @@ Records are lines (plain text or JSONL, sent as text) or file paths. `filter` pr
    as a second channel. The skill `skills/jevpipe/SKILL.md` is written from
    what is known so far and installs separately through `npx skills add` or `gh skill install`; it
    carries no binary and no install steps, only a pointer to the README when `jevpipe` is missing.
-   The README covers installation and the API key. A release candidate is tried after going public.
+   The README covers installation and the API key. Each wheel is checked once, on its own platform,
+   before any upload; no release candidates, the approval before PyPI is the gate.
 2. **005 Calibration study.** Labeled gold-standard sets per use case; precision and recall per
    threshold, calibration, run time, throughput and cost per 1,000 records, against grep and a
    general LLM as baselines; trigger and task evals for the skill (developer tooling in the repo,
    not shipped, run by hand). Results set the defaults, revise the skill, and go into the README
    with date and model version. The example pipelines (deliverable 3) come out of these use cases.
-3. The repo goes public at the end of 004, with a README, a license and a first release; 005 adds
-   the numbers behind "calibrated".
+3. The repo went public during 004 and gets a README, a license and the first release (0.1.0) with
+   it; 005 adds the numbers behind "calibrated".
 
 ## Later
 

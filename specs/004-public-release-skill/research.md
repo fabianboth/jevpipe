@@ -162,8 +162,10 @@ settings and runners, and the maintainer's existing PyPI projects (`reviewloop`,
 ## R10. Keeping docs and CLI in step
 
 - **Decision**: an integration test (`tests/cli/docs.rs`) with three small checks:
-  1. every `--flag` word in `README.md` and `skills/jevpipe/SKILL.md` appears in the combined
-     `--help` output of `filter`, `map`, `config` and `auth` from the real binary;
+  1. every `--flag` word in `README.md` and `skills/*/SKILL.md` appears in the combined `--help`
+     output of the real binary, collected from the top level down through every `Commands:` list.
+     Only flags in a pipe segment that runs `jevpipe`, or in a code span that starts with `--`, count,
+     so other tools' flags (`rg --files`, `git log --format=%s`) are left alone;
   2. the skill's frontmatter `name` equals its folder name;
   3. the README has no relative Markdown links or images (R3).
 - **Rationale**: offline, with the existing `assert_cmd` harness; catches a renamed or removed flag

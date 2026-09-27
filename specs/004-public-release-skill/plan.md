@@ -83,7 +83,7 @@ skills/jevpipe/SKILL.md            # NEW: contracts/skill.md
 ├── ci.yml                         # CHANGED: ci-success aggregating job
 └── release.yml                    # NEW: research R4, R5
 .claude/settings.json              # CHANGED: notify hooks removed; permissions unchanged
-.claude/scripts/notify.ps1         # REMOVED (moves to ~/.claude/scripts/)
+.claude/scripts/notify.ps1         # UNTRACKED: stays locally, excluded via .git/info/exclude
 .vscode/settings.json              # CHANGED: only rust-analyzer.check.command
 .coderabbit.yaml                   # CHANGED: path filters gain README.md, pyproject.toml, LICENSE
 CLAUDE.md                          # CHANGED: releases (version tags, release.yml, pyproject.toml; README doubles as the PyPI description)
@@ -93,8 +93,7 @@ tests/cli/
 ├── main.rs                        # CHANGED: mod docs
 └── docs.rs                        # NEW: flags exist, skill name matches folder, no relative README links
 
-~/.claude/settings.json            # OUTSIDE THE REPO: notify hooks merged into the existing hooks block
-~/.claude/scripts/notify.ps1       # OUTSIDE THE REPO: moved here
+.claude/settings.local.json        # NOT COMMITTED (gitignored): the maintainer's notify hooks
 ```
 
 GitHub settings (via `gh api`): environments `testpypi` and `pypi` (research R4), the ruleset on
