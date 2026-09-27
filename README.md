@@ -146,9 +146,8 @@ records run at the same time, so hundreds take seconds. Measured runs:
 | Small source files (jevpipe) | 31 | 1.4 s | $0.0013 | $0.043 |
 | Source files (ripgrep) | 88 | 2.2 s | $0.016 | $0.18 |
 
-`--max-cost 0.50` stops sending requests once the run has spent $0.50; requests already under way
-still finish, so the total can end a little above. A run stopped this way exits with status 3 and
-names the line to resume from.
+`--max-cost 0.50` stops sending requests once the run has spent $0.50; it then exits with status 3
+and names the line to resume from.
 To cap every run by default, run `jevpipe config set max-cost 0.50` once; `jevpipe config --help`
 lists the other defaults you can set.
 
