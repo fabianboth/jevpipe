@@ -2,15 +2,16 @@ use std::fmt;
 use std::process::ExitCode;
 use std::time::Instant;
 
-use crate::decision::{Decision, Outcome};
+use crate::decision::Outcome;
 
 pub(crate) struct Summary {
+    results_label: &'static str,
     records: usize,
-    kept: usize,
+    results: usize,
     skipped: usize,
     failed: usize,
+    truncated: usize,
     cost: Option<f64>,
-    model: Option<String>,
     started: Instant,
     closed: bool,
 }
@@ -22,49 +23,50 @@ pub(crate) enum Exit {
 }
 
 impl Summary {
-    pub(crate) fn start() -> Self {
+    pub(crate) fn start(results_label: &'static str) -> Self {
         Self {
+            results_label,
             records: 0,
-            kept: 0,
+            results: 0,
             skipped: 0,
             failed: 0,
+            truncated: 0,
             cost: None,
-            model: None,
             started: Instant::now(),
             closed: false,
         }
     }
 
-    pub(crate) fn add(&mut self, decision: &Decision) {
+    pub(crate) fn add(&mut self, outcome: &Outcome) {
         self.records += 1;
-        match &decision.outcome {
-            Outcome::Kept(judgment) => {
-                self.kept += 1;
-                self.answered(judgment.cost, &judgment.model);
+        match outcome {
+            Outcome::Answered { reply, truncated } => {
+                if *truncated {
+                    self.truncated += 1;
+                }
+                if let Some(cost) = reply.cost {
+                    self.cost = Some(self.cost.unwrap_or_default() + cost);
+                }
             }
-            Outcome::Dropped(judgment) => self.answered(judgment.cost, &judgment.model),
-            Outcome::Skipped { .. } => self.skipped += 1,
-            Outcome::Failed { .. } => self.failed += 1,
+            Outcome::Skipped(_) => self.skipped += 1,
+            Outcome::Failed(_) => self.failed += 1,
         }
+    }
+
+    pub(crate) fn add_result(&mut self) {
+        self.results += 1;
     }
 
     pub(crate) fn close(&mut self) {
         self.closed = true;
     }
 
-    pub(crate) fn exit(&self) -> Exit {
-        match (self.closed, self.failed, self.kept) {
+    pub(crate) fn exit(&self, without_results: Exit) -> Exit {
+        match (self.closed, self.failed, self.results) {
             (true, _, _) | (false, 0, 1..) => Exit::Success,
             (false, 1.., _) => Exit::Error,
-            (false, 0, 0) => Exit::NothingKept,
+            (false, 0, 0) => without_results,
         }
-    }
-
-    fn answered(&mut self, cost: Option<f64>, model: &str) {
-        if let Some(cost) = cost {
-            self.cost = Some(self.cost.unwrap_or_default() + cost);
-        }
-        self.model = Some(model.to_owned());
     }
 }
 
@@ -72,16 +74,16 @@ impl fmt::Display for Summary {
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(
             formatter,
-            "{} records, {} kept, {} skipped, {} failed",
-            self.records, self.kept, self.skipped, self.failed
+            "{} records, {} {}, {} skipped, {} failed",
+            self.records, self.results, self.results_label, self.skipped, self.failed
         )?;
+        if self.truncated > 0 {
+            write!(formatter, ", {} truncated", self.truncated)?;
+        }
         if let Some(cost) = self.cost {
             write!(formatter, ", ${}", dollars(cost))?;
         }
         write!(formatter, ", {:.1}s", self.started.elapsed().as_secs_f64())?;
-        if let Some(model) = &self.model {
-            write!(formatter, ", {model}")?;
-        }
         Ok(())
     }
 }

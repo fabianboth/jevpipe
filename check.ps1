@@ -1,3 +1,4 @@
+#Requires -Version 7.3
 [CmdletBinding()]
 param(
     [switch]$Fix,

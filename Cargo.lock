@@ -838,6 +838,7 @@ dependencies = [
  "assert_cmd",
  "backon",
  "clap",
+ "encoding_rs",
  "futures",
  "predicates",
  "reqwest",
