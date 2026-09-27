@@ -9,7 +9,8 @@ the agent's context. The draft idea lives in `specs/manual/idea-draft.md`.
 
 Shape: a single Rust binary with the subcommands `filter` and `map` (plus `config` for the user's
 defaults and `auth` for the stored API key), and an agent skill (`skills/jevpipe/SKILL.md`) that
-teaches coding agents when to reach for it.
+teaches coding agents when to reach for it. Releases ship as binary-only wheels on PyPI, installed
+with `uv tool install jevpipe`.
 
 ## Project Rules
 - Decide, don't act: no planning, no text generation, no executing actions. The calling script owns that.
@@ -56,3 +57,10 @@ pipelines.
 - `-Filter <text>` narrows the test stage to tests whose name contains the text, to iterate fast
 - `-Stage <names>` runs only those stages (`-Stage test`, `-Stage format,lint`).
 - CI (`.github/workflows/ci.yml`) runs the same script and is the authority.
+
+## Releases
+- A tag `vMAJOR.MINOR.PATCH` equal to the `Cargo.toml` version runs `.github/workflows/release.yml`:
+  maturin builds six wheels, each is installed and run on its own platform, then TestPyPI, the
+  maintainer's approval (environment `pypi`), PyPI with attestations, and a GitHub Release.
+- `pyproject.toml` holds the PyPI metadata; the version comes from `Cargo.toml`.
+- `README.md` is also the PyPI description, so every link and image in it is absolute.
