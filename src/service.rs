@@ -7,7 +7,7 @@ use reqwest::{Client, Response, StatusCode};
 use serde::{Deserialize, Serialize};
 use serde_json::value::RawValue;
 
-use crate::answers::Answers;
+use crate::answers::{Answers, UnexpectedAnswer};
 use crate::questions::Questions;
 
 const API_KEY_VARIABLE: &str = "OPENROUTER_API_KEY";
@@ -61,13 +61,9 @@ pub(crate) struct Reply {
     pub(crate) cost: Option<f64>,
 }
 
-#[derive(Debug, thiserror::Error)]
 pub(crate) enum ServiceError {
-    #[error("service unavailable")]
     Transient { retry_after: Option<Duration> },
-    #[error("too large")]
     TooLarge,
-    #[error("{0}")]
     Rejected(String),
 }
 
@@ -155,12 +151,17 @@ impl Reply {
         questions: &Questions,
     ) -> Result<Self, ServiceError> {
         let body = response.bytes().await?;
-        let body: ReplyBody = serde_json::from_slice(&body)
-            .map_err(|error| ServiceError::Rejected(format!("unexpected answer: {error}")))?;
+        let body: ReplyBody = serde_json::from_slice(&body).map_err(UnexpectedAnswer::from)?;
         Ok(Self {
-            answers: Answers::check(body.answers, questions).map_err(ServiceError::Rejected)?,
+            answers: Answers::check(body.answers, questions)?,
             cost: body.usage.and_then(|usage| usage.cost),
         })
+    }
+}
+
+impl From<UnexpectedAnswer> for ServiceError {
+    fn from(error: UnexpectedAnswer) -> Self {
+        Self::Rejected(error.to_string())
     }
 }
 

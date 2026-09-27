@@ -88,7 +88,10 @@ async fn decide_all<C: Command>(
     while let Some(decided) = decided.next().await {
         match decided? {
             Decided::Record(decision) => {
-                summary.add(&decision.outcome, command.is_result(&decision.outcome));
+                summary.add(&decision.outcome);
+                if command.is_result(&decision.outcome) {
+                    summary.add_result();
+                }
                 if let Outcome::Failed(reason) = &decision.outcome {
                     report(format_args!("line {}: {reason}", decision.record.line));
                 }
@@ -105,7 +108,7 @@ async fn decide_all<C: Command>(
             }
             Decided::Input(input) => {
                 report(format_args!("{}: {}", input.name, input.failure));
-                summary.add(&Outcome::Failed(input.failure), false);
+                summary.add(&Outcome::Failed(input.failure));
             }
         }
     }
@@ -133,9 +136,9 @@ impl<'a> Judge<'a> {
                 let outcome = self.judge(&record).await?;
                 Ok(Decided::Record(Decision { record, outcome }))
             }
-            Input::NotText(record) => Ok(Decided::Record(Decision {
+            Input::Invalid(record, failure) => Ok(Decided::Record(Decision {
                 record,
-                outcome: Outcome::Failed(Failure::NotText),
+                outcome: Outcome::Failed(failure),
             })),
             Input::Failed(input) => Ok(Decided::Input(input)),
         }

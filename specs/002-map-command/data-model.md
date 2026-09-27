@@ -28,7 +28,7 @@ What the reader hands the pipeline, in input order. Exactly one of:
 | Variant | Carries | Becomes |
 |---|---|---|
 | record | line number, raw bytes, text | a request, or a skipped/failed decision |
-| failed record | line number, raw bytes, text, reason (`not text`) | a failed decision |
+| invalid record | line number, text (lossy; the first 100,000 characters of a longer line), reason (`not text`, `too large`) | a failed decision |
 | failed input *(new)* | input name, reason (`not found`, `UTF-16, convert it to UTF-8`, …) | a stderr line and a failed count; no output line |
 
 - **line number** *(replaces position)*: 1-based, counts every line read (blank ones too), continuing

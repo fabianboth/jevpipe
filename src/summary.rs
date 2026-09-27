@@ -37,11 +37,8 @@ impl Summary {
         }
     }
 
-    pub(crate) fn add(&mut self, outcome: &Outcome, is_result: bool) {
+    pub(crate) fn add(&mut self, outcome: &Outcome) {
         self.records += 1;
-        if is_result {
-            self.results += 1;
-        }
         match outcome {
             Outcome::Answered { reply, truncated } => {
                 if *truncated {
@@ -54,6 +51,10 @@ impl Summary {
             Outcome::Skipped(_) => self.skipped += 1,
             Outcome::Failed(_) => self.failed += 1,
         }
+    }
+
+    pub(crate) fn add_result(&mut self) {
+        self.results += 1;
     }
 
     pub(crate) fn close(&mut self) {

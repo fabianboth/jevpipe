@@ -1,5 +1,8 @@
 use encoding_rs::{DecoderResult, Encoding, UTF_8};
 
+pub(crate) const MAX_CHARACTERS: usize = 100_000;
+pub(crate) const MAX_BYTES: u64 = 400_000;
+
 pub(crate) fn is_utf16(start: &[u8]) -> bool {
     Encoding::for_bom(start).is_some_and(|(encoding, _)| encoding != UTF_8)
 }
@@ -14,5 +17,15 @@ pub(crate) fn decode(bytes: &[u8], partial: bool) -> Option<String> {
         DecoderResult::InputEmpty | DecoderResult::OutputFull | DecoderResult::Malformed(..) => {
             None
         }
+    }
+}
+
+pub(crate) fn shorten(text: &mut String) -> bool {
+    match text.char_indices().nth(MAX_CHARACTERS) {
+        Some((end, _)) => {
+            text.truncate(end);
+            true
+        }
+        None => false,
     }
 }

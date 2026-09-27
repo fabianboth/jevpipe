@@ -103,12 +103,13 @@ input with a failing record and check standard error names the line number but n
 
 ### Edge Cases
 
-- **Neither or both of `-q` and `-f` given; questions file missing or unreadable; questions not JSON or not a non-empty object of questions**: usage error with a message naming the problem (and the question, where one is at fault), before any input is read or request sent, exit status 2.
+- **Neither or both of `-q` and `-f` given; questions file missing or unreadable; questions not JSON or not a non-empty object of questions; a question name used twice**: usage error with a message naming the problem (and the question, where one is at fault), before any input is read or request sent, exit status 2.
 - **A question with an unknown type, without instructions, or without the criteria its type needs** (options for a choice, levels for a score), **or outside the documented limits** (more than 255 options, fewer than 2 or more than 10 levels): usage error as above. Anything else the service rejects stops the run at the first request with the service's message, as any run-level error does.
 - **Question names** are free: whatever names the file uses are sent and come back in `answers`. The output's own fields (`record`, `answers`, `outcome`, `reason`, `truncated`) never collide with them because the answers are nested.
 - **A response that lacks an answer for one of the questions, or carries one of the wrong type**: the run stops with an "unexpected answer" error and exit status 2, as `filter` does for an answer in an unexpected shape: the service is not behaving as documented, and every further record would meet the same problem.
 - **Blank lines** are not records: nothing is sent and nothing is printed for them, but they count for line numbers.
 - **Empty input** in `map`: no request, summary with zero records, exit status 0. (`filter` keeps exit status 1 for "nothing kept".)
+- **A line over 100,000 characters** (the limit file content is cut to): it fails as "too large" without a request, in both commands; jevpipe reads at most 400,000 bytes of it and skips the rest, so memory stays bounded. Lines are not cut and sent like file content, because the line is the record itself. In `map`, its output line carries the line's first 100,000 characters.
 - **A text line that is not valid UTF-8** in `map`: it fails; its output line carries the line with invalid bytes replaced, and standard error names its line number.
 - **An input file named on the command line cannot be opened or is UTF-16**: reported on standard error by its file name, counted as failed, exit status 2; it contributes no lines, so it has no output line and line numbering continues with the next file. This applies to both commands.
 - **Skipped records** in `map` get an output line but do not affect the exit status, as in `filter`.
@@ -135,7 +136,7 @@ input with a failing record and check standard error names the line number but n
 
 **Records**
 
-- **FR-008**: Each non-blank line MUST be one record, sent to the service as text; JSONL lines are text like any other line. With `--read-files`, the line is a file path and the file's path and content are judged, with the first milestone's skip, fail and truncation rules.
+- **FR-008**: Each non-blank line MUST be one record, sent to the service as text; JSONL lines are text like any other line. A line over 100,000 characters MUST fail as "too large" without a request. With `--read-files`, the line is a file path and the file's path and content are judged, with the first milestone's skip, fail and truncation rules.
 - **FR-009**: Line numbers MUST count every input line, including blank lines, over all inputs in order, as if they were joined into one stream.
 
 **`map` output**

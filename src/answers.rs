@@ -13,6 +13,22 @@ pub(crate) struct Answers {
     parsed: HashMap<String, Answer>,
 }
 
+#[derive(Debug, thiserror::Error)]
+pub(crate) enum UnexpectedAnswer {
+    #[error("unexpected answer: {0}")]
+    Shape(#[from] serde_json::Error),
+    #[error("unexpected answer to `{0}`: missing")]
+    Missing(String),
+    #[error("unexpected answer to `{name}`: a {answered}, asked for a {asked}")]
+    Kind {
+        name: String,
+        answered: Kind,
+        asked: Kind,
+    },
+    #[error("unexpected answer to `{name}`: probability {noul} is not between 0 and 1")]
+    Probability { name: String, noul: f64 },
+}
+
 #[derive(Deserialize)]
 #[serde(tag = "type", rename_all = "lowercase")]
 enum Answer {
@@ -22,16 +38,16 @@ enum Answer {
 }
 
 impl Answers {
-    pub(crate) fn check(raw: Box<RawValue>, questions: &Questions) -> Result<Self, String> {
-        let parsed: HashMap<String, Answer> = serde_json::from_str(raw.get())
-            .map_err(|error| format!("unexpected answer: {error}"))?;
-        for (name, kind) in questions.asked() {
-            let answer = parsed
+    pub(crate) fn check(
+        raw: Box<RawValue>,
+        questions: &Questions,
+    ) -> Result<Self, UnexpectedAnswer> {
+        let parsed: HashMap<String, Answer> = serde_json::from_str(raw.get())?;
+        for (name, asked) in questions.asked() {
+            parsed
                 .get(name)
-                .ok_or_else(|| format!("unexpected answer to `{name}`: missing"))?;
-            answer
-                .check(kind)
-                .map_err(|problem| format!("unexpected answer to `{name}`: {problem}"))?;
+                .ok_or_else(|| UnexpectedAnswer::Missing(name.to_owned()))?
+                .check(name, asked)?;
         }
         Ok(Self { raw, parsed })
     }
@@ -49,17 +65,22 @@ impl Answers {
 }
 
 impl Answer {
-    fn check(&self, asked: Kind) -> Result<(), String> {
+    fn check(&self, name: &str, asked: Kind) -> Result<(), UnexpectedAnswer> {
         match (self, asked) {
             (Self::Noul { noul }, Kind::Noul) if PROBABILITY.contains(noul) => Ok(()),
-            (Self::Noul { noul }, Kind::Noul) => {
-                Err(format!("probability {noul} is not between 0 and 1"))
-            }
+            (Self::Noul { noul }, Kind::Noul) => Err(UnexpectedAnswer::Probability {
+                name: name.to_owned(),
+                noul: *noul,
+            }),
             (Self::Choice {}, Kind::Choice) | (Self::Score {}, Kind::Score) => Ok(()),
             (
                 Self::Noul { .. } | Self::Choice {} | Self::Score {},
                 Kind::Noul | Kind::Choice | Kind::Score,
-            ) => Err(format!("a {}, asked for a {asked}", self.kind())),
+            ) => Err(UnexpectedAnswer::Kind {
+                name: name.to_owned(),
+                answered: self.kind(),
+                asked,
+            }),
         }
     }
 

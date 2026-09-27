@@ -193,3 +193,38 @@ async fn an_answer_of_another_type_than_asked_stops_the_run() {
             "jevpipe: error: service error: unexpected answer to `kind`: a noul, asked for a choice",
         ));
 }
+
+#[tokio::test]
+async fn a_line_over_100000_characters_fails_without_a_request() {
+    let stand_in = StandIn::start().await;
+    let at_limit = "a".repeat(100_000);
+    let over_limit = "b".repeat(100_001);
+    let huge = "c".repeat(1_000_000);
+
+    let output = stand_in
+        .map()
+        .write_stdin(format!("{at_limit}\n{over_limit}\n{huge}\nafter\n"))
+        .assert()
+        .code(2)
+        .stderr(contains("jevpipe: line 2: too large\n"))
+        .stderr(contains("jevpipe: line 3: too large\n"))
+        .stderr(contains("4 records, 2 answered, 0 skipped, 2 failed"));
+
+    let lines = json_lines(output.get_output());
+    assert_eq!(lines[0]["record"], at_limit);
+    assert!(lines[0]["answers"].is_object());
+    for (line, cut) in [(&lines[1], &over_limit), (&lines[2], &huge)] {
+        assert_eq!(line["outcome"], "failed");
+        assert_eq!(line["reason"], "too large");
+        assert_eq!(line["record"], cut[..100_000]);
+    }
+    assert_eq!(lines[3]["record"], "after");
+    let mut sent: Vec<_> = stand_in
+        .requests()
+        .await
+        .into_iter()
+        .map(|request| request["state"].as_str().unwrap().len())
+        .collect();
+    sent.sort_unstable();
+    assert_eq!(sent, [5, 100_000]);
+}

@@ -2,7 +2,7 @@ use std::io::{self, Write};
 
 use crate::decision::{Decision, Outcome};
 use crate::pipeline::Command;
-use crate::questions::Questions;
+use crate::questions::{Questions, QuestionsError};
 use crate::summary::Exit;
 
 const QUESTION: &str = "match";
@@ -12,10 +12,7 @@ pub(crate) struct Filter {
     threshold: f64,
 }
 
-pub(crate) fn question(value: &str) -> Result<Questions, String> {
-    if value.trim().is_empty() {
-        return Err("the question is empty".to_owned());
-    }
+pub(crate) fn question(value: &str) -> Result<Questions, QuestionsError> {
     Questions::yes_no(QUESTION, value)
 }
 

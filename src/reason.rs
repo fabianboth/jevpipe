@@ -8,6 +8,7 @@ pub(crate) enum Skip {
     Binary,
 }
 
+#[derive(Debug)]
 pub(crate) enum Failure {
     Unreadable(io::ErrorKind),
     NotText,

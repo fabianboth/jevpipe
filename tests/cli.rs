@@ -78,6 +78,10 @@ fn map_rejects_a_malformed_questions_file_before_reading_input() {
         ("[]", "must be an object of named questions"),
         ("{}", "has no questions"),
         (
+            r#"{"q": {"type": "noul", "instructions": "Is it?"}, "q": {"type": "noul", "instructions": "Is it?"}}"#,
+            "question `q` appears twice",
+        ),
+        (
             r#"{"q": "Is it?"}"#,
             "question `q`: invalid type: string \"Is it?\", expected an object with type and instructions",
         ),

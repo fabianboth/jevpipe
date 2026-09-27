@@ -5,10 +5,7 @@ use tokio::fs::{self, File};
 use tokio::io::AsyncReadExt;
 
 use crate::reason::{Failure, Skip};
-use crate::text;
-
-const MAX_CHARACTERS: usize = 100_000;
-const MAX_BYTES: u64 = 400_000;
+use crate::text::{self, MAX_BYTES};
 
 pub(crate) struct Content {
     pub(crate) text: String,
@@ -31,7 +28,7 @@ pub(crate) async fn read(path: &Path) -> Result<Content, Unjudged> {
     if text.is_empty() {
         return Err(Unjudged::Skipped(Skip::Empty));
     }
-    let shortened = shorten(&mut text);
+    let shortened = text::shorten(&mut text);
     Ok(Content {
         text,
         truncated: partial || shortened,
@@ -46,16 +43,6 @@ async fn read_prefix(path: &Path) -> io::Result<Vec<u8>> {
         .read_to_end(&mut bytes)
         .await?;
     Ok(bytes)
-}
-
-fn shorten(text: &mut String) -> bool {
-    match text.char_indices().nth(MAX_CHARACTERS) {
-        Some((end, _)) => {
-            text.truncate(end);
-            true
-        }
-        None => false,
-    }
 }
 
 impl From<io::Error> for Unjudged {

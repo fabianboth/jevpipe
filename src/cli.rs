@@ -46,11 +46,11 @@ Examples:
 #[command(version, bin_name = "jevpipe")]
 pub struct Cli {
     #[command(subcommand)]
-    pub(crate) command: Command,
+    pub(crate) command: Commands,
 }
 
 #[derive(Subcommand)]
-pub(crate) enum Command {
+pub(crate) enum Commands {
     /// Keep the records for which the answer to a yes/no question is yes
     ///
     /// Like grep, but the match is a question: prints the lines answered yes, unchanged and in

@@ -1,5 +1,5 @@
 use std::fs::File;
-use std::io::{self, BufRead, BufReader};
+use std::io::{self, BufRead, BufReader, Read};
 use std::ops::ControlFlow;
 use std::path::{Path, PathBuf};
 use std::thread;
@@ -8,7 +8,7 @@ use futures::Stream;
 use tokio::sync::mpsc;
 
 use crate::reason::Failure;
-use crate::text;
+use crate::text::{self, MAX_BYTES};
 
 const BUFFERED_INPUTS: usize = 256;
 const STANDARD_INPUT: &str = "(standard input)";
@@ -16,7 +16,7 @@ const STANDARD_INPUT_ARGUMENT: &str = "-";
 
 pub(crate) enum Input {
     Record(Record),
-    NotText(Record),
+    Invalid(Record, Failure),
     Failed(FailedInput),
 }
 
@@ -81,15 +81,23 @@ impl Reader {
         let mut first_line = true;
         loop {
             let mut raw = Vec::new();
-            match reader.read_until(b'\n', &mut raw) {
+            match reader
+                .by_ref()
+                .take(MAX_BYTES + 1)
+                .read_until(b'\n', &mut raw)
+            {
                 Ok(0) => return ControlFlow::Continue(()),
                 Ok(_) if first_line && text::is_utf16(&raw) => {
                     return self.send_failed(name, Failure::Utf16);
                 }
-                Ok(_) => {
+                Ok(read) => {
+                    let cut = read as u64 > MAX_BYTES && !raw.ends_with(b"\n");
+                    if cut && let Err(error) = reader.skip_until(b'\n') {
+                        return self.send_failed(name, error.into());
+                    }
                     self.line += 1;
                     if !raw.trim_ascii().is_empty() {
-                        self.send(record(self.line, raw))?;
+                        self.send(record(self.line, raw, cut))?;
                     }
                 }
                 Err(error) => return self.send_failed(name, error.into()),
@@ -113,13 +121,24 @@ impl Reader {
     }
 }
 
-fn record(line: usize, mut raw: Vec<u8>) -> Input {
+fn record(line: usize, mut raw: Vec<u8>, cut: bool) -> Input {
     let ending = Ending::strip(&mut raw);
-    let text = String::from_utf8(raw)
-        .map_err(|error| String::from_utf8_lossy(error.as_bytes()).into_owned());
-    match text {
-        Ok(text) if !text.contains('\0') => Input::Record(Record { line, text, ending }),
-        Ok(text) | Err(text) => Input::NotText(Record { line, text, ending }),
+    let (mut text, is_text) = match String::from_utf8(raw) {
+        Ok(text) => {
+            let is_text = !text.contains('\0');
+            (text, is_text)
+        }
+        Err(error) => (
+            String::from_utf8_lossy(error.as_bytes()).into_owned(),
+            false,
+        ),
+    };
+    let too_large = text::shorten(&mut text) || cut;
+    let record = Record { line, text, ending };
+    match (too_large, is_text) {
+        (true, _) => Input::Invalid(record, Failure::TooLarge),
+        (false, true) => Input::Record(record),
+        (false, false) => Input::Invalid(record, Failure::NotText),
     }
 }
 

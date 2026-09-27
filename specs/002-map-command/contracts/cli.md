@@ -10,7 +10,8 @@ jevpipe map [OPTIONS] <--questions <JSON>|--questions-file <FILE>> [FILES]...
 ```
 
 Records come from each `FILE` in order, or from standard input when no `FILE` is given or a `FILE`
-is `-`. Each non-blank line is one record, sent as text (JSONL lines too).
+is `-`. Each non-blank line is one record, sent as text (JSONL lines too). A line over 100,000
+characters fails as `too large` without a request.
 
 ## Options
 
