@@ -34,7 +34,7 @@ pipelines.
 - Exhaustive `match`: list the variants (`A | B => Err(...)`), never `_` on an enum, so a new variant fails to compile until every `match` handles it; for a foreign `#[non_exhaustive]` enum use `==` or `matches!`
 - No `unwrap`, `expect` or `panic!` in product code: return an error with context
 - Private by default; `pub` only where another crate needs it (the binary or the integration tests)
-- Tests use the real product (the real binary against a local stub of the API, never a code-built copy) and assert behaviour, not authored values
+- Tests use the real product (the real binary against local stand-ins, never a code-built copy) and assert behaviour, not authored values; only what the binary cannot be pointed away from (the OS keychain) is tested in-process against a stand-in
 
 ## Way of working
 - Your knowledge about Rust crates, the TypeSafe API, Jev and OpenRouter is potentially incomplete or outdated. Research in the web (and don't fall for old resources)
