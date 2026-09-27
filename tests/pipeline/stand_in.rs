@@ -7,6 +7,8 @@ use serde_json::{Map, Value, json};
 use wiremock::matchers::{method, path};
 use wiremock::{Mock, MockServer, Request, Respond, ResponseTemplate};
 
+use crate::fixture::QUESTIONS;
+
 pub(crate) struct StandIn {
     server: MockServer,
 }
@@ -43,6 +45,18 @@ impl StandIn {
 
     pub(crate) fn jevpipe(&self) -> assert_cmd::Command {
         assert_cmd::Command::from_std(self.command())
+    }
+
+    pub(crate) fn filter(&self) -> assert_cmd::Command {
+        let mut command = self.jevpipe();
+        command.args(["filter", "Is it?"]);
+        command
+    }
+
+    pub(crate) fn map(&self) -> assert_cmd::Command {
+        let mut command = self.jevpipe();
+        command.args(["map", "-q", QUESTIONS]);
+        command
     }
 }
 
@@ -83,6 +97,7 @@ struct Markers {
     status: Option<u16>,
     too_large: bool,
     malformed: bool,
+    wrong_type: bool,
     slow: Option<u64>,
 }
 
@@ -103,6 +118,7 @@ impl Markers {
                 Some(("slow", value)) => markers.slow = Some(value.parse().unwrap()),
                 None if word == "toolarge" => markers.too_large = true,
                 None if word == "malformed" => markers.malformed = true,
+                None if word == "wrongtype" => markers.wrong_type = true,
                 _ => {}
             }
         }
@@ -150,8 +166,12 @@ impl Markers {
 
     fn answer(&self, question: &Value) -> Value {
         match question["type"].as_str() {
-            Some("choice") => self.choice(question["criteria"].as_object().unwrap()),
-            Some("score") => self.score(question["criteria"].as_array().unwrap()),
+            Some("choice") if !self.wrong_type => {
+                self.choice(question["criteria"].as_object().unwrap())
+            }
+            Some("score") if !self.wrong_type => {
+                self.score(question["criteria"].as_array().unwrap())
+            }
             Some(_) | None => json!({ "type": "noul", "noul": self.probability.unwrap_or(0.1) }),
         }
     }

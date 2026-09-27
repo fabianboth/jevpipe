@@ -15,9 +15,9 @@ async fn prints_the_paths_of_matching_files_in_input_order() {
     ]);
 
     stand_in
-        .jevpipe()
+        .filter()
         .current_dir(dir.path())
-        .args(["filter", "Is it?", "--read-files"])
+        .args(["--read-files"])
         .write_stdin("a.rs\nb.rs\r\nc.rs\n")
         .assert()
         .success()
@@ -36,9 +36,9 @@ async fn a_utf8_byte_order_mark_is_not_sent() {
     let dir = files(&[("bom.rs", b"\xef\xbb\xbffn a() {} p=0.9")]);
 
     stand_in
-        .jevpipe()
+        .filter()
         .current_dir(dir.path())
-        .args(["filter", "Is it?", "--read-files"])
+        .args(["--read-files"])
         .write_stdin("bom.rs\n")
         .assert()
         .success();
@@ -59,9 +59,9 @@ async fn binary_and_non_utf8_files_are_skipped_without_a_request() {
     ]);
 
     stand_in
-        .jevpipe()
+        .filter()
         .current_dir(dir.path())
-        .args(["filter", "Is it?", "--read-files"])
+        .args(["--read-files"])
         .write_stdin("text.rs\nimage.png\nlatin1.txt\n")
         .assert()
         .code(0)
@@ -86,9 +86,9 @@ async fn utf16_files_are_decoded_and_judged() {
     let dir = files(&[("le.txt", &little_endian), ("be.txt", &big_endian)]);
 
     stand_in
-        .jevpipe()
+        .filter()
         .current_dir(dir.path())
-        .args(["filter", "Is it?", "--read-files"])
+        .args(["--read-files"])
         .write_stdin("le.txt\nbe.txt\n")
         .assert()
         .success()
@@ -111,9 +111,9 @@ async fn broken_utf16_files_are_skipped_as_binary() {
     ]);
 
     stand_in
-        .jevpipe()
+        .filter()
         .current_dir(dir.path())
-        .args(["filter", "Is it?", "--read-files"])
+        .args(["--read-files"])
         .write_stdin("odd.txt\nzero.txt\n")
         .assert()
         .code(1)
@@ -133,9 +133,9 @@ async fn empty_files_and_directories_are_skipped() {
     fs::create_dir(dir.path().join("src")).unwrap();
 
     stand_in
-        .jevpipe()
+        .filter()
         .current_dir(dir.path())
-        .args(["filter", "Is it?", "--read-files"])
+        .args(["--read-files"])
         .write_stdin("empty.txt\nutf8-bom-only.txt\nutf16-bom-only.txt\nsrc\n")
         .assert()
         .code(1)
@@ -151,9 +151,9 @@ async fn a_missing_path_is_reported_and_fails() {
     let dir = files(&[("a.rs", b"fn a() {} p=0.9")]);
 
     stand_in
-        .jevpipe()
+        .filter()
         .current_dir(dir.path())
-        .args(["filter", "Is it?", "--read-files"])
+        .args(["--read-files"])
         .write_stdin("a.rs\ngone.rs\n")
         .assert()
         .code(2)
@@ -163,35 +163,14 @@ async fn a_missing_path_is_reported_and_fails() {
 }
 
 #[tokio::test]
-async fn a_large_file_is_cut_to_fit_and_judged() {
-    let stand_in = StandIn::start().await;
-    let content = format!("p=0.9 {}", "é".repeat(150_000));
-    let dir = files(&[("big.txt", content.as_bytes())]);
-
-    stand_in
-        .jevpipe()
-        .current_dir(dir.path())
-        .args(["filter", "Is it?", "--read-files"])
-        .write_stdin("big.txt\n")
-        .assert()
-        .success()
-        .stdout("big.txt\n");
-
-    let requests = stand_in.requests().await;
-    let sent = requests[0]["state"]["content"].as_str().unwrap();
-    assert_eq!(sent.chars().count(), 100_000);
-    assert!(content.starts_with(sent));
-}
-
-#[tokio::test]
 async fn a_413_answer_fails_the_record_as_too_large_and_the_run_continues() {
     let stand_in = StandIn::start().await;
     let dir = files(&[("huge.txt", b"status=413"), ("a.rs", b"p=0.9")]);
 
     stand_in
-        .jevpipe()
+        .filter()
         .current_dir(dir.path())
-        .args(["filter", "Is it?", "--read-files"])
+        .args(["--read-files"])
         .write_stdin("huge.txt\na.rs\n")
         .assert()
         .code(2)
@@ -205,9 +184,9 @@ async fn a_file_the_service_finds_too_large_fails() {
     let dir = files(&[("dense.min.js", b"toolarge")]);
 
     stand_in
-        .jevpipe()
+        .filter()
         .current_dir(dir.path())
-        .args(["filter", "Is it?", "--read-files"])
+        .args(["--read-files"])
         .write_stdin("dense.min.js\n")
         .assert()
         .code(2)

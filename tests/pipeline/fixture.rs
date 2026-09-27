@@ -19,6 +19,10 @@ pub(crate) fn json_lines(output: &Output) -> Vec<Value> {
         .collect()
 }
 
+pub(crate) fn stderr(output: &Output) -> String {
+    String::from_utf8_lossy(&output.stderr).into_owned()
+}
+
 pub(crate) const QUESTIONS: &str = r#"{
   "relevant": {"type": "noul", "instructions": "Is this failure worth a closer look?"},
   "kind": {"type": "choice", "instructions": "What kind of failure is this?",
@@ -26,9 +30,3 @@ pub(crate) const QUESTIONS: &str = r#"{
   "severity": {"type": "score", "instructions": "How severe is this failure?",
                "criteria": ["cosmetic", "annoying", "blocking"]}
 }"#;
-
-pub(crate) fn questions(entries: &[(&str, &[u8])]) -> TempDir {
-    let dir = files(entries);
-    fs::write(dir.path().join("questions.json"), QUESTIONS).unwrap();
-    dir
-}

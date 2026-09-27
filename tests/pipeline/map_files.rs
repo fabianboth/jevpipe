@@ -3,21 +3,21 @@ use std::fs;
 use predicates::str::contains;
 use serde_json::json;
 
-use crate::fixture::{json_lines, questions};
+use crate::fixture::{files, json_lines};
 use crate::stand_in::StandIn;
 
 #[tokio::test]
 async fn answers_each_file_with_its_path_as_the_record() {
     let stand_in = StandIn::start().await;
-    let dir = questions(&[
+    let dir = files(&[
         ("a.rs", b"fn a() {} p=0.9 slow=300"),
         ("b.rs", b"fn b() {} choice=real"),
     ]);
 
     let output = stand_in
-        .jevpipe()
+        .map()
         .current_dir(dir.path())
-        .args(["map", "-f", "questions.json", "--read-files"])
+        .arg("--read-files")
         .write_stdin("a.rs\nb.rs\r\n")
         .assert()
         .success()
@@ -39,7 +39,7 @@ async fn answers_each_file_with_its_path_as_the_record() {
 #[tokio::test]
 async fn files_that_are_not_judged_get_a_skipped_line_without_a_request() {
     let stand_in = StandIn::start().await;
-    let dir = questions(&[
+    let dir = files(&[
         ("image.png", b"\x89PNG\r\n\x1a\n\0\0\0\rIHDR"),
         ("latin1.txt", b"caf\xe9"),
         ("empty.txt", b""),
@@ -47,9 +47,9 @@ async fn files_that_are_not_judged_get_a_skipped_line_without_a_request() {
     fs::create_dir(dir.path().join("src")).unwrap();
 
     let output = stand_in
-        .jevpipe()
+        .map()
         .current_dir(dir.path())
-        .args(["map", "-f", "questions.json", "--read-files"])
+        .arg("--read-files")
         .write_stdin("image.png\nlatin1.txt\nempty.txt\nsrc\n")
         .assert()
         .code(0)
@@ -70,12 +70,12 @@ async fn files_that_are_not_judged_get_a_skipped_line_without_a_request() {
 #[tokio::test]
 async fn a_missing_path_gets_a_failed_line() {
     let stand_in = StandIn::start().await;
-    let dir = questions(&[("a.rs", b"fn a() {}")]);
+    let dir = files(&[("a.rs", b"fn a() {}")]);
 
     let output = stand_in
-        .jevpipe()
+        .map()
         .current_dir(dir.path())
-        .args(["map", "-f", "questions.json", "--read-files"])
+        .arg("--read-files")
         .write_stdin("a.rs\ngone.rs\n")
         .assert()
         .code(2)
@@ -93,12 +93,12 @@ async fn a_missing_path_gets_a_failed_line() {
 async fn a_large_file_is_cut_to_fit_answered_and_marked_truncated() {
     let stand_in = StandIn::start().await;
     let content = format!("p=0.9 {}", "é".repeat(150_000));
-    let dir = questions(&[("big.txt", content.as_bytes()), ("small.txt", b"p=0.2")]);
+    let dir = files(&[("big.txt", content.as_bytes()), ("small.txt", b"p=0.2")]);
 
     let output = stand_in
-        .jevpipe()
+        .map()
         .current_dir(dir.path())
-        .args(["map", "-f", "questions.json", "--read-files"])
+        .arg("--read-files")
         .write_stdin("big.txt\nsmall.txt\n")
         .assert()
         .success();
@@ -116,5 +116,7 @@ async fn a_large_file_is_cut_to_fit_answered_and_marked_truncated() {
             (request["state"]["path"] == "big.txt").then(|| request["state"]["content"].clone())
         })
         .unwrap();
-    assert_eq!(sent.as_str().unwrap().chars().count(), 100_000);
+    let sent = sent.as_str().unwrap();
+    assert_eq!(sent.chars().count(), 100_000);
+    assert!(content.starts_with(sent));
 }
