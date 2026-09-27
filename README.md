@@ -1,109 +1,159 @@
-# jevpipe
+<div align="center">
 
-[![CI](https://github.com/fabianboth/jevpipe/actions/workflows/ci.yml/badge.svg)](https://github.com/fabianboth/jevpipe/actions/workflows/ci.yml)
-[![PyPI](https://img.shields.io/pypi/v/jevpipe)](https://pypi.org/project/jevpipe/)
-[![License](https://img.shields.io/badge/license-Apache--2.0-blue)](https://github.com/fabianboth/jevpipe/blob/main/LICENSE)
+<h1>jevpipe</h1>
 
-A Unix pipe for typed decisions: stream records in, get calibrated decisions out.
+<p><strong>Give your coding agent a System 1.</strong></p>
 
-```sh
-git ls-files src | jevpipe filter "Does this file parse command line arguments?" --read-files
-```
+<p>Fast, cheap judgments over thousands of files, lines or records in one shell command,<br>so your agent decides at scale instead of reading everything itself.</p>
 
-```
-src/cli.rs
-src/lib.rs
-src/settings.rs
-jevpipe: 31 records, 3 kept, 0 skipped, 0 failed, $0.001326, 1.4s
-```
+<p>
+<a href="https://github.com/fabianboth/jevpipe/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/fabianboth/jevpipe/actions/workflows/ci.yml/badge.svg"></a>
+<a href="https://pypi.org/project/jevpipe/"><img alt="PyPI" src="https://img.shields.io/pypi/v/jevpipe"></a>
+<a href="https://github.com/fabianboth/jevpipe/blob/main/LICENSE"><img alt="License: Apache-2.0" src="https://img.shields.io/badge/license-Apache--2.0-blue"></a>
+</p>
 
-Like grep, but the match is a question. Each record is answered by
-[Jev](https://typesafe.ai), TypeSafe AI's small decision model, through
-[OpenRouter](https://openrouter.ai), and only the decisions come out: the kept lines for `filter`,
-one JSON line of typed answers per record for `map`. Written for scripts and coding agents that need
-many small judgments without reading every item themselves.
+<p>
+<a href="https://github.com/fabianboth/jevpipe#quick-start">Quick start</a> ·
+<a href="https://github.com/fabianboth/jevpipe#example">Example</a> ·
+<a href="https://github.com/fabianboth/jevpipe#use-cases">Use cases</a> ·
+<a href="https://github.com/fabianboth/jevpipe#cost-and-speed">Cost</a>
+</p>
 
-## Install
+</div>
+
+## Quick start
 
 ```sh
-uv tool install jevpipe
+uv tool install jevpipe                             # the CLI
+jevpipe auth set-key                                # your OpenRouter key, kept in the system keychain
+npx skills add fabianboth/jevpipe --skill jevpipe   # teaches your agent when and how to use it
 ```
 
-Or `pipx install jevpipe`. No uv yet? Install it with
-`curl -LsSf https://astral.sh/uv/install.sh | sh` (macOS, Linux) or
-`powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"` (Windows).
-If `jevpipe` is not found afterwards, run `uv tool update-shell` and open a new terminal. Upgrade with
-`uv tool upgrade jevpipe`.
+You need an [OpenRouter API key](https://openrouter.ai/settings/keys). Where there is no keychain,
+as in containers, CI or headless Linux, set `OPENROUTER_API_KEY` instead; it also takes precedence.
+No uv yet? [Install it](https://docs.astral.sh/uv/getting-started/installation/) or use pipx.
 
-The package is the native binary for Linux, macOS and Windows (x64 and arm64); nothing runs through
-Python.
-
-## API key
-
-jevpipe needs an [OpenRouter API key](https://openrouter.ai/settings/keys). Store it in the system
-keychain:
+<details>
+<summary>Without uv, or with the GitHub CLI</summary>
 
 ```sh
-jevpipe auth set-key
+pipx install jevpipe                                # instead of uv
+gh skill install fabianboth/jevpipe jevpipe         # the skill, with the GitHub CLI
 ```
 
-Or set `OPENROUTER_API_KEY`, which takes precedence and is the way to go on headless Linux.
+</details>
 
-## Examples
+## Example
 
-Keep the log lines worth a look:
+Which of the 19 commits in ripgrep 15.1 are new features? Ask each commit message:
 
 ```sh
-jevpipe filter "Is this line an error worth a closer look?" app.log | head -20
+# in a clone of https://github.com/BurntSushi/ripgrep
+git log --format=%s 15.0.0..15.1.0 | jevpipe filter "Is this a new feature?"
 ```
 
-Ask several typed questions per record with `map`, and select with [jq](https://jqlang.org/download/):
+```
+# the commit messages that match the question
+ignore/types: add `ssa` type
+printer: add Cursor hyperlink alias
+
+# the summary, on standard error
+jevpipe: 19 records, 2 kept, 0 skipped, 0 failed, $0.000225, 1.1s
+```
+
+<details>
+<summary>Typed answers with <code>map</code>: sort every commit into feature, fix, docs or internal</summary>
 
 ```sh
-git log --format=%s -8 | jevpipe map -q '{
-  "fix":  {"type": "noul", "instructions": "Does this commit message describe a bug fix?"},
-  "area": {"type": "choice", "instructions": "Which part of the project does this commit change?",
-           "criteria": {"cli": "commands and flags", "docs": "specs and documentation", "ci": "build and release"}}
-}' | jq -r 'select(.answers.fix.noul >= 0.8) | .record'
+# in a clone of https://github.com/BurntSushi/ripgrep
+git log --format=%s 15.0.0..15.1.0 | jevpipe map -q '{
+  "kind": {
+    "type": "choice",
+    "instructions": "What kind of change is this, for the release notes?",
+    "criteria": {
+      "feature": "a new capability for users",
+      "fix": "a bug fix users would notice",
+      "docs": "documentation only",
+      "internal": "refactoring, tests, CI, dependencies or release chores"
+    }
+  }
+}'
 ```
 
-Each line of `map`'s output looks like this:
+Every commit becomes one JSON line. One of the 19:
 
 ```json
-{"record":"Reject probabilities outside 0..=1 from the service","answers":{"fix":{"type":"noul","noul":0.89},"area":{"type":"choice","choice":"cli","probabilities":{"cli":0.87,"docs":0.12,"ci":0.01},"confidence":0.8}}}
+{
+  "record": "printer: add Cursor hyperlink alias",
+  "answers": {
+    "kind": {
+      "type": "choice",
+      "choice": "feature",
+      "probabilities": {"docs": 0.05, "feature": 0.87, "fix": 0.03, "internal": 0.05},
+      "confidence": 0.82
+    }
+  }
+}
 ```
 
-A `noul` is a yes/no answer with its probability, a `choice` picks one of named options, a `score`
-rates on an ordered scale. `jevpipe filter --help` and `jevpipe map --help` list every flag, the
-question format and the exit statuses; `jevpipe config --help` shows how to change the defaults.
+All 19 took 1.1 seconds and cost $0.0003. Pick from them with jq, for example the fixes:
+`jq -r 'select(.answers.kind.choice == "fix") | .record'`. A low confidence marks an answer worth
+a second look.
 
-## Use it from a coding agent
+</details>
+
+## Use cases
+
+Each item is judged on its own, so ask what the item itself can answer:
+
+| Job | Question for every item | Answer |
+|---|---|---|
+| Search code by meaning | Does this file retry failed requests? | yes/no |
+| Triage CI failures | Timeout, network error, failed assertion or crash? | choice |
+| Review a large diff | Does this change touch authentication or permissions? | yes/no |
+| Label an issue backlog | Bug report, feature request or question? | choice |
+| Route a support inbox | Which team? How urgent? | choice, score |
+| Moderate a comment queue | Fine, spam or abusive? | choice |
+| Screen papers | How relevant is this abstract to my question? | score 1 to 5 |
+
+## Commands
+
+| | Asks | Prints |
+|---|---|---|
+| `jevpipe filter "question"` | one yes/no question | the lines answered yes, like grep |
+| `jevpipe map -q '{...}'` | several typed questions: yes/no, one choice, a score | one JSON line per record |
+
+Both read their input like grep: lines through a pipe or from the files you name. With
+`--read-files`, each line is a path, and the file it names is judged instead:
 
 ```sh
-npx skills add fabianboth/jevpipe --skill jevpipe
+git log --format=%s | jevpipe filter "Is this a new feature?"                       # each commit message
+jevpipe filter "Is this an error worth a closer look?" app.log                      # each line of app.log
+git ls-files | jevpipe filter "Does this file retry failed requests?" --read-files  # each file
 ```
 
-Or `gh skill install fabianboth/jevpipe jevpipe`. The skill teaches the agent when jevpipe beats
-reading or grepping, how to phrase questions and pick thresholds, and to cap every run's cost. It
-never handles your API key.
+`jevpipe <command> --help` has the rest.
 
-## Cost
+## Cost and speed
 
-Every record is one request billed to your OpenRouter credit. The run above cost a tenth of a cent,
-but a large input adds up, so cap it:
+Every record is one request billed to your [OpenRouter](https://openrouter.ai) credit. The cost
+follows the size of each record; asking several questions at once barely changes it. Up to 100
+records run at the same time, so hundreds take seconds. Measured runs:
 
-```sh
-git ls-files | jevpipe filter "Does this file retry failed requests?" --read-files --max-cost 0.50 --max-time 10m
-```
+| Input | Records | Time | Cost | Per 1,000 records |
+|---|---:|---:|---:|---:|
+| Commit messages (ripgrep 15.0) | 136 | 2.0 s | $0.0016 | $0.012 |
+| Small source files (jevpipe) | 31 | 1.4 s | $0.0013 | $0.043 |
+| Source files (ripgrep) | 88 | 2.2 s | $0.016 | $0.18 |
 
-A run stopped by a limit exits with status 3 and names the input line to resume from.
-
-## Unofficial
-
-jevpipe is an independent project, not affiliated with or endorsed by TypeSafe AI. Jev is TypeSafe
-AI's model.
+`--max-cost 0.50` stops a run once it has spent $0.50; it then exits with status 3 and names the
+line to resume from.
+To cap every run by default, run `jevpipe config set max-cost 0.50` once; `jevpipe config --help`
+lists the other defaults you can set.
 
 ## License
 
-[Apache-2.0](https://github.com/fabianboth/jevpipe/blob/main/LICENSE). Building from source needs
-Rust (rustup picks the pinned toolchain) and PowerShell 7 for `./check.ps1`.
+[Apache-2.0](https://github.com/fabianboth/jevpipe/blob/main/LICENSE). jevpipe is an independent
+project, not affiliated with or endorsed by TypeSafe AI; the answers come from
+[Jev](https://typesafe.ai), TypeSafe AI's calibrated decision model, through OpenRouter. Building
+from source needs Rust (rustup picks the pinned toolchain) and PowerShell 7 for `./check.ps1`.

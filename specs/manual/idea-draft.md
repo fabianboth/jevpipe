@@ -72,5 +72,3 @@ Records are lines (plain text or JSONL, sent as text) or file paths. `filter` pr
 Deferred: budgets on records, inverted matching (`-v`), sorting by probability, per-record questions for a long-running step loop, and JSON records as structured state (if a measurement shows it helps).
 
 Dropped: caching identical requests (identical requests are rare, and provider-side input caching is not live for Jev) and providers other than OpenRouter.
-
-Learnings for the skill so far: [skill-learnings.md](skill-learnings.md).

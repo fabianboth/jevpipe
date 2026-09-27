@@ -147,7 +147,7 @@ permissions; `.vscode/settings.json` has only the clippy setting; the PR shows a
 - [ ] T023 **(maintainer)** Confirm T007 is done, then tag the release on `main`: `git tag v0.1.0 && git push origin v0.1.0`; watch with `gh run watch`; on a failure before the TestPyPI upload, fix via PR and move the tag; after it, fix and release the next patch version (quickstart §3)
 - [ ] T024 **(maintainer)** When TestPyPI is green, check https://test.pypi.org/project/jevpipe/ (README, links) and approve the `pypi` deployment; afterwards confirm https://pypi.org/project/jevpipe/ shows 0.1.0 with attestations and the GitHub Release `v0.1.0` exists with the six wheels
 - [ ] T025 Check the skill install (quickstart §4.1): in a temporary directory under `scratch/`, `npx skills add fabianboth/jevpipe` (choose Claude Code) installs only `SKILL.md`, under 50 KB; `gh skill install fabianboth/jevpipe jevpipe` (if gh ≥ 2.90) likewise; remove both afterwards
-- [ ] T026 **(maintainer, costs a few cents)** The agent test of quickstart §4.2 and the README test of quickstart §5; record surprises in `specs/manual/skill-learnings.md` for 005
+- [ ] T026 **(maintainer, costs a few cents)** The agent test of quickstart §4.2 and the README test of quickstart §5; note surprises for 005
 
 ---
 

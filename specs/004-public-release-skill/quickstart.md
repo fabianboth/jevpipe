@@ -77,8 +77,7 @@ bump `Cargo.toml`, merge, tag `v0.1.1`. Nothing reached PyPI either way.
 2. **(maintainer, costs a few cents)** In a coding agent with the skill and a key, in this
    repository: "which files deal with retrying failed requests?" → the agent runs `jevpipe filter`
    with `--max-cost` and acts on the result; "find all calls of `retry_with_backoff`" → it uses a
-   text search. Without a key: the agent asks the user to run `jevpipe auth set-key` or set
-   `OPENROUTER_API_KEY` and never asks for the key.
+   text search.
 
 ## 5. README
 

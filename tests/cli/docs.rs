@@ -70,7 +70,11 @@ fn flag_words(text: &str) -> Vec<String> {
 
 fn documented_flags(text: &str) -> BTreeSet<String> {
     let mut flags = BTreeSet::new();
+    let mut in_fence = false;
     for line in text.lines() {
+        if line.trim_start().starts_with("```") {
+            in_fence = !in_fence;
+        }
         for segment in line.split('|') {
             flags.extend(
                 segment
@@ -81,7 +85,7 @@ fn documented_flags(text: &str) -> BTreeSet<String> {
             );
         }
         for span in line.split('`').skip(1).step_by(2) {
-            if span.starts_with("--") {
+            if !in_fence && span.starts_with("--") {
                 flags.extend(flag_words(span));
             }
         }
@@ -118,13 +122,18 @@ fn link_targets(text: &str) -> Vec<&str> {
         .split("](")
         .skip(1)
         .filter_map(|rest| rest.split(')').next());
+    let html = ["href=\"", "src=\""].into_iter().flat_map(|attribute| {
+        text.split(attribute)
+            .skip(1)
+            .filter_map(|rest| rest.split('"').next())
+    });
     let references = text
         .lines()
         .map(str::trim_start)
         .filter(|line| line.starts_with('['))
         .filter_map(|line| line.split_once("]:"))
         .map(|(_, target)| target.trim());
-    inline.chain(references).collect()
+    inline.chain(html).chain(references).collect()
 }
 
 #[test]
@@ -166,19 +175,27 @@ fn readme_has_no_relative_links() {
 }
 
 #[test]
-fn link_targets_include_reference_definitions() {
-    let text = "[a](https://example.com/a) ![b](b.png)
-[c]: docs/c.md
-  [d]: #d";
+fn link_targets_include_html_and_reference_definitions() {
+    let text = "[a](https://example.com/a) ![b](b.png)\n<a href=\"e.md\"><img src=\"f.svg\"></a>\n[c]: docs/c.md\n  [d]: #d";
     assert_eq!(
         link_targets(text),
-        ["https://example.com/a", "b.png", "docs/c.md", "#d"]
+        [
+            "https://example.com/a",
+            "b.png",
+            "e.md",
+            "f.svg",
+            "docs/c.md",
+            "#d"
+        ]
     );
 }
 
 #[test]
 fn documented_flags_ignore_other_commands() {
-    let text = "rg --files -g '*.rs' | jevpipe filter \"q\" --read-files\nnpx skills add fabianboth/jevpipe --skill jevpipe\nuse `--max-cost 0.50` and `git log --oneline`";
+    let text = "rg --files -g '*.rs' | jevpipe filter \"q\" --read-files\nnpx skills add fabianboth/jevpipe --skill jevpipe\nuse `--max-cost 0.50` and `git log --oneline`
+```
+fix: `--line-buffered`
+```";
     assert_eq!(
         documented_flags(text),
         BTreeSet::from(["--read-files".to_owned(), "--max-cost".to_owned()])

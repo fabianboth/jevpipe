@@ -93,8 +93,7 @@ then on, when their coding agent faces many small judgments (which of 300 files 
 which log lines are real errors, triage of a list of issues), it reaches for `jevpipe filter` or
 `jevpipe map` with a spend limit, a sensible threshold and a well-phrased question, reads only the
 outcome, and acts on it itself. When the task is an exact text search, arithmetic or needs generated
-text, it does not use jevpipe. When the binary or the API key is missing, it tells the user what to do
-instead of trying to fix it itself.
+text, it does not use jevpipe. When the binary is missing, the skill's README link shows how to install it.
 
 **Why this priority**: The skill is how jevpipe reaches its main user, the coding agent. It follows
 User Stories 1 and 2 because it is only useful with an installed binary.
@@ -110,8 +109,8 @@ and check that only the skill folder arrives. Then, in a coding agent with the s
 1. **Given** the public repository, **When** a user runs `npx skills add fabianboth/jevpipe --skill jevpipe` or `gh skill install fabianboth/jevpipe jevpipe`, **Then** only the skill folder is installed (a few kilobytes, no source code, no binary), and the agent lists the skill as `jevpipe`.
 2. **Given** a task with many independent judgments over records, files or lines, **When** the agent has the skill, **Then** it uses `filter` for one yes/no question and `map` for several questions or choice and score answers, sets `--max-cost`, and reads the summary on standard error.
 3. **Given** a task that an exact text search, a count or a calculation answers, or one that needs generated text, **When** the agent has the skill, **Then** the skill tells it not to use jevpipe.
-4. **Given** `jevpipe` is not on the path, **When** the agent would use it, **Then** the skill tells it to stop and tell the user that jevpipe needs installing, with the link to the README; it does not try to build or install it.
-5. **Given** no API key is available (the run fails with the message naming both ways to provide one), **When** the agent meets it, **Then** the skill tells it to ask the user to run `jevpipe auth set-key` themselves or to set `OPENROUTER_API_KEY`; the agent never asks for, reads, prints or passes the key.
+4. **Given** `jevpipe` is not on the path, **When** the agent would use it, **Then** the skill's link to the README tells it how jevpipe is installed.
+5. **Given** no API key is available, **When** a run fails, **Then** the error itself names both ways to provide one (`jevpipe auth set-key`, `OPENROUTER_API_KEY`) for the user.
 6. **Given** a run that ends with exit status 3, **When** the agent reads standard error, **Then** the skill has taught it that a limit stopped the run, which line to resume from, and not to rerun blindly with a higher limit.
 7. **Given** records in the uncertain middle band of a probability, **When** the agent has the skill, **Then** it treats them as its own review items (it looks at them itself) rather than trusting them or handing them to the user.
 
@@ -132,7 +131,7 @@ and run the first example without other help.
 
 **Acceptance Scenarios**:
 
-1. **Given** the README, **When** a reader looks at it, **Then** it holds, in this order: a one-sentence description, a short example of what a run looks like, installation (`uv tool install jevpipe`, the pipx alternative, and the one-line uv install for those without uv), the API key (`jevpipe auth set-key` or `OPENROUTER_API_KEY`), two or three examples, installing the agent skill, a note that runs spend OpenRouter credit with a pointer to `--max-cost`, the statement that jevpipe is unofficial and not affiliated with or endorsed by TypeSafe AI, and the license.
+1. **Given** the README, **When** a reader looks at it, **Then** it holds the sections of contracts/readme.md in their order, with every link absolute.
 2. **Given** each command shown in the README, **When** it is run against the released binary (with a key), **Then** it works as shown.
 3. **Given** the repository, **When** someone checks its license, **Then** a LICENSE file holds the Apache License 2.0 and the package metadata names `Apache-2.0`.
 
@@ -163,13 +162,13 @@ scanning with push protection is on and `main` requires a pull request with pass
 
 ### Edge Cases
 
-- **No uv on the machine**: the README's install section starts with uv's own one-line installer, then `uv tool install jevpipe`.
+- **No uv on the machine**: the README links uv's installation page and names `pipx install jevpipe` as the alternative.
 - **No Python on the machine**: uv needs an interpreter for its tool environment, even though jevpipe never uses it; uv downloads one once. The installed `jevpipe` command is still the bare binary.
 - **uv's tool directory not on the path yet**: uv puts the command into `~/.local/bin` (`%USERPROFILE%\.local\bin` on Windows) and warns when that directory is not on the path; `uv tool update-shell` adds it, and the README names that command.
 - **A `jevpipe` already in `~/.local/bin`** (for example a manual copy): uv refuses to overwrite it without `--force` and says so.
 - **Downloaded package does not match its hash**: uv and pipx refuse to install it.
 - **PyPI upload never approved**: PyPI keeps serving the previous version, and no GitHub Release is created for the tag.
-- **Skill installed, binary older than the skill**: the skill names the jevpipe version it was written for and tells the agent to check `jevpipe <command> --help` when a flag is rejected.
+- **Skill installed, binary older than the skill**: a rejected flag shows in the error, and `jevpipe <command> --help` shows what the installed binary accepts.
 - **The agent is in a non-interactive shell**: the skill never tells it to run `auth set-key` itself, since that reads the key from the user.
 - **Headless Linux without a keychain**: the README says to use `OPENROUTER_API_KEY` there.
 - **Binaries not code-signed**: macOS and Windows warn about unsigned binaries only when they carry a browser's download marker; uv does not set it. The PyPI attestations prove where a package was built, not a platform signature.
@@ -203,10 +202,10 @@ scanning with push protection is on and `main` requires a pull request with pass
 - **FR-014**: The skill MUST teach how to choose between `filter` and `map`, how to phrase a question so it separates well (about the record itself, specific, avoiding questions that also match documents about the topic), how to choose a threshold (0.5 when both mistakes cost the same, higher when acting on a false yes is expensive, a middle band for review), and to pin a model version for reproducible runs.
 - **FR-014a**: The skill MUST show a few typical `jq` usages to select and project `map` output; it adds no fallback and no install steps for `jq`, since an agent without it notices on the first try and has its own ways to read JSON. It MUST show how to produce the input from existing tools (`git ls-files`, `rg --files` or `find` for `--read-files`). The README names `jq` as recommended for `map`, with its install link, and no other prerequisite.
 - **FR-015**: The skill MUST teach to set `--max-cost` (and `--max-time` where a deadline matters) for every run over more than a handful of records, the meaning of exit statuses 0, 1, 2 and 3, how to resume after exit status 3, and to read the one-line summary on standard error.
-- **FR-016**: The skill MUST tell the agent, when `jevpipe` is missing, to tell the user it needs installing with the link to the README, and, when no key is available, to ask the user to run `jevpipe auth set-key` or set `OPENROUTER_API_KEY` themselves; it MUST forbid the agent from asking for, reading, printing or passing the API key.
+- **FR-016**: The skill MUST link the README for installation and everything beyond the skill (the agent may install jevpipe itself from there).
 - **FR-017**: The skill MUST tell the agent to treat records in the uncertain band as its own review items.
 - **FR-017a**: The skill MUST be written with the guidance of the `skill-creator` skill (structure, a description that triggers on the right tasks, progressive disclosure into `references/` where the body grows long); its evaluation loop is 005.
-- **FR-018**: The skill MUST state the jevpipe version it was written for, and the lessons in `specs/manual/skill-learnings.md` that it relies on MUST be presented as current guidance to be revisited in 005, not as measured facts.
+- **FR-018**: The skill's advice MUST rest on runs actually made (the README and skill examples, September 2026); 005 measures and revises it.
 - **FR-019**: Every flag named in `SKILL.md` and in the README MUST exist in the binary's help, the skill's name MUST equal its folder name, and the README MUST have no relative links; an automated test checks this against the real binary without network access.
 
 **README and license**
@@ -256,7 +255,7 @@ scanning with push protection is on and `main` requires a pull request with pass
 - The Linux keychain uses a pure-Rust Secret Service client and needs no system library; the TLS stack is the remaining build risk for some platforms, which the first release run exposes before anything is uploaded.
 - uv installs tools into `~/.local/bin` (`%USERPROFILE%\.local\bin` on Windows), the per-user directory many Linux distributions already have on the path; no administrator rights are needed.
 - Binaries are not code-signed or notarized in 0.1.0; uv does not mark downloads as coming from the internet, so macOS and Windows do not block them. PyPI's attestations are the trust signal instead.
-- The skill is written from the current CLI, the TypeSafe documentation and `specs/manual/skill-learnings.md`; its trigger accuracy, thresholds and phrasing advice are measured and revised in 005.
+- The skill is written from the current CLI, the TypeSafe documentation and the runs made for the README; its trigger accuracy, thresholds and phrasing advice are measured and revised in 005.
 - "Unofficial, not affiliated" wording is the standard for third-party tools built on another company's product; no TypeSafe brand guidelines forbidding the name were found.
 - The commit author email in the history becomes public with the repository; this is accepted.
 - The repository keeps its AI tooling (`CLAUDE.md`, specs, spec-kit, the review skill); they document how the project is built.

@@ -146,12 +146,10 @@ settings and runners, and the maintainer's existing PyPI projects (`reviewloop`,
   The short, loved READMEs are landing pages: name, one sentence, a real run, install, a quick start,
   links to depth, license; depth lives in `--help`. None has a cost or "not affiliated" statement, so
   ours are one plain sentence each.
-- **Rules**: one sentence and a real command with its real output on the first screen; commands in
-  fenced blocks without `$`, output in separate blocks; install is `uv tool install jevpipe` with
-  pipx and uv's own installer as one-liners; the key in one command right after install; two or three
-  one-line examples, then "see `--help`"; the skill in its own section with one command; under ~120
-  lines; three badges (CI, PyPI version, license, as in `reviewloop`); no table of contents; absolute
-  links only (R3).
+- **Rules** (revised with the maintainer): a hero without code, then a three-line quick start, one
+  real example, use cases as a table, the commands in short, cost as a table of measured runs;
+  alternatives in collapsed `<details>`; absolute links only (R3). contracts/readme.md has the final
+  shape.
 
 ## R9. Going public (done 2026-09-27) and protecting `main`
 
