@@ -42,3 +42,10 @@ git ls-files | ./target/release/jevpipe filter "Does this file define command li
 
 Check after each run: the summary line on stderr (no record content on it), and `echo $?` (`map`: 0
 nothing failed, 2 something failed).
+
+## Checked against the real service (2026-09-27)
+
+Every command above ran against `typesafe/jev-1.13-20260917` through OpenRouter. Three records with
+three questions cost $0.000052 in 0.7 s; one step of the loop took 0.4 s end to end. The answers came
+back in the documented shape and were passed through unchanged (the service orders a choice's
+`probabilities` by value, not by the questions file). No surprises.

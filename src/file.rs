@@ -4,7 +4,7 @@ use std::path::Path;
 use tokio::fs::{self, File};
 use tokio::io::AsyncReadExt;
 
-use crate::decision::{Outcome, Skip};
+use crate::reason::{Failure, Skip};
 use crate::text;
 
 const MAX_CHARACTERS: usize = 100_000;
@@ -15,17 +15,21 @@ pub(crate) struct Content {
     pub(crate) truncated: bool,
 }
 
-pub(crate) async fn read(path: &Path) -> Result<Content, Outcome> {
-    let unreadable = |error| Outcome::unreadable(&error);
-    let metadata = fs::metadata(path).await.map_err(unreadable)?;
+pub(crate) enum Unjudged {
+    Skipped(Skip),
+    Failed(Failure),
+}
+
+pub(crate) async fn read(path: &Path) -> Result<Content, Unjudged> {
+    let metadata = fs::metadata(path).await?;
     if metadata.is_dir() {
-        return Err(Outcome::skipped(Skip::Directory));
+        return Err(Unjudged::Skipped(Skip::Directory));
     }
-    let bytes = read_prefix(path).await.map_err(unreadable)?;
+    let bytes = read_prefix(path).await?;
     let partial = metadata.len() > MAX_BYTES;
-    let mut text = text::decode(bytes, partial).ok_or(Outcome::skipped(Skip::Binary))?;
+    let mut text = text::decode(&bytes, partial).ok_or(Unjudged::Skipped(Skip::Binary))?;
     if text.is_empty() {
-        return Err(Outcome::skipped(Skip::Empty));
+        return Err(Unjudged::Skipped(Skip::Empty));
     }
     let shortened = shorten(&mut text);
     Ok(Content {
@@ -51,5 +55,11 @@ fn shorten(text: &mut String) -> bool {
             true
         }
         None => false,
+    }
+}
+
+impl From<io::Error> for Unjudged {
+    fn from(error: io::Error) -> Self {
+        Self::Failed(error.into())
     }
 }

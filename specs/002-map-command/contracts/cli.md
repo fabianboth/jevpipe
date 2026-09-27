@@ -39,10 +39,11 @@ sent unchanged:
 }
 ```
 
-Checked before any input is read; a failure is a usage error (exit 2):
+Checked while the arguments are parsed, before any input is read; a failure is a usage error
+(exit 2):
 
 ```text
-jevpipe: error: questions.json: question `kind`: a choice needs criteria with 1 to 255 options
+error: invalid value 'questions.json' for '<QUESTIONS_FILE>': question `kind`: a choice needs criteria with 1 to 255 options
 ```
 
 ## Environment

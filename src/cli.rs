@@ -1,16 +1,42 @@
 use std::num::{NonZeroU64, NonZeroUsize};
 use std::path::PathBuf;
 
-use clap::builder::NonEmptyStringValueParser;
 use clap::{Args, Parser, Subcommand};
 
-use crate::decision::PROBABILITY;
+use crate::answers::PROBABILITY;
+use crate::filter;
+use crate::questions::Questions;
 
 const FILTER_EXAMPLES: &str = r#"Needs OPENROUTER_API_KEY in the environment.
 
 Examples:
   git ls-files | jevpipe filter "Does this file parse command line arguments?" --read-files
-  jevpipe filter "Is this line an error?" app.log --json --all | jq ."#;
+  jevpipe filter "Is this line an error worth a closer look?" app.log | head -20"#;
+
+const MAP_EXAMPLES: &str = r#"Needs OPENROUTER_API_KEY in the environment.
+
+Questions file: named questions in TypeSafe's System One format, sent unchanged. A noul is a yes/no
+question answered with a probability; a choice picks one of its criteria (option: description, 1 to
+255 options); a score rates on its criteria (levels from low to high, 2 to 10):
+  {
+    "relevant": {"type": "noul", "instructions": "Is this failure worth a closer look?"},
+    "kind": {"type": "choice", "instructions": "What kind of failure is this?",
+             "criteria": {"flaky": "infra or timing", "real": "deterministic bug"}},
+    "severity": {"type": "score", "instructions": "How severe is this failure?",
+                 "criteria": ["cosmetic", "annoying", "blocking"]}
+  }
+
+Output, one line per record:
+  {"record": "<line>", "answers": {
+     "relevant": {"type": "noul", "noul": 0.82},
+     "kind": {"type": "choice", "choice": "flaky", "probabilities": {...}, "confidence": 0.9},
+     "severity": {"type": "score", "score": 1.04, "legend": {...}, "probabilities": {...}, ...}}}
+  {"record": "<line>", "outcome": "skipped" or "failed", "reason": "<why>"}
+"truncated": true is added when --read-files had to cut the file.
+
+Examples:
+  jevpipe map triage.json failures.log | jq -r 'select(.answers.kind.choice == "flaky") | .record'
+  git ls-files | jevpipe map triage.json --read-files | jq -c '{record, severity: .answers.severity.score}'"#;
 
 /// A Unix pipe for typed decisions: stream records in, get calibrated decisions out.
 #[derive(Parser)]
@@ -31,32 +57,54 @@ pub(crate) enum Command {
     /// run stopped on an error. A one-line summary goes to standard error.
     #[command(after_help = FILTER_EXAMPLES)]
     Filter(FilterArgs),
+
+    /// Ask several typed questions about every record and print the answers as JSON lines
+    ///
+    /// Each record is sent once with all questions of the questions file. Prints one JSON line per
+    /// record, in input order, as soon as it is answered: pipe it through jq to select and project.
+    /// With --read-files, each line is a file path and the file's path and content are judged.
+    ///
+    /// Exit status: 0 when no record failed, 2 when one did or the run stopped on an error. A
+    /// one-line summary goes to standard error.
+    #[command(after_help = MAP_EXAMPLES)]
+    Map(MapArgs),
 }
 
 #[derive(Args)]
 pub(crate) struct FilterArgs {
     /// The yes/no question asked about every record
-    #[arg(value_parser = NonEmptyStringValueParser::new())]
-    pub(crate) question: String,
+    #[arg(value_name = "QUESTION", value_parser = filter::question)]
+    pub(crate) question: Questions,
 
     /// Files to read records from, in order; none or - reads standard input
     pub(crate) files: Vec<PathBuf>,
-
-    /// Treat each record as a file path: judge the file's path and content, print the path
-    #[arg(long)]
-    pub(crate) read_files: bool,
 
     /// Keep a record when the probability of yes is at least this (0 to 1)
     #[arg(long, value_name = "P", default_value_t = 0.5, value_parser = probability)]
     pub(crate) threshold: f64,
 
-    /// Print kept records as JSON objects with position, record and probability
-    #[arg(long)]
-    pub(crate) json: bool,
+    #[command(flatten)]
+    pub(crate) run: RunArgs,
+}
 
-    /// With --json: print every record with its outcome (kept, dropped, skipped, failed)
-    #[arg(long, requires = "json")]
-    pub(crate) all: bool,
+#[derive(Args)]
+pub(crate) struct MapArgs {
+    /// JSON file of named questions (format below)
+    #[arg(value_name = "QUESTIONS_FILE", value_parser = Questions::load)]
+    pub(crate) questions: Questions,
+
+    /// Files to read records from, in order; none or - reads standard input
+    pub(crate) files: Vec<PathBuf>,
+
+    #[command(flatten)]
+    pub(crate) run: RunArgs,
+}
+
+#[derive(Args)]
+pub(crate) struct RunArgs {
+    /// Treat each record as a file path: judge the file's path and content
+    #[arg(long)]
+    pub(crate) read_files: bool,
 
     /// Maximum requests in flight
     #[arg(long, value_name = "N", default_value = "100")]

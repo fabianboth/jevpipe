@@ -5,8 +5,10 @@ use backon::{ExponentialBuilder, Retryable};
 use reqwest::header::RETRY_AFTER;
 use reqwest::{Client, Response, StatusCode};
 use serde::{Deserialize, Serialize};
+use serde_json::value::RawValue;
 
-use crate::decision::PROBABILITY;
+use crate::answers::Answers;
+use crate::questions::Questions;
 
 const API_KEY_VARIABLE: &str = "OPENROUTER_API_KEY";
 const BASE_URL_VARIABLE: &str = "JEVPIPE_BASE_URL";
@@ -54,8 +56,8 @@ pub(crate) enum State<'a> {
     File { path: &'a str, content: &'a str },
 }
 
-pub(crate) struct Answer {
-    pub(crate) probability: f64,
+pub(crate) struct Reply {
+    pub(crate) answers: Answers,
     pub(crate) cost: Option<f64>,
     pub(crate) model: String,
 }
@@ -74,37 +76,14 @@ pub(crate) enum ServiceError {
 struct Request<'a> {
     model: &'a str,
     state: &'a State<'a>,
-    questions: Questions<'a>,
-}
-
-#[derive(Serialize)]
-struct Questions<'a> {
-    #[serde(rename = "match")]
-    matched: Question<'a>,
-}
-
-#[derive(Serialize)]
-#[serde(tag = "type", rename_all = "lowercase")]
-enum Question<'a> {
-    Noul { instructions: &'a str },
+    questions: &'a RawValue,
 }
 
 #[derive(Deserialize)]
-struct AnswerBody {
+struct ReplyBody {
     model: String,
-    answers: Answers,
+    answers: Box<RawValue>,
     usage: Option<Usage>,
-}
-
-#[derive(Deserialize)]
-struct Answers {
-    #[serde(rename = "match")]
-    matched: Noul,
-}
-
-#[derive(Deserialize)]
-struct Noul {
-    noul: f64,
 }
 
 #[derive(Deserialize)]
@@ -141,25 +120,21 @@ impl Service {
 
     pub(crate) async fn ask(
         &self,
-        question: &str,
+        questions: &Questions,
         state: &State<'_>,
-    ) -> Result<Answer, ServiceError> {
-        (|| self.send(question, state))
+    ) -> Result<Reply, ServiceError> {
+        (|| self.send(questions, state))
             .retry(RETRY)
             .when(|error| matches!(error, ServiceError::Transient { .. }))
             .adjust(|error, delay| delay.map(|delay| error.retry_after().unwrap_or(delay)))
             .await
     }
 
-    async fn send(&self, question: &str, state: &State<'_>) -> Result<Answer, ServiceError> {
+    async fn send(&self, questions: &Questions, state: &State<'_>) -> Result<Reply, ServiceError> {
         let request = Request {
             model: &self.model,
             state,
-            questions: Questions {
-                matched: Question::Noul {
-                    instructions: question,
-                },
-            },
+            questions: questions.raw(),
         };
         let response = self
             .client
@@ -169,26 +144,23 @@ impl Service {
             .send()
             .await?;
         if response.status().is_success() {
-            Answer::from_response(response).await
+            Reply::from_response(response, questions).await
         } else {
             Err(ServiceError::from_response(response).await)
         }
     }
 }
 
-impl Answer {
-    async fn from_response(response: Response) -> Result<Self, ServiceError> {
+impl Reply {
+    async fn from_response(
+        response: Response,
+        questions: &Questions,
+    ) -> Result<Self, ServiceError> {
         let body = response.bytes().await?;
-        let body: AnswerBody = serde_json::from_slice(&body)
+        let body: ReplyBody = serde_json::from_slice(&body)
             .map_err(|error| ServiceError::Rejected(format!("unexpected answer: {error}")))?;
-        let probability = body.answers.matched.noul;
-        if !PROBABILITY.contains(&probability) {
-            return Err(ServiceError::Rejected(format!(
-                "unexpected answer: probability {probability} is not between 0 and 1"
-            )));
-        }
         Ok(Self {
-            probability,
+            answers: Answers::check(body.answers, questions).map_err(ServiceError::Rejected)?,
             cost: body.usage.and_then(|usage| usage.cost),
             model: body.model,
         })

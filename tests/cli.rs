@@ -1,4 +1,5 @@
 use assert_cmd::cargo::cargo_bin_cmd;
+use predicates::prelude::PredicateBooleanExt;
 use predicates::str::contains;
 
 #[test]
@@ -12,8 +13,9 @@ fn version_reports_the_crate_version() {
 
 #[test]
 fn filter_rejects_invalid_usage_before_reading_input() {
-    let cases: [&[&str]; 6] = [
+    let cases: [&[&str]; 7] = [
         &["--no-such-flag"],
+        &["filter", "Is it?", "--json"],
         &["filter", "Is it?", "--all"],
         &["filter", ""],
         &["filter", "Is it?", "--threshold", "1.5"],
@@ -43,8 +45,6 @@ fn filter_help_describes_every_option() {
         "[FILES]...",
         "--read-files",
         "--threshold",
-        "--json",
-        "--all",
         "--concurrency",
         "--model",
         "--request-timeout",
@@ -52,4 +52,138 @@ fn filter_help_describes_every_option() {
     ] {
         assert!(help.contains(option), "missing {option} in:\n{help}");
     }
+}
+
+fn options(count: usize) -> String {
+    let options: Vec<_> = (0..count)
+        .map(|option| format!("\"o{option}\": \"\""))
+        .collect();
+    format!(
+        r#"{{"q": {{"type": "choice", "instructions": "Which?", "criteria": {{{}}}}}}}"#,
+        options.join(", ")
+    )
+}
+
+fn levels(count: usize) -> String {
+    let levels = vec!["\"level\""; count].join(", ");
+    format!(r#"{{"q": {{"type": "score", "instructions": "How much?", "criteria": [{levels}]}}}}"#)
+}
+
+#[test]
+fn map_rejects_a_malformed_questions_file_before_reading_input() {
+    let (no_options, too_many_options) = (options(0), options(256));
+    let (one_level, too_many_levels) = (levels(1), levels(11));
+    let cases = [
+        ("{", "not JSON"),
+        ("[]", "must be an object of named questions"),
+        ("{}", "has no questions"),
+        (
+            r#"{"q": "Is it?"}"#,
+            "question `q`: invalid type: string \"Is it?\", expected an object with type and instructions",
+        ),
+        (
+            r#"{"q": {"type": "maybe", "instructions": "Is it?"}}"#,
+            "question `q`: unknown variant `maybe`",
+        ),
+        (
+            r#"{"q": {"type": "noul"}}"#,
+            "question `q`: needs instructions",
+        ),
+        (
+            r#"{"q": {"type": "noul", "instructions": null}}"#,
+            "question `q`: needs instructions",
+        ),
+        (
+            r#"{"q": {"type": "noul", "instructions": "Is it?", "criteria": "yes"}}"#,
+            "question `q`: a noul's criteria must be an object",
+        ),
+        (
+            r#"{"q": {"type": "choice", "instructions": "Which?"}}"#,
+            "question `q`: a choice needs criteria with 1 to 255 options",
+        ),
+        (
+            no_options.as_str(),
+            "question `q`: a choice needs criteria with 1 to 255 options",
+        ),
+        (
+            too_many_options.as_str(),
+            "question `q`: a choice needs criteria with 1 to 255 options",
+        ),
+        (
+            one_level.as_str(),
+            "question `q`: a score needs criteria with 2 to 10 levels",
+        ),
+        (
+            too_many_levels.as_str(),
+            "question `q`: a score needs criteria with 2 to 10 levels",
+        ),
+        (
+            r#"{"q": {"type": "score", "instructions": "How much?", "criteria": {"low": ""}}}"#,
+            "question `q`: a score needs criteria with 2 to 10 levels",
+        ),
+    ];
+    let dir = tempfile::TempDir::new().unwrap();
+    let file = dir.path().join("questions.json");
+    for (content, problem) in cases {
+        std::fs::write(&file, content).unwrap();
+        cargo_bin_cmd!()
+            .current_dir(dir.path())
+            .args(["map", "questions.json"])
+            .env("OPENROUTER_API_KEY", "test-key")
+            .env("JEVPIPE_BASE_URL", "http://127.0.0.1:9")
+            .write_stdin("a\n")
+            .assert()
+            .code(2)
+            .stdout("")
+            .stderr(contains("questions.json").and(contains(problem)));
+    }
+}
+
+#[test]
+fn map_accepts_the_largest_questions_the_service_allows() {
+    let dir = tempfile::TempDir::new().unwrap();
+    for content in [options(1), options(255), levels(2), levels(10)] {
+        std::fs::write(dir.path().join("questions.json"), content).unwrap();
+        cargo_bin_cmd!()
+            .current_dir(dir.path())
+            .args(["map", "questions.json"])
+            .env("OPENROUTER_API_KEY", "test-key")
+            .write_stdin("")
+            .assert()
+            .code(0);
+    }
+}
+
+#[test]
+fn map_names_a_missing_questions_file() {
+    cargo_bin_cmd!()
+        .args(["map", "no-such-questions.json"])
+        .env("OPENROUTER_API_KEY", "test-key")
+        .write_stdin("")
+        .assert()
+        .code(2)
+        .stderr(contains("no-such-questions.json").and(contains("not found")));
+}
+
+#[test]
+fn map_help_describes_every_option_and_the_questions_file() {
+    let assert = cargo_bin_cmd!().args(["map", "--help"]).assert().success();
+    let help = String::from_utf8_lossy(&assert.get_output().stdout).into_owned();
+    for part in [
+        "Usage: jevpipe map [OPTIONS] <QUESTIONS_FILE> [FILES]...",
+        "<QUESTIONS_FILE>",
+        "[FILES]...",
+        "--read-files",
+        "--concurrency",
+        "--model",
+        "--request-timeout",
+        "OPENROUTER_API_KEY",
+        "\"type\": \"noul\"",
+        "\"type\": \"choice\"",
+        "\"type\": \"score\"",
+        "jq",
+    ] {
+        assert!(help.contains(part), "missing {part} in:\n{help}");
+    }
+    assert!(!help.contains("--threshold"), "{help}");
 }

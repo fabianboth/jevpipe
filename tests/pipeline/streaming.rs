@@ -5,7 +5,9 @@ use std::thread;
 use std::time::{Duration, Instant};
 
 use predicates::str::contains;
+use serde_json::Value;
 
+use crate::fixture::questions;
 use crate::stand_in::StandIn;
 
 #[tokio::test]
@@ -137,4 +139,110 @@ async fn a_request_that_hangs_is_abandoned_and_retried() {
         .stderr(contains("1 records, 1 kept"));
 
     assert_eq!(stand_in.requests().await.len(), 2);
+}
+
+#[tokio::test]
+async fn map_answers_each_step_before_the_next_line_is_written() {
+    let stand_in = StandIn::start().await;
+    let dir = questions(&[]);
+    let mut child = stand_in
+        .command()
+        .current_dir(dir.path())
+        .args(["map", "questions.json"])
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .stderr(Stdio::null())
+        .spawn()
+        .unwrap();
+    let mut stdin = child.stdin.take().unwrap();
+    let stdout = child.stdout.take().unwrap();
+    let (sender, receiver) = mpsc::channel();
+    thread::spawn(move || {
+        for line in BufReader::new(stdout).lines() {
+            if sender.send(line.unwrap()).is_err() {
+                break;
+            }
+        }
+    });
+
+    for step in ["step one p=0.9", "step two p=0.2"] {
+        writeln!(stdin, "{step}").unwrap();
+        stdin.flush().unwrap();
+        let line = receiver.recv_timeout(Duration::from_secs(1)).unwrap();
+        let answer: Value = serde_json::from_str(&line).unwrap();
+        assert_eq!(answer["record"], step);
+        assert!(answer["answers"]["kind"]["choice"].is_string(), "{answer}");
+    }
+    drop(stdin);
+
+    assert!(child.wait().unwrap().success());
+}
+
+#[tokio::test]
+async fn map_stops_quietly_when_the_reader_goes_away() {
+    let stand_in = StandIn::start().await;
+    let dir = questions(&[]);
+    let records = 2000;
+    let mut child = stand_in
+        .command()
+        .current_dir(dir.path())
+        .args(["map", "questions.json"])
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .spawn()
+        .unwrap();
+    let mut stdin = child.stdin.take().unwrap();
+    thread::spawn(move || {
+        for record in 0..records {
+            if writeln!(stdin, "{record} slow=200").is_err() {
+                break;
+            }
+        }
+    });
+
+    let mut stdout = BufReader::new(child.stdout.take().unwrap());
+    let mut first = String::new();
+    stdout.read_line(&mut first).unwrap();
+    drop(stdout);
+    let mut stderr = String::new();
+    child
+        .stderr
+        .take()
+        .unwrap()
+        .read_to_string(&mut stderr)
+        .unwrap();
+    let status = child.wait().unwrap();
+
+    let first: Value = serde_json::from_str(&first).unwrap();
+    assert_eq!(first["record"], "0 slow=200");
+    assert!(status.success(), "{status:?}");
+    assert_eq!(stderr.lines().count(), 1, "{stderr}");
+    assert!(stand_in.requests().await.len() < records);
+}
+
+#[tokio::test]
+async fn map_answers_many_records_concurrently() {
+    let stand_in = StandIn::start().await;
+    let dir = questions(&[]);
+    let lines: Vec<_> = (0..200)
+        .map(|record| format!("{record} slow=300\n"))
+        .collect();
+    let input = lines.concat();
+    let started = Instant::now();
+
+    stand_in
+        .jevpipe()
+        .current_dir(dir.path())
+        .args(["map", "questions.json"])
+        .write_stdin(input)
+        .assert()
+        .success()
+        .stderr(contains("200 records, 200 answered"));
+
+    assert!(
+        started.elapsed() < Duration::from_secs(10),
+        "{:?}",
+        started.elapsed()
+    );
 }

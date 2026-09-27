@@ -3,7 +3,7 @@ use std::process::Command;
 use std::sync::Mutex;
 use std::time::Duration;
 
-use serde_json::{Value, json};
+use serde_json::{Map, Value, json};
 use wiremock::matchers::{method, path};
 use wiremock::{Mock, MockServer, Request, Respond, ResponseTemplate};
 
@@ -66,7 +66,7 @@ impl Respond for Responder {
             *count
         };
         let markers = Markers::parse(&state);
-        let response = markers.answer(attempt);
+        let response = markers.respond(&body["questions"], attempt);
         match markers.slow {
             Some(millis) if attempt == 1 => response.set_delay(Duration::from_millis(millis)),
             Some(_) | None => response,
@@ -77,6 +77,8 @@ impl Respond for Responder {
 #[derive(Default)]
 struct Markers {
     probability: Option<f64>,
+    choice: Option<String>,
+    level: Option<usize>,
     fail: Option<(u16, usize)>,
     status: Option<u16>,
     too_large: bool,
@@ -91,6 +93,8 @@ impl Markers {
             let word = word.trim_matches(|c: char| !c.is_ascii_alphanumeric());
             match word.split_once('=') {
                 Some(("p", value)) => markers.probability = Some(value.parse().unwrap()),
+                Some(("choice", value)) => markers.choice = Some(value.to_owned()),
+                Some(("level", value)) => markers.level = Some(value.parse().unwrap()),
                 Some(("fail", value)) => {
                     let (status, times) = value.split_once('x').unwrap();
                     markers.fail = Some((status.parse().unwrap(), times.parse().unwrap()));
@@ -105,7 +109,7 @@ impl Markers {
         markers
     }
 
-    fn answer(&self, attempt: usize) -> ResponseTemplate {
+    fn respond(&self, questions: &Value, attempt: usize) -> ResponseTemplate {
         if let Some(status) = self.status {
             return error(status, "No cookie auth credentials found");
         }
@@ -126,11 +130,64 @@ impl Markers {
         }
         ResponseTemplate::new(200).set_body_json(json!({
             "model": "typesafe/jev-test",
-            "answers": { "match": { "type": "noul", "noul": self.probability.unwrap_or(0.1) } },
+            "answers": self.answers(questions),
             "usage": { "input_tokens": 310, "output_tokens": 20, "cost": 0.00001 },
             "id": "gen-dec-test",
             "provider": "TypeSafe"
         }))
+    }
+}
+
+impl Markers {
+    fn answers(&self, questions: &Value) -> Map<String, Value> {
+        questions
+            .as_object()
+            .unwrap()
+            .iter()
+            .map(|(name, question)| (name.clone(), self.answer(question)))
+            .collect()
+    }
+
+    fn answer(&self, question: &Value) -> Value {
+        match question["type"].as_str() {
+            Some("choice") => self.choice(question["criteria"].as_object().unwrap()),
+            Some("score") => self.score(question["criteria"].as_array().unwrap()),
+            Some(_) | None => json!({ "type": "noul", "noul": self.probability.unwrap_or(0.1) }),
+        }
+    }
+
+    fn choice(&self, options: &Map<String, Value>) -> Value {
+        let first = options.keys().next().unwrap();
+        let chosen = self.choice.as_ref().unwrap_or(first);
+        let probabilities: Map<String, Value> = options
+            .keys()
+            .map(|option| (option.clone(), json!(u8::from(option == chosen))))
+            .collect();
+        json!({
+            "type": "choice",
+            "choice": chosen,
+            "probabilities": probabilities,
+            "confidence": 1
+        })
+    }
+
+    fn score(&self, levels: &[Value]) -> Value {
+        let chosen = self.level.unwrap_or(0);
+        let legend: Map<String, Value> = levels
+            .iter()
+            .enumerate()
+            .map(|(level, text)| (level.to_string(), text.clone()))
+            .collect();
+        let probabilities: Map<String, Value> = (0..levels.len())
+            .map(|level| (level.to_string(), json!(u8::from(level == chosen))))
+            .collect();
+        json!({
+            "type": "score",
+            "score": chosen,
+            "legend": legend,
+            "probabilities": probabilities,
+            "confidence": 1
+        })
     }
 }
 

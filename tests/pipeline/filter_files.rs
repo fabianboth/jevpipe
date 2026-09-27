@@ -1,6 +1,5 @@
 use std::fs;
 
-use predicates::prelude::PredicateBooleanExt;
 use predicates::str::contains;
 
 use crate::fixture::files;
@@ -159,12 +158,12 @@ async fn a_missing_path_is_reported_and_fails() {
         .assert()
         .code(2)
         .stdout("a.rs\n")
-        .stderr(contains("jevpipe: record 2 (gone.rs): not found\n"))
+        .stderr(contains("jevpipe: line 2: not found\n"))
         .stderr(contains("2 records, 1 kept, 0 skipped, 1 failed"));
 }
 
 #[tokio::test]
-async fn a_large_file_is_cut_to_fit_judged_and_marked_truncated() {
+async fn a_large_file_is_cut_to_fit_and_judged() {
     let stand_in = StandIn::start().await;
     let content = format!("p=0.9 {}", "é".repeat(150_000));
     let dir = files(&[("big.txt", content.as_bytes())]);
@@ -172,11 +171,11 @@ async fn a_large_file_is_cut_to_fit_judged_and_marked_truncated() {
     stand_in
         .jevpipe()
         .current_dir(dir.path())
-        .args(["filter", "Is it?", "--read-files", "--json"])
+        .args(["filter", "Is it?", "--read-files"])
         .write_stdin("big.txt\n")
         .assert()
         .success()
-        .stdout(contains("\"record\":\"big.txt\"").and(contains("\"truncated\":true")));
+        .stdout("big.txt\n");
 
     let requests = stand_in.requests().await;
     let sent = requests[0]["state"]["content"].as_str().unwrap();
@@ -197,7 +196,7 @@ async fn a_413_answer_fails_the_record_as_too_large_and_the_run_continues() {
         .assert()
         .code(2)
         .stdout("a.rs\n")
-        .stderr(contains("jevpipe: record 1 (huge.txt): too large\n"));
+        .stderr(contains("jevpipe: line 1: too large\n"));
 }
 
 #[tokio::test]
@@ -212,5 +211,5 @@ async fn a_file_the_service_finds_too_large_fails() {
         .write_stdin("dense.min.js\n")
         .assert()
         .code(2)
-        .stderr(contains("jevpipe: record 1 (dense.min.js): too large\n"));
+        .stderr(contains("jevpipe: line 1: too large\n"));
 }

@@ -68,7 +68,9 @@ src/
 ├── main.rs        # unchanged
 ├── lib.rs         # modules, `run` dispatching filter and map
 ├── cli.rs         # filter and map; shared flags in one flattened Args struct
-├── questions.rs   # NEW: load + shape-check the questions file; filter's single noul; answer check
+├── questions.rs   # NEW: load + shape-check the questions file (a clap value parser); filter's single noul
+├── answers.rs     # NEW: answers as returned + the check against the questions; PROBABILITY
+├── reason.rs      # NEW: Skip and Failure reasons (from decision.rs), shared by reader, file and pipeline
 ├── record.rs      # CHANGED: own Input enum, line numbers (blank lines counted), text + line ending
 ├── file.rs        # CHANGED: returns its own skip/fail reason instead of an Outcome
 ├── text.rs        # CHANGED: decoding via encoding_rs; only the NUL check is left
@@ -96,7 +98,7 @@ tests/
 
 `tests/filter/json.rs` is deleted; what it covered moves to `map_answers.rs` and `map_files.rs`.
 
-**Structure Decision**: single crate, flat `src/` (14 modules of about 100 lines, one concept each;
+**Structure Decision**: single crate, flat `src/` (16 modules of about 100 lines, one concept each;
 subfolders pay off at around 20 modules). The old `filter.rs` pipeline moves to `pipeline.rs` so both
 commands are thin modules over it.
 
@@ -122,9 +124,9 @@ couplings:
 2. **The reader produces input, not decisions.** `record.rs` returns its own enum (record, line that
    is not text, failed input with its name) instead of `Result<Record, Decision>`; the pipeline turns
    it into decisions.
-3. **Threshold logic lives in `filter.rs`.** `Outcome::judged`, kept/dropped and `PROBABILITY` move
-   there; the shared outcome is answered / skipped / failed. `cli.rs` takes `PROBABILITY` from
-   `filter.rs`.
+3. **Threshold logic lives in `filter.rs`.** `Outcome::judged` and kept/dropped move there; the
+   shared outcome is answered / skipped / failed. `PROBABILITY` lives in `answers.rs`, which checks
+   every noul against it; `cli.rs` takes it from there for `--threshold`.
 4. **One trait for what differs per command.** `pipeline.rs` is generic over a small `Command` trait
    (write a decision, whether it counts as a result, the result label, the exit rule), implemented by
    `filter` and `map`; static dispatch, no `dyn`. `Exit::NothingKept` stops being a special case in

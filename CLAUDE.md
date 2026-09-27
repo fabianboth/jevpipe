@@ -1,14 +1,14 @@
 # Instructions
 
-jevpipe is a Unix pipe for typed decisions. Records stream in (plain lines or JSONL),
-calibrated decisions stream out as JSONL that keeps each record's id. The decisions come from Jev
+jevpipe is a Unix pipe for typed decisions. Records stream in (plain lines, JSONL lines or file
+paths), calibrated decisions stream out: `filter` prints the kept lines unchanged, `map` prints one JSON
+line per record with its answers. The decisions come from Jev
 (TypeSafe's System One model) or any server speaking the same API. A coding agent writes the loop,
 jevpipe makes the many small yes/no, pick-one or score judgments inside it, and only the outcome reaches
 the agent's context. The draft idea lives in `specs/manual/idea-draft.md`.
 
-Planned shape: a single Rust binary with the subcommands `filter`, `map` and `serve`, plus an agent skill
-(`skills/jevpipe/SKILL.md`) that teaches coding agents when to reach for it. First milestone: `filter`
-end to end on files and stdin, with offline tests.
+Shape: a single Rust binary with the subcommands `filter` and `map`, plus an agent skill
+(`skills/jevpipe/SKILL.md`) that teaches coding agents when to reach for it.
 
 ## Project Rules
 - Decide, don't act: no planning, no text generation, no executing actions. The calling script owns that.
@@ -42,7 +42,8 @@ pipelines.
 - A script longer than a few lines, or containing `\\`, goes to a file via Write and runs from there: Bash commands are cut at ~8 KB and turn `\\` into `\` (claude-code#93915).
 
 ## Verification
-- Tooling: rustup installs the toolchain pinned in `rust-toolchain.toml` on first use; `cargo-deny` is
+- Tooling: `check.ps1` needs PowerShell 7.3+ (`pwsh`); rustup installs the toolchain pinned in
+  `rust-toolchain.toml` on first use; `cargo-deny` is
   the one extra tool (a prebuilt binary from its GitHub releases into `~/.cargo/bin`).
 - `./check.ps1 -Fix` must pass. Stages: 1) **format** - `cargo fmt` (verifies, or fixes with `-Fix`)
   2) **lint** - `cargo clippy --all-targets` with warnings as errors: types, lints and style all fail

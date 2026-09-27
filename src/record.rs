@@ -7,41 +7,54 @@ use std::thread;
 use futures::Stream;
 use tokio::sync::mpsc;
 
-use crate::decision::{Decision, Failure, Outcome};
+use crate::reason::Failure;
 use crate::text;
 
-const BUFFERED_RECORDS: usize = 256;
+const BUFFERED_INPUTS: usize = 256;
 const STANDARD_INPUT: &str = "(standard input)";
 const STANDARD_INPUT_ARGUMENT: &str = "-";
 
-pub(crate) struct Record {
-    pub(crate) position: usize,
-    pub(crate) raw: Vec<u8>,
-    pub(crate) text: String,
+pub(crate) enum Input {
+    Record(Record),
+    NotText(Record),
+    Failed(FailedInput),
 }
 
-pub(crate) type Incoming = Result<Record, Decision>;
+pub(crate) struct Record {
+    pub(crate) line: usize,
+    pub(crate) text: String,
+    pub(crate) ending: Ending,
+}
 
-pub(crate) fn read(mut inputs: Vec<PathBuf>) -> io::Result<impl Stream<Item = Incoming>> {
+#[derive(Clone, Copy)]
+pub(crate) enum Ending {
+    Lf,
+    CrLf,
+    Missing,
+}
+
+pub(crate) struct FailedInput {
+    pub(crate) name: String,
+    pub(crate) failure: Failure,
+}
+
+pub(crate) fn read(mut inputs: Vec<PathBuf>) -> io::Result<impl Stream<Item = Input>> {
     if inputs.is_empty() {
         inputs.push(PathBuf::from(STANDARD_INPUT_ARGUMENT));
     }
-    let (sender, receiver) = mpsc::channel(BUFFERED_RECORDS);
-    let reader = Reader {
-        sender,
-        position: 0,
-    };
+    let (sender, receiver) = mpsc::channel(BUFFERED_INPUTS);
+    let reader = Reader { sender, line: 0 };
     thread::Builder::new()
         .name("input".to_owned())
         .spawn(move || reader.read_all(&inputs))?;
     Ok(futures::stream::unfold(receiver, |mut receiver| async {
-        receiver.recv().await.map(|incoming| (incoming, receiver))
+        receiver.recv().await.map(|input| (input, receiver))
     }))
 }
 
 struct Reader {
-    sender: mpsc::Sender<Incoming>,
-    position: usize,
+    sender: mpsc::Sender<Input>,
+    line: usize,
 }
 
 impl Reader {
@@ -60,75 +73,71 @@ impl Reader {
         let name = input.display().to_string();
         match File::open(input) {
             Ok(file) => self.read_lines(&name, BufReader::new(file)),
-            Err(error) => self.send_failed(name, Outcome::unreadable(&error)),
+            Err(error) => self.send_failed(&name, error.into()),
         }
     }
 
-    fn read_lines(&mut self, input_name: &str, mut reader: impl BufRead) -> ControlFlow<()> {
+    fn read_lines(&mut self, name: &str, mut reader: impl BufRead) -> ControlFlow<()> {
         let mut first_line = true;
         loop {
             let mut raw = Vec::new();
             match reader.read_until(b'\n', &mut raw) {
                 Ok(0) => return ControlFlow::Continue(()),
                 Ok(_) if first_line && text::is_utf16(&raw) => {
-                    return self
-                        .send_failed(input_name.to_owned(), Outcome::failed(Failure::Utf16));
+                    return self.send_failed(name, Failure::Utf16);
                 }
-                Ok(_) if raw.trim_ascii().is_empty() => {}
                 Ok(_) => {
-                    let incoming = self.record(raw);
-                    self.send(incoming)?;
+                    self.line += 1;
+                    if !raw.trim_ascii().is_empty() {
+                        self.send(record(self.line, raw))?;
+                    }
                 }
-                Err(error) => {
-                    return self.send_failed(input_name.to_owned(), Outcome::unreadable(&error));
-                }
+                Err(error) => return self.send_failed(name, error.into()),
             }
             first_line = false;
         }
     }
 
-    fn record(&mut self, raw: Vec<u8>) -> Incoming {
-        let position = self.next_position();
-        let line = without_terminator(&raw);
-        let is_text = text::is_text(line);
-        let text = String::from_utf8_lossy(line).into_owned();
-        let record = Record {
-            position,
-            raw,
-            text,
-        };
-        if is_text {
-            return Ok(record);
-        }
-        Err(Decision {
-            record,
-            outcome: Outcome::failed(Failure::NotText),
-        })
+    fn send_failed(&self, name: &str, failure: Failure) -> ControlFlow<()> {
+        self.send(Input::Failed(FailedInput {
+            name: name.to_owned(),
+            failure,
+        }))
     }
 
-    fn send_failed(&mut self, input_name: String, outcome: Outcome) -> ControlFlow<()> {
-        let record = Record {
-            position: self.next_position(),
-            raw: Vec::new(),
-            text: input_name,
-        };
-        self.send(Err(Decision { record, outcome }))
-    }
-
-    fn send(&self, incoming: Incoming) -> ControlFlow<()> {
-        match self.sender.blocking_send(incoming) {
+    fn send(&self, input: Input) -> ControlFlow<()> {
+        match self.sender.blocking_send(input) {
             Ok(()) => ControlFlow::Continue(()),
             Err(_) => ControlFlow::Break(()),
         }
     }
+}
 
-    fn next_position(&mut self) -> usize {
-        self.position += 1;
-        self.position
+fn record(line: usize, mut raw: Vec<u8>) -> Input {
+    let ending = Ending::strip(&mut raw);
+    let text = String::from_utf8(raw)
+        .map_err(|error| String::from_utf8_lossy(error.as_bytes()).into_owned());
+    match text {
+        Ok(text) if !text.contains('\0') => Input::Record(Record { line, text, ending }),
+        Ok(text) | Err(text) => Input::NotText(Record { line, text, ending }),
     }
 }
 
-fn without_terminator(raw: &[u8]) -> &[u8] {
-    let line = raw.strip_suffix(b"\n").unwrap_or(raw);
-    line.strip_suffix(b"\r").unwrap_or(line)
+impl Ending {
+    fn strip(raw: &mut Vec<u8>) -> Self {
+        let line_feed = raw.pop_if(|byte| *byte == b'\n').is_some();
+        let carriage_return = raw.pop_if(|byte| *byte == b'\r').is_some();
+        match (line_feed, carriage_return) {
+            (_, true) => Self::CrLf,
+            (true, false) => Self::Lf,
+            (false, false) => Self::Missing,
+        }
+    }
+
+    pub(crate) fn terminator(self) -> &'static [u8] {
+        match self {
+            Self::Lf | Self::Missing => b"\n",
+            Self::CrLf => b"\r\n",
+        }
+    }
 }

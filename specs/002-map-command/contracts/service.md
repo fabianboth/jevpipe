@@ -35,5 +35,6 @@ One request per record. `questions` is the questions file verbatim (`map`) or
 Fields jevpipe reads: `model`, `answers` (each answer's `type`, plus `noul` for `filter`), and
 `usage.cost` (optional). Unknown fields are ignored; `map` passes `answers` through whole.
 
-An answer missing for an asked question, or of another type than asked, or a `noul` outside 0..=1
-for `filter`, stops the run with `unexpected answer: …` (exit 2).
+An answer missing for an asked question, of another type than asked, or a `noul` outside 0..=1
+stops the run (exit 2), for example
+``jevpipe: error: service error: unexpected answer to `kind`: a noul, asked for a choice``.

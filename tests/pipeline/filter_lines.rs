@@ -1,6 +1,5 @@
 use std::time::{Duration, Instant};
 
-use predicates::prelude::PredicateBooleanExt;
 use predicates::str::contains;
 
 use crate::fixture::files;
@@ -154,9 +153,7 @@ async fn a_record_failing_after_all_retries_is_reported_and_the_others_still_jud
         .assert()
         .code(2)
         .stdout("a p=0.9\nc p=0.9\n")
-        .stderr(contains(
-            "jevpipe: record 2 (b p=0.9 fail=503x9): service unavailable\n",
-        ))
+        .stderr(contains("jevpipe: line 2: service unavailable\n"))
         .stderr(contains("3 records, 2 kept, 0 skipped, 1 failed"));
 
     assert_eq!(stand_in.requests().await.len(), 7);
@@ -239,10 +236,9 @@ async fn lines_that_are_not_text_fail_without_a_request() {
         .assert()
         .code(2)
         .stdout("a p=0.9\n")
-        .stderr(contains("jevpipe: record 2 (").and(contains("): not text")))
-        .stderr(
-            contains("jevpipe: record 3 (").and(contains("3 records, 1 kept, 0 skipped, 2 failed")),
-        );
+        .stderr(contains("jevpipe: line 2: not text\n"))
+        .stderr(contains("jevpipe: line 3: not text\n"))
+        .stderr(contains("3 records, 1 kept, 0 skipped, 2 failed"));
 
     assert_eq!(stand_in.requests().await.len(), 1);
 }
@@ -263,7 +259,7 @@ async fn a_utf16_input_fails_as_a_whole_and_the_other_inputs_are_judged() {
         .code(2)
         .stdout("b p=0.9\n")
         .stderr(contains(
-            "jevpipe: record 1 (windows.txt): UTF-16, convert it to UTF-8\n",
+            "jevpipe: windows.txt: UTF-16, convert it to UTF-8\n",
         ))
         .stderr(contains("2 records, 1 kept, 0 skipped, 1 failed"));
 
@@ -300,7 +296,7 @@ async fn a_probability_outside_0_to_1_stops_the_run() {
         .code(2)
         .stdout("")
         .stderr(contains(
-            "jevpipe: error: service error: unexpected answer: probability 2 is not between 0 and 1",
+            "jevpipe: error: service error: unexpected answer to `match`: probability 2 is not between 0 and 1",
         ));
 }
 
@@ -315,9 +311,7 @@ async fn an_answer_in_an_unexpected_shape_stops_the_run() {
         .assert()
         .code(2)
         .stdout("")
-        .stderr(contains(
-            "jevpipe: error: service error: unexpected answer: ",
-        ));
+        .stderr(contains("jevpipe: error: service error: unexpected answer"));
 }
 
 #[tokio::test]
@@ -354,6 +348,6 @@ async fn a_named_file_that_does_not_exist_fails_at_its_place_and_the_others_are_
         .assert()
         .code(2)
         .stdout("a p=0.9\nb p=0.9\n")
-        .stderr(contains("jevpipe: record 2 (gone.txt): not found\n"))
+        .stderr(contains("jevpipe: gone.txt: not found\n"))
         .stderr(contains("3 records, 2 kept, 0 skipped, 1 failed"));
 }
