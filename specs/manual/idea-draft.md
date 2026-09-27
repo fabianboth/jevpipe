@@ -49,13 +49,15 @@ Records are lines (plain text or JSONL, sent as text) or file paths. `filter` pr
 
 ## Next
 
-1. **004 Release and skill.** Prebuilt binaries for Linux, macOS and Windows (x64 and arm64) via
-   cargo-dist on a version tag: GitHub Releases with shell and PowerShell install scripts, plus npm
-   (`jevpipe`, reserved with a 0.0.0 placeholder by the npm account `bothlabs`; published from CI through npm
-   trusted publishing, no stored token). The skill `skills/jevpipe/SKILL.md` is written from
+1. **004 Release and skill.** Binary-only wheels for Linux, macOS and Windows (x64 and arm64) on
+   PyPI, installed with `uv tool install jevpipe`: built with maturin on a version tag, checked on
+   every platform, staged on TestPyPI, published through trusted publishing after an approval in
+   GitHub, then a GitHub Release. npm is not a channel, because it always starts a Node.js launcher;
+   the name stays reserved there by the account `bothlabs`. Install scripts (cargo-dist) may follow
+   as a second channel. The skill `skills/jevpipe/SKILL.md` is written from
    what is known so far and installs separately through `npx skills add` or `gh skill install`; it
    carries no binary and no install steps, only a pointer to the README when `jevpipe` is missing.
-   The README covers installation and the API key. Tried on the private repo with a pre-release tag.
+   The README covers installation and the API key. A release candidate is tried after going public.
 2. **005 Calibration study.** Labeled gold-standard sets per use case; precision and recall per
    threshold, calibration, run time, throughput and cost per 1,000 records, against grep and a
    general LLM as baselines; trigger and task evals for the skill (developer tooling in the repo,
