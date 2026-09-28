@@ -2,7 +2,7 @@
 
 <h1>jevpipe</h1>
 
-<p><strong>Give your coding agent a System 1.</strong></p>
+<p><strong>Give your agent a System 1.</strong></p>
 
 <p>Fast, cheap judgments over thousands of files, lines or records in one shell command,<br>so your agent decides at scale instead of reading everything itself.</p>
 
