@@ -120,3 +120,47 @@ async fn a_large_file_is_cut_to_fit_answered_and_marked_truncated() {
     assert_eq!(sent.chars().count(), 100_000);
     assert!(content.starts_with(sent));
 }
+
+#[tokio::test]
+async fn a_file_still_too_large_after_the_cut_is_halved_until_it_fits() {
+    let stand_in = StandIn::start().await;
+    let content = format!("p=0.8 fits=30000 {}", "é".repeat(150_000));
+    let dir = files(&[("bundle.min.js", content.as_bytes())]);
+
+    let output = stand_in
+        .map()
+        .current_dir(dir.path())
+        .arg("--read-files")
+        .write_stdin("bundle.min.js\n")
+        .assert()
+        .success();
+
+    let lines = json_lines(output.get_output());
+    assert_eq!(lines[0]["answers"]["relevant"]["noul"], 0.8);
+    assert_eq!(lines[0]["truncated"], true);
+    let sent: Vec<usize> = stand_in
+        .requests()
+        .await
+        .iter()
+        .map(|body| body["state"]["content"].as_str().unwrap().chars().count())
+        .collect();
+    assert_eq!(sent, [100_000, 50_000, 25_000]);
+}
+
+#[tokio::test]
+async fn a_file_too_large_after_three_halvings_fails() {
+    let stand_in = StandIn::start().await;
+    let content = format!("p=0.8 fits=5000 {}", "é".repeat(150_000));
+    let dir = files(&[("bundle.min.js", content.as_bytes())]);
+
+    stand_in
+        .map()
+        .current_dir(dir.path())
+        .arg("--read-files")
+        .write_stdin("bundle.min.js\n")
+        .assert()
+        .code(2)
+        .stderr(contains("jevpipe: line 1: too large\n"));
+
+    assert_eq!(stand_in.requests().await.len(), 4);
+}

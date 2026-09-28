@@ -1,0 +1,1470 @@
+{
+  "dataset": {
+    "repository": "github/CodeSearchNet",
+    "commit": "106e827405c968597da938f6b373d30183918869",
+    "file": "resources/annotationStore.csv"
+  },
+  "snippets": [
+    {
+      "name": "0000.rb",
+      "url": "https://github.com/3100/trahald/blob/a32bdd61ee3db1579c194eee2e898ae364f99870/lib/trahald/summary-file.rb#L32-L41",
+      "sha256": "cc97471a5ea9b2b079e57bd012951341bf87535720bfe6bcb6b886fc5484f109"
+    },
+    {
+      "name": "0001.rb",
+      "url": "https://github.com/47colborne/exel/blob/65fbbdffef40649e98c4490792c59331730d4f90/lib/exel/processor_helper.rb#L64-L68",
+      "sha256": "ce2d97c4beef7fd73440236dc87d2c8c5b6f6ba88e78cf5db6f5dd831c8aaba1"
+    },
+    {
+      "name": "0002.rb",
+      "url": "https://github.com/AlchemyCMS/alchemy_cms/blob/0e1c5665984ff67d387c8cb4255f805c296c2fb6/lib/alchemy/upgrader/tasks/cells_upgrader.rb#L73-L87",
+      "sha256": "40a53c8a8bc14a06063e910443f7df851d92278857a3e775b6ee486320d8c4e9"
+    },
+    {
+      "name": "0003.rb",
+      "url": "https://github.com/AlexanderZaytsev/human_date/blob/f20350fe817de3505d8c2693af4a6d38d308b35a/lib/human_date/view_helpers.rb#L39-L53",
+      "sha256": "9e2641a8d2ffde26c7bbcbf4399e0ff4af6629089739a1ca3da602c2c590a824"
+    },
+    {
+      "name": "0004.rb",
+      "url": "https://github.com/BinaryStorms/civic-sip-ruby-sdk/blob/330f01409500b30129691e9990da69e57bd6fbf4/lib/civic_sip_sdk/client.rb#L76-L97",
+      "sha256": "ff811730aa714d0ad4231dbbeef3627f14b129f9628d6bdb2f17a8d4a436495c"
+    },
+    {
+      "name": "0005.rb",
+      "url": "https://github.com/ChrisSandison/missing_text/blob/dd33f0118f0a69798537e0280a6c62dc387f3e81/lib/missing_text/diff.rb#L164-L179",
+      "sha256": "618489b3785d36c8230a2fd118427182de23aaafbc41ada4e074ee991a9d314a"
+    },
+    {
+      "name": "0006.rb",
+      "url": "https://github.com/DarthSim/bayes_classifier/blob/ae17adec04cea589211d323369b70b40f2d48126/lib/bayes/classifier.rb#L25-L30",
+      "sha256": "744d32af92a8157d08f148f5b0cc8efc3bebba9f34a967896db3492968bfa650"
+    },
+    {
+      "name": "0007.rb",
+      "url": "https://github.com/DataDog/dogstatsd-ruby/blob/0ea2a4d011958ad0d092654cae950e64b6475077/lib/datadog/statsd.rb#L324-L326",
+      "sha256": "56d2958069b4e7eaef59cb821d70b53f971c773ac306b1799897327a48c00709"
+    },
+    {
+      "name": "0008.rb",
+      "url": "https://github.com/DevicoSolutions/geckodriver-helper/blob/6b7842b9a87d6be297a1ad1eb089a0cacdb71a74/lib/geckodriver/helper.rb#L37-L47",
+      "sha256": "5a172d26e18058a9402958ceac581e1932f0471892cef730590adbe2d2312dbf"
+    },
+    {
+      "name": "0009.rb",
+      "url": "https://github.com/EthWorks/ethereum.rb/blob/7c2dab0a0142bb6f557d290ef69d39ee3f5f7169/lib/ethereum/encoder.rb#L71-L76",
+      "sha256": "1d1962f4eb208ecfd4b61a81a81792ae7955b188f9233efaab7bfee0999cac57"
+    },
+    {
+      "name": "0010.rb",
+      "url": "https://github.com/Fluxx/distillery/blob/5d6dfb430398e1c092d65edc305b9c77dda1532b/lib/distillery/document.rb#L212-L218",
+      "sha256": "a7441296ca7e44dd13c5692ac3693d5542bd636bdc2e3e69068745effd11d108"
+    },
+    {
+      "name": "0011.rb",
+      "url": "https://github.com/FooBarWidget/mizuho/blob/3f361f0732ec59dd9f8f047aa4ea4943be8ba700/lib/mizuho/id_map.rb#L190-L198",
+      "sha256": "c69fb83c4e3a4a91a1c39a5769a471e5ec3e951b68b06da4b9bd6a3b69bcce14"
+    },
+    {
+      "name": "0012.rb",
+      "url": "https://github.com/FooBarWidget/mizuho/blob/3f361f0732ec59dd9f8f047aa4ea4943be8ba700/lib/mizuho/id_map.rb#L58-L80",
+      "sha256": "1cf6668a7036bc15903347886c04a5a14868910a755deadade6cfcd79ce9925f"
+    },
+    {
+      "name": "0013.rb",
+      "url": "https://github.com/GlobalNamesArchitecture/dwca_hunter/blob/fa7665c2bf6a1033ac20097fa1ef372830ff5e2c/lib/dwca_hunter/resources/wikispecies.rb#L143-L157",
+      "sha256": "82f43a276a043d51016de5b43d33958eaac9085c5f8d3aedf7f3dd7a79760d12"
+    },
+    {
+      "name": "0014.rb",
+      "url": "https://github.com/JEG2/oklahoma_mixer/blob/9e3647d2b064180f2e5f5848ca36967f0aca6e70/lib/oklahoma_mixer/b_tree_database.rb#L12-L20",
+      "sha256": "705e9e3c4c5336c02b4aa10e53753deaeaa32c58cf3feaae221f0dcf170bd9d6"
+    },
+    {
+      "name": "0015.rb",
+      "url": "https://github.com/JEG2/oklahoma_mixer/blob/9e3647d2b064180f2e5f5848ca36967f0aca6e70/lib/oklahoma_mixer/fixed_length_database.rb#L10-L14",
+      "sha256": "aafcd9b939733fa4f6bd60923845eb16de0e4ecad127a8c624941ae3cea424c9"
+    },
+    {
+      "name": "0016.rb",
+      "url": "https://github.com/Katello/katello/blob/a1c9280067607999cae43bab89b53ba870856b76/app/models/katello/provider.rb#L127-L134",
+      "sha256": "4d253da9a0335eb27ca75a8cd34b3439013da2067c9e8b059465c4cff3e49e9e"
+    },
+    {
+      "name": "0017.rb",
+      "url": "https://github.com/Katello/katello/blob/a1c9280067607999cae43bab89b53ba870856b76/app/models/katello/repository.rb#L548-L557",
+      "sha256": "6fff46f2a2ad7f6249c3c36ecbdb05efe12cb8f312524edcf35b9cc05860cb5c"
+    },
+    {
+      "name": "0018.rb",
+      "url": "https://github.com/ManageIQ/manageiq-smartstate/blob/88fed6e9e6c0b69e87d71d1912c77aca535f7caa/lib/blackbox/xmlStorage.rb#L138-L155",
+      "sha256": "f2e2584b0ce02adc12dfc66294779a40a9e2e5f4ba0fde3526b99b684c7a6d6b"
+    },
+    {
+      "name": "0019.rb",
+      "url": "https://github.com/ManageIQ/manageiq-smartstate/blob/88fed6e9e6c0b69e87d71d1912c77aca535f7caa/lib/metadata/linux/LinuxOSInfo.rb#L214-L222",
+      "sha256": "d8df136bcae6a11f9ff559cc5231377f7a11b460c27bed360b3c55c5904bac47"
+    },
+    {
+      "name": "0020.rb",
+      "url": "https://github.com/ManageIQ/more_core_extensions/blob/13f97a2a07155354117ea638eb0892fad09d5e44/lib/more_core_extensions/core_ext/benchmark/realtime_store.rb#L16-L26",
+      "sha256": "bee6d95a5b93bdfedc08b279e194b55777ee5b4bad20245b4206d645a959747f"
+    },
+    {
+      "name": "0021.rb",
+      "url": "https://github.com/MishaConway/wavefront-ruby/blob/3023ead073f7788b4b884db2974d57e5db4560eb/lib/wavefront_object.rb#L62-L88",
+      "sha256": "a030215a022af592fac7236e6a186945c458a69bb2efd3f884a25f443b60ba39"
+    },
+    {
+      "name": "0022.rb",
+      "url": "https://github.com/NathanTCz/idlc-sdk-core/blob/a9cf07f65a1b206b7f776183d29923aa345f582e/lib/idlc-sdk-core/workspace.rb#L29-L38",
+      "sha256": "ca02873c92fcce7c4d1d87724e3d33bbb5cacdb834f271113ecd766f1716de7e"
+    },
+    {
+      "name": "0023.rb",
+      "url": "https://github.com/Nephos/epimath100/blob/a415625e1d37eb2168ab7d382ccd7a868ca160ea/lib/epimath100/matrix.class.rb#L232-L269",
+      "sha256": "ad574bd17c9aae674dad74ddb4b187be525faa5f8ea88032b44efc59ff30e268"
+    },
+    {
+      "name": "0024.rb",
+      "url": "https://github.com/Origen-SDK/origen/blob/f05e9dd190fcb90284084ba6e2bd4b0fe0c7f4ac/lib/origen/file_handler.rb#L44-L62",
+      "sha256": "b1d5e8c5427eade7a7563d8c71fd32bf28e04140ebbfd270773b1dfd8ce8efe0"
+    },
+    {
+      "name": "0025.rb",
+      "url": "https://github.com/Origen-SDK/origen/blob/f05e9dd190fcb90284084ba6e2bd4b0fe0c7f4ac/lib/origen/regression_manager.rb#L35-L115",
+      "sha256": "d5280706d82d1b1099c94c61a012848e42c479efb7d4eff35cdf267b47993ddb"
+    },
+    {
+      "name": "0026.rb",
+      "url": "https://github.com/PixarAnimationStudios/ruby-jss/blob/4ab645bfaec8b2edb1ea146bfc2b10f0d62edee9/lib/jss/api_connection.rb#L831-L846",
+      "sha256": "88c84edb7164086b16f0716a9e30de629afea947d6bbfc416e1b095e7f3835a9"
+    },
+    {
+      "name": "0027.rb",
+      "url": "https://github.com/PixarAnimationStudios/ruby-jss/blob/4ab645bfaec8b2edb1ea146bfc2b10f0d62edee9/lib/jss/api_object/network_segment.rb#L397-L402",
+      "sha256": "80293258aec76769e40f4b7abccfa380124a9e2fc803601e0580af6ac9ef014a"
+    },
+    {
+      "name": "0028.rb",
+      "url": "https://github.com/RISCfuture/dropbox/blob/702c0f99a25bb319b4a191f3dac2dbbd60427f9d/lib/dropbox/memoization.rb#L75-L79",
+      "sha256": "58eca1abf65c89d9b02d569eb4a8ccd0820d10e0e942c3fb84b0fc3c6fd8e888"
+    },
+    {
+      "name": "0029.rb",
+      "url": "https://github.com/Rademade/mongoid_sortable_relation/blob/81db5b893507d6594a2d8b57f4f1d2fd8d6658a6/lib/mongoid_sortable_relation/many/origin_optional.rb#L19-L29",
+      "sha256": "daee0734c15953eec1a4457118f867a1d11c8969b45f97ad7c047c60f371bf1b"
+    },
+    {
+      "name": "0030.rb",
+      "url": "https://github.com/RubenVerborgh/HTML5small/blob/dc62e06896723ffc24a652abf2fdcdd643726e45/lib/html5small/minifier.rb#L101-L105",
+      "sha256": "22b730baf8a53081d7711d1ebdc01b97e2b5c81447f496cf1229fa20f64c23b5"
+    },
+    {
+      "name": "0031.rb",
+      "url": "https://github.com/SciRuby/daru/blob/d17887e279c27e2b2ec7a252627c04b4b03c0a7a/lib/daru/category.rb#L277-L281",
+      "sha256": "0acb4bf72e66e9a355c11823376d92537330094f2abd5c87ac3668de016389b8"
+    },
+    {
+      "name": "0032.rb",
+      "url": "https://github.com/ScreenStaring/recharge-api/blob/3eaf7723bf9c7d6689051e92cab5b572b009afcc/lib/recharge/http_request.rb#L98-L102",
+      "sha256": "2d806aeae50716b9c0b76f68c30dd87b154f908dbfca0a1b35ca212a40fab4ec"
+    },
+    {
+      "name": "0033.rb",
+      "url": "https://github.com/TheNoskOneVzla/aprendizaje-maquina/blob/8c87d973a8ba44d065a2b2cc4f1f13bdbee839e3/lib/aprendizaje_maquina/clustering.rb#L62-L94",
+      "sha256": "c19a201d43dd541f54d9786c45099495f5d6a55e1d1bf409f888366a75e20acc"
+    },
+    {
+      "name": "0034.rb",
+      "url": "https://github.com/ThoughtWorksStudios/oauth2_provider/blob/d54702f194edd05389968cf8947465860abccc5d/tools/jruby-1.5.1/lib/ruby/1.8/rdoc/markup/simple_markup/to_html.rb#L190-L219",
+      "sha256": "e2864fdd245d4a6f771e8b39e69cb3c6c516e0cb6b13f1891faeee8d9541795f"
+    },
+    {
+      "name": "0035.rb",
+      "url": "https://github.com/ThoughtWorksStudios/oauth2_provider/blob/d54702f194edd05389968cf8947465860abccc5d/tools/jruby-1.5.1/lib/ruby/1.8/rdoc/markup/simple_markup/to_latex.rb#L204-L221",
+      "sha256": "813c0b32bc40d7141ede0c0e6e5c52049f9ab40583f194fe701f8364ed9c2e1d"
+    },
+    {
+      "name": "0036.rb",
+      "url": "https://github.com/ThoughtWorksStudios/oauth2_provider/blob/d54702f194edd05389968cf8947465860abccc5d/tools/jruby-1.5.1/lib/ruby/gems/1.8/gems/activerecord-jdbc-adapter-0.9.7-java/lib/jdbc_adapter/jdbc_postgre.rb#L399-L412",
+      "sha256": "e793045ac6c5e6e7a3d9175f99a5f631db73ebd2aea70176af9756dc7fce34bd"
+    },
+    {
+      "name": "0037.rb",
+      "url": "https://github.com/ThoughtWorksStudios/oauth2_provider/blob/d54702f194edd05389968cf8947465860abccc5d/tools/jruby-1.5.1/lib/ruby/gems/1.8/gems/activerecord-jdbc-adapter-0.9.7-java/lib/jdbc_adapter/missing_functionality_helper.rb#L48-L69",
+      "sha256": "654c38f3aea510daa76521b35df643df5be3ea0eda765ec93b1e56204dea0057"
+    },
+    {
+      "name": "0038.rb",
+      "url": "https://github.com/ThoughtWorksStudios/oauth2_provider/blob/d54702f194edd05389968cf8947465860abccc5d/tools/jruby-1.5.1/lib/ruby/gems/1.8/gems/activesupport-2.3.4/lib/active_support/message_encryptor.rb#L20-L33",
+      "sha256": "f9cc9896e416f97771d85de781094d5142c5a069f1901f2927bdac337ae6403c"
+    },
+    {
+      "name": "0039.rb",
+      "url": "https://github.com/Zerocchi/jikan.rb/blob/498a779e9f85a191e8d6375f7ca83039e984cd4a/lib/jikan/query.rb#L12-L46",
+      "sha256": "d72e1bf1f2d9d3be4ff859863233cbd98c646a77a8962187401da6e612f23a6b"
+    },
+    {
+      "name": "0040.rb",
+      "url": "https://github.com/Zerocchi/jikan.rb/blob/498a779e9f85a191e8d6375f7ca83039e984cd4a/lib/jikan/query.rb#L48-L75",
+      "sha256": "a670a624c8d9330edadbb1908c5c0ba234c4da8bab9de9b3ef1a67da3ab53f90"
+    },
+    {
+      "name": "0041.rb",
+      "url": "https://github.com/abhay/calais/blob/21ef6f2714f2d5f786a1819927b4e8429c274fd5/lib/calais/response.rb#L83-L186",
+      "sha256": "98581c8a770b59654bc9ab9860c4e719bd1edf73cd245f09dd5edd362d4123ca"
+    },
+    {
+      "name": "0042.rb",
+      "url": "https://github.com/agarie/measurable/blob/8ff8efbab1a0892bdddf6e865dd8864956168a91/lib/measurable/levenshtein.rb#L27-L53",
+      "sha256": "8d66ded2563b5e62d3245f4d957a9ff2a8ed760d2f3c71663676988d7429e08e"
+    },
+    {
+      "name": "0043.rb",
+      "url": "https://github.com/akerl/prospectus/blob/dfd62bd3b649562de03e969ca53237fa6074bac5/lib/prospectus/list.rb#L30-L39",
+      "sha256": "6404925d46f55b33dcc52f1eacb030c9c90bf2494ec0bf00a4baa674a0191b2d"
+    },
+    {
+      "name": "0044.rb",
+      "url": "https://github.com/alexreisner/geocoder/blob/e087dc2759264ee6f307b926bb2de4ec2406859e/lib/geocoder/calculations.rb#L238-L256",
+      "sha256": "b6bb4b48c25622c0350b1d27a733a3eff82311034076d5f1b36dfd79d304bdb3"
+    },
+    {
+      "name": "0045.rb",
+      "url": "https://github.com/alphagov/govuk_navigation_helpers/blob/5eddcaec5412473fa4e22ef8b8d2cbe406825886/lib/govuk_navigation_helpers/breadcrumbs.rb#L23-L34",
+      "sha256": "c6b38d0a8c30ea2e266c5a47747382b1ed5f584bdfe0d4325a29eda3049a1cc4"
+    },
+    {
+      "name": "0046.rb",
+      "url": "https://github.com/amatsuda/erd/blob/1f4b8bb5d386835b4596a87ddf6897c8626036ae/app/controllers/erd/erd_controller.rb#L106-L112",
+      "sha256": "3c11397e3dfecb3d1db6896deae0ed59008abe528aad37509542c8981b362740"
+    },
+    {
+      "name": "0047.rb",
+      "url": "https://github.com/ankane/pgslice/blob/6b4de2435b88e1c69c8d2e3f7bf77235265b1592/lib/pgslice/helpers.rb#L115-L125",
+      "sha256": "6b9521615962fd51e2c34a9722ce752c00b3d3729705a995254401b9dc77d53a"
+    },
+    {
+      "name": "0048.rb",
+      "url": "https://github.com/ankane/pgslice/blob/6b4de2435b88e1c69c8d2e3f7bf77235265b1592/lib/pgslice/helpers.rb#L135-L145",
+      "sha256": "1fc7e1654c0699b62615ad7fe2a589cf68592b99c801ce26097b48e10b273cb5"
+    },
+    {
+      "name": "0049.rb",
+      "url": "https://github.com/ankurcha/stemcell/blob/9b64480494f86141e38a65a61746aef52c451293/lib/stemcell/builder.rb#L352-L359",
+      "sha256": "828d3239fe9343ebf9507393e94a677f43e6719c355ed7439c13986750cfd48c"
+    },
+    {
+      "name": "0050.rb",
+      "url": "https://github.com/apache/predictionio-sdk-ruby/blob/a1777db9f89a4287d252c8ca166a279fb2af64b7/lib/predictionio/event_client.rb#L112-L119",
+      "sha256": "97db36e460e40dc278cf225e554fd97a7c19c23cf7e37a268b76670d7854bd86"
+    },
+    {
+      "name": "0051.rb",
+      "url": "https://github.com/barkerest/incline/blob/1ff08db7aa8ab7f86b223268b700bc67d15bb8aa/lib/incline/extensions/form_builder.rb#L277-L282",
+      "sha256": "85add9c8363587cf384067e878d71966843973b65986a4516f9b0d8aa5445779"
+    },
+    {
+      "name": "0052.rb",
+      "url": "https://github.com/bestie/terrestrial/blob/0cee1af7eac85572f22d68933f7f39d6e2a7e311/lib/terrestrial/dataset.rb#L17-L29",
+      "sha256": "8dbb2b84e7fd09dc59f8bef08e06c56a34104579bddd5964a55391d6b81cfcb6"
+    },
+    {
+      "name": "0053.rb",
+      "url": "https://github.com/blahah/biopsy/blob/e46f3d1c75de4da2ec47a377f7e4f0e16a8e03d2/lib/biopsy/objective_handler.rb#L99-L113",
+      "sha256": "3aff5e5afd54a98ff618ddd957e472c65872f4c8dc37ac39edb52bca4d00854b"
+    },
+    {
+      "name": "0054.rb",
+      "url": "https://github.com/blahah/biopsy/blob/e46f3d1c75de4da2ec47a377f7e4f0e16a8e03d2/lib/biopsy/target.rb#L141-L143",
+      "sha256": "23519a47008b93ad8a82889745547172603dcd488c28c4ba2acd1189548f6f4f"
+    },
+    {
+      "name": "0055.rb",
+      "url": "https://github.com/booqable/scoped_serializer/blob/fb163bbf61f54a5e8684e4aba3908592bdd986ac/lib/scoped_serializer/array_serializer.rb#L29-L39",
+      "sha256": "b2eb96fe647fd7772573b141eabd95de73f5dfa2c7bc36db79f8b20cfb7a1b25"
+    },
+    {
+      "name": "0056.rb",
+      "url": "https://github.com/bootstrap-ruby/bootstrap_form/blob/9dc3c938e8a56f9c61638aa471add7c35187e8c1/lib/bootstrap_form/form_group_builder.rb#L68-L72",
+      "sha256": "f08da2333851763d6e741eaef59f335587b84d79ec2a826ceb7016f90ecad68a"
+    },
+    {
+      "name": "0057.rb",
+      "url": "https://github.com/brainlid/locale_dating/blob/696aa73a648d5c0552a437801b07331c6cc005ee/lib/locale_dating.rb#L37-L62",
+      "sha256": "d258307661cb7fed446c5ba8edcfad7b71b9c97a2f7b4cee61f78ef9a5354217"
+    },
+    {
+      "name": "0058.rb",
+      "url": "https://github.com/brianpattison/motion-loco/blob/d6f4ca32d6e13dc4d325d2838c0e2685fa0fa4f6/lib/motion-loco/adapter.rb#L107-L131",
+      "sha256": "6cadcd4463a75a6dd8487cd75fef894092a57c2a4b15cc7874f733598e2c573e"
+    },
+    {
+      "name": "0059.rb",
+      "url": "https://github.com/budabum/uicov/blob/581cfcf94bf6aa29387c6d120974bc4d3019349a/lib/uicov/commands/report.rb#L112-L116",
+      "sha256": "9cdbe325ae409a8bf422b337359ba12f35b7ae7a44728480e334da83312125f2"
+    },
+    {
+      "name": "0060.rb",
+      "url": "https://github.com/bundler/gemstash/blob/930cef65cebd92b2295fcbcfc9cfe1a592f09840/lib/gemstash/cli.rb#L116-L123",
+      "sha256": "11811bdf93fb92de1c4b73bf12f18766b44f867e6433bcb20f1df0b632497596"
+    },
+    {
+      "name": "0061.rb",
+      "url": "https://github.com/caruby/core/blob/a682dc57c6fa31aef765cdd206ed3d4b4c289c60/lib/caruby/helpers/properties.rb#L68-L90",
+      "sha256": "e0ba9a475fc75d66f07e5042f2a9e30a7b95cd44ab134164ae75137327c4d10d"
+    },
+    {
+      "name": "0062.rb",
+      "url": "https://github.com/castwide/solargraph/blob/47badb5d151aca775ccbe6c470236089eae7839d/lib/solargraph/yard_map.rb#L215-L234",
+      "sha256": "fc4f556776e173b2942f44d45e974c157e3581daf36eff40f9ce1a75492d50f1"
+    },
+    {
+      "name": "0063.rb",
+      "url": "https://github.com/chanks/que/blob/c7ae049db0ca13056a28c71ae610f8900f21feb4/lib/que/job_buffer.rb#L76-L79",
+      "sha256": "edb8dbd18afda87a991aa74699f32d6422d41d6c6e9699b9159cede1dd321de7"
+    },
+    {
+      "name": "0064.rb",
+      "url": "https://github.com/charliesome/twostroke/blob/3e6d5366bad603e987f78027d472255707ec26fa/lib/twostroke/runtime/vm_frame.rb#L200-L204",
+      "sha256": "75cbd245edbc238564c86e92c9a38862ad472fa58eec7383f4d437375df25803"
+    },
+    {
+      "name": "0065.rb",
+      "url": "https://github.com/chastell/art-decomp/blob/3ff2c667b6711821919c0135f548a88ed5f74392/lib/art-decomp/dec_tree.rb#L63-L77",
+      "sha256": "ac1f132fbd099d9d1b2197f84bccd606a669eabddc715aaf5d16a415c7e8c977"
+    },
+    {
+      "name": "0066.rb",
+      "url": "https://github.com/chef/omnibus/blob/968307c129ee54416f5a4d07ca8f8ca2d2b12825/lib/omnibus/compressors/tgz.rb#L130-L139",
+      "sha256": "fce84db77e52f04d4b5afbd1c82abdefa18568dc6235c311d0ece59da122fe1c"
+    },
+    {
+      "name": "0067.rb",
+      "url": "https://github.com/chefspec/chefspec/blob/b7c260d480c3b71a0e61ce46148ec7b9d3f3c40e/lib/chefspec/coverage.rb#L63-L80",
+      "sha256": "0a108758e2a5d0ddac150d760a7a49a0677e539fb56c04b389a1617e2c1eebd0"
+    },
+    {
+      "name": "0068.rb",
+      "url": "https://github.com/chetan/dht-sensor-ffi/blob/fe7d6d0c64dc9c258bd823f7d1d41f7edf129cd2/lib/dht-sensor/app.rb#L115-L143",
+      "sha256": "1331d19f1f2d84c165bff6000123ba441e27cf61f153c120ceaa9627983d4f38"
+    },
+    {
+      "name": "0069.rb",
+      "url": "https://github.com/chriskite/anemone/blob/72b699ee11f618bdeb5a8f198b0b9aa675b4e2fa/lib/anemone/cookie_store.rb#L19-L28",
+      "sha256": "30c97f08682c53b6d814d44e10ab684d16409e179b8c730db3653d34991ba65f"
+    },
+    {
+      "name": "0070.rb",
+      "url": "https://github.com/chriskite/jimson/blob/d921a29857384997509e477e655d152377a4dfcc/lib/jimson/server.rb#L196-L208",
+      "sha256": "2fa8b500e4f266e52230c5019796f4b852f988d35eb7c06871f0499a06afd098"
+    },
+    {
+      "name": "0071.rb",
+      "url": "https://github.com/ciaranarcher/hacker_term/blob/3f7670fe20153519cc1b5e1f040d91c761cadfb7/lib/hacker_term/page_data.rb#L87-L92",
+      "sha256": "6bb2b6a2bd2d5c6e9650e01582efd028f39f2b8894493427ad1f35d88faa3862"
+    },
+    {
+      "name": "0072.rb",
+      "url": "https://github.com/clarete/s3sync/blob/b690957f6bb4299bca3224258855f1694406aab3/lib/s3sync/config.rb#L50-L73",
+      "sha256": "48f0be847a2ec409c84a2284698adeef05a7901cdfbdb5f83ca5b775ce9b32af"
+    },
+    {
+      "name": "0073.rb",
+      "url": "https://github.com/cldwalker/hirb/blob/264f72c7c0f0966001e802414a5b0641036c7860/lib/hirb/helpers/table.rb#L356-L359",
+      "sha256": "19e79d9623aa4a9672e113d9d4b834b439827083b7d8dd2cea0d3fc8020e045b"
+    },
+    {
+      "name": "0074.rb",
+      "url": "https://github.com/clearwater-rb/clearwater/blob/bc488101f2773bb2b497d964f16e34b560b77c76/lib/clearwater/component.rb#L30-L33",
+      "sha256": "e11ae5ceb5c93d9082543dead829601719b998e9b57640efab35e49e15a8a9f7"
+    },
+    {
+      "name": "0075.rb",
+      "url": "https://github.com/cloudfoundry/bosh/blob/2eaa7100879ddd20cd909cd698514746195e28b7/src/bosh-director/lib/bosh/director/cloudcheck_helper.rb#L29-L36",
+      "sha256": "a822995f2c3cce148b4e269257c75d61886aabde2517561d328a9655b5644118"
+    },
+    {
+      "name": "0076.rb",
+      "url": "https://github.com/cloudfoundry/cf-uaa-lib/blob/e071d69ad5f16053321dfbb95835cf6a9b48227c/lib/uaa/scim.rb#L378-L385",
+      "sha256": "cbd6f4bbfd44566285766f2036c255bdfb40acb72478fe0d73373ef4b910af6d"
+    },
+    {
+      "name": "0077.rb",
+      "url": "https://github.com/codecalm/jekyll-random/blob/b1db3fd4def822b677f77a5b15443cacc7d69989/lib/jekyll-random.rb#L18-L22",
+      "sha256": "6163d8cf2cd8cb752052e7b2d326349a4c8993c57a5afad4cabf2cf65ad6a985"
+    },
+    {
+      "name": "0078.rb",
+      "url": "https://github.com/codez/delayed_cron_job/blob/028ae36b77499362f241d710cb8d40302f3bcc6a/lib/delayed_cron_job/cronline.rb#L416-L437",
+      "sha256": "a0e8a17508959b57cbfa886210a66157567238bfc6131db46565deec2dbba8be"
+    },
+    {
+      "name": "0079.rb",
+      "url": "https://github.com/conanite/aduki/blob/2e17522b9536fe0a12d2dd97ae601cabb2ee293e/lib/aduki.rb#L167-L176",
+      "sha256": "66bb9ea4bff45094117c10bf30a2e91ba63d08bf1b5b81ddb8342d5862807704"
+    },
+    {
+      "name": "0080.rb",
+      "url": "https://github.com/controlshift/blue_state_digital/blob/c59038e61c1feb36abffa802069199a1b1280fe9/lib/blue_state_digital/dataset.rb#L99-L106",
+      "sha256": "5300f05c0b70c032efd3b61d71c4f48ca11f173faab36ce61ff0478ca8643c5c"
+    },
+    {
+      "name": "0081.rb",
+      "url": "https://github.com/cronofy/cronofy-ruby/blob/a4e3b4274c7b6ddc047008c6f0c6c0e52e456816/lib/cronofy/types.rb#L159-L166",
+      "sha256": "c9df46491f3a4428cdf26598ea3a3c6d09bc2fae25612fe705de0132b635e4fc"
+    },
+    {
+      "name": "0082.rb",
+      "url": "https://github.com/cryptape/ruby-rlp/blob/49c11eaee9f0f58d8028e5f1a291504c22dc947c/lib/rlp/utils.rb#L50-L54",
+      "sha256": "0d38a7a4ee73f2dfd485c44d2fd0833e1d4c1ca9ce3ff3c031c4557aa403b271"
+    },
+    {
+      "name": "0083.rb",
+      "url": "https://github.com/cxn03651/writeexcel/blob/d0345067c21b14a7141ba66b6752be8f4be379de/lib/writeexcel/formula.rb#L279-L302",
+      "sha256": "de08c4a7a8b212377c9b46e593fbf63e915fdea6e4f3bc067251620bdd473ed5"
+    },
+    {
+      "name": "0084.rb",
+      "url": "https://github.com/dalibor/octoshark/blob/45d53fadebdb2fa96d6a7ef17616167370275c88/lib/octoshark/connection_manager.rb#L5-L19",
+      "sha256": "b709ab3c353178cd1938a8c8b9c9619242b6c494c05105a057083606c6f66faa"
+    },
+    {
+      "name": "0085.rb",
+      "url": "https://github.com/datacite/bolognese/blob/10b8666a6724c0a9508df4547a9f9213bf80b59c/lib/bolognese/utils.rb#L325-L335",
+      "sha256": "34b15b2e2d66c72232593a5dba40c47ca79393c39c5963cf0f68872629a32e70"
+    },
+    {
+      "name": "0086.rb",
+      "url": "https://github.com/david942j/heapinfo/blob/0608067e2d7601249cf01e725f7b8389e390d3f6/lib/heapinfo/dumper.rb#L193-L196",
+      "sha256": "878442ed58796e6cad1b833da0753c7a798b470ce1c17f996876023592e6ab69"
+    },
+    {
+      "name": "0087.rb",
+      "url": "https://github.com/ddnexus/irt/blob/6d6c5a7631abd6271dcec7def982ebcfc1aaf9e0/lib/irt/extensions/irb/context.rb#L10-L25",
+      "sha256": "912d6215820e15ea5e45da8101264e2649c4a056304f3693b52d1891a498090b"
+    },
+    {
+      "name": "0088.rb",
+      "url": "https://github.com/dearblue/ruby-extlz4/blob/3aec15ad7c01e81a8ed36d3b9dcf3b65350d205f/lib/extlz4/oldstream.rb#L421-L432",
+      "sha256": "940f9102649a6a506876da8ab7db0a231c9225a39a2a2aa1ff46ee95a04c9fa1"
+    },
+    {
+      "name": "0089.rb",
+      "url": "https://github.com/delagoya/mzml/blob/6375cfe54a32ad3f7ebbeb92f0c25c5e456101de/lib/mzml/chromatogram.rb#L55-L78",
+      "sha256": "b3c75c087fb679ef788396af1225c326d5b885a46cd1b2f16bb6b61f98f203db"
+    },
+    {
+      "name": "0090.rb",
+      "url": "https://github.com/dicom/rtkit/blob/08248bf294769ae5b45ed4a9671f0620d5740252/lib/rtkit/dose_volume.rb#L169-L181",
+      "sha256": "2b365f57da78ccf4887fc095d280860ec610576c94a65fbcc7b4cd72839fedc9"
+    },
+    {
+      "name": "0091.rb",
+      "url": "https://github.com/dicom/ruby-dicom/blob/3ffcfe21edc8dcd31298f945781990789fc832ab/lib/dicom/elemental.rb#L37-L45",
+      "sha256": "03086140b34c4fa532f2077539170f8043fc4510ac08c1b1c3a81c8405d5647c"
+    },
+    {
+      "name": "0092.rb",
+      "url": "https://github.com/dilcom/gnuplotrb/blob/0a3146386ae28fcbe2c09cb6e266fe40ebb659f4/lib/gnuplotrb/multiplot.rb#L42-L56",
+      "sha256": "25fe382785d5546be4e4cffd5c13e2f21955725196e7cfc32fa799c5c1bc9cbb"
+    },
+    {
+      "name": "0093.rb",
+      "url": "https://github.com/dkubb/adamantium/blob/bf38d4ad8a4307ab7f0593758b87f62b91e1df69/lib/adamantium/module_methods.rb#L28-L33",
+      "sha256": "418c92cb197ab490e1127f70b8792c1bb16e83f0fad471cafd92155daee38158"
+    },
+    {
+      "name": "0094.rb",
+      "url": "https://github.com/dobtco/formbuilder-rb/blob/e389b7d8778a5ef2b6bab4e2d732e311965a4f3f/app/models/formbuilder/response_field_checkboxes.rb#L11-L39",
+      "sha256": "c936414fba27f75faef8cca4c84cea12137c965748883e2a4d96dbc09e035b35"
+    },
+    {
+      "name": "0095.rb",
+      "url": "https://github.com/dpla/KriKri/blob/0ac26e60ce1bba60caa40263a562796267cf833f/lib/krikri/harvesters/oai_harvester.rb#L159-L165",
+      "sha256": "9c36e463d13d1437e7bf6f4b3c2fadc0d2594a623e89cfb2e431fa9fb7932339"
+    },
+    {
+      "name": "0096.rb",
+      "url": "https://github.com/drrb/cfoo/blob/24fec58d607d364065c093eb9e9271a29bbc88fd/lib/cfoo/parser.rb#L121-L133",
+      "sha256": "bc5120b9d506863ce85833beef820b94bbbbff77ece8ba6b94903d193e8e0be4"
+    },
+    {
+      "name": "0097.rb",
+      "url": "https://github.com/dwaite/cookiejar/blob/c02007c13c93f6a71ae71c2534248a728b2965dd/lib/cookiejar/jar.rb#L73-L76",
+      "sha256": "216d84f57e37a6ae19ce6585cfc80d8821e5225d60b6074a69c63c2ec0c7a480"
+    },
+    {
+      "name": "0098.rb",
+      "url": "https://github.com/eagletmt/faml/blob/4f2a60af8df61e9da9cd6f3410aa23cb7fadea4e/lib/faml/cli.rb#L50-L52",
+      "sha256": "cf0c3f7881f20afea56ab4074490ffac3a9b384590c92d67d9c5ff8355667501"
+    },
+    {
+      "name": "0099.rb",
+      "url": "https://github.com/eagletmt/switch_point/blob/986a46d99c4b3762c60f754a9d32e032a5a36545/lib/switch_point/config.rb#L45-L60",
+      "sha256": "52db5400b3ca45f322fd481ae2026f9c8f7a5361d10a6b324b56cea63b4d9974"
+    },
+    {
+      "name": "0100.rb",
+      "url": "https://github.com/easyPEP/enrico/blob/d9eba92b0b44a517d512b165252963556dba14ea/lib/enrico/country.rb#L83-L86",
+      "sha256": "da073c5f4d81b8f17378f6c6074f6024eb309059775a8de940909196888b7330"
+    },
+    {
+      "name": "0101.rb",
+      "url": "https://github.com/eet-nu/cheers/blob/4b94bf8ce2a1ca929b9b56277e12f3e94e7a5399/lib/cheers/contrasting_color_picker.rb#L13-L23",
+      "sha256": "0a41b8ce5cbd64efc8b4e2436a55f6f18dfa5a55deeaee9798f5c834e7544158"
+    },
+    {
+      "name": "0102.rb",
+      "url": "https://github.com/eggcaker/jekyll-org/blob/f5e40bfc70717e0c7c353e488237fa3452ddde0a/lib/jekyll-org.rb#L42-L104",
+      "sha256": "d04a783870849bfe58f0ac2fb614e7f06373b00ba76de70403ce8d8180444084"
+    },
+    {
+      "name": "0103.rb",
+      "url": "https://github.com/einzige/framework/blob/5a8a2255265118aa244cdabac29fd1ce7f885118/lib/framework/application.rb#L191-L196",
+      "sha256": "5b7d448b0888a9f4888fda84dde4b3ff7411b1c6e54328c8f222883507a9d498"
+    },
+    {
+      "name": "0104.rb",
+      "url": "https://github.com/ejholmes/metaforce/blob/2e13c1fb28bd4d0f181c63d9acbab6b3632f02e1/lib/metaforce/job/retrieve.rb#L76-L84",
+      "sha256": "715b3bc6c60d70b60a1764bbba14b7fde14d7c8e8866dd85e2e9c6b2e0db4895"
+    },
+    {
+      "name": "0105.rb",
+      "url": "https://github.com/elifoster/weatheruby/blob/4d97db082448765b67ef5112c89346e502a74858/lib/weather/actions.rb#L39-L45",
+      "sha256": "a8d497a9f42e53faf81a755289912cef0c51f8e8316f775407e2229b09ade673"
+    },
+    {
+      "name": "0106.rb",
+      "url": "https://github.com/emancu/ork/blob/83b2deaef0e790d90f98c031f254b5f438b19edf/lib/ork/model/document.rb#L139-L149",
+      "sha256": "2735ba3b3fdb62da57cd939b73ee4c078c7020b5d1477b27fcf79751abd426c9"
+    },
+    {
+      "name": "0107.rb",
+      "url": "https://github.com/engineyard/fragrant/blob/c48d3ce3d63839cb0c43867c26dfb80a3ef05b58/lib/fragrant/address_manager.rb#L38-L44",
+      "sha256": "4eddceab2416365266cfe47bde5af3acbd29d853d14ca421825cdd78df6b19a5"
+    },
+    {
+      "name": "0108.rb",
+      "url": "https://github.com/enkessler/cucumber_analytics/blob/a74642d30b3566fc11fb43c920518fea4587c6bd/lib/cucumber_analytics/doc_string.rb#L54-L61",
+      "sha256": "ff32685418824ed826e434ae2ce8414b40270fe308b021892be2ce108107e8b4"
+    },
+    {
+      "name": "0109.rb",
+      "url": "https://github.com/envato/zxcvbn-ruby/blob/fc69afd08f5fb0c8361d52461750b716c925cb11/lib/zxcvbn/scorer.rb#L17-L55",
+      "sha256": "ff69597aa250eb8d2074fd6a9b15d3426598c01fea1546ab5fd1b603625c7946"
+    },
+    {
+      "name": "0110.rb",
+      "url": "https://github.com/everypolitician/everypolitician-ruby/blob/f85e4b684324cf35ef14e7546ddd33052046d883/lib/everypolitician/legislative_period.rb#L34-L36",
+      "sha256": "993978cdc17c11a10699ff31d13170da299de72b9a0f57fab190b38536d8f0fc"
+    },
+    {
+      "name": "0111.rb",
+      "url": "https://github.com/evgenyneu/siba/blob/04cd0eca8222092c14ce4a662b48f5f113ffe6df/lib/siba/scaffold.rb#L117-L126",
+      "sha256": "3afbe3356aee86a5672ae21f417a25475489adf4ed063865654607bc03130a43"
+    },
+    {
+      "name": "0112.rb",
+      "url": "https://github.com/fastlane/fastlane/blob/457c5d647c77f0e078dafa5129da616914e002c5/sigh/lib/sigh/resign.rb#L112-L114",
+      "sha256": "636afbd58683d0d96e08a7173dcefe5f210634a2b42cda7e4776dd8a044aa8f7"
+    },
+    {
+      "name": "0113.rb",
+      "url": "https://github.com/flavorjones/loofah/blob/49f178941f10a97aa6441e71fae704a81cc3a731/lib/loofah/scrubber.rb#L102-L113",
+      "sha256": "40834607501b7ed6d778c8612cff9fde5bcbc27bb3697d284c8e42f0816e9ace"
+    },
+    {
+      "name": "0114.rb",
+      "url": "https://github.com/furkancelik/fcfinder/blob/1ada4463c7134c879716ed86cde173b2042c564e/lib/fcfinder/connector.rb#L216-L232",
+      "sha256": "d4fb31580279e30c6609484ef2c5747e847b5b30516ff78320b800921ccc2f9f"
+    },
+    {
+      "name": "0115.rb",
+      "url": "https://github.com/gangelo/LittleWeasel/blob/31108fb9775ca549fe3d05ce8dfe5aab7aef18e1/lib/LittleWeasel.rb#L64-L83",
+      "sha256": "da4a7ad879b4acbc2379557e70ef8b1ce43ab64f9f4333ef27dc1a05a5268da2"
+    },
+    {
+      "name": "0116.rb",
+      "url": "https://github.com/garethlatwork/quickbase_client/blob/13d754de1f22a466806c5a0da74b0ded26c23f05/lib/QuickBaseClient.rb#L914-L938",
+      "sha256": "28b947015f3c07175b65730a54e86c513e6c9e261d8ea11001cf90a8a11b7cb0"
+    },
+    {
+      "name": "0117.rb",
+      "url": "https://github.com/gdomingu/nasa_apod/blob/f8068be3c9e87c0733fc332f6bf11d956dd39ec0/lib/nasa_apod/client.rb#L59-L70",
+      "sha256": "43af86ba2880e01ff0c114512db96497c7f650093cee11fb1c3e988f651d3efe"
+    },
+    {
+      "name": "0118.rb",
+      "url": "https://github.com/github-changelog-generator/github-changelog-generator/blob/f18c64b5cc0d7473b059275b88385ac11ca8b564/lib/github_changelog_generator/generator/generator_processor.rb#L186-L190",
+      "sha256": "b35f967aaac4f75adc019f9ce2660b262892fe4beddb8be3b4f621a4f1afcfab"
+    },
+    {
+      "name": "0119.rb",
+      "url": "https://github.com/github/scientist/blob/25a22f733d4be523404b22ad818e520d20b57619/lib/scientist/experiment.rb#L41-L49",
+      "sha256": "aa1db6777151037a7fd73bdccd281f7716c9a4dc30cf13cc4e8641cd4cb7d085"
+    },
+    {
+      "name": "0120.rb",
+      "url": "https://github.com/gollum/gollum-lib/blob/e811f79cb569f1bf0711947d49105db60421e2c1/lib/gollum-lib/committer.rb#L141-L164",
+      "sha256": "c68a908deb8e9484fa5093d0144d4aa75e22b5f0af373e09de7f669d755815af"
+    },
+    {
+      "name": "0121.rb",
+      "url": "https://github.com/gosu/ashton/blob/313673d8b1b3e1082c9d24e4a166396d1f471634/lib/ashton/shader.rb#L376-L384",
+      "sha256": "51a90a069f3d66969fe2c11f1b0a5cecf2400d6779e914a940f7a1ed6e0788f5"
+    },
+    {
+      "name": "0122.rb",
+      "url": "https://github.com/gosu/fidgit/blob/f60290252fe713622c2d128c366843a55d124b7b/lib/fidgit/elements/text_area.rb#L444-L450",
+      "sha256": "6bd82a68a68a342d74a8b0ce5ea0e73201b57b3111d06aa6b912b4e834718882"
+    },
+    {
+      "name": "0123.rb",
+      "url": "https://github.com/guard/guard-haml/blob/ea981b68ce86ff7dac1972b1c303b3426d2d263e/lib/guard/haml.rb#L84-L101",
+      "sha256": "9e7f2762b34dc088f2fc58280de0784d2fcf3ed1eff72c317164ea993e88b72d"
+    },
+    {
+      "name": "0124.rb",
+      "url": "https://github.com/gurgeous/sinew/blob/c5a0f027939fedb597c28a8553f63f514584724a/lib/sinew/dsl.rb#L46-L52",
+      "sha256": "f56eadac053d3a58e038333eb99d9f0d28559f6ce10305f98f45b04003132b8e"
+    },
+    {
+      "name": "0125.rb",
+      "url": "https://github.com/huginn/huginn/blob/01e18fef7b6bd827a5d48a89391e460b5fb1bee3/app/models/agents/twitter_stream_agent.rb#L107-L117",
+      "sha256": "c4f79cb44ccbc4d5c36336e95d06f65ca50037b486c74ff5377b2a496d85affe"
+    },
+    {
+      "name": "0126.rb",
+      "url": "https://github.com/huginn/huginn/blob/01e18fef7b6bd827a5d48a89391e460b5fb1bee3/lib/utils/html_transformer.rb#L62-L81",
+      "sha256": "02f1964468f096be0bd9f7f1b0b38c0070dceed46078b21666ac9f2b9f5bf8f7"
+    },
+    {
+      "name": "0127.rb",
+      "url": "https://github.com/ianfixes/arduino_ci/blob/cb3fe8df14a744b9a3bc5cdc0168f820f78cde57/lib/arduino_ci/arduino_downloader_windows.rb#L60-L66",
+      "sha256": "1ec6cedc138df3e645c1ab774e006a77a0f282b44a3f5b56abdc52813c925821"
+    },
+    {
+      "name": "0128.rb",
+      "url": "https://github.com/infobip/oneapi-ruby/blob/17f3843812b58957a2578c837784781c30dbf1c6/lib/oneapi-ruby/client.rb#L73-L89",
+      "sha256": "490bb502144981974b7ab44b95641dfadb1b97497dc25c9a57359c671b560602"
+    },
+    {
+      "name": "0129.rb",
+      "url": "https://github.com/inside-track/remi/blob/f7e5f28f08f8c0403e04cd82d6fc14b6b2c362a7/lib/remi/data_subjects/gsheet.rb#L67-L81",
+      "sha256": "1526d389532875a615b0be90a8cc57c4af28cb71a3d0b35f460c372b27cd55de"
+    },
+    {
+      "name": "0130.rb",
+      "url": "https://github.com/inspec/train/blob/ec41c1f1e6f38f6ab1c335955651064eaeb7028f/lib/train/file.rb#L37-L43",
+      "sha256": "01714ad9e5e3d28d82d2f29703f2a181e9a319ce4f48f692d01fbd016f1d99a5"
+    },
+    {
+      "name": "0131.rb",
+      "url": "https://github.com/instructure/moodle2cc/blob/cdb1666a76b22e87e8853d4045e31439244cce4b/lib/moodle2cc/moodle2/extractor.rb#L54-L68",
+      "sha256": "3420d0dff42c9c8e70b9e5daba305e604b1dfbb26dadfad08218ac10b4e5bba5"
+    },
+    {
+      "name": "0132.rb",
+      "url": "https://github.com/instructure/moodle2cc/blob/cdb1666a76b22e87e8853d4045e31439244cce4b/lib/moodle2cc/moodle2converter/migrator.rb#L98-L101",
+      "sha256": "982502414ea645a6792af730fb9056a36155eb871387c8e0ae27a700ac40a793"
+    },
+    {
+      "name": "0133.rb",
+      "url": "https://github.com/jbaiza/clusterpoint/blob/366f5aac97f67427eda29d929d05c97d7d46a0d0/lib/cluster_point/finder_methods.rb#L32-L39",
+      "sha256": "b7de0d9ba2c485f6860dc72a8e9b76e0a078328b63a4bafbc2ae4942d02b09ac"
+    },
+    {
+      "name": "0134.rb",
+      "url": "https://github.com/jeffwilliams/quartz-torrent/blob/7aeb40125d886dd60d7481deb5129282fc3e3c06/lib/quartz_torrent/rate.rb#L28-L37",
+      "sha256": "d57708b5f4c5a37f631fa1a12d320b4838c5be12aadf08e4efed6d96768631d5"
+    },
+    {
+      "name": "0135.rb",
+      "url": "https://github.com/jellymann/mittsu/blob/955bde855c727d775b80f2c88457cb4b58c8c8f8/lib/mittsu/math/box3.rb#L162-L177",
+      "sha256": "d9a91b562f8f81eb1068f2ec9c06b04c6601a7741f2799ad2230693290a71ee5"
+    },
+    {
+      "name": "0136.rb",
+      "url": "https://github.com/jellymann/mittsu/blob/955bde855c727d775b80f2c88457cb4b58c8c8f8/lib/mittsu/renderers/opengl/plugins/sprite_plugin.rb#L28-L41",
+      "sha256": "4ca043c4fe0fb7f5f3bc221d99892ac6d6bc1ccc722d0bc7a48ed57be396bf56"
+    },
+    {
+      "name": "0137.rb",
+      "url": "https://github.com/johnmarinelli/BILLYMAYSQL/blob/2ae604b5af8ae80821b7c7ab1a09a278bf5c2150/lib/sqlize.rb#L24-L27",
+      "sha256": "757c9e0bbb6a906d45864e9af3a72573850ec1c7291208976e2bd7d476b6991d"
+    },
+    {
+      "name": "0138.rb",
+      "url": "https://github.com/johnmcl/similarweb/blob/a8e31eddebacd8b8689bf19635448a142f400d1f/lib/similarweb/client.rb#L71-L79",
+      "sha256": "7a0fda868b728dd8c6aab8df357879a9080b254cd00d0e28ecb8cd392d09f0d9"
+    },
+    {
+      "name": "0139.rb",
+      "url": "https://github.com/jpmobile/jpmobile/blob/4758f4a3fafbd8dc8c6051f3b79b231e4742612b/lib/jpmobile/mail.rb#L313-L331",
+      "sha256": "0da636d90afc7cdc296e335c4d2b4857a71c7136c88f20443c1681b09bf58005"
+    },
+    {
+      "name": "0140.rb",
+      "url": "https://github.com/jronallo/mead/blob/119e25d762d228a17612afe327ac13227aa9825b/lib/mead/ead.rb#L84-L98",
+      "sha256": "9916c20a201eca9e4e65e3d6c828a3d352f2200795426bc4a13de74465986e43"
+    },
+    {
+      "name": "0141.rb",
+      "url": "https://github.com/jstumbaugh/copy_csv/blob/3e3ec08715bd00784be3f0b17e88dd7a841de70c/lib/copy_csv.rb#L41-L45",
+      "sha256": "040fb0c9c4c537497e395b85fb51d1ad6ea583babdf9dc270d4a4074befa22fb"
+    },
+    {
+      "name": "0142.rb",
+      "url": "https://github.com/kalashnikovisme/karamzin/blob/2bd1810a95474c473d5f95023f055838b37d1e6c/lib/karamzin/words_helper.rb#L9-L26",
+      "sha256": "11bfc9386d006d20bece4a2724d1dc9b009634773dece887ffa756eec9ed79c6"
+    },
+    {
+      "name": "0143.rb",
+      "url": "https://github.com/kazuhisa/ken_all/blob/0043c8305b638cf9dd0c2fbf4a4411e9e73ca790/lib/ken_all/import.rb#L59-L71",
+      "sha256": "96f052d1a9f8e3537605f4e0aed668e9f3e2534e28f29d2bdd4662b8fed99316"
+    },
+    {
+      "name": "0144.rb",
+      "url": "https://github.com/kennixdev/applocale/blob/d3e5b99e4ee47228ca9bb5aff28c81049fef613c/lib/applocale/Core/GoogleHepler/google_helper.rb#L43-L79",
+      "sha256": "79b1d1ec5b9b6fffd04550efe514b318f8b80ce525a853541d82952aeabe5b9b"
+    },
+    {
+      "name": "0145.rb",
+      "url": "https://github.com/khiemns54/sp2db/blob/76c78df07ea19d6f1b5ff2e883ae206a0e94de27/lib/sp2db/base_table.rb#L105-L110",
+      "sha256": "bc4edc5b3e8bf4535091c9b9c7d90a702a4527d877e4b32254e7dae64841ec6b"
+    },
+    {
+      "name": "0146.rb",
+      "url": "https://github.com/khiemns54/takenoko/blob/5105f32fcf6b39c0e63e61935d372851de665b54/lib/takenoko/google_client.rb#L129-L132",
+      "sha256": "c94f52e5da3190230c11675317e3e1162f15092aabbb63c7b9372fdef31e76ac"
+    },
+    {
+      "name": "0147.rb",
+      "url": "https://github.com/kitplummer/pdftohtmlr/blob/bb5a7f1bcda437f2d48eb371d37d21f36faedd22/lib/pdftohtmlr.rb#L41-L62",
+      "sha256": "5ce4a5c836a8d9a4ab3862f196bbaae44a3ce8f8f028585584ed2e40483f8e9a"
+    },
+    {
+      "name": "0148.rb",
+      "url": "https://github.com/kmuto/review/blob/77d1273e671663f05db2992281fd891b776badf0/lib/review/textutils.rb#L40-L46",
+      "sha256": "f36a3d6e37404b72db33dd6cc0f04d37092b42efffff18a99be4bdb8bf548717"
+    },
+    {
+      "name": "0149.rb",
+      "url": "https://github.com/komasaru/eph_bpn/blob/7281e0023e91593f6f89a6fed05a2e39dfb59ac3/lib/eph_bpn/compute.rb#L397-L429",
+      "sha256": "22270242552df53256a0c56688f252e83d375ec6024ad5954f98339249909e3b"
+    },
+    {
+      "name": "0150.rb",
+      "url": "https://github.com/kontena/kong-client-ruby/blob/028c8913388f46c7b3a41984f36687d147f74442/lib/kong/client.rb#L75-L89",
+      "sha256": "393e6931b303f9b371a6aa2676096442a9c97a08ecbc29b3ad3b58d061b4a4ef"
+    },
+    {
+      "name": "0151.rb",
+      "url": "https://github.com/kontena/kontena/blob/5cb5b4457895985231ac88e78c8cbc5a8ffb5ec7/agent/lib/kontena/observable.rb#L118-L125",
+      "sha256": "61b17e57431b6921db4da83aac03cee6208bdbe2577a5f1f63c1b24eb92617c7"
+    },
+    {
+      "name": "0152.rb",
+      "url": "https://github.com/kontena/kontena/blob/5cb5b4457895985231ac88e78c8cbc5a8ffb5ec7/agent/lib/kontena/observable.rb#L185-L209",
+      "sha256": "08f2c933d42a4c7bac4dd481a794a88128378a1a999982d856c4c1d282f2fb70"
+    },
+    {
+      "name": "0153.rb",
+      "url": "https://github.com/kontena/kontena/blob/5cb5b4457895985231ac88e78c8cbc5a8ffb5ec7/agent/lib/kontena/observer.rb#L196-L207",
+      "sha256": "0cc61fa122cbe2c1d68863b6cd453587690a5d10694bfb3986a371653c819f11"
+    },
+    {
+      "name": "0154.rb",
+      "url": "https://github.com/kontena/kontena/blob/5cb5b4457895985231ac88e78c8cbc5a8ffb5ec7/agent/lib/kontena/observer.rb#L290-L295",
+      "sha256": "9308c46721cdd36dd9169a9b99ff4b826da4c997ee8786f0e33e128961ed2428"
+    },
+    {
+      "name": "0155.rb",
+      "url": "https://github.com/korolvs/resting_pug/blob/3bfd86a97cf487d331ebe2e15d993c2911db6c34/docs/_plugins/replace-regex.rb#L3-L6",
+      "sha256": "48403fd0862ae65d128f27f58edeb3cad277055efaf68917fd07810052512a0b"
+    },
+    {
+      "name": "0156.rb",
+      "url": "https://github.com/kunishi/algebra-ruby2/blob/8976fbaac14933d3206324c845b879bf67fa0cf7/lib/algebra/matrix-algebra.rb#L406-L408",
+      "sha256": "b18e0d0137de17fc0827961a83857b5d272cd3dc231df6377025911d22cc6912"
+    },
+    {
+      "name": "0157.rb",
+      "url": "https://github.com/lann/tcp-timeout-ruby/blob/5bff959e54bfb0d1bb9bdcd73c7196629b5291f5/lib/tcp_timeout.rb#L146-L161",
+      "sha256": "fbe1f08f0ad8627ee9938cd8904fc7559c32856cf7e72a26e170bc17c3ee3e83"
+    },
+    {
+      "name": "0158.rb",
+      "url": "https://github.com/laskaridis/ruby_enum/blob/e3139ff95127820ded2964f0a97537e7b2b292ee/lib/ruby_enum.rb#L64-L82",
+      "sha256": "d915d8e4bfce9bf82c0e65dc240aeecbf2a6a52726b034b66a3d3512bf5af8c5"
+    },
+    {
+      "name": "0159.rb",
+      "url": "https://github.com/lawhorkl/change_manager/blob/663ea70836f92a4e2e6038d15782fc956c898cd9/app/services/change_manager/manager.rb#L9-L16",
+      "sha256": "88b82f360c4d0232335543fad01f782b94682a3806a906f0f19114301ce95885"
+    },
+    {
+      "name": "0160.rb",
+      "url": "https://github.com/lml/lev/blob/ce39ac122796974dafb24ee61428540dacf34371/lib/lev/form_builder.rb#L14-L18",
+      "sha256": "81c7c8d49ee6f5250570464b6d316a952bbf1c423b9ccdaea43fed6911774186"
+    },
+    {
+      "name": "0161.rb",
+      "url": "https://github.com/looker-open-source/gzr/blob/96dd5edc9cdc6f8d053f517805b9637ff8417378/lib/gzr/modules/group.rb#L51-L66",
+      "sha256": "f474762c0657425c9930653172928162ef9c489f8d09c030426d1f85f3b7a684"
+    },
+    {
+      "name": "0162.rb",
+      "url": "https://github.com/lostisland/faraday_middleware/blob/09b04ab68288205cc5579aaaf4138012f95268dd/lib/faraday_middleware/gzip.rb#L57-L65",
+      "sha256": "a515f92b7a8fba53ff97b0e9e6813dac065898e9b03244614fc6657c388e537a"
+    },
+    {
+      "name": "0163.rb",
+      "url": "https://github.com/loveablelobster/DwCR/blob/093e112337bfb664630a0f164c9d9d7552b1e54c/lib/dwca_content_analyzer/file_contents.rb#L33-L35",
+      "sha256": "60fc941a86c3e2756a2f5372c34d5c170482159db3c99d1f093cb470ba9b1b0d"
+    },
+    {
+      "name": "0164.rb",
+      "url": "https://github.com/lukebayes/project-sprouts/blob/6882d7309d617e35350749df84fac5e7d9c5e843/lib/sprout/file_target.rb#L64-L67",
+      "sha256": "49720defe82da31356a44ddc0ed0d7e00b6a204babdd7c842cb7f312e176f152"
+    },
+    {
+      "name": "0165.rb",
+      "url": "https://github.com/lulibrary/aspire/blob/623f481a2e79b9cb0b5feb923da438eb1ed2abfe/lib/aspire/user_lookup.rb#L93-L101",
+      "sha256": "5c4a0dea44948aad58d6ef51bc1862ac65cd43531c5c1c762512cc7159da442d"
+    },
+    {
+      "name": "0166.rb",
+      "url": "https://github.com/maerch/ruby-drawille/blob/73f5845e3d5c4805427d4ccbd9e27a0cde6f84a6/lib/drawille/brush.rb#L72-L81",
+      "sha256": "994c50626eac5cccc0dea8f1e01ca3a85e3bb99f41ac00d48ed10de014c57e00"
+    },
+    {
+      "name": "0167.rb",
+      "url": "https://github.com/manifest/xcodeproject/blob/752d9d157268ba76e2f038206f014e18d14d9b4a/lib/xcodeproject/xc_build_configuration.rb#L73-L81",
+      "sha256": "646b7464635f25685aedfece0aece2524e4d683d97497756fa7da2f6e830bd3f"
+    },
+    {
+      "name": "0168.rb",
+      "url": "https://github.com/mare-imbrium/canis/blob/8bce60ff9dad321e299a6124620deb4771740b0b/lib/canis/core/include/ractionevent.rb#L57-L71",
+      "sha256": "1bfed354af784b180bcf9aa16cce490725c894d614790c8ecf7c20002499a880"
+    },
+    {
+      "name": "0169.rb",
+      "url": "https://github.com/mare-imbrium/canis/blob/8bce60ff9dad321e299a6124620deb4771740b0b/lib/canis/core/widgets/deprecated/rtextview.rb#L193-L198",
+      "sha256": "3a6bb5b5e84e79672e637740a958bacd8a9c8beae1ed3413b6f8a03dc6ba94fd"
+    },
+    {
+      "name": "0170.rb",
+      "url": "https://github.com/mare-imbrium/canis/blob/8bce60ff9dad321e299a6124620deb4771740b0b/lib/canis/core/widgets/rwidget.rb#L334-L383",
+      "sha256": "6d6f73d002efb9d3d92bde420d8d51fa0f0b639690c680a9d301652470f50479"
+    },
+    {
+      "name": "0171.rb",
+      "url": "https://github.com/mdub/lazily/blob/8665e3532ea2d2ea3a41e6ec6a47088308979754/lib/lazily/filtering.rb#L63-L75",
+      "sha256": "c50476b9138f0015643a51fc668139181c47f303dd4b3c84219b42b5ea42c829"
+    },
+    {
+      "name": "0172.rb",
+      "url": "https://github.com/mharris717/to_parsed_obj/blob/c8737d91731ee36fa1bf0413b524b603f6bac722/lib/to_parsed_obj.rb#L23-L39",
+      "sha256": "549d25f9f0fdde9a0376722b630eb23e7c8df5b7a369d81f510cd1559d27b312"
+    },
+    {
+      "name": "0173.rb",
+      "url": "https://github.com/micahwedemeyer/wrenchmode-rack/blob/680b318a1397bf56916d6dda701d06781e601917/lib/wrenchmode/rack.rb#L230-L236",
+      "sha256": "3d48c984543e11269ae827036dd9eb48c1fe446414f270e6cce41c0ab6641abd"
+    },
+    {
+      "name": "0174.rb",
+      "url": "https://github.com/michaelmior/mipper/blob/4ab7f8b32c27f33fc5121756554a0a28d2077e06/lib/mipper/glpk/model.rb#L46-L57",
+      "sha256": "170b5f7f22c4558c01e96c6b7649f145c06fdab77ac6b34aadec111db6f5b50f"
+    },
+    {
+      "name": "0175.rb",
+      "url": "https://github.com/minimul/iif-parser/blob/9be3eb1f15def9051714b8f2b88763d6581bc26e/lib/iif/parser.rb#L83-L88",
+      "sha256": "da64e700a71f78c5a928cfc1302b414ee313ecc4e8855c7c511b0f2e58d2a027"
+    },
+    {
+      "name": "0176.rb",
+      "url": "https://github.com/mirego/phare/blob/2886ddae53f16fc51c5e0d05a8ffc92a0225c6f9/lib/phare/check_suite.rb#L33-L40",
+      "sha256": "c281033be9494e0ec317a25a8f62670c4d3f829e2fa961452a368fd024f278b0"
+    },
+    {
+      "name": "0177.rb",
+      "url": "https://github.com/mkj-is/Truty/blob/315f49ad73cc2fa814a7793aa1b19657870ce98f/lib/truty/conversion.rb#L59-L64",
+      "sha256": "01d9cb4ad5258a5ac86e6db2e4fd992887231a97eb593ee80b512e792133f1bc"
+    },
+    {
+      "name": "0178.rb",
+      "url": "https://github.com/mlipper/runt/blob/d0dab62fa45571e50e2018dbe1e12a9fe2752f61/lib/runt/temporalexpression.rb#L678-L680",
+      "sha256": "1c3aeef60b8319f32126ed8908d374bd4c1b06eb9deb3d92d1b2a20ca5923d38"
+    },
+    {
+      "name": "0179.rb",
+      "url": "https://github.com/mojombo/bert/blob/c2abcc4868bb47909696c6a42c606de34e83ef70/lib/bert/decode.rb#L232-L238",
+      "sha256": "a0ba85528d64066a1d7a9f924ce2f5667d737b190c24ae2d3333d1881366ff0e"
+    },
+    {
+      "name": "0180.rb",
+      "url": "https://github.com/mojombo/bertrpc/blob/c78721ecf6f4744f5d33a1733a8eab90dc01cb86/lib/bertrpc/action.rb#L74-L104",
+      "sha256": "26cd314e2e4615af502ef42e6cbaeaf38807e6b0cc7443b88bb8bcda663fcb19"
+    },
+    {
+      "name": "0181.rb",
+      "url": "https://github.com/mojombo/erlectricity/blob/0473d25b87ae15990d99a137dce7bb172c998af7/lib/erlectricity/decoder.rb#L162-L169",
+      "sha256": "486564c6b255e1d7a3518d1c8de0d866836103d9a50070516d0ebd52e4c543ab"
+    },
+    {
+      "name": "0182.rb",
+      "url": "https://github.com/mojombo/grit/blob/5608567286e64a1c55c5e7fcd415364e04f8986e/lib/grit/git-ruby.rb#L75-L114",
+      "sha256": "72067a32bc626a2c081989ddcbd910b312fe0f766aff469047c85354844bdde3"
+    },
+    {
+      "name": "0183.rb",
+      "url": "https://github.com/moneta-rb/moneta/blob/26a118c8b2c93d11257f4a5fe9334a8157f4db47/lib/moneta/utils.rb#L22-L26",
+      "sha256": "f4100a5216e9b3c4255297761b2caf74817180d62d7ee020871204427e48c450"
+    },
+    {
+      "name": "0184.rb",
+      "url": "https://github.com/moviepilot/neoscout/blob/3501d18b35a313aa11d265ba5c5b737d72e87c1f/lib/neoscout/json_schema.rb#L103-L122",
+      "sha256": "10b089875ab8ad281ef6ac74629b6cbf6aafeea979ca871c334521e10d233bd9"
+    },
+    {
+      "name": "0185.rb",
+      "url": "https://github.com/mtortonesi/ruby-erv/blob/02e757296ef79b3deb47a40bbdeab5de795e105b/lib/erv/mixture_distribution.rb#L80-L87",
+      "sha256": "49038aa01f023ca7a21eb66219cde06b5ce10cbbc610fa6a41551a476150ed12"
+    },
+    {
+      "name": "0186.rb",
+      "url": "https://github.com/nickewing/coursera_downloader/blob/548a7f0420950a2aeb6fe861f6d8ece70fec6360/lib/coursera_downloader/document_processor.rb#L98-L114",
+      "sha256": "9f6aefa0518778db7d7930af798f6a6d116d283026fe4b2b3416ca91b6f57b4e"
+    },
+    {
+      "name": "0187.rb",
+      "url": "https://github.com/nikhgupta/encruby/blob/ded0276001f7672594a84d403f64dcd4ab906039/lib/encruby/message.rb#L36-L59",
+      "sha256": "87faf6badefaae0494abdb47e442b7b00774e6df28f684d7c5fd5e758a78962e"
+    },
+    {
+      "name": "0188.rb",
+      "url": "https://github.com/niw/wemo_device/blob/e4be2924eaf8ed6b4da5e8712b0076f061bfab8a/lib/wemo_device/ssdp.rb#L44-L65",
+      "sha256": "607c946eae7964ecbdde934f167f7021afd2c74af968f9569c219a8d8d3658bb"
+    },
+    {
+      "name": "0189.rb",
+      "url": "https://github.com/njh/ruby-mqtt/blob/878639e85827aa25688e9c4ef1511d393549dcfa/lib/mqtt/packet.rb#L248-L254",
+      "sha256": "8bd3a5a134b7e959c553787ef535662713f4826d54946d073cf2c40434871029"
+    },
+    {
+      "name": "0190.rb",
+      "url": "https://github.com/noprompt/vic/blob/276e18fc5d81727023d3abfdf95829648818a9c4/lib/vic/color.rb#L93-L102",
+      "sha256": "db6279682b6da763606b38297b384bc10fe8d15dd3cdcee17e7a17a887960d6c"
+    },
+    {
+      "name": "0191.rb",
+      "url": "https://github.com/noteflakes/lyp/blob/cca29b702f65eb412cba50ba9d4e879e14930003/lib/lyp/resolver.rb#L108-L121",
+      "sha256": "e772edd63a444cb851b81c3c36a41a060a3ab7d2bc61398bede463cd96c2eae6"
+    },
+    {
+      "name": "0192.rb",
+      "url": "https://github.com/nrser/nrser.rb/blob/7db9a729ec65894dfac13fd50851beae8b809738/lib/nrser/labs/config.rb#L108-L143",
+      "sha256": "2f870cbb6ced25dc56f6e5b7bbce3640a87bce81b0e007246ee5caa8ab7f8aad"
+    },
+    {
+      "name": "0193.rb",
+      "url": "https://github.com/o2web/rails_admin_cms/blob/764197753a2beb80780a44c7f559ba2bc1bb429e/app/models/viewable/page.rb#L58-L64",
+      "sha256": "b6523c1f19a695313ce3e4e11e112a0da9a633ee44575d3eb4eea371284ccf63"
+    },
+    {
+      "name": "0194.rb",
+      "url": "https://github.com/oauth-xx/oauth-ruby/blob/cb9b9db64f520dc0ee87fe6e4fe82a7601cffb14/lib/oauth/request_proxy/curb_request.rb#L36-L39",
+      "sha256": "1c3e6912b2038f0b81008342b193a5e9ee8f984f1d238ddcf71075ed53372490"
+    },
+    {
+      "name": "0195.rb",
+      "url": "https://github.com/opal/opal/blob/41aedc0fd62aab00d3c117ba0caf00206bedd981/opal/corelib/marshal/read_buffer.rb#L388-L407",
+      "sha256": "104afae0ed4ba32ab7989e5e1c3c8bf40d0b48203bc703fafed5c9787047d89c"
+    },
+    {
+      "name": "0196.rb",
+      "url": "https://github.com/opoloo/lines-engine/blob/9ae0525e882a9c323558353ce1941c50e8bcfc67/app/helpers/lines/application_helper.rb#L67-L98",
+      "sha256": "0a610c5c5bc819e7043c7eb213deab0b78ee59ea52c0cd4a225eba14d810383c"
+    },
+    {
+      "name": "0197.rb",
+      "url": "https://github.com/ozgg/weighted-select/blob/5cf3a8a1f2ba74f2885dcc8111396e5ca10ccad4/lib/weighted-select.rb#L44-L49",
+      "sha256": "08e69d7e8603831b2f07cf98f9f545533672d9bb342669619e7d14901b64e9f6"
+    },
+    {
+      "name": "0198.rb",
+      "url": "https://github.com/paddor/cztop/blob/d20ee44775d05b60f40fffd1287a9b01270ab853/lib/cztop/z85.rb#L71-L77",
+      "sha256": "86b9b5e6d235f001461e8ed2c26d07fdc6e786c9cfeb5247ee78280f41900d91"
+    },
+    {
+      "name": "0199.rb",
+      "url": "https://github.com/panthomakos/timezone/blob/23acc721a6b1df1fde840cf05ab097b5d59925f0/lib/timezone/zone.rb#L109-L113",
+      "sha256": "8cd73b965e70a708e1d5e2cdb647842ab4ddcd1de7a82bbb2efd00308245919c"
+    },
+    {
+      "name": "0200.rb",
+      "url": "https://github.com/panthomakos/timezone/blob/23acc721a6b1df1fde840cf05ab097b5d59925f0/lib/timezone/zone.rb#L120-L135",
+      "sha256": "21ec0e3bd17fa18a6fbd452938676351659c8eaff3a884592dfd97d21ea636ad"
+    },
+    {
+      "name": "0201.rb",
+      "url": "https://github.com/paulsamuels/SBConstants/blob/3a10637c9da87322bfdaed3eb450d3899ae948fb/lib/sbconstants/swift_constant_writer.rb#L24-L29",
+      "sha256": "039d5f1e742e8d0dea19a3ffdd1a551e37a4234cf70b5f321309dad174c34650"
+    },
+    {
+      "name": "0202.rb",
+      "url": "https://github.com/paulsamuels/xcunique/blob/0a95740109dc504734acf01dfbb979d09fb5d9fd/lib/xcunique/options.rb#L48-L65",
+      "sha256": "ba71955dfbf7401ff487ad5902e6cf9814231eacf15037152a48cfa1b91e8059"
+    },
+    {
+      "name": "0203.rb",
+      "url": "https://github.com/peterjm/eye_of_newt/blob/84b9a83b623b6ed00b04482c782eb203d876afac/lib/eye_of_newt/units.rb#L35-L41",
+      "sha256": "a411396c6274918c52ba25f0137932eb2689c133e984cb428a5c7abc12cf46ab"
+    },
+    {
+      "name": "0204.rb",
+      "url": "https://github.com/piotrmurach/tty-which/blob/ae541cb7b4020eb291ebe0aca498ac24f183c8f5/lib/tty/which.rb#L27-L48",
+      "sha256": "636cd2cdc6fb6395c8784ac7289223476d85a4a7446ba8e0129ed6c518f5b34b"
+    },
+    {
+      "name": "0205.rb",
+      "url": "https://github.com/pjb3/curtain/blob/ab4f3dccea9b887148689084137f1375278f2dcf/lib/curtain/form_builder.rb#L156-L158",
+      "sha256": "50a7d90c67396baa9083645fba435f1921edfb4d4aa3f668a0417fc0b651d2f0"
+    },
+    {
+      "name": "0206.rb",
+      "url": "https://github.com/pjotrp/bioruby-table/blob/e7cc97bb598743e7d69e63f16f76a2ce0ed9006d/lib/bio-table/formatter.rb#L45-L50",
+      "sha256": "fb107c775dfadc7dda3d0ec0396cd3f1f06273b7d62619a01ebe09a2bfb87e20"
+    },
+    {
+      "name": "0207.rb",
+      "url": "https://github.com/pjotrp/bioruby-table/blob/e7cc97bb598743e7d69e63f16f76a2ce0ed9006d/lib/bio-table/table.rb#L50-L61",
+      "sha256": "f617c8f94dbc70d893d71e326c7ce5f9965ba60fcf406e4b7f57e40d6e0404e2"
+    },
+    {
+      "name": "0208.rb",
+      "url": "https://github.com/plusplus/same_same/blob/24f5d7ced9a5e2fabbe4f58ed1b47a6c12ac5954/lib/same_same/rock_clusters.rb#L45-L51",
+      "sha256": "52e21821c7bee1c4de0c4c6e831e7ca6fb037325f3fe084fab14589bf954b23e"
+    },
+    {
+      "name": "0209.rb",
+      "url": "https://github.com/procore/blueprinter/blob/4df6de78ed6c1f8574d5ec2fad5d1f4935fdb003/lib/blueprinter/formatters/date_time_formatter.rb#L19-L29",
+      "sha256": "20a16ff3db05c6baf6704902d67d5acade92d207c5a3e0f916468b9fa81fc578"
+    },
+    {
+      "name": "0210.rb",
+      "url": "https://github.com/projecttacoma/cqm-models/blob/d1ccbea6451f02fed3c5ef4e443a53bc6f29b000/app/models/cqm/provider.rb#L40-L43",
+      "sha256": "c243fab37224c5acd6facf34fe43528218e97d1f97e6e5d84838dfb385d391de"
+    },
+    {
+      "name": "0211.rb",
+      "url": "https://github.com/public-law/schema-dot-org/blob/4b1585f3a1ea5fd465872a052a88775f799acc4b/lib/schema_dot_org.rb#L32-L40",
+      "sha256": "df0da8269160cbf08993e1df5d64f0051a248826fd98af4825946a315297eeb1"
+    },
+    {
+      "name": "0212.rb",
+      "url": "https://github.com/quidproquo/ranker/blob/bf6c6be5f90be973a7016363d78a691f0e6d67fd/lib/ranker/strategies/ordinal.rb#L10-L19",
+      "sha256": "e19ba3efdac3afb7017258d3ab0f0a0d94c5f8e433fbf9c297ebdf9f61f91e7f"
+    },
+    {
+      "name": "0213.rb",
+      "url": "https://github.com/quirkey/restful_query/blob/7cedcc80bb1e8be749eae0d4c560d979cf27fa00/lib/restful_query/parser.rb#L147-L152",
+      "sha256": "bc979ff6da95090bba9ef6f61ecf031b4413309eef53280995de611b68f39a2c"
+    },
+    {
+      "name": "0214.rb",
+      "url": "https://github.com/r7kamura/xrc/blob/ddc0af9682fc2cdaf851f88a3f0953a1478f1954/lib/xrc/connection.rb#L12-L15",
+      "sha256": "4ee83a8cdb6d26c256f0e73bfcfd9a65c14f31e2507e4ed6f823eb6067cf19ba"
+    },
+    {
+      "name": "0215.rb",
+      "url": "https://github.com/rails/sprockets/blob/9e3f0d8e98c44f57e67bc138db87bb8469bf5ddd/lib/sprockets/path_utils.rb#L252-L264",
+      "sha256": "93d1b000866fd93c9ebeeb9cc6fcf73024e905eb406f36103203bc423ce04a7c"
+    },
+    {
+      "name": "0216.rb",
+      "url": "https://github.com/rapid7/nexpose-client/blob/933fc8c0c85ba11d3e17db1d7f4542816f400d71/lib/nexpose/credential_helper.rb#L92-L97",
+      "sha256": "4f1bbe0a894cd0dfbfde43df5515cf9f0cff645d8cbb0c9ba0ed6742cf84e9ec"
+    },
+    {
+      "name": "0217.rb",
+      "url": "https://github.com/refinery/refinerycms/blob/67f117f937c5264ec0aeabe8e7eac1d562c5bc7b/core/lib/refinery/extension_generation.rb#L71-L76",
+      "sha256": "612dda0182085786ff847bf0ddb194f8f67a29a36fd20f7fd3854ba96aa1cbee"
+    },
+    {
+      "name": "0218.rb",
+      "url": "https://github.com/rf-/tweet_to_sounds/blob/eb9f02e03afa9381ce85a3d874fb42a32e812cb3/lib/tweet_to_sounds/keyword_extractor.rb#L23-L27",
+      "sha256": "4724489808cbe7937bc10f3106b2977ab6cad7d140c43e7c8a67aca54d42aa0c"
+    },
+    {
+      "name": "0219.rb",
+      "url": "https://github.com/rhomobile/rhodes/blob/3c5f87b1a44f0ba2865ca0e1dd780dd202f64872/lib/extensions/rexml/rexml/element.rb#L295-L302",
+      "sha256": "31e30f977b6546efbf251560ec0df77406ebddc206caed53ac29719ba2992d51"
+    },
+    {
+      "name": "0220.rb",
+      "url": "https://github.com/rhomobile/rhodes/blob/3c5f87b1a44f0ba2865ca0e1dd780dd202f64872/res/build-tools/ruby-standalone/212/usr/local/lib/ruby/2.1.0/rexml/doctype.rb#L136-L140",
+      "sha256": "1708fbe06dea303fcb95ee1a758acd6e3c86b5dbf7602876d63f39c1f16555ac"
+    },
+    {
+      "name": "0221.rb",
+      "url": "https://github.com/rightscale/right_link/blob/b33a209c20a8a0942dd9f1fe49a08030d4ca209f/lib/instance/network_configurator/centos_network_configurator.rb#L320-L324",
+      "sha256": "79dcf30d16e1975e542e5c9162c68cdc9b575d4821cd652abc82d4d96336bcad"
+    },
+    {
+      "name": "0222.rb",
+      "url": "https://github.com/robertwahler/win32-autogui/blob/f36dc7ed9d7389893b0960b2c5740338f0d38117/lib/win32/autogui/window.rb#L218-L223",
+      "sha256": "fdaafa8ca38f024ba13318d6b59999f07a36c399a47527711f1f186909999a2d"
+    },
+    {
+      "name": "0223.rb",
+      "url": "https://github.com/rockandror/redsys-rails/blob/048b14e358b332973161e3b561b6e524667ecb4f/app/models/redsys/tpv.rb#L112-L123",
+      "sha256": "759bbe8e603ff574d475a901566a525f361f833edee953cb60ae771e3ac25ae2"
+    },
+    {
+      "name": "0224.rb",
+      "url": "https://github.com/rossta/montrose/blob/91af7d2d5c337aa255510179d24eb023775674bb/lib/montrose/utils.rb#L81-L84",
+      "sha256": "9a663989a99d2721461478d7a7391dc655d66db9ff9c93d1ad8e564f763c8b44"
+    },
+    {
+      "name": "0225.rb",
+      "url": "https://github.com/rossta/tacokit.rb/blob/2c43c01f6b80eaf5593ab38e9b6b38a35cddadb7/lib/tacokit/transform.rb#L99-L104",
+      "sha256": "ef1ca36b3700078ed6ca4fcf106da56db07482a2867d81fb842b8b468a5a266b"
+    },
+    {
+      "name": "0226.rb",
+      "url": "https://github.com/rsim/ruby-plsql/blob/dc5e74200b186ba9e444f75821351aa454f84795/lib/plsql/schema.rb#L64-L72",
+      "sha256": "f2804abab9ada2946d7e64d45961d5a45de87b6fec2a7281ce8e1453c30729a6"
+    },
+    {
+      "name": "0227.rb",
+      "url": "https://github.com/rubocop-hq/rubocop/blob/2a4f4f0fdac4e1bb25891fc312af2ea60c6aa2f0/lib/rubocop/processed_source.rb#L55-L67",
+      "sha256": "fd04d1248fda5e54b2b9e0ba010c66036dd7e597915a25c457365b7076bb6645"
+    },
+    {
+      "name": "0228.rb",
+      "url": "https://github.com/ruby-odata/odata/blob/be4626bebea595dab2250ae4442e59e94b5fd4c6/lib/odata/entity.rb#L112-L135",
+      "sha256": "ee24397ebaa979be94856bb11a8a4f29795d30bfd7a9f5ec6e79748bd73a543c"
+    },
+    {
+      "name": "0229.rb",
+      "url": "https://github.com/ryangreenberg/urban_dictionary/blob/a03678b52ef6bf58f13eeee8542c5dc90d25ef94/lib/urban_dictionary/cli.rb#L62-L88",
+      "sha256": "dc86a533ea17d7792a51b959cf6df3558b7fad2894f6f3af6995c0451eb3f4cb"
+    },
+    {
+      "name": "0230.rb",
+      "url": "https://github.com/ryotarai/infrataster/blob/97c9f9a91ed8285e72cffec83b8feb34e55a8acd/lib/infrataster/server.rb#L182-L211",
+      "sha256": "dd78ea7049f304b285556f3adc27b26c89855e20c628b6d7c17f8040bc0598fc"
+    },
+    {
+      "name": "0231.rb",
+      "url": "https://github.com/sa2taka/mstdn_ivory/blob/26d72c3d269c615f1414d5a8e5cb7b50c6e0722b/lib/mstdn_ivory/register.rb#L5-L7",
+      "sha256": "f2c0acd85c13181d0bf9565501986a5a6515c8364d3d1a701e669f1a54f29f78"
+    },
+    {
+      "name": "0232.rb",
+      "url": "https://github.com/sass/ruby-sass/blob/7a50eae567260a23d3bbf4d5aaf1a76db43dec32/lib/sass/script/value/base.rb#L69-L71",
+      "sha256": "67dd9c48a8dcc7a5daec66920d0e945726fcfb92847c2244f851b03b5a38a978"
+    },
+    {
+      "name": "0233.rb",
+      "url": "https://github.com/scepticulous/crypto-toolbox/blob/cdbe371109e497db2c2af5c1fe0f359612f44816/lib/crypto-toolbox/ciphers/aes.rb#L12-L15",
+      "sha256": "d51bce650b5428ca6f11c4c4a7faa5522e5ac17625ac4738fa0d9e02b44b6bc9"
+    },
+    {
+      "name": "0234.rb",
+      "url": "https://github.com/scepticulous/crypto-toolbox/blob/cdbe371109e497db2c2af5c1fe0f359612f44816/lib/crypto-toolbox/ciphers/aes.rb#L25-L28",
+      "sha256": "e1fa10422d7065f8cdd7881e14f28b1742a5dbff71323cfa93bb20c69176582d"
+    },
+    {
+      "name": "0235.rb",
+      "url": "https://github.com/sds/haml-lint/blob/024c773667e54cf88db938c2b368977005d70ee8/lib/haml_lint/utils.rb#L81-L86",
+      "sha256": "9ed0c518dd50dacc5f6c4bd6d3e66914862d84cf4def7581a206c0e7a089b610"
+    },
+    {
+      "name": "0236.rb",
+      "url": "https://github.com/shime/bun/blob/ad7292e8b4da791358af057740efb62978007b3c/lib/bun/arguments.rb#L20-L62",
+      "sha256": "b39fc5506004f452fccbfabf1fc6502ed40b7bf8924f9335b1e8cc70ed26e21a"
+    },
+    {
+      "name": "0237.rb",
+      "url": "https://github.com/shokai/arduino_firmata/blob/bf83d3331a0f5a7db858cd06cefc6127f023d9b3/lib/arduino_firmata/arduino.rb#L188-L200",
+      "sha256": "13d1a86a1095d44b19f6bd4bd60495fd7efe6ea61c2e4d646f244b7d480953e7"
+    },
+    {
+      "name": "0238.rb",
+      "url": "https://github.com/sobakasu/google_web_translate/blob/030091721292d2f6ced929542630b968cc436219/lib/google_web_translate/api.rb#L94-L102",
+      "sha256": "e35281004e7612e9918e1c13100448acf1ba9cded9d5514aca4d073f6560a3ce"
+    },
+    {
+      "name": "0239.rb",
+      "url": "https://github.com/socialcast/link_preview/blob/26764dd0f4fca4968bfc196fad833841b66cc027/lib/link_preview/http_crawler.rb#L72-L76",
+      "sha256": "4bb4b068243d736db3f98b48fd2756bd7b0be9c99df94115eaae84b45a6a2248"
+    },
+    {
+      "name": "0240.rb",
+      "url": "https://github.com/socialcast/link_preview/blob/26764dd0f4fca4968bfc196fad833841b66cc027/lib/link_preview/parser.rb#L61-L74",
+      "sha256": "337581b3d78fb5ed4080e530bfa6fdc03a4275db34e4ea6674dc21fb52d408fc"
+    },
+    {
+      "name": "0241.rb",
+      "url": "https://github.com/sonots/growthforecast-client/blob/6e0c463fe47627a96bded7e628f9456da4aa69ee/lib/growthforecast/client.rb#L110-L118",
+      "sha256": "251ec7161fb07b0a62f4b337a23a63928d7edd1165cf36c4d0076e45f46fcaf0"
+    },
+    {
+      "name": "0242.rb",
+      "url": "https://github.com/sorah/hocho/blob/036eeccf45161423358382119256ee8cc5a171c1/lib/hocho/inventory.rb#L23-L52",
+      "sha256": "6a0d06effa44e20c601cd9731fde0a45a9ef184e65563c37fe106a641d774887"
+    },
+    {
+      "name": "0243.rb",
+      "url": "https://github.com/spox/actiontimer/blob/fcda2ea3cb23db54d7e11005d093970145fed54c/lib/actiontimer/action.rb#L32-L35",
+      "sha256": "d17fd15226e520bd1a884f507b8e8f362db17947ddd53a3ce0208f43f90e5d65"
+    },
+    {
+      "name": "0244.rb",
+      "url": "https://github.com/stereobooster/jekyll-press/blob/15b333f1dab2bceb11858cf94fcf2139c2d59496/lib/jekyll-press.rb#L34-L36",
+      "sha256": "8bb4dbfed892a7adb3ee2d1634d689d28a0f2fbbd9e5c5eada236592fa7ec1c5"
+    },
+    {
+      "name": "0245.rb",
+      "url": "https://github.com/stripe/mosql/blob/aa76a2db505e6efad5fb0a57881a7818926cc234/lib/mosql/sql.rb#L13-L23",
+      "sha256": "5db142dbf78c8110d63a6ec53f3c4798971bdf784cf3ffe402e7442f62b3a1d2"
+    },
+    {
+      "name": "0246.rb",
+      "url": "https://github.com/stripe/stripe-ruby/blob/322a8c60be8a9b9ac8aad8857864680a32176935/lib/stripe/stripe_client.rb#L346-L394",
+      "sha256": "154eded4fc1ea8f9552d6171a53b0e8d37e4724e51d846c725f6872c91f10b1b"
+    },
+    {
+      "name": "0247.rb",
+      "url": "https://github.com/sugaryourcoffee/syclink/blob/941ee2045c946daa1e0db394eb643aa82c1254cc/lib/syclink/designer.rb#L129-L133",
+      "sha256": "8b07aae4063daeeca7872cdf03ba8b9d901ef8905a0bd1b2fa76f685e08376f4"
+    },
+    {
+      "name": "0248.rb",
+      "url": "https://github.com/sumoheavy/jira-ruby/blob/25e896f227ab81c528e9678708cb546d2f62f018/lib/jira/http_client.rb#L90-L95",
+      "sha256": "b5cc5f3a870ad6846e9a6fbbb34af9d3198402e12b3e47d173c466eb2f3e4c7c"
+    },
+    {
+      "name": "0249.rb",
+      "url": "https://github.com/superlanding/export_to/blob/06d1f3096746208bdbd207816fc34bb12b78917e/lib/export_to/base.rb#L19-L25",
+      "sha256": "3119f966d6c1c8edfd025469918a424a3d6b8b325a1c6b3ab029e0d4148997e0"
+    },
+    {
+      "name": "0250.rb",
+      "url": "https://github.com/superp/sunrise-locales/blob/949ef67ae5b064d3ef2082caa66bf26ba226721b/lib/sunrise/locales/yml_locale.rb#L16-L24",
+      "sha256": "61c6402725b8433cb156653145c13ab3767c876e8ac7760f3afd52da0f59d8fc"
+    },
+    {
+      "name": "0251.rb",
+      "url": "https://github.com/tablexi/eye-patch/blob/9b098a8a3d1b7d10949302686b3c83ff525f538f/lib/eye/patch/process_set.rb#L17-L27",
+      "sha256": "ada21527f8eaf5356285084b6297190f8354fa0d8d01d8e6a6843150dd3d3c0a"
+    },
+    {
+      "name": "0252.rb",
+      "url": "https://github.com/tanema/ghost_in_the_post/blob/e47c5d8371141241699f5ba7dd743e60fa739573/lib/ghost_in_the_post/phantom_transform.rb#L49-L54",
+      "sha256": "503ebe0e743756bdefd4e234b31fe53b217186b3ae0882a1f66ef615357a422c"
+    },
+    {
+      "name": "0253.rb",
+      "url": "https://github.com/thechrisoshow/rtf/blob/d6455933262a25628006101be802d7f7b2c3feb7/lib/rtf/node.rb#L1473-L1512",
+      "sha256": "89c9666a33da87c9794365a89d6a581dd40471eb492859917df19b68479df0ce"
+    },
+    {
+      "name": "0254.rb",
+      "url": "https://github.com/thinkerbot/configurable/blob/43c611f767f14194827b1fe31bc72c8bdf54efdf/lib/configurable/config_hash.rb#L159-L161",
+      "sha256": "57c43ed3360bbcadac13f0cc3c6a322b66ee8b828febdba36209af9d74b5ffc1"
+    },
+    {
+      "name": "0255.rb",
+      "url": "https://github.com/timfel/cassowary-ruby/blob/4780f8a243e715e1d0495a3629c1cda8cc186fa5/lib/simplex_solver.rb#L523-L576",
+      "sha256": "e76d2f198c1feed71fb5bea24635af2edc252e0804df7be12a88d2ed5db5995d"
+    },
+    {
+      "name": "0256.rb",
+      "url": "https://github.com/tj/terminal-table/blob/e00dde32a36bbd134f1b564369c9a3085bc69852/lib/terminal-table/table.rb#L112-L119",
+      "sha256": "4cfd3c40e819ac899a2e6852f979afeb049c8f362a6c7601abdacc700479b1b1"
+    },
+    {
+      "name": "0257.rb",
+      "url": "https://github.com/tkrajina/geoelevations/blob/2225da9108e651bfd9857ba010cb5c401b56b22a/lib/geoelevation.rb#L118-L124",
+      "sha256": "f03909bcf64085eb858fda2cae072d2ceb655b6701bf74423a6b00c653560c38"
+    },
+    {
+      "name": "0258.rb",
+      "url": "https://github.com/tmm1/pygments.rb/blob/926d1adad88c22f92010a0f284d2dcc10213ec1e/lib/pygments/popen.rb#L451-L457",
+      "sha256": "047c2018fd4d4fc93007d454b9f624372458642b4440b45710c25984f4cc1aaf"
+    },
+    {
+      "name": "0259.rb",
+      "url": "https://github.com/tongueroo/jets/blob/46943a519224067e58aa3e2d5656e3ca083150f9/lib/jets/controller/rack/adapter.rb#L49-L61",
+      "sha256": "4d8034fd88ca0aa745640d7760831d8624464e9afa326407d1f691f00c610241"
+    },
+    {
+      "name": "0260.rb",
+      "url": "https://github.com/tulios/icosmith-rails/blob/e73c11eaa593fcb6f9ba93d34fbdbfe131693af4/lib/icosmith-rails/font.rb#L90-L96",
+      "sha256": "5cf9fc277a1d5082831d1c3ecc33683d666b463729b875e7c020df16ead86a72"
+    },
+    {
+      "name": "0261.rb",
+      "url": "https://github.com/uken/fluent-plugin-elasticsearch/blob/9f9e51ddd012acb36c7f9d7a16e00970004098bc/lib/fluent/plugin/out_elasticsearch.rb#L384-L387",
+      "sha256": "6a8160320b947afa3237a974c24980af0e51648ecd10c26dec484567fb659459"
+    },
+    {
+      "name": "0262.rb",
+      "url": "https://github.com/vbosch/ruby_pager/blob/d175376de650bea05e6fbc47f7748e0ec450d11b/lib/ruby_pager/coord.rb#L32-L35",
+      "sha256": "787cbd777eac62b4b90ace675fcf3d05e1b3cb537b8232120d3521ed9a0a1de1"
+    },
+    {
+      "name": "0263.rb",
+      "url": "https://github.com/vbosch/ruby_pager/blob/d175376de650bea05e6fbc47f7748e0ec450d11b/lib/ruby_pager/text_region.rb#L91-L105",
+      "sha256": "23378295f1dec753a89ce0e6cef6f2da558bd6caa963b9969c80f387d3979086"
+    },
+    {
+      "name": "0264.rb",
+      "url": "https://github.com/veny/orientdb4r/blob/d02d0d27e6ed19c5c5ff377a642355f617c785d7/lib/orientdb4r/rest/client.rb#L175-L200",
+      "sha256": "7c5aedee4b76e225f5892a9084ebd07141970040b22cbc6cdd26eca0ad9bb4d7"
+    },
+    {
+      "name": "0265.rb",
+      "url": "https://github.com/vimox-shah/sequence-generator/blob/b73a6a05a0e905069e8b227c056e9f03e8cfe652/app/controllers/sequence_generator/application_controller.rb#L101-L106",
+      "sha256": "70166f203adfb62f95ad1572ea51b9a35a362a43d02e45c690bd3ad619997f69"
+    },
+    {
+      "name": "0266.rb",
+      "url": "https://github.com/vitalie/webshot/blob/2464ee47a34c6c7a8bade4686c7b179cd1c69e30/lib/webshot/screenshot.rb#L28-L33",
+      "sha256": "02193137188917c8457e8fb3332bc9e9b39819c88013b137b78c97459ced9c05"
+    },
+    {
+      "name": "0267.rb",
+      "url": "https://github.com/volmer/policial/blob/8c193923b910f9209c7e9b716d2dd877ff196b07/lib/policial/patch.rb#L25-L35",
+      "sha256": "a2f8dfb67334f3b5408d0cd6dcac1cf1da9355f83fa7a49ec2369f01c89d2bac"
+    },
+    {
+      "name": "0268.rb",
+      "url": "https://github.com/wedesoft/multiarray/blob/1ae1d98bacb4b941d6f406e44ccb184de12f83d9/lib/multiarray/lambda.rb#L119-L124",
+      "sha256": "9059594095c94a4ac2f42429850c2130694cc05e7a72780c3ce189625718e56a"
+    },
+    {
+      "name": "0269.rb",
+      "url": "https://github.com/williambarry007/caboose-rets/blob/1e7a5a3a1d51558229aeb2aa2c2f573e18727d27/lib/rets/stream_http.rb#L50-L152",
+      "sha256": "9ab136bbeca629b7910515d39a0ce9a775ee55cab5785d37687884efef8ecf66"
+    },
+    {
+      "name": "0270.rb",
+      "url": "https://github.com/wizardwerdna/pokerstats/blob/315a4db29630c586fb080d084fa17dcad9494a84/lib/pokerstats/pokerstars_hand_history_parser.rb#L32-L52",
+      "sha256": "66acef3cac44fb5f60d94286bfa2529074330bc00a1c86278b9b6c871b572fcd"
+    },
+    {
+      "name": "0271.rb",
+      "url": "https://github.com/worlddb/world.db/blob/8fd44fa8d8dc47290c63b881c713634494aae291/worlddb-models/lib/worlddb/readers/country.rb#L7-L14",
+      "sha256": "865031ec0fdfad24a1b43b1dff95c1ca73ae1c1f2194fc2cd94ec47895d7cc2c"
+    },
+    {
+      "name": "0272.rb",
+      "url": "https://github.com/wouterken/RMatrix/blob/893feba118b0537f53cf0b88025caaafbf4c0808/lib/rmatrix/matrix.rb#L302-L309",
+      "sha256": "4d483a55ae023fcd67211fd0df4d1f0c9d70d126e85e61328019b9314fa51757"
+    },
+    {
+      "name": "0273.rb",
+      "url": "https://github.com/wurmlab/genevalidator/blob/b44a4a7e72eb8314c73d0cd7062d37a1c4c58299/lib/genevalidator/clusterization.rb#L510-L523",
+      "sha256": "5097b57c9b74dcfcf4f1eabb42ba95ea216c51f806919747ecf60bad819680d9"
+    },
+    {
+      "name": "0274.rb",
+      "url": "https://github.com/wurmlab/genevalidator/blob/b44a4a7e72eb8314c73d0cd7062d37a1c4c58299/lib/genevalidator/validation_alignment.rb#L397-L441",
+      "sha256": "0475fa189cda3d8cc59bb74757b97eb4c0ee6fb7cd0b4f4c8c13431ee7bce26a"
+    },
+    {
+      "name": "0275.rb",
+      "url": "https://github.com/wurmlab/genevalidator/blob/b44a4a7e72eb8314c73d0cd7062d37a1c4c58299/lib/genevalidator/validation_gene_merge.rb#L261-L285",
+      "sha256": "adb15cf9b4466ad77cf897885b67ea002072f2da707b6a31e6254495c9d626fb"
+    },
+    {
+      "name": "0276.rb",
+      "url": "https://github.com/wvanbergen/chunky_png/blob/691f8cb0fbe1816474bf8af8dbea4fb53debb816/lib/chunky_png/color.rb#L165-L176",
+      "sha256": "facf7562c9a28c1bf43ce1ca35ff08dd9c26186582af5b6690570760e18be7d7"
+    },
+    {
+      "name": "0277.rb",
+      "url": "https://github.com/wvk/railsdav/blob/2a51bf43a726175eaa93bdfe7ba2bed0248d3d87/lib/railsdav/renderer.rb#L99-L103",
+      "sha256": "51ccd45592c31f75cdd0515570d43796e73c14d628d0a785c4e94346d4ea0dc2"
+    },
+    {
+      "name": "0278.rb",
+      "url": "https://github.com/wwidea/rexport/blob/f4f978dd0327ddba3a4318dd24090fbc6d4e4e59/lib/rexport/exports_controller_methods.rb#L24-L32",
+      "sha256": "76bad990ab1a7c6aa5a2cb2c7baae3e29876f2198c9ca334b0bbc6afdb50f17e"
+    },
+    {
+      "name": "0279.rb",
+      "url": "https://github.com/wycats/merb/blob/b34d3d4fb6da70c2e9e9e56ddccc73f8a3e55e39/merb-core/spec/public/controller/controllers/cookies.rb#L9-L15",
+      "sha256": "a84eac11107c3c0074e8e39b320d0b5924d7b9578d8f0276774addf21973e216"
+    },
+    {
+      "name": "0280.rb",
+      "url": "https://github.com/xlab-si/server-sent-events-ruby/blob/f57491a8ab3b08662f657668d3ffe6725dd251db/lib/server_sent_events/client.rb#L33-L43",
+      "sha256": "27b9a8968c7c2231ec8a786461065c5368cd9d5f69a7c4db608c8c8e1e008b88"
+    },
+    {
+      "name": "0281.rb",
+      "url": "https://github.com/ytti/oxidized/blob/0cf095b01612c30a635a6c26843f02af20631823/lib/oxidized/source/sql.rb#L55-L63",
+      "sha256": "ba88b85ff54d5c1b227e988476b8c68623c8ff9d74a7b05e50201ccf0c1dc562"
+    },
+    {
+      "name": "0282.rb",
+      "url": "https://github.com/yujinakayama/transpec/blob/fe3fc522346d8cbecee2fa92edc382b18d92b638/lib/transpec/cli.rb#L112-L123",
+      "sha256": "73ab0a8d3313651db08451fafb7140ce781ef45a11750dbc170b261a18ca48d7"
+    },
+    {
+      "name": "0283.rb",
+      "url": "https://github.com/zaru/webpush/blob/6aed6657a40bf40dbdf2ff617c3370507ae3fd64/lib/webpush/encryption.rb#L61-L73",
+      "sha256": "2c58abe5e8695fafa16b2f23a6b7c3423e83e612ee71457abc16e2bce2f0c3aa"
+    },
+    {
+      "name": "0284.rb",
+      "url": "https://github.com/zdavatz/ydocx/blob/f022ede91fe3c1a41bf5fdddd033674b3d8f94c0/lib/ydocx/document.rb#L43-L65",
+      "sha256": "13f333238580b14ba78d0bb8e0f818839c0f37d9623d2e1a934a20ab4317f205"
+    },
+    {
+      "name": "0285.rb",
+      "url": "https://github.com/zendesk/ruby-kafka/blob/2a73471b6a607a52dc85c79301ba522acb4566b5/lib/kafka/cluster.rb#L248-L253",
+      "sha256": "a640368a0b4669ee2dca0c1e0d56e0116560611ac9936cae442169bf7a6d3f6b"
+    },
+    {
+      "name": "0286.rb",
+      "url": "https://github.com/zendesk/zendesk_api_client_rb/blob/4237daa923c6e353a888473adae2a808352f4b26/lib/zendesk_api/collection.rb#L377-L384",
+      "sha256": "146443a173ba8931e2ed5224dd4eefc59ea44eac70129d14aa955183b24b3926"
+    },
+    {
+      "name": "0287.rb",
+      "url": "https://github.com/zerowidth/camper_van/blob/984351a3b472e936a451f1d1cd987ca27d981d23/lib/camper_van/ircd.rb#L74-L81",
+      "sha256": "e8edc6c1979a363acd8eca43fd91ec7ce5c2549f208182e79226e709ec4c16ad"
+    },
+    {
+      "name": "0288.rb",
+      "url": "https://github.com/zhimin/rwebspec/blob/aafccee2ba66d17d591d04210067035feaf2f892/lib/rwebspec-common/assert.rb#L115-L126",
+      "sha256": "475b34ae8131515e4375ea2321c42a267022bcc1d23a111ee2dfa95b29cb2596"
+    },
+    {
+      "name": "0289.rb",
+      "url": "https://github.com/zhimin/rwebspec/blob/aafccee2ba66d17d591d04210067035feaf2f892/lib/rwebspec-watir/driver.rb#L584-L590",
+      "sha256": "632554a7a08a1f1d3e6213f6fbc6edb95d66a67109f94f53a42d8162b080551d"
+    },
+    {
+      "name": "0290.rb",
+      "url": "https://github.com/zhimin/rwebspec/blob/aafccee2ba66d17d591d04210067035feaf2f892/lib/rwebspec-watir/web_browser.rb#L396-L409",
+      "sha256": "bd418b679db56f4e746602b73c6a79ce945f70adc4ee48333b915d44ec8f316f"
+    },
+    {
+      "name": "0291.rb",
+      "url": "https://github.com/zold-io/zold/blob/7e0f69307786846186bc3436dcc72d91d393ddd4/lib/zold/commands/node.rb#L472-L478",
+      "sha256": "0a2866f1151a80878072d07eaa401c00b8cca6daf39c24bc35b841a76cb0851e"
+    }
+  ],
+  "missing": ["https://github.com/FoxtrotSystems/api-client-ruby/blob/7691bb04b53ed70ce87e82d1cb66b7d645a8e2b2/lib/foxtrot/client.rb#L29-L33", "https://github.com/LoyaltyNZ/hoodoo/blob/905940121917ecbb66364bca3455b94b1636470f/lib/hoodoo/errors/errors.rb#L121-L161", "https://github.com/afirel/sepparator/blob/530ada67d11a66b9bb0f761539d172ea5187560e/lib/sepparator/spreadsheet_converter.rb#L14-L21", "https://github.com/icyleaf/qyer-mobile-app/blob/4704b58fb9752262bb2ee53e5a566f0fd44241d5/lib/qma/client.rb#L84-L97", "https://github.com/ndlib/locabulary/blob/9d4a7c1b6a5956c5152924b1ff51d3f0798581d8/lib/locabulary/json_creator.rb#L54-L59", "https://github.com/rayyanqcri/ref_parsers/blob/2b0788b7982628e2375fa64bbd29160fdaf17887/lib/ref_parsers/line_parser.rb#L33-L42", "https://github.com/rubycoco/record/blob/f0b6b8f9edbff4f2cd31278029cd0135906bcab2/lib/record/field.rb#L56-L79", "https://github.com/sawaken/ruby-binary-parser/blob/c9ae043915d1a91677a2296e2f15d2929242d8f7/lib/binary_parser/stream_template_base.rb#L80-L87", "https://github.com/sharethrough/flare-up/blob/98b5f379ddbb7cfc77c5854f181e07334e28ed94/lib/flare_up/connection.rb#L49-L66", "https://github.com/sportngin/okcomputer/blob/b8120d064c32c238177607c61fa7f7c792d5d6b8/lib/ok_computer/built_in_checks/delayed_job_backed_up_check.rb#L36-L48", "https://github.com/synthesist/panoptimon/blob/9346c221ae95aaa6528232a04a92478f7c9a5e15/lib/panoptimon/collector.rb#L108-L117", "https://github.com/tombroomfield/motion_panel/blob/b75f5110b4a27f23cb45746b166190570b9b8391/lib/motion_panel/people_manager.rb#L17-L20", "https://github.com/tombroomfield/motion_panel/blob/b75f5110b4a27f23cb45746b166190570b9b8391/lib/motion_panel/people_manager.rb#L27-L30"]
+}

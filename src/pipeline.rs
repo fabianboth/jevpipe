@@ -10,7 +10,7 @@ use crate::cli::RunArgs;
 use crate::config::Config;
 use crate::decision::{Decision, Outcome};
 use crate::exit::{self, Exit};
-use crate::file::{self, Unjudged};
+use crate::file::{self, Content, Unjudged};
 use crate::limits::{Limits, NoCost, Stop, TooLong};
 use crate::output::{Delivery, Output, report};
 use crate::questions::Questions;
@@ -54,9 +54,17 @@ enum Decided {
     Unprocessed,
 }
 
+const HALVINGS: usize = 3;
+
 enum Judged {
     Outcome(Outcome),
     Unprocessed,
+}
+
+impl Judged {
+    fn is_too_large(&self) -> bool {
+        matches!(self, Self::Outcome(Outcome::Failed(Failure::TooLarge)))
+    }
 }
 
 struct Judge<'a> {
@@ -210,16 +218,26 @@ impl<'a> Judge<'a> {
 
     async fn judge_file(&self, path: &str) -> Result<Judged, RunError> {
         match file::read(Path::new(path)).await {
-            Ok(content) => {
-                let state = State::File {
-                    path,
-                    content: &content.text,
-                };
-                self.ask(&state, content.truncated).await
+            Ok(mut content) => {
+                for _ in 0..HALVINGS {
+                    let judged = self.ask_file(path, &content).await?;
+                    if !judged.is_too_large() || !content.halve() {
+                        return Ok(judged);
+                    }
+                }
+                self.ask_file(path, &content).await
             }
             Err(Unjudged::Skipped(reason)) => Ok(Judged::Outcome(Outcome::Skipped(reason))),
             Err(Unjudged::Failed(reason)) => Ok(Judged::Outcome(Outcome::Failed(reason))),
         }
+    }
+
+    async fn ask_file(&self, path: &str, content: &Content) -> Result<Judged, RunError> {
+        let state = State::File {
+            path,
+            content: &content.text,
+        };
+        self.ask(&state, content.truncated).await
     }
 
     async fn ask(&self, state: &State<'_>, truncated: bool) -> Result<Judged, RunError> {

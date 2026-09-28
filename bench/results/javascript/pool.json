@@ -1,0 +1,1530 @@
+{
+  "dataset": {
+    "repository": "github/CodeSearchNet",
+    "commit": "106e827405c968597da938f6b373d30183918869",
+    "file": "resources/annotationStore.csv"
+  },
+  "snippets": [
+    {
+      "name": "0000.js",
+      "url": "https://github.com/0xdec/draft.js/blob/2116cdbcc82ccc58d4d46b7e17720595236454b5/src/types/length.js#L1-L6",
+      "sha256": "d64549849073c1e03bf9f7969a729fd492295e1af15abd1562bcb47d79b79de7"
+    },
+    {
+      "name": "0001.js",
+      "url": "https://github.com/AGCPartners/mysql-transit/blob/d3cc3701166be3d41826c4b3bf1a596ed4c1f03a/index.js#L534-L541",
+      "sha256": "f75ff9ceaf9ef3ad1a3ed452e6bd9350863ea2f57c459a0af8e8faf6cd2b7f54"
+    },
+    {
+      "name": "0002.js",
+      "url": "https://github.com/APIDevTools/json-schema-ref-parser/blob/29ea8693e288e5ced3ebd670d545925f16a4ed17/lib/parsers/binary.js#L32-L35",
+      "sha256": "5a6e62e7465975547a2829b13c8dafe44f5391cfc31887ea86df2cf7ea3ce85c"
+    },
+    {
+      "name": "0003.js",
+      "url": "https://github.com/AlgoTrader/betfair-sports-api/blob/196093a9711b268e9f8b1892e71c1aa070492747/lib/betfair_decoder.js#L44-L60",
+      "sha256": "5f8b7a7e703cfc28271f16f69401868c36970974319932d505189854b7129423"
+    },
+    {
+      "name": "0004.js",
+      "url": "https://github.com/Appstax/appstax-js/blob/5f49531398c63d606217b9149c78ffdb50410b79/src/objects.js#L583-L593",
+      "sha256": "12498036ff1c852baf3b23911cd170837e0245af60b17f8a8ba9fcd2964a2575"
+    },
+    {
+      "name": "0005.js",
+      "url": "https://github.com/BabylonJS/Spector.js/blob/42602c83a0515b60338edad27c3330a7c0523bbe/sample/assets/js/babylon.max.js#L5376-L5387",
+      "sha256": "70cecc52172664eb9a32a72717918c9ffa17d36bf50c56b53acc31b5c7fb3f8d"
+    },
+    {
+      "name": "0006.js",
+      "url": "https://github.com/BeLi4L/subz-hero/blob/c22c6df7c2d80c00685a9326043e1ceae3cbf53d/src/providers/subscene.js#L152-L160",
+      "sha256": "471a641719b5f2a18aead39059c39b4a12d1b8ec747c1b1a5f58163bc6e3e05d"
+    },
+    {
+      "name": "0007.js",
+      "url": "https://github.com/BeneRoch/Gmap/blob/574b0c9c65fa57b3ce23bdbaf807ff293efe35f6/assets/scripts/src/Controller/bb.gmap.controller.js#L393-L432",
+      "sha256": "4065c95d0f306eccc0acc5f24abdb36b03fe5ca5f90e5d7e52acb107ad36b9ac"
+    },
+    {
+      "name": "0008.js",
+      "url": "https://github.com/BorisChumichev/everpolate/blob/00201c964891d37e8cfa6922057c5069db4a37d4/lib/linearRegression.js#L17-L50",
+      "sha256": "743c52d9ddbc3312e8d4f1743390f60663849c5af3e7697a5379427e5bfdfe47"
+    },
+    {
+      "name": "0009.js",
+      "url": "https://github.com/CartoDB/node-cartodb-query-tables/blob/c5016bceb989108103c1083bcd4c109cd3959a61/lib/models/database_tables.js#L30-L34",
+      "sha256": "a2dbdbbc894380f17bb1993a914b35a5c668a270d113d3875de1c646478798f6"
+    },
+    {
+      "name": "0010.js",
+      "url": "https://github.com/CascadeEnergy/dispatch-fn/blob/e3ac8135f4c15c21016c9c972a9652b09474074d/example/example.js#L33-L36",
+      "sha256": "e492f1cdce476794f8a9a6da30b5ad81f8b0b2256f2a6029cb86bb51e3115d1e"
+    },
+    {
+      "name": "0011.js",
+      "url": "https://github.com/CodeTanzania/majifix-service-group/blob/bce41249dd31e57cf19fd9df5cbd2c3e141b0cf8/lib/servicegroup.model.js#L449-L478",
+      "sha256": "1231b65731830deccbecc108ec3a53414372cf14daa2d31797e6f86a65b17588"
+    },
+    {
+      "name": "0012.js",
+      "url": "https://github.com/ColorlibHQ/AdminLTE/blob/19113c3cbc19a7afe0cfd3158d647064d2d30661/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js#L8027-L8042",
+      "sha256": "16fa8024d9bc8599dc0f2ade89c12fde190b707ea56deeb27953b5152fb07054"
+    },
+    {
+      "name": "0013.js",
+      "url": "https://github.com/Dafrok/BMapLib.Heatmap/blob/710f22b68834b26bd1202944ba6137e42968b75d/index.js#L33-L52",
+      "sha256": "c546c5449fe8bfb143abd1a5958cd60a3143a82b1d734cb8ab087b6b908864ff"
+    },
+    {
+      "name": "0014.js",
+      "url": "https://github.com/DevelAgora/make-gettext/blob/13c55df090ee0eb1acb4d039471ca335ea944653/lib/po2csv.js#L63-L80",
+      "sha256": "fafa51110480d78be4b96c92307a15eb82b4da7e8bd7fccbdf7afd125791e924"
+    },
+    {
+      "name": "0015.js",
+      "url": "https://github.com/EclairJS/eclairjs/blob/336368b99f17674a2f86914abbfa5f3000bd028f/examples/ml/model_selection_via_cross_validation.js#L35-L40",
+      "sha256": "2d58614775c520885040f0197ed80969e14e9eae728408b970b6ae469f010744"
+    },
+    {
+      "name": "0016.js",
+      "url": "https://github.com/EclairJS/eclairjs/blob/336368b99f17674a2f86914abbfa5f3000bd028f/server/src/main/resources/eclairjs/ml/regression/AFTSurvivalRegression.js#L33-L48",
+      "sha256": "711880039f111180122a7a096e7199dc774464b7351a6454a818310ca1e0ab8f"
+    },
+    {
+      "name": "0017.js",
+      "url": "https://github.com/EclairJS/eclairjs/blob/336368b99f17674a2f86914abbfa5f3000bd028f/server/src/main/resources/eclairjs/ml/regression/GBTRegressionModel.js#L38-L49",
+      "sha256": "8a3f679f23dbb268bef586f05dae2314955aaa7ad7362417f14da9d7d03d935e"
+    },
+    {
+      "name": "0018.js",
+      "url": "https://github.com/EclairJS/eclairjs/blob/336368b99f17674a2f86914abbfa5f3000bd028f/server/src/main/resources/eclairjs/ml/regression/LinearRegression.js#L43-L58",
+      "sha256": "6a6d95a3ccf8016ecca06a1347a963df6f756c20346d6bd0f5ec506f3c75456c"
+    },
+    {
+      "name": "0019.js",
+      "url": "https://github.com/Emallates/enoa-client/blob/61e7e24c74d11aaa2016acfe683a3ca8b770c6f8/lib/connectors/request/inline-headers.js#L7-L15",
+      "sha256": "8b6e484bd37dafd893fd96889fd709f772277efe9c7b63fd1142d947d63837cc"
+    },
+    {
+      "name": "0020.js",
+      "url": "https://github.com/FVANCOP/ChartNew.js/blob/08681cadc1c1b6ea334c11d48b2ae43d2267d611/Add-ins/stats.js#L21-L83",
+      "sha256": "2c6f31a71cebf7c111166894a61b6abbdae65a6aafdf43b5842630816bb26acb"
+    },
+    {
+      "name": "0021.js",
+      "url": "https://github.com/FreeAllMedia/appeal/blob/b741f509770c33228a8267378d0ee3f722519cd4/es5/spec/request.spec.js#L240-L258",
+      "sha256": "5997489aa5edd367af3d8f3c713293855e889caf468945036ef337ebc11594f5"
+    },
+    {
+      "name": "0022.js",
+      "url": "https://github.com/GazonkFoo/csvwriter/blob/a937d42f41d27a74a2774a2bc1b1a692a1c8555c/bin/csvwriter.js#L40-L59",
+      "sha256": "3599d2576b592229a368585bbbb40039edf5cb95b9103baedf81ba2e792a6f08"
+    },
+    {
+      "name": "0023.js",
+      "url": "https://github.com/GitbookIO/gitbook/blob/6c6ef7f4af32a2977e44dd23d3feb6ebf28970f4/lib/parse/parseReadme.js#L16-L25",
+      "sha256": "09fb9ed4fe51334f8fc9dc514a5b7b8ebc6c13eb0e4112bf6c851cbd6873a45e"
+    },
+    {
+      "name": "0024.js",
+      "url": "https://github.com/GoogleChromeLabs/carlo/blob/c79322776443a0564f110fd3e45b8d2042924d1d/lib/find_chrome.js#L209-L253",
+      "sha256": "e6fee0cf8ed5b600fe5fc0625c3fc6de227f9be1bf29d83a6ba2a18ac2c2b4d1"
+    },
+    {
+      "name": "0025.js",
+      "url": "https://github.com/Ivshti/node-subtitles-grouping/blob/26284201817d1d200c1da28e4cf22f60a72ff0f0/lib/heatmap.js#L7-L25",
+      "sha256": "91f9754e1ea84e49400f90a5d5c8f328aea2adbee56d90521be3b011f378f4ea"
+    },
+    {
+      "name": "0026.js",
+      "url": "https://github.com/JCloudYu/beson/blob/de9f1f6be59599feb1a5e70085b42b0382600d0b/deserialize.esm.js#L63-L68",
+      "sha256": "aeb365b401a8aca723b1abd82da420819ba2a1135f053e5edfdc3b8766e2c393"
+    },
+    {
+      "name": "0027.js",
+      "url": "https://github.com/JCloudYu/beson/blob/de9f1f6be59599feb1a5e70085b42b0382600d0b/deserialize.esm.js#L660-L673",
+      "sha256": "e93b6cffc064f6f4d2ac55f789ac1ef2e900848dbba0db78a48bd3eddac0784c"
+    },
+    {
+      "name": "0028.js",
+      "url": "https://github.com/JCloudYu/beson/blob/de9f1f6be59599feb1a5e70085b42b0382600d0b/deserialize.esm.js#L712-L726",
+      "sha256": "a5fdcddc877e9709d9596a0fc67e040590b0845c998546d018f1801fd7b898e5"
+    },
+    {
+      "name": "0029.js",
+      "url": "https://github.com/Jack12816/greppy/blob/ede2157b90c207896781cc41fb9ea115e83951dd/lib/helper/view/date.js#L35-L43",
+      "sha256": "4cac77fd80653de10bf7dde444a4ea3e885db8e07882c6945de8aca5cc15a1a0"
+    },
+    {
+      "name": "0030.js",
+      "url": "https://github.com/Kolbaskin/yode-server/blob/55ab6680efcca9d298683eed7fc6a16933f10ace/static/ext/ext-all.js#L21401-L21417",
+      "sha256": "597056ee99fd3c1a966c58e6fe73325cee5c3a315756941d5ff98baee2be0af2"
+    },
+    {
+      "name": "0031.js",
+      "url": "https://github.com/Kong/galileo-agent-node/blob/651626bbf82c66e0b1786992a7fd7e18845f076b/lib/helpers.js#L61-L92",
+      "sha256": "4e248c61f146ec639b0f72e41ebeffb90e768d078bde9c531546f81fdd807af1"
+    },
+    {
+      "name": "0032.js",
+      "url": "https://github.com/Lemurro/client-framework7-core-frontend/blob/119985cb1d00b92b4400504e1c46f54dc36bcd77/dist/lemurro.js#L18634-L18638",
+      "sha256": "c111713b4620e9d52ad716434ff4671fbb17fad92fd5d1b3550c04ff37d0283d"
+    },
+    {
+      "name": "0033.js",
+      "url": "https://github.com/Lemurro/client-framework7-core-frontend/blob/119985cb1d00b92b4400504e1c46f54dc36bcd77/dist/lemurro.js#L43029-L43040",
+      "sha256": "4c815e7eccaf59e5e1bf0c0583cff62984dcd8d8fa95c74e3f124614fcc81c7d"
+    },
+    {
+      "name": "0034.js",
+      "url": "https://github.com/Lukasz-pluszczewski/all-log/blob/53c798840c8e02fc7600280919043261d7eff9a9/lib/all-log.js#L336-L413",
+      "sha256": "dd58cc68021111f8f948acd1681b6728bb26036b49809091c99837f93af20d27"
+    },
+    {
+      "name": "0035.js",
+      "url": "https://github.com/MaiaVictor/dattata/blob/890d83b89b7193ce8863bb9ac9b296b3510e8db9/canvasImage.js#L22-L25",
+      "sha256": "30baf0c2b5333153fa674dba0cb2a87d4f7cabcf2d70ca139b62cb3e86327cf3"
+    },
+    {
+      "name": "0036.js",
+      "url": "https://github.com/MaiaVictor/dattata/blob/890d83b89b7193ce8863bb9ac9b296b3510e8db9/canvasImage.js#L28-L38",
+      "sha256": "c1fe2641df7b92dbf86f05854f6d2bd6cd9c508aeade93d554a427e7035d2df9"
+    },
+    {
+      "name": "0037.js",
+      "url": "https://github.com/MikeRalphson/bbcparse/blob/785e0c2807c2d189c9c8779f7ac3f9b6f603bb57/dlInfo.js#L89-L92",
+      "sha256": "a18c7068eae6c742db241d40ad7384c947c7a4a1df5fba7d0320d564edc47e75"
+    },
+    {
+      "name": "0038.js",
+      "url": "https://github.com/MrSwitch/hello.js/blob/50b2b792d758774fc08e8da911fd4415ea3831ba/demos/Collage/fabric.js#L2481-L2491",
+      "sha256": "2700bab88405e6104fe5dab7a72d56bab8ab30188bcaa654123c01ac60515942"
+    },
+    {
+      "name": "0039.js",
+      "url": "https://github.com/NASAWorldWind/WebWorldWind/blob/399daee66deded581a2d1067a2ac04232c954b8f/src/layer/heatmap/HeatMapColoredTile.js#L19-L122",
+      "sha256": "417046dcc3b42bb3c9317141073631ab71862fcf27e419b470f7ef1666f13bbd"
+    },
+    {
+      "name": "0040.js",
+      "url": "https://github.com/NASAWorldWind/WebWorldWind/blob/399daee66deded581a2d1067a2ac04232c954b8f/src/layer/heatmap/HeatMapLayer.js#L29-L417",
+      "sha256": "9afd2b715ae4a61c363109dd84fc41115671aecd041382407a88779ca1cf3203"
+    },
+    {
+      "name": "0041.js",
+      "url": "https://github.com/Nazariglez/perenquen/blob/e023964d05afeefebdcac4e2044819fdfa3899ae/lib/pixi/src/filters/color/ColorMatrixFilter.js#L159-L170",
+      "sha256": "b24c4b4dd2fc59fa1c12a6665052eaae4f201ec118d168b71adfe6f4f90f6a9c"
+    },
+    {
+      "name": "0042.js",
+      "url": "https://github.com/OpenTriply/YASGUI.YASR/blob/4de0a4e3b182c23b63897376ab9fb141fea17af8/lib/jquery.csv-0.71.js#L601-L626",
+      "sha256": "fc106dc6d425add57e252c2da3150f112318a669fa55ee4d79a51162e4b5e7e7"
+    },
+    {
+      "name": "0043.js",
+      "url": "https://github.com/OpusCapita/react-markdown/blob/77f977bd839bdf9c90b8f064179e44464860ae11/src/client/components/PlainMarkdownInput/PlainMarkdownInput.react.js#L61-L70",
+      "sha256": "5856f28bf382de7015b1405049c44372c4808ecb8270be701452adf5bbb164e8"
+    },
+    {
+      "name": "0044.js",
+      "url": "https://github.com/Orckestra/orc-scripts/blob/5044fedef3d4bdf881a03bfe22e0ef0d22a09ffa/src/utils.js#L65-L91",
+      "sha256": "ae67216f4ba96fac25005f91c1d27899ccaf6e7672dbaed5e6039e069eae3726"
+    },
+    {
+      "name": "0045.js",
+      "url": "https://github.com/Pamblam/jSQL/blob/507ef210e339fdb8f820b26412e2173aa8c19d82/jSQL.js#L2059-L2120",
+      "sha256": "7ea91ff14f3d2e12d8c0779176d5127c306f6a5d609cd92101d8bb36e99954a2"
+    },
+    {
+      "name": "0046.js",
+      "url": "https://github.com/PanthR/panthrMath/blob/54d249ca9903a9535f963da711bd3a87fb229c0b/panthrMath/distributions/lognormal.js#L80-L101",
+      "sha256": "da40193362c1252f3b16df13e85763722c6385721fd160796b398b35f0c2d1d2"
+    },
+    {
+      "name": "0047.js",
+      "url": "https://github.com/Pecacheu/create2/blob/5dc05fdd097caba0bb90de9f697f57c39546ef8f/index.js#L87-L117",
+      "sha256": "af70d9d841948453e733eed2558642fcad5b85185419ee29528c23348bfbf747"
+    },
+    {
+      "name": "0048.js",
+      "url": "https://github.com/QoVoQ/vue-smart-bus/blob/1ab6821720f9f94149bddf011db5a9f83f29424b/dist/vue-smart-bus.esm.js#L42-L50",
+      "sha256": "d2569ec28d55da6176dcc200b89e0f65c5c9e7c6bb31fae565659f15ed182f43"
+    },
+    {
+      "name": "0049.js",
+      "url": "https://github.com/RackHD/on-tasks/blob/18ca8021a18e51cb8fc01ef3c08c9e48d34f73ea/lib/utils/job-utils/redfish-tool.js#L88-L94",
+      "sha256": "c4c80684afa1de0b12ef21f2818dffe248c1c89a1ed8ff2933b052cb1f24bebf"
+    },
+    {
+      "name": "0050.js",
+      "url": "https://github.com/RedSeal-co/ts-tinkerpop/blob/5b1485194407864aaa71134409f4b83b7cdaee1e/lib/ts-tinkerpop.js#L644-L657",
+      "sha256": "ec268f1d8075c3196f3207d46a368f0d2f1648be0e16c49ced0dd37fc9f86ab4"
+    },
+    {
+      "name": "0051.js",
+      "url": "https://github.com/RisingStack/graffiti-mongoose/blob/414c91e4b2081bf0d14ecd2de545f621713f5da7/src/query/query.js#L6-L16",
+      "sha256": "7ec63357de821dce89f2a0c6179b7750b080deb858af0248d9ffc9c4eeff66cd"
+    },
+    {
+      "name": "0052.js",
+      "url": "https://github.com/S3bb1/ah-dashboard-plugin/blob/c283370ec0f99a25db5bb7029a98b4febf8c5251/public/dashboard/bower_components/admin-lte/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.js#L989-L1032",
+      "sha256": "ee7c04e1c4ae8f77256eabce36339decb3ce7e16f1211a33658d5ae330c81466"
+    },
+    {
+      "name": "0053.js",
+      "url": "https://github.com/SAP/openui5/blob/8a832fca01cb1cdf8df589788e0c5723e2a33c70/src/sap.m/src/sap/m/ColumnPopoverSortItem.js#L4-L58",
+      "sha256": "5abbba5341fc6b95a5c70e56d82873bcf8b15bee934e05ab07d5187321f0f652"
+    },
+    {
+      "name": "0054.js",
+      "url": "https://github.com/SeleniumHQ/selenium/blob/38d5e4440b2c866a78a1ccb2a18d9795a1bdeafd/third_party/closure/goog/ui/editor/defaulttoolbar.js#L556-L574",
+      "sha256": "aa91203d2a371fcb360689db6b3968e7abd199599948bde65c431f7ca97197b0"
+    },
+    {
+      "name": "0055.js",
+      "url": "https://github.com/SomMeri/grunt-zip-to-crx/blob/14b6c0bb3748a955e2a56d08ea23dca6693d967c/lib/createCrxWithOpenSSL.js#L41-L49",
+      "sha256": "2acc5bd114806253da68a0920dc34b56c0418c6cb788516dc51c2a1a407f990a"
+    },
+    {
+      "name": "0056.js",
+      "url": "https://github.com/SpoonX/aurelia-api/blob/02f83bf77c882583deb205ea3b2dfb1400877fd6/dist/commonjs/aurelia-api.js#L29-L42",
+      "sha256": "2368dd3bf5b5e6305a35faa58597bfd1e76fb86b59b5fb2ad6a2510e05475cb3"
+    },
+    {
+      "name": "0057.js",
+      "url": "https://github.com/Streampunk/tesladon/blob/9e934f7514880700a6172ae5813ac22ed2fa5eb7/src/util.js#L42-L51",
+      "sha256": "61aa39b4eb0af067126368d96cd0818941034641898c7910380a6cde8856362e"
+    },
+    {
+      "name": "0058.js",
+      "url": "https://github.com/Travelport-Ukraine/uapi-json/blob/de43c1add967e7af629fe155505197dc55d637d4/src/Services/Utils/UtilsParser.js#L9-L21",
+      "sha256": "f50a04b42a9036f9afffc769252e4655e1b2f3ce9b0ed2ab25cca89da94ef056"
+    },
+    {
+      "name": "0059.js",
+      "url": "https://github.com/TryGhost/Ghost/blob/bb7bb55cf3e60af99ebbc56099928827b58461bc/core/server/lib/fs/read-csv.js#L6-L52",
+      "sha256": "637cf41ba7945d3fefbd925bb1128907d280c076c827fbd8a5ec587c0f3541dd"
+    },
+    {
+      "name": "0060.js",
+      "url": "https://github.com/Turfjs/turf-buffer/blob/3f1ebed65b5d8fa6098702cf80e6cc77039bcce5/index.js#L65-L77",
+      "sha256": "e04386185e716a28a924bf7c80b483ccfb232f91fd9e0b20ec689866870675df"
+    },
+    {
+      "name": "0061.js",
+      "url": "https://github.com/UnitedIncome/serverless-python-requirements/blob/2e8117502606fd4bd82c19c3050ba0350adb2789/lib/zipTree.js#L65-L82",
+      "sha256": "249f3e45aeedb812352d269a926b165909f148d6bc0d5fab676b92f389d8621d"
+    },
+    {
+      "name": "0062.js",
+      "url": "https://github.com/UziTech/atom-jasmine3-test-runner/blob/580e3299f10a594c63afafd9223dbbaecd6cbcd4/spec/spec-helper/jasmine-jquery-spec.js#L93-L100",
+      "sha256": "d00b883e97622d1e7f78309168bb9d47105ba807951ea106eb6afe3d692d756f"
+    },
+    {
+      "name": "0063.js",
+      "url": "https://github.com/agnat/js_priority_queue/blob/33bed09c205d8b77e02536fbf6ea8cc9a08b137e/priority_queue.js#L1-L61",
+      "sha256": "66961ecfceda7492a878ef84330ade4782a851233aee4c70d6f043b44ebada13"
+    },
+    {
+      "name": "0064.js",
+      "url": "https://github.com/agreatfool/swagger-spec-to-pdf/blob/0d2bdf9fd0debec1ab7ebd7bd7cea8f7fde06155/swagger-editor/bower_components/sway-worker/index.js#L5-L6",
+      "sha256": "10b75c2b0c826f22d61a85c3f2c308f0d921918ed4212f266da04864892c5aab"
+    },
+    {
+      "name": "0065.js",
+      "url": "https://github.com/ajacksified/Mediator.js/blob/088c2b3030dab020676f8fe79439183bcff09fbb/lib-cov/jscoverage.js#L503-L519",
+      "sha256": "32bd38a8e0bbf1998d8ac78dc4bc12602c3a4332983ae17ab2d26ee7d3d4d68d"
+    },
+    {
+      "name": "0066.js",
+      "url": "https://github.com/amida-tech/blue-button-cms/blob/749b8cf071910b22f8176a9ed8fc3b05062e1aad/lib/parser.js#L8-L15",
+      "sha256": "6e0915f8d5bfa541249ad3d7416e64e0dc985b767e3a0e824a143888ae4220f7"
+    },
+    {
+      "name": "0067.js",
+      "url": "https://github.com/amida-tech/fhir2ccda/blob/2040c1ce0ff792a8fbba2275c2d69f76ba13b5a8/lib/js2xml.js#L14-L27",
+      "sha256": "502ce97345832d2aa67229f6c728fc6df6350eeb4c1d7726640f8fc7b0a08e42"
+    },
+    {
+      "name": "0068.js",
+      "url": "https://github.com/antvis/data-set/blob/55526ac5663b87cdc988fc579404df186603b2d9/demos/assets/g2.js#L24396-L24407",
+      "sha256": "948bcf4c467ff545b5abad1624c79180d5750f857b79fe70c439bd69178a62ab"
+    },
+    {
+      "name": "0069.js",
+      "url": "https://github.com/apache/incubator-echarts/blob/4d0ea095dc3929cb6de40c45748826e7999c7aa8/src/data/Graph.js#L40-L82",
+      "sha256": "2a607dcdc4c0ed53f9ba02f73834366ffd1a84bc32aa43c5ce4f32a4541647c2"
+    },
+    {
+      "name": "0070.js",
+      "url": "https://github.com/apis-is/apis/blob/96a23ab30d5b498a0805da06cf87e84d61422c27/endpoints/flight/index.js#L43-L70",
+      "sha256": "59c54bd4b6083644cbe2a4f3de297208b5d20a43669a320ea297176bfa66847d"
+    },
+    {
+      "name": "0071.js",
+      "url": "https://github.com/apostrophecms/apostrophe/blob/dca702fc95492eb3f86a2ad338a3791365266064/lib/modules/apostrophe-pages/public/js/reorganize.js#L513-L552",
+      "sha256": "caba234057accd6d4f094e2fc1104eab7ec4a3d9a33edfaa1e07a5c9902966aa"
+    },
+    {
+      "name": "0072.js",
+      "url": "https://github.com/apostrophecms/apostrophe/blob/dca702fc95492eb3f86a2ad338a3791365266064/lib/modules/apostrophe-pieces/public/js/manager-modal.js#L675-L701",
+      "sha256": "0a118ec12457166650b684518817775e8f04b2a36f031242884f7996d6fce478"
+    },
+    {
+      "name": "0073.js",
+      "url": "https://github.com/appium/appium-doctor/blob/c00f604047b2addb7c544e12ddb524169bf8067e/lib/utils.js#L42-L61",
+      "sha256": "0cb52a630a781ed2baa1699e29d24dfde67880706abbadff32f2906a5da54d48"
+    },
+    {
+      "name": "0074.js",
+      "url": "https://github.com/avwo/whistle/blob/b419da1d6185a006327f2ce267667f11c0d4109e/biz/webui/htdocs/src/js/index.js#L552-L999",
+      "sha256": "982f0c4b24b702ef82eff6b31ea1882d689920df9b274ba65885dc173d22eb74"
+    },
+    {
+      "name": "0075.js",
+      "url": "https://github.com/axilirator/cayman/blob/95472780e1b14183b99f8dcea262feff57cff824/cayman.js#L294-L325",
+      "sha256": "6a4292ff811f8d7298087a85ea8b3da5ef02a493c96a2999d317dd582f5f01e8"
+    },
+    {
+      "name": "0076.js",
+      "url": "https://github.com/azu/hatebu-mydata-parser/blob/964f454a13a754c5b80b6c0143acebb934dffe48/lib/hatebu-mydata-utils.js#L13-L17",
+      "sha256": "6187486dd02ea149963eae2198cb8545fa0ab1efcede2215dff936eeed78857e"
+    },
+    {
+      "name": "0077.js",
+      "url": "https://github.com/babel/babel-loader/blob/5da4fa0c673474ab14bc829f2cbe03e60e437858/src/cache.js#L49-L54",
+      "sha256": "700967c6d45ec5455d1f6f73a319762c56546c55543d94889aae82c527e04e8a"
+    },
+    {
+      "name": "0078.js",
+      "url": "https://github.com/badges/shields/blob/283601423f3d1a19aae83bf62032d40683948636/services/nuget/nuget-v3-service-family.js#L49-L52",
+      "sha256": "ab867600a02ee516879e83e88c03587bb1cab87a80efbc2034883bbe24c99001"
+    },
+    {
+      "name": "0079.js",
+      "url": "https://github.com/basisjs/basisjs/blob/8571903014b207a09d45ad2d1bfba277bf21289b/src/basis/ui/chart.js#L108-L123",
+      "sha256": "d9f5fae90bf2096cfee9217c0d0bc3bade50f4dba2117b926248417913208e0b"
+    },
+    {
+      "name": "0080.js",
+      "url": "https://github.com/bem-contrib/md-to-bemjson/blob/047ab80c681073c7c92aecee754bcf46956507a9/packages/remark-bemjson/lib/exports.js#L33-L41",
+      "sha256": "f416cf273b14d27d2ae621c9ed79790f3f9244cce6d22a2a17f3a3a42d563c9b"
+    },
+    {
+      "name": "0081.js",
+      "url": "https://github.com/bevacqua/rome/blob/3048e07544de9b5440a41b2a9fa239ce3af4838f/src/calendar.js#L637-L652",
+      "sha256": "470bbc2d2fc17ec38fd59959601e8cd23922da7f415d399cb19b066e345516b5"
+    },
+    {
+      "name": "0082.js",
+      "url": "https://github.com/bikerp/dsp-w215-hnap/blob/c87bb2b0e8d88712669c385f2ceb1ffa89686968/js/AES.js#L78-L91",
+      "sha256": "7dd686bed82630e9f5c0561772f46f31e535112b3e0b1b673d43448e449da83a"
+    },
+    {
+      "name": "0083.js",
+      "url": "https://github.com/bitjson/s18n/blob/f1bd3f618f9a4f3211aa19677da8323e6a4fb6e2/lib/formatLocale.js#L21-L29",
+      "sha256": "8486be93da826f17ea53641ced03b90c2f1fc9fcef867c09c4b76d190b457451"
+    },
+    {
+      "name": "0084.js",
+      "url": "https://github.com/bitovi/launchpad/blob/3cfc43ecf9c98d75b0d342c73dc976397cb65728/lib/local/instance.js#L61-L67",
+      "sha256": "436babb5efbcd4be80ed2b484fbfd2ce6be23d272ea44ba6b35a82f1380f9e6c"
+    },
+    {
+      "name": "0085.js",
+      "url": "https://github.com/bloody-ux/menreiki/blob/66079c13a37ce96d261dfd6ab9e926856f107ba8/lib/core/proxy/mockLocal.js#L69-L74",
+      "sha256": "1b5286649bc1578aa2eb0bb05cbffcc6f0e42485bfd8a5f4590ed725d321f830"
+    },
+    {
+      "name": "0086.js",
+      "url": "https://github.com/bower/decompress-zip/blob/677d5eb7f1783fa7ef274a564c7252762921afd2/lib/decompress-zip.js#L91-L98",
+      "sha256": "f74a798ed6f4dccfd1ff3c63fe52d8e56b3b95a73f61521071841205b05643d7"
+    },
+    {
+      "name": "0087.js",
+      "url": "https://github.com/braintree/braintree-web-drop-in/blob/3bd4beeef9613c6bed5fe81d05023fb389087493/src/lib/enumerate.js#L3-L11",
+      "sha256": "9b13000d71c3ec65cbe81935842fd89002b37224eb56fda41d60fa4e5e47fe72"
+    },
+    {
+      "name": "0088.js",
+      "url": "https://github.com/bripkens/fuzzy.js/blob/f7bb5d8846f8bafee8f5d85fc1c9582c7deff8f9/fuzzy.js#L6-L141",
+      "sha256": "cbafeddc4bdf631fa55245a685da615ef97cabe95b24c37aff76b0b23bf25b38"
+    },
+    {
+      "name": "0089.js",
+      "url": "https://github.com/btd/rollup-plugin-visualizer/blob/a867784a93b191ea4bce174c849b7f89d5c265ae/src/plugin1.js#L11-L18",
+      "sha256": "76352d9061212eca8f9da69298dba18f1c3cc4af61edc86677483308a44bfcf7"
+    },
+    {
+      "name": "0090.js",
+      "url": "https://github.com/campsi/campsi/blob/65ff16d267ea7e60bbb9e8959e6805e009202d2c/lib/modules/parseJSON.js#L4-L19",
+      "sha256": "875a1a66f891023d9ebd4d16c2c9d71701aa27fa0a9e37864ab76d715300c0fd"
+    },
+    {
+      "name": "0091.js",
+      "url": "https://github.com/canjs/can-diff/blob/03f925eafcbd15e8b2ac7d7a7f46db0bde5a9023/patcher/patcher.js#L83-L93",
+      "sha256": "79a2673c2d7673eaef731984b4955001a10f95aa7823b16e68deca87325b45be"
+    },
+    {
+      "name": "0092.js",
+      "url": "https://github.com/cast-org/figuration/blob/c82f491ebccb477f7e1c945bfff61c2340afe1ac/docs/assets/js/src/docs.js#L155-L162",
+      "sha256": "18490e4d4d35e73d0b04ce8bb4538d238895fea4fc74344d6e1a7c33e75b5c90"
+    },
+    {
+      "name": "0093.js",
+      "url": "https://github.com/cb1kenobi/fields/blob/cd0e28cab3bfbbae3bcdb742976d0949be01e157/lib/common.js#L68-L86",
+      "sha256": "ccbb2fbe9a4ffab02e330d5a41f63e73eb3e162d16e70803120f95443adcdd8a"
+    },
+    {
+      "name": "0094.js",
+      "url": "https://github.com/cgmartin/express-api-server/blob/9d6de16e7c84d21b83639a904f2eaed4a30a4088/src/middleware/request-logger.js#L61-L66",
+      "sha256": "759783ac504294b3da02414b135846c14807f460c0615fdb31f46b83f96e04b6"
+    },
+    {
+      "name": "0095.js",
+      "url": "https://github.com/chancejs/chancejs/blob/e74c70a21b43e7f0fca8cf65b27632bf51c52eb6/docs/chance.js#L448-L454",
+      "sha256": "f2bcda01a7a602cf8b441261aab140abf5baccb90611f695f59770b4ec829fa8"
+    },
+    {
+      "name": "0096.js",
+      "url": "https://github.com/christophehurpeau/pob-lerna/blob/56323428a0165e9c30dd48d4caaf63d5e4af0ba2/packages/pob/lib/utils/formatJson.js#L5-L8",
+      "sha256": "b5bcfd4924ca9d21fe93a377e5c6235b225c0494f0d6e91df0646eba1e87d36e"
+    },
+    {
+      "name": "0097.js",
+      "url": "https://github.com/ckknight/gorillascript/blob/309d3ac628a8148b0071e6fe57fa3bb599fda42f/extras/gorillascript.js#L3251-L3266",
+      "sha256": "ffac4b5d7523ac2eb4c9f0e336212864b86b4983f892a76577dca4153903ae8c"
+    },
+    {
+      "name": "0098.js",
+      "url": "https://github.com/cmcampione/thingshub.org/blob/b9a2e74bddebb80ff473001be93e19ef1578892a/server/src/server.js#L175-L177",
+      "sha256": "3f28b036d62154acbe5e7cd9a78565fff3ee5405d88890c17930adeebfdd45fe"
+    },
+    {
+      "name": "0099.js",
+      "url": "https://github.com/codemix/htmling/blob/d1448b975f8b595a49aa5f8ea7006d48b7755b4c/lib/parser.js#L7742-L7752",
+      "sha256": "6a88941ce10b76f82c70d3234130782d07370d07a5a4b0b4ebaf71348d9d75d9"
+    },
+    {
+      "name": "0100.js",
+      "url": "https://github.com/cosmn/node-permutater/blob/9d057089047d7c36c835d18b3dd0b3306ff09117/index.js#L3-L63",
+      "sha256": "290292fabc534c55f470c707b23a91c5345416c809dd06fd9f7516a93c7f0654"
+    },
+    {
+      "name": "0101.js",
+      "url": "https://github.com/creationix/git-node-fs/blob/7c691d7281b49b1be77426701c2bf0535e1abcc9/lib/node-fs.js#L73-L80",
+      "sha256": "c66d4ea08851fef463d15dd600f5ef0d56ea9926381fa58bd66fb0fe35edbb87"
+    },
+    {
+      "name": "0102.js",
+      "url": "https://github.com/crispy1989/node-zstreams/blob/4ec01a49d1d00c542ee1dfa4b3bedcf1324e9ffd/lib/streams/file-buffer-stream.js#L160-L186",
+      "sha256": "ec690577adbf93814aedf147c1d2282b1bcbacf6c3bc0df7b118bf32fb608186"
+    },
+    {
+      "name": "0103.js",
+      "url": "https://github.com/cronvel/json-kit/blob/b49b3962137717842049c8bb84116f77f133789c/bench/v0.1.7/stringify.js#L69-L104",
+      "sha256": "69d63d24c580cfdfbdeac1881e6e50c0c2dc1a9c294c7e285cf7d483a9565686"
+    },
+    {
+      "name": "0104.js",
+      "url": "https://github.com/crotwell/seisplotjs-seedlink/blob/2cc3ae02e2ed2e42b3b8508172649fca1fffbb9a/example/datalink.js#L135-L140",
+      "sha256": "8df39e374f3b23be2f11905413161b3872ee9501689eb5bcda4f506b1e815df3"
+    },
+    {
+      "name": "0105.js",
+      "url": "https://github.com/cucumber/cucumber-electron/blob/7178dd6b696c4e6a6bed4075e22d63518ac069bf/features/step_definitions/steps.js#L7-L17",
+      "sha256": "89bc1d8e16ba6c77bfd075d60bf806d1324fc1ac8f3abcb7e92ed0f044cd5068"
+    },
+    {
+      "name": "0106.js",
+      "url": "https://github.com/dasmoth/dalliance/blob/64565abc974433a5dcd5406d17fa0a202e1e55fc/js/cbrowser.js#L1515-L1574",
+      "sha256": "a7d07cc646244660510331d9a832cde261c36f9732cce28739c7c23226d85b9f"
+    },
+    {
+      "name": "0107.js",
+      "url": "https://github.com/dasmoth/dalliance/blob/64565abc974433a5dcd5406d17fa0a202e1e55fc/js/features.js#L33-L50",
+      "sha256": "20dba9ccb71574ab78a8143eaded43aa2892b5a605d39404ae415e4df62ddbb5"
+    },
+    {
+      "name": "0108.js",
+      "url": "https://github.com/datastax/nodejs-driver/blob/6766188870f7099aeb393719820245b69d789d23/lib/types/big-decimal.js#L220-L237",
+      "sha256": "b8da7aa2ea0fd946c1a71e4432ae5093f557290486c8d6c93eab74006ecfd0c3"
+    },
+    {
+      "name": "0109.js",
+      "url": "https://github.com/davej/barnyard/blob/1c83dc6163dbc0e602e328ef7f2725e7b86ee103/index.js#L133-L139",
+      "sha256": "f4ba8434daf291484004994b6bd7927f0035ff4239e44e6202a128d03385ee58"
+    },
+    {
+      "name": "0110.js",
+      "url": "https://github.com/daviddias/time-cache/blob/ff73ace07adc6ae7ab5e062ae516881fa8340a8d/src/index.js#L52-L57",
+      "sha256": "6c904fe8cf7bdb34c914d6c52450405456afe251d400129a117d408694d99c51"
+    },
+    {
+      "name": "0111.js",
+      "url": "https://github.com/dbashford/textract/blob/dc6004b78619c169044433d24a862228af6895fa/lib/extractors/html.js#L79-L87",
+      "sha256": "caa9ae5f561aab6dbdb26d3e1d40518ea3f70d3c1d9f988f53df13cf39442d2b"
+    },
+    {
+      "name": "0112.js",
+      "url": "https://github.com/dbkaplun/hterm-umdjs/blob/5cf0fe1f73302ca543c6bcd2d27852362ecada97/dist/index.js#L15871-L15890",
+      "sha256": "7e9b36789021215b632682793b08d6e6b147d638f6818cbd737cbab70da31889"
+    },
+    {
+      "name": "0113.js",
+      "url": "https://github.com/defeo/was_framework/blob/ab52bbbf5943e9062fe6ea82f1fea637a11d727a/lib/db.js#L28-L70",
+      "sha256": "44d5ed2a3851d13783bb4ef3528dcf9b9d5b4873a1eef6579e1e7b127c00aac4"
+    },
+    {
+      "name": "0114.js",
+      "url": "https://github.com/deftly/node-deftly/blob/0c34205fd6726356b69bcdd6dec4fcba55027af6/src/log.js#L110-L121",
+      "sha256": "d0bae6d8926b5e42ed88d657ec5b8ede1b8da8bd9cda483180ede8c5b07d46e9"
+    },
+    {
+      "name": "0115.js",
+      "url": "https://github.com/dimsmol/ojster/blob/36322b4df5bfa454ea13d36c1b5c0d3bed834f90/lib/fs/path_compiler.js#L65-L281",
+      "sha256": "50aa1ae95a5490902fe9c70b678ce9782da235cb76bdf7744d2b89545673320b"
+    },
+    {
+      "name": "0116.js",
+      "url": "https://github.com/dthree/vantage/blob/5bbf7e58a94d34d8ce980ae7048dfff3e9569c31/lib/firewall.js#L121-L155",
+      "sha256": "3fcbbb6f980c9c71da87da9bf3484453ff631ae930a9a4028f2e2b501ee511ba"
+    },
+    {
+      "name": "0117.js",
+      "url": "https://github.com/eclipse/orion.client/blob/eb2583100c662b5cfc1b461a978b31d3b8555ce1/bundles/org.eclipse.orion.client.collab/web/orion/collab/collabClient.js#L447-L461",
+      "sha256": "d9295f92b55bea4e266dffd42c65caa557ead80a844e938866979143b490bf0a"
+    },
+    {
+      "name": "0118.js",
+      "url": "https://github.com/eclipse/orion.client/blob/eb2583100c662b5cfc1b461a978b31d3b8555ce1/bundles/org.eclipse.orion.client.ui/web/orion/problems/problemsExplorer.js#L178-L191",
+      "sha256": "ffdf795739848c0db9dc8c67d0cc7cd6c0364ae836dcd1ea17a11d8e350981a3"
+    },
+    {
+      "name": "0119.js",
+      "url": "https://github.com/eclipse/orion.client/blob/eb2583100c662b5cfc1b461a978b31d3b8555ce1/modules/orionode/lib/tty_shell.js#L57-L62",
+      "sha256": "6be42117931ddaaaf448f1980c91f7de00e0bc45f51709f63fa2a6de31d939dc"
+    },
+    {
+      "name": "0120.js",
+      "url": "https://github.com/elb-min-uhh/markdown-elearnjs/blob/a09bcc497c3c50dd565b7f440fa1f7b62074d679/assets/elearnjs/extensions/elearnvideo/assets/js/elearnvideo.js#L2593-L2628",
+      "sha256": "570b57d46ddbdd41019a32f2784dddd1f09f82039cf38cee0d2f545508e34d6f"
+    },
+    {
+      "name": "0121.js",
+      "url": "https://github.com/elix/elix/blob/2e5fde9777b2e6e4b9453c32d7b7007948d5892d/src/calendar.js#L132-L136",
+      "sha256": "eb3b6c9affabc14909eabda64a6372ff1725cd3bc3f595b6a9e0d2f98d378df1"
+    },
+    {
+      "name": "0122.js",
+      "url": "https://github.com/embark-framework/embark/blob/8b9441967012aefb2349a65623237923c99ec9dc/packages/embark/src/bin/embark.js#L873-L887",
+      "sha256": "e15b4311b8ef081ffffcd824bd4adca661b84a3b02517d92079f02b956ef01e5"
+    },
+    {
+      "name": "0123.js",
+      "url": "https://github.com/emmetio/emmet/blob/7c9a4623cea414c2f2cc9caebc13355d2bbd898d/lib/assets/preferences.js#L23-L30",
+      "sha256": "5ab5106244df00ba889ebf4b820aee51009cc6ea3ef0e5f8367b10e094926239"
+    },
+    {
+      "name": "0124.js",
+      "url": "https://github.com/enhancv/mongoose-subscriptions/blob/97637b21d31d170b8578f3d0ff0c4d38f32713b4/src/Schema/ProcessorItem.js#L36-L48",
+      "sha256": "8beb607051d28d3a1272cc95e8e4c7f124d1add2c20a3a493c81f4b689256ea0"
+    },
+    {
+      "name": "0125.js",
+      "url": "https://github.com/epoberezkin/ajv/blob/ab841b462ec4baff37d2a7319cef13820b53d963/spec/issues/617_full_format_leap_year.spec.js#L7-L47",
+      "sha256": "3c6faf2411ccce9e15682137afb672779dedf9f067e926df4675818f4f9f6525"
+    },
+    {
+      "name": "0126.js",
+      "url": "https://github.com/ethjs/ethjs-unit/blob/35d870eae1c32c652da88837a71e252a63a83ebb/src/index.js#L65-L81",
+      "sha256": "d51941c4cf0f1c86dbf14f45f0519d1e05cea1f8d3ea86eb95092ca2c76ba9da"
+    },
+    {
+      "name": "0127.js",
+      "url": "https://github.com/evothings/phonegap-estimotebeacons/blob/eed09405b5435a0b9e76e9094f52350991c51b91/examples/beacon-finder/www/js/screen-scan-beacons.js#L2-L62",
+      "sha256": "4368ca81f7c02cf1ee0d01b8febae2b5d8a897efeafda62bd6aad54016948130"
+    },
+    {
+      "name": "0128.js",
+      "url": "https://github.com/facundoolano/app-store-scraper/blob/751fcd104671548c120a1bae533d5b4922024c7a/index.js#L18-L27",
+      "sha256": "d61965a64f7e3e55256657b9a1569434c4dfc7ae10708607aa6b73d219a9d655"
+    },
+    {
+      "name": "0129.js",
+      "url": "https://github.com/fasttime/JScrewIt/blob/f0a9e93ccbc957d72ed775a7ad528a6b1fe9ffcc/lib/jscrewit.js#L4023-L4034",
+      "sha256": "822ce7f88ee4d4170e4466f8849de63a5da00d1ebc51d1a1c623b7d91fe2adda"
+    },
+    {
+      "name": "0130.js",
+      "url": "https://github.com/fasttime/JScrewIt/blob/f0a9e93ccbc957d72ed775a7ad528a6b1fe9ffcc/lib/jscrewit.js#L4412-L4437",
+      "sha256": "95930f90cbb0c08ecc26ee2d9d98821da8ee25592078b27195c902c02b3cd769"
+    },
+    {
+      "name": "0131.js",
+      "url": "https://github.com/feedhenry/fh-forms/blob/87df586b9589e3c636e1e607163862cfb64872dd/lib/impl/importForms/unzipFile.js#L113-L127",
+      "sha256": "d2e2be13490a6d260dfb50b33c505629c9ac11b0aaff0480c5d09fb0765a1440"
+    },
+    {
+      "name": "0132.js",
+      "url": "https://github.com/filerjs/filer/blob/4aae53839a8da2ca5da9f4e92c33eaab50094352/perf/simple-statistics/src/simple_statistics.js#L26-L122",
+      "sha256": "8110189ff4ddc19bae8c72df581975a4264c0c7f38a145ad50285f47c35b8a54"
+    },
+    {
+      "name": "0133.js",
+      "url": "https://github.com/filerjs/filer/blob/4aae53839a8da2ca5da9f4e92c33eaab50094352/perf/simple-statistics/src/simple_statistics.js#L835-L849",
+      "sha256": "21640da1d1f88d7d564931c18ea7dad884a21537352f7e43d9d42c1c50c18b6f"
+    },
+    {
+      "name": "0134.js",
+      "url": "https://github.com/finalclass/sqlite-table/blob/997143eba78aa0dc75adcd2b19618b5cad68347a/spec/sqlite-table.spec.js#L8-L24",
+      "sha256": "53d55600c9f8a2321b034ccebb95cbe0e78c92b07a3d0d37b60cb06c95fd276f"
+    },
+    {
+      "name": "0135.js",
+      "url": "https://github.com/flint-bot/sparky/blob/c52992920bfff20806201d78ad9c5f764211711a/browser/node-sparky.min.js#L1-L1",
+      "sha256": "3766afa5380631e49dc292738ae0c2362864f55339b632576973e1d9d46d80b2"
+    },
+    {
+      "name": "0136.js",
+      "url": "https://github.com/fluidtrends/chunky/blob/42529b8b92dfb99a26d9bd8529559ccbbe91415f/desktop/lib/utils/data.js#L29-L35",
+      "sha256": "52fee9e9eb8b9600ca9d4ea2fb2d4db0779ad3726b45ead788945574ae81d9be"
+    },
+    {
+      "name": "0137.js",
+      "url": "https://github.com/fnogatz/transportation/blob/4d967d99bc564827ee3c4c122c967dc65d947874/lib/service.js#L47-L78",
+      "sha256": "076e4184b96fa8c1a38f778b88be7010a94a3cbeba3e1b0bc05210570664e4f3"
+    },
+    {
+      "name": "0138.js",
+      "url": "https://github.com/gl-vis/gl-scatter2d-fancy/blob/9195787ae54f077e40b10173bf329968301226a4/scatter-fancy.js#L374-L401",
+      "sha256": "5becc2436bf43f3e71861ed6832ec5106f2fca7b156ac4363248a309bae92468"
+    },
+    {
+      "name": "0139.js",
+      "url": "https://github.com/googleapis/nodejs-firestore/blob/c1192504e2d2ebe505aaf952227f377017f43bdc/dev/protos/firestore_proto_api.js#L2744-L2749",
+      "sha256": "b996cf33b2e732036d580cfe58e6e7d93bbc8db1296fd5a6dde5cdf75b0c748d"
+    },
+    {
+      "name": "0140.js",
+      "url": "https://github.com/googlearchive/appengine-nodejs/blob/da3a5c7ff87c74eb3c8976f7d0b233f616765889/lib/utils.js#L57-L63",
+      "sha256": "93117d4647f8733847ee83a728d95e47b346226aed793eb4e468dd461cae17ee"
+    },
+    {
+      "name": "0141.js",
+      "url": "https://github.com/googlearchive/backbonefire/blob/d6278d4aeb0743bdd7e9de96cc56d4e64476778b/examples/todos/js/backbonefire.js#L690-L695",
+      "sha256": "d35e2bf4f4493c7b55822aee8749baa546c10ec86049dbc5292a479f32947112"
+    },
+    {
+      "name": "0142.js",
+      "url": "https://github.com/goto-bus-stop/awestruct/blob/2547f7f89b834a02c6cf1451e9e9b54f12275d63/src/StructType.js#L19-L25",
+      "sha256": "679f681d29d5595d66fe9ed65b7c2d02e3637210efedef44ae8990afb9eeba9a"
+    },
+    {
+      "name": "0143.js",
+      "url": "https://github.com/graphql/graphiql/blob/5d0f31d6059edc5f816edba3962c3b57fdabd478/src/components/GraphiQL.js#L1066-L1082",
+      "sha256": "6c644c2095ae90597500d51d4814a93a088063b7c4ddf753acfd916fa6960f0a"
+    },
+    {
+      "name": "0144.js",
+      "url": "https://github.com/heikkiv/carl/blob/fe37146315c18f6e76efc49a0e855aef703e69a9/lib/carl.js#L22-L25",
+      "sha256": "397ba4a727db4faa8aec153746816791b8d5681cc3ea9635cd0654e2b4600295"
+    },
+    {
+      "name": "0145.js",
+      "url": "https://github.com/heikkiv/carl/blob/fe37146315c18f6e76efc49a0e855aef703e69a9/lib/carl.js#L27-L30",
+      "sha256": "97a4db60728419c4a80d782eb55e5744b68e20159839f897793ba7d9b4667d3f"
+    },
+    {
+      "name": "0146.js",
+      "url": "https://github.com/helpers/helper-dateformat/blob/12938c5739c26c8e2c569cdca7799c87ad21fc11/index.js#L6-L16",
+      "sha256": "d51f6fcb2771b1f4a808e8378a389083bdb4fdf6be3d45e7eccf6c5ef9455bc5"
+    },
+    {
+      "name": "0147.js",
+      "url": "https://github.com/henrytseng/angular-state-router/blob/5b8147d5f5fe8a8e8453dddf61fe0b01fe5b5e9b/example/app.js#L328-L338",
+      "sha256": "af6df70ae1f01d89fa077b7f0099a87e21e00912006232134393ed1c4c132f0a"
+    },
+    {
+      "name": "0148.js",
+      "url": "https://github.com/hl198181/neptune/blob/88030bb4222945900e6a225469380cc43a016c13/src/npt/directive/nptUpload.js#L100-L103",
+      "sha256": "73e79ca43932fb96c1aadd9d63db019574ea7aed1cef510c86c5efc62f0ce5cb"
+    },
+    {
+      "name": "0149.js",
+      "url": "https://github.com/hola/jwplayer-hlsjs/blob/33e93031666f908b2826109ffb7c1d0a8861e761/src/jwplayer.hlsjs.js#L397-L412",
+      "sha256": "93d1cc017a293900760baa4a98eb493a795d552ffa09706754c1f9615be21652"
+    },
+    {
+      "name": "0150.js",
+      "url": "https://github.com/hprose/hprose-nodejs/blob/04da8ca371d4696c19a4ca189733aac6afbc05ad/lib/server/Service.js#L502-L508",
+      "sha256": "23652e65da826721e22c50006f9d4a00bd3d34c8470ebd153567c586b9e1c8a6"
+    },
+    {
+      "name": "0151.js",
+      "url": "https://github.com/humangeo/leaflet-dvf/blob/79aba9f4e7b5a7329c88446562b7affdab00475b/dist/leaflet-dvf.js#L4890-L4905",
+      "sha256": "a76bccab50c9bc07150c0d8350bd33c664957d7211599bd8b8c6109310d7e568"
+    },
+    {
+      "name": "0152.js",
+      "url": "https://github.com/ianrothmann/RocketVueAppFramework/blob/d00d585846c6ba23dd16964edf27f0d0930c18c9/src/framework.js#L203-L213",
+      "sha256": "175fa7abccf66b4887ef8ae7954fba63f5c73d7fd60454c88a40bf37e0f5d6fd"
+    },
+    {
+      "name": "0153.js",
+      "url": "https://github.com/imonology/scalra/blob/0cf7377d02bf1e6beb90d6821c144eefb89feaa9/core/file.js#L67-L89",
+      "sha256": "2c763584c5d826b33c68891367f613303a71b3fd2ed01a104388aca9a9090a93"
+    },
+    {
+      "name": "0154.js",
+      "url": "https://github.com/imonology/scalra/blob/0cf7377d02bf1e6beb90d6821c144eefb89feaa9/extension/sync.js#L62-L100",
+      "sha256": "517b7f9a4ea57c337391e61cd97023c01bae9a6dddd5adf8ccc8e94c7bd1650f"
+    },
+    {
+      "name": "0155.js",
+      "url": "https://github.com/imsky/holder/blob/220827ebe4097b9a76f150590f8bdf521803aba8/holder.js#L361-L372",
+      "sha256": "1876e32d0a364d87f669161d1076a0cfce3b6f68ecc567b237ce84e8963af878"
+    },
+    {
+      "name": "0156.js",
+      "url": "https://github.com/intesso/decode-html/blob/9942b1064105d59d767d5527c4b1a1c56cad1946/index.js#L13-L23",
+      "sha256": "46e60edabe523ff76acf026d4d04651097ebceeea7106767922b0c65cbcd287e"
+    },
+    {
+      "name": "0157.js",
+      "url": "https://github.com/jahnestacado/logia/blob/a198aa71adbd45e3ddd1dba4115c0521a265afc5/lib/factory.js#L62-L69",
+      "sha256": "10b0c40310c4056d37a81a2cb09813d00bd52047f3ba1fc9dc8143cd80560191"
+    },
+    {
+      "name": "0158.js",
+      "url": "https://github.com/jakubpawlowicz/clean-css/blob/dc728a8167b7b6f62906115c560be2f5b530f9f6/docs/js/drag-drop.js#L74-L92",
+      "sha256": "258b3282074e011808619c65b8389363564e277877a6dc09223bdd2ffca67c6a"
+    },
+    {
+      "name": "0159.js",
+      "url": "https://github.com/jeremyben/nunjucks-cli/blob/2f0319072841de394fbd204031b2f3bbd4ccf2ed/index.js#L123-L138",
+      "sha256": "e9a37933de70880e0a751aca1edb19f52e7e7ce13b699b4fe5e5e1dd746d0ad5"
+    },
+    {
+      "name": "0160.js",
+      "url": "https://github.com/jheusala/node-sqlmw/blob/4f61c142783dfbe76c96d8ddca80fa434305be86/lib/middlewares/connect.js#L28-L46",
+      "sha256": "ac005ecf48c24f57d14b5ab17f752771fbbb16f52cd2dd9d5e1406fd92b9dddd"
+    },
+    {
+      "name": "0161.js",
+      "url": "https://github.com/jigarjain/object-clean/blob/ebfad9301e6588796abb4f08a44fb3ab4b9af823/index.js#L26-L35",
+      "sha256": "7580507e0d7a3f2554f97e09da20bee05cf94931d89bdb0b6ea603804c381249"
+    },
+    {
+      "name": "0162.js",
+      "url": "https://github.com/jillix/svg.connectable.js/blob/279b5a44112b99e777462650514ec1332ea5d202/example/js/svg.js#L2336-L2341",
+      "sha256": "91ff34a7ce9b42bd0ad599c5424078712e8602dbb3d0ff5edf6a05d86c08599e"
+    },
+    {
+      "name": "0163.js",
+      "url": "https://github.com/jmjuanes/utily/blob/f620180aa21fc8ece0f7b2c268cda335e9e28831/lib/storage.js#L110-L150",
+      "sha256": "966b2ce7837bc5ee061d7493c2610ba3b7b326f9e587e8f073ba0e270677204f"
+    },
+    {
+      "name": "0164.js",
+      "url": "https://github.com/jonschlinkert/delete/blob/cff2871442f7ff3d373a525643b530b7feef7f8b/index.js#L107-L117",
+      "sha256": "89f71e84e69039b9fccfd4f38b14559a391f7e0f8dc723f23acab507a3540c9a"
+    },
+    {
+      "name": "0165.js",
+      "url": "https://github.com/jonschlinkert/parser-csv/blob/d01b0306d56266fcc077e70638f48e44f05e527a/index.js#L32-L47",
+      "sha256": "b5c8af869a0de76545c776b6af6173a1622bef6fe9da8b64faff7b92aa09aa15"
+    },
+    {
+      "name": "0166.js",
+      "url": "https://github.com/joyent/node-oncrpc/blob/54f8be328970bb4e94e1101828945710ac19ad58/lib/xdr.js#L117-L125",
+      "sha256": "cb590ad0e23773fea90398c27bff89abeae53a1c62fecf57f7c60d7b2cd5a125"
+    },
+    {
+      "name": "0167.js",
+      "url": "https://github.com/jstat/jstat/blob/5d99205d806e72997d863be800ffaf7af1851b97/src/vector.js#L258-L265",
+      "sha256": "c146c203e2a841ec31838b2da5aa01e5c132e9f2daf1ef74081324bf67b3e13a"
+    },
+    {
+      "name": "0168.js",
+      "url": "https://github.com/jugglinmike/selenium-chromedriver/blob/985816c137ce6d4ae16f4d6721c89ba2d6e2344f/install/extract.js#L6-L37",
+      "sha256": "98c233210a7f7cd16cdacc971b4008eada41cd581b380b17d1d9b3f3f219a047"
+    },
+    {
+      "name": "0169.js",
+      "url": "https://github.com/keithmorris/node-underscores/blob/923d29855d494059f615c641a97a851170b9a960/index.js#L55-L70",
+      "sha256": "094d56dd6cd08072f4cbf83c236bc4b3387fc7ec3b8d376d5b1693d9956f0416"
+    },
+    {
+      "name": "0170.js",
+      "url": "https://github.com/kevoree/kevoree-js-node-javascript/blob/a1bcce1b76317bc90eb2d0c1c0c70525eaa1d70d/lib/AdaptationEngine.js#L599-L611",
+      "sha256": "26e6ace38f1b4a846e3136188f31a782ec72e838be3fb3d87e5f90e0bc022d14"
+    },
+    {
+      "name": "0171.js",
+      "url": "https://github.com/keystonejs/keystone-utils/blob/6b0809c760f9b4895168e40821fa37095b44dea4/lib/index.js#L25-L32",
+      "sha256": "1be84a34033dacbc9259f8e2846a653fe564540b85fb8c728848f6e3ec14db2e"
+    },
+    {
+      "name": "0172.js",
+      "url": "https://github.com/kgryte/node-metrics-process/blob/32326adeb9ee3cb5ccfcf62a8b796eafa4a2ee16/lib/index.js#L46-L95",
+      "sha256": "4085fd7494eb8871bef2ac74c47453df3b85ccaeeb9a690362f6eb918ff53732"
+    },
+    {
+      "name": "0173.js",
+      "url": "https://github.com/kinchanmaemo/standalone-html/blob/44826566c100c691c371abafae88df2ae67a7abb/bin/standalone-html.js#L89-L100",
+      "sha256": "a16f30bcb1cfeb34ca18d26ef7632a5553878aa36d94f5c0736c7f3b127e576c"
+    },
+    {
+      "name": "0174.js",
+      "url": "https://github.com/kristerkari/react-native-css-media-query-processor/blob/004aaf3ce0280ad3a81cd3c25ff76d9a8682d96b/benchmark.js#L667-L672",
+      "sha256": "7fa4f08e80250f3d33375972dba0d0311dff50322464674e80ff6cb840757f46"
+    },
+    {
+      "name": "0175.js",
+      "url": "https://github.com/leim/webpconv/blob/6ec411e2edf326278bb04b8ea330815a86424bd5/lib/getBinPath.js#L9-L30",
+      "sha256": "bc62102466764780971a94cc148567f71152365ed0e8fb2667c4f33f590ea2a9"
+    },
+    {
+      "name": "0176.js",
+      "url": "https://github.com/leo/args/blob/018eee7bb8e1c3fc7b2831204d739fda3d7431ae/lib/utils.js#L8-L27",
+      "sha256": "53e0b4e74db0ef50b703d037db68c824c2f8c3713f2423e84bbb1e93595d6eaf"
+    },
+    {
+      "name": "0177.js",
+      "url": "https://github.com/luccastera/shaman/blob/fc1eedd3842a0d56cb14cfa16d9dd956359ff6a2/examples/cars.js#L13-L80",
+      "sha256": "47ec3fbe1621edd509ba4a1949cdd25eecba2ff8c655b55b7aef5dd620dd2d5d"
+    },
+    {
+      "name": "0178.js",
+      "url": "https://github.com/luccastera/shaman/blob/fc1eedd3842a0d56cb14cfa16d9dd956359ff6a2/examples/cigarettes.js#L13-L83",
+      "sha256": "c7d8e2403e950c02a75f65c73ba05efe55e88db9449ebcfd5b3cfedaf374459c"
+    },
+    {
+      "name": "0179.js",
+      "url": "https://github.com/ma-ha/easy-web-app/blob/f48ca9d06947e35d29a6188ece17f0f346e07c5e/index.js#L972-L979",
+      "sha256": "a735e77f6304ad6add7c228b064014d76fd3f4d0b2862a5e3b2c40a65243e6a3"
+    },
+    {
+      "name": "0180.js",
+      "url": "https://github.com/ma-ha/rest-web-ui/blob/e2db0d55bb31a4f16fd07609ecae79156cb38378/html/modules/pong-rss/pong-rss.js#L198-L225",
+      "sha256": "cf7e2a164d6cf25fe1e4f7d774f0b1508f395ebe0fc4b572f9b8caa61c6ffacf"
+    },
+    {
+      "name": "0181.js",
+      "url": "https://github.com/makenova/trice/blob/227723decb8a5a3c1c31616f57a12254a12c0c50/index.js#L6-L13",
+      "sha256": "027960c0d816119669c2fb710e8a9bcc12edc67661b8e6c7e4e8a9a307c23c9d"
+    },
+    {
+      "name": "0182.js",
+      "url": "https://github.com/mapbox/tilelive/blob/8a37d89dd6e9fb0f6938e1c6ccf62349556c9375/lib/stream-util.js#L109-L116",
+      "sha256": "c336166c7ceb4aa8f41f0f308a9cb982d3fda3adf7cad5703a76b670ede66e35"
+    },
+    {
+      "name": "0183.js",
+      "url": "https://github.com/marcbachmann/node-html-pdf/blob/89a41e3bfe079a3d062c6053f26a9183a1a548a2/lib/pdf.js#L26-L41",
+      "sha256": "c983587fe4ebdccc6c810f1a44cfa460d291dafe2a5c73ed5722b70976e9d015"
+    },
+    {
+      "name": "0184.js",
+      "url": "https://github.com/marcojonker/data-elevator/blob/7d56e5b2e8ca24b9576066e5265713db6452f289/lib/utils/command-line-utils.js#L307-L332",
+      "sha256": "16ecbc4de12af8c61637b40de8df59cda05fdc25517173fc2e89e6c44a5e0b8d"
+    },
+    {
+      "name": "0185.js",
+      "url": "https://github.com/marmelab/gremlins.js/blob/2735fa5253cbefcb8848ea40825a6426fc04c398/src/vendor/chance.js#L179-L200",
+      "sha256": "419e8272e7694e29b3025b8719dd020e050db9206fd2901dd31a2a62ee738b46"
+    },
+    {
+      "name": "0186.js",
+      "url": "https://github.com/mathisonian/gulp-sass-bulk-import/blob/530e721596a3b827b421ae1a0a3842dd8b67459d/index.js#L53-L64",
+      "sha256": "52822cfa3e58f3eb781430da38b39f9456245b954e46444a09537a8ad43cb94f"
+    },
+    {
+      "name": "0187.js",
+      "url": "https://github.com/mattinsler/caboose/blob/b0e1d0d7962050a2f72e918197488011cfb8ba57/lib/view/helpers/view_helper.js#L23-L27",
+      "sha256": "c9af62041b6a15711d79c87034284dd2a6502ee080c7479b7f76b48f392111f9"
+    },
+    {
+      "name": "0188.js",
+      "url": "https://github.com/maxkfranz/weaver/blob/bac2535114420379005acdfe2dad06331de88496/documentation/js/Markdown.Converter.js#L1291-L1306",
+      "sha256": "cb21d28e0b6045d9786cd4c26b7c650082facba06ad61b5d8573b887a978df7f"
+    },
+    {
+      "name": "0189.js",
+      "url": "https://github.com/mdasberg/grunt-karma-sonar/blob/6b632d3cfdda05eee37165ea87531f1171a10117/install.js#L152-L173",
+      "sha256": "1a5a90cb1d20f0cbd1f33ee998bdecb40c84528209c333f429d03a0c7a279111"
+    },
+    {
+      "name": "0190.js",
+      "url": "https://github.com/medialab/artoo/blob/89fe334cb2c2ec38b16012edfab2977822e1ecda/src/methods/artoo.methods.save.js#L169-L180",
+      "sha256": "6c9b3d177c2f92d6a75d0d73a2f22cc27f34fbe51e69a36fb7db312c9a86d3ee"
+    },
+    {
+      "name": "0191.js",
+      "url": "https://github.com/melonjs/melonJS/blob/6c1823cc245df7c958db243a0531506eb838d72c/src/math/matrix2.js#L115-L137",
+      "sha256": "2c105e7b4994918123203e0c493e3692b7cece02b6aae7f4b731b238a8fa5f23"
+    },
+    {
+      "name": "0192.js",
+      "url": "https://github.com/moment/luxon/blob/236f2badea297ee73421aa39a83e06177c1be6d0/src/datetime.js#L101-L115",
+      "sha256": "d8fc20d550458ea6eee14f2e383294cfc24a725e11d57c29646a268e324183f9"
+    },
+    {
+      "name": "0193.js",
+      "url": "https://github.com/motionbank/piecemaker-api-client/blob/6d0a3ab7d603fa7e21303433d099aaa36b09f7c4/examples/processing/pm_api_group_users_01/template/processing.js#L1857-L1866",
+      "sha256": "2b09baaf35f1f0127d3c27284be8a9463fcad2a925ab3db7ab731fe01cc97e1b"
+    },
+    {
+      "name": "0194.js",
+      "url": "https://github.com/nearform/trail/blob/bb53ffc44932f32b03de936e90c9721012f67884/packages/trail-hapi-plugin/lib/api.js#L15-L42",
+      "sha256": "79906f2bd51098246259f538dd3ee546eb48dc16800b5de26b1efda14d6fcae8"
+    },
+    {
+      "name": "0195.js",
+      "url": "https://github.com/needim/noty/blob/ec741ca366b180292ca81d9412936006ae50e16e/docs/_assets/docsify.js#L1642-L1649",
+      "sha256": "66480caef3dea53061b5d81ba98b3db42ea4b4ac8fce4d0a39bf90aae50c8b55"
+    },
+    {
+      "name": "0196.js",
+      "url": "https://github.com/neumino/reqlite/blob/cae3a76d9e52135d0da3cabbcc5374be9dc84ea2/lib/utils.js#L228-L240",
+      "sha256": "3927be9a9f9ea0dbdb50727ddc95b7078230bfc84f05632d90bd825a225edd64"
+    },
+    {
+      "name": "0197.js",
+      "url": "https://github.com/neveldo/jQuery-Mapael/blob/66d58661c5385f366efa6c9867adb7283d158013/js/jquery.mapael.js#L1339-L1356",
+      "sha256": "da7b27f0f8790fe9e6e8a59dfd21529e8cf3ba27a0d595073a3826b349f915df"
+    },
+    {
+      "name": "0198.js",
+      "url": "https://github.com/newmsz/gozy/blob/3ba731957ddad1659094e0890612e39a0c552a59/libs/HttpResponse.js#L142-L162",
+      "sha256": "bbca34427efdb654307f8397ff3950b08ab3e834f885cd3827c4c5d7f2814dbf"
+    },
+    {
+      "name": "0199.js",
+      "url": "https://github.com/nextgis/nextgisweb_frontend/blob/582e2f17b31f59fc581b1f63d0b4f2750402afe1/packages/ngw-connector/scripts/generator.js#L84-L90",
+      "sha256": "829f7587c1dbf0db4c83963729e0bb9b2d465266e0c59d0a6a7f8eedffe9f3be"
+    },
+    {
+      "name": "0200.js",
+      "url": "https://github.com/neyric/webhookit/blob/13abf6f072e23d536432235da78fd3e4e5d742b6/public/javascripts/yui/editor/simpleeditor-min.js#L18-L18",
+      "sha256": "b5cfdec9814db5303cf3fa84f228373b6126d01952870d6a56575103431b92e7"
+    },
+    {
+      "name": "0201.js",
+      "url": "https://github.com/nikhilmodak/gulp-ngdocs/blob/84d412873727426a0b616243b42668e1e3ba7474/src/dom.js#L30-L42",
+      "sha256": "94b45d726716dcd3b6667c9422d177a9dddf25055dd53c5399c8fa1ef950f20d"
+    },
+    {
+      "name": "0202.js",
+      "url": "https://github.com/nikku/run-camunda/blob/f8717c67d8b2b9b4448e7f95b1529706fb4e32d2/camunda.js#L59-L75",
+      "sha256": "d8ed50cc98798b0a216836497b339e222fa44edaa635eabfeb3ae848bcffb01b"
+    },
+    {
+      "name": "0203.js",
+      "url": "https://github.com/nohorbee/nobel/blob/91d697f8d5fc5c3348f5d9068769dbd7ff4da53a/src/scaffolder.js#L12-L21",
+      "sha256": "fecdec06c013e0c251dddb26a394dce498778d898320093d1a4d8f79af272887"
+    },
+    {
+      "name": "0204.js",
+      "url": "https://github.com/nx-js/queue-util/blob/50f1ec71b30b994756dde541457e56e7fdbf2618/src/scheduling.js#L7-L15",
+      "sha256": "a01fc689d79283dc67ac3489f1c89df030d466fc94f97f09137dab7d38104806"
+    },
+    {
+      "name": "0205.js",
+      "url": "https://github.com/o2team/athena/blob/cfdb5d0b1a043335686127e9b28346de27212d6c/lib/build/athena_mate/athena_inject_server.js#L23-L81",
+      "sha256": "b29c60b48d48425ec748df034ed953b1707396842c877e39cd3a9a45a37ecfdd"
+    },
+    {
+      "name": "0206.js",
+      "url": "https://github.com/observing/square/blob/0a801de3815526d0d5231976f666e97674312de2/plugins/minify.js#L266-L312",
+      "sha256": "46a50a8957e2d265c98b32bafe19fa61bbfab07d584b69c320772decbf3d5487"
+    },
+    {
+      "name": "0207.js",
+      "url": "https://github.com/ocadotechnology/quantumjs/blob/5bc684b750472296f186a816529272c36218db04/quantum-api/lib/tags.js#L26-L28",
+      "sha256": "26c05e4c9085f7b0cbb5a42aeb045e91ac6f05a6dac9be6205ba78ff3eeced99"
+    },
+    {
+      "name": "0208.js",
+      "url": "https://github.com/octoblu/meshblu/blob/4e7a5a0460b4eb097dfe9ff2db15853eccc779d7/docs/vendor/mixitup/mixitup.js#L5914-L5960",
+      "sha256": "2de8d5e2fbe1c43ad5f20e6c4efdf77f97180c15e432b011031d6579838777e9"
+    },
+    {
+      "name": "0209.js",
+      "url": "https://github.com/olegtaranenko/sencha-touch-node/blob/a46194e840a0c952503c08df39ed45a1f5e9887a/lib/Ext/platform/src/data/proxies/SyncProxy.js#L592-L597",
+      "sha256": "466d3950aac10dd8cc0a97f4dac033aa6aa1c672a7d41b19be18706768b6c651"
+    },
+    {
+      "name": "0210.js",
+      "url": "https://github.com/origin1tech/chek/blob/6bc3ab0ac36126cc7918a244a606009749897b2e/dist/modules/to.js#L53-L65",
+      "sha256": "de7c7628a384fbbad8399f300292247c727908704690fd627cedeac97c42ad2f"
+    },
+    {
+      "name": "0211.js",
+      "url": "https://github.com/osdat/jsdataframe/blob/d9f2028b33f9565c92329ccbca8c0fc1e865d97e/jsdataframe.js#L4443-L4477",
+      "sha256": "49390e7c7427abf2c24c80386c301437682cc1dbf9d462a934ccb44ea26664ff"
+    },
+    {
+      "name": "0212.js",
+      "url": "https://github.com/ota-meshi/eslint-plugin-lodash-template/blob/9ff820d58da1eea47f12a87939e62a23cc07561d/lib/rules/script-indent.js#L209-L222",
+      "sha256": "100bf0c3bdfbbd93c70af3a0a62559fa550390c26595f2c5896776618c73ff6f"
+    },
+    {
+      "name": "0213.js",
+      "url": "https://github.com/oxygenhq/oxygen/blob/b1c4be3360363091df89558dbbfb7f6d9d8efd71/lib/reporters/pdf-reporter.js#L61-L80",
+      "sha256": "7061ae062b6c166816bf6bc0f0eb7416fb07c50bbd2641f749ba1b596a32a913"
+    },
+    {
+      "name": "0214.js",
+      "url": "https://github.com/oxygenhq/oxygen/blob/b1c4be3360363091df89558dbbfb7f6d9d8efd71/ox_modules/module-log.js#L13-L49",
+      "sha256": "0655fba8efc51b274dfe00ce9c1df0b3bd47af44b45899b2b9b49ddae43e98e8"
+    },
+    {
+      "name": "0215.js",
+      "url": "https://github.com/panarch/famous-mig/blob/a241d9955d20ceb0fe3ce0a1fb13e9961e1c6878/src/index.js#L178-L205",
+      "sha256": "569c5df3b04f279ead3b82f54ddbba6ed1063a5778eefb751effd0a64dc00d46"
+    },
+    {
+      "name": "0216.js",
+      "url": "https://github.com/pandastrike/jsck/blob/944aa33bcc30a54653372ac67c1fe50202a31b76/benchmarks/statistics.js#L97-L113",
+      "sha256": "106a71ee78203b0350582ad8cb1ff61c18cdf9f00bf8b1d5f071e1735a711d5b"
+    },
+    {
+      "name": "0217.js",
+      "url": "https://github.com/particle-iot/spark-protocol/blob/2c745e7d12fe1d68c60cdcd7322bd9ab359ea532/js/lib/CryptoStream.js#L57-L116",
+      "sha256": "cd5a234ae815317aab908c4b3776cfb4a97fbea0718dcb19e90e093859c28470"
+    },
+    {
+      "name": "0218.js",
+      "url": "https://github.com/pasangsherpa/convert-base/blob/1b5a0ad764faa2233c1a4e7504fbfb2c4c362d43/dist/convert-base.js#L10-L24",
+      "sha256": "ce10f9dae128064b2a0b298de9b8571e13fd52f78d736041ca7a48b7de7c34ea"
+    },
+    {
+      "name": "0219.js",
+      "url": "https://github.com/pgilad/gulp-todo/blob/3fd0dbcd8fd2275f6cd3f8b50405c9c05dfef443/gulpfile.js#L15-L21",
+      "sha256": "c2b81524af223f491ba652e346e5588731c1cbf498b106ca70338263e0012993"
+    },
+    {
+      "name": "0220.js",
+      "url": "https://github.com/philbooth/bfj/blob/61087c194d5675c75569a2e08617a98609b16ead/src/read.js#L24-L26",
+      "sha256": "dd2451c23d659c5aed606f749ef7c2d3a74e1e486fb56715374353309292f717"
+    },
+    {
+      "name": "0221.js",
+      "url": "https://github.com/pillarjs/finalhandler/blob/1b2c36949db50aa766d4691a5f38eb6639d01d66/index.js#L236-L245",
+      "sha256": "df4fac446daf5f7fb1e1e81ef88ba84599f5da6fb686d3f5e8031b41faf23f78"
+    },
+    {
+      "name": "0222.js",
+      "url": "https://github.com/pillarsjs/pillars/blob/7702fd42d3c07fd0e5605a377b1b51c88d0bdd58/middleware/sessions.js#L49-L65",
+      "sha256": "27d34a5330d22d12cf6d4f7d7a27fc5ff7bb29feed9a6353e79320a6e6acaaeb"
+    },
+    {
+      "name": "0223.js",
+      "url": "https://github.com/plepers/nanogl-node/blob/5ca4c3261ae66f79cd6d520f082000af9c3a2ec2/node.js#L144-L160",
+      "sha256": "c8d5180f68a13e5107d1a19bce04b60e6152b5844f63352a44b1b15a7276cde9"
+    },
+    {
+      "name": "0224.js",
+      "url": "https://github.com/pwhelan/node-X11-desktop-entry/blob/f793baed231717a340fcb324696ca1197c5a7551/lib/desktop-entry.js#L73-L125",
+      "sha256": "d6088bcfb0c7baf603a01d6e023d9259e0ffcc7bdc314a6c5b58b9e1ef657472"
+    },
+    {
+      "name": "0225.js",
+      "url": "https://github.com/pxwise/lite-json-parse/blob/3467b96385627420cd481ea5b488c3ca786e8f95/index.js#L9-L20",
+      "sha256": "cca66e7be4a76e222a595ff625512a566b5e94503146bf90b2e77ebf5969782a"
+    },
+    {
+      "name": "0226.js",
+      "url": "https://github.com/pzavolinsky/elmx/blob/ae125fa9a749273a65d224bc87bbecbf06f253d8/cheatsheet/elm.js#L3797-L3822",
+      "sha256": "4996d85eda929d184d602b5b01e45b71ba5c8272ab3b1bb78d3870fd96fa221f"
+    },
+    {
+      "name": "0227.js",
+      "url": "https://github.com/queicherius/gw2api-client/blob/a5a2f6bab89425bbbcf33eec73b7440cec5f312f/src/helpers/resetTime.js#L7-L12",
+      "sha256": "0c5dc4d869e9436db11d6123f2ecf2167eb3b81833e5d6bc627c7495ff0592cd"
+    },
+    {
+      "name": "0228.js",
+      "url": "https://github.com/react-component/calendar/blob/dcc3a76a07f426a089566d4c60587cad6f0e2f17/src/RangeCalendar.js#L17-L19",
+      "sha256": "555d8d3299492a33d9ddb4ae53b1267e4415ee5012869b944ad40da6b6924d55"
+    },
+    {
+      "name": "0229.js",
+      "url": "https://github.com/react-native-community/cli/blob/c3ed10c0e2d5c7bfe68312093347fbf7e61aa7a7/packages/global-cli/index.js#L162-L180",
+      "sha256": "a845569e1e80e1ea3a3f22a48b66daf7932dcae07baf0cc9c56a8a2be5454de3"
+    },
+    {
+      "name": "0230.js",
+      "url": "https://github.com/recidive/choko/blob/7c0576c8c55543ec99d04ea609700765f178f73a/gulpfile.js#L17-L32",
+      "sha256": "b92091547f88e85bc199b2a41e9edc21b81eb1aa0aacd1f61f77ff24060c9531"
+    },
+    {
+      "name": "0231.js",
+      "url": "https://github.com/reelyactive/chickadee/blob/1f65c2d369694d93796aae63318fa76326275120/web/js/cormorant.js#L12-L30",
+      "sha256": "4a3ab6a1a199059d31d31d3fa4e2135ad2fffe3d9c7b2b115199316d8c69dc7d"
+    },
+    {
+      "name": "0232.js",
+      "url": "https://github.com/remobile/react-native-file/blob/4759b07bfdfb32d2fe3a05044891fd32118b9e4f/libs/FileWriter.js#L99-L178",
+      "sha256": "35351b82558975dd3f98404596b21cea7f08879f258768da8244ef55e31d89d2"
+    },
+    {
+      "name": "0233.js",
+      "url": "https://github.com/repetere/modelscript/blob/b507fad9b3ecfb4a9ec4d44d41052a8082dac763/build/modelscript.umd.js#L49842-L49853",
+      "sha256": "0dd31812ca7dec5ec36320726d32c01390b73c59555f260893cf704a3c56f923"
+    },
+    {
+      "name": "0234.js",
+      "url": "https://github.com/restify/plugins/blob/32c0c1e64dae2698abd8f4c0307d4fb405c1b6f2/lib/plugins/multipartBodyParser.js#L116-L132",
+      "sha256": "81954783b3d71ca18b46b33a00e35742d8af25ea6de9d5d8ea0d83651b2c7219"
+    },
+    {
+      "name": "0235.js",
+      "url": "https://github.com/rootslab/boris/blob/eb60a99b18a396a43ec350e3ea3d67728e574270/example/boris-info-reply-example.js#L19-L22",
+      "sha256": "4fab4f867813c3d5bbb09c7c589723a81944303dd563e180936960a9ed107149"
+    },
+    {
+      "name": "0236.js",
+      "url": "https://github.com/ruysu/gulp-core/blob/2abb2e7b60dc5c30f2610f982672e112b5e1e436/lib/optimize.js#L13-L32",
+      "sha256": "7b32fb5b997f852ce123d96dd350dfb847b209a4b67ae7df7723bdb89da9fab1"
+    },
+    {
+      "name": "0237.js",
+      "url": "https://github.com/samsonjs/batteries/blob/48ca583338a89a9ec344cda7011da92dfc2f6d03/lib/fs/index.js#L106-L111",
+      "sha256": "eb2f3c8963613430ad2fc2a75be0143c70a451b2100bd822e29a2da0aee4b6ca"
+    },
+    {
+      "name": "0238.js",
+      "url": "https://github.com/scbd/aspnet-formsauthentication-js/blob/48a61cca9a725e52abcf0b3208fd0f1158a8706d/formsauthentication.js#L6-L20",
+      "sha256": "891ed3fb5a3a541a4af1d32cf8ee6323f049f22a11ebe1a44c4188e21a8d5f6b"
+    },
+    {
+      "name": "0239.js",
+      "url": "https://github.com/scripting/reader/blob/40050c7ecffe0512e73c5915436358fd3f3f1032/davereader.js#L1169-L1181",
+      "sha256": "8eb2b4fe9c4c9a5cab06cc465b3e7ae4811beac83986b34bd7c8dda05dc92c5c"
+    },
+    {
+      "name": "0240.js",
+      "url": "https://github.com/scull7/empower-permission/blob/fcac7f5b66a426f8410f929b58ff3f68101ae24c/dist/permission-map-builder.js#L2-L21",
+      "sha256": "3485902d60baaec43ffc251acdf0dc78244c56a1efcb8dda546ba8201b5faec9"
+    },
+    {
+      "name": "0241.js",
+      "url": "https://github.com/sealice/koa2-ueditor/blob/89fa1cc70f0375fafe023c88692fc27c83f2cd98/example/public/ueditor/ueditor.all.js#L7255-L7273",
+      "sha256": "a48c283f390ccb3bc8beb88b0383ebbba7f9c3af099676a2164bc8409ed57e3d"
+    },
+    {
+      "name": "0242.js",
+      "url": "https://github.com/segmentio/analytics.js/blob/077efafa234d0bb4374169adb4e1ff71da39af8f/analytics.js#L19766-L19785",
+      "sha256": "014ed43dd575200c61a7857e0a20c9747c7aade871071b07994ad222bd6f0f4c"
+    },
+    {
+      "name": "0243.js",
+      "url": "https://github.com/seriousManual/hirestime/blob/de5013c56ef0edc812721cbbf9e8d7a65c7839aa/index.js#L21-L29",
+      "sha256": "f8089e18288d3f05513695541dfd89bdf7e487d0fa0e45b712c95c56bac7b973"
+    },
+    {
+      "name": "0244.js",
+      "url": "https://github.com/silklabs/silk/blob/08c273949086350aeddd8e23e92f0f79243f446f/flow-bin/linux/flow/flow.js#L15498-L15499",
+      "sha256": "587e05bc9117825742f744e76de2344a99d4d45f6d3ee04e8e3f27e7c9df71e6"
+    },
+    {
+      "name": "0245.js",
+      "url": "https://github.com/silverbucket/jaribu/blob/b228ece432b7704117e1c9962d3f35a825dcbb3a/lib/display.js#L295-L307",
+      "sha256": "b7e7a68619c964a14d0aae2149213c73cd2e05c8cc086a61e96436c4a7026150"
+    },
+    {
+      "name": "0246.js",
+      "url": "https://github.com/simbo/metalsmith-better-excerpts/blob/ccc9535ec8e8491eda50fabc2d433c8053435924/lib/index.js#L57-L67",
+      "sha256": "0bfa76dfc34aec0dc12e4d28497a1277cb60bad75549ee37e0780bc3c0905a26"
+    },
+    {
+      "name": "0247.js",
+      "url": "https://github.com/simonepri/pidtree/blob/2c71d9510c015ce841682962195b2e9ea52bab27/bin/pidtree.js#L36-L64",
+      "sha256": "43a3ced226d42dfde3dd0da58c03a44f55a22ce9f4b7a33e60b262c20ab620f1"
+    },
+    {
+      "name": "0248.js",
+      "url": "https://github.com/sitewaerts/cordova-plugin-document-viewer/blob/25b82d959c20d7880d513100c2b979e1e15349dc/src/common/js/winjs/js/ui.js#L46814-L46821",
+      "sha256": "2a419f61c003241bb303d7798b72f51d1cfa7bd674e747090ad1b6e35f67a29a"
+    },
+    {
+      "name": "0249.js",
+      "url": "https://github.com/skerit/arcstream/blob/fcc785ba62583f30e3c78ff1f3325ca7735d5dbc/lib/arc_stream.js#L527-L593",
+      "sha256": "e5c74e91ca977ec620209b2eefcfd502127a5415edc0ead588bbc94f5657bd65"
+    },
+    {
+      "name": "0250.js",
+      "url": "https://github.com/skerit/protoblast/blob/22f35b05611bd507d380782023179a3f6ec383ae/lib/rurl.js#L454-L461",
+      "sha256": "b28c8cd792d4c34d8449f6d93ccd954bbbf8d345804c78aee037a8f7d7ea19b6"
+    },
+    {
+      "name": "0251.js",
+      "url": "https://github.com/skerit/protoblast/blob/22f35b05611bd507d380782023179a3f6ec383ae/lib/rurl.js#L475-L479",
+      "sha256": "cb089b66f298812f987bd6c1e1d4fb9fc7b4f90f52451d89594c7b38d85919bf"
+    },
+    {
+      "name": "0252.js",
+      "url": "https://github.com/slappforge/slappforge-sdk/blob/65ba1d719f997650a2024b0da6d5d9f54eedb37b/packages/slappforge-sdk-xml/lib/XMLConverter.js#L22-L49",
+      "sha256": "787f2a397cb0569620b3540f6ef9ae0b936919dd2baf4da50f362107ab9a4254"
+    },
+    {
+      "name": "0253.js",
+      "url": "https://github.com/slawrence/grunt-properties-reader/blob/e8da99c688e2609838d76ea3b1c69a3e6027692e/tasks/properties_reader.js#L77-L120",
+      "sha256": "35005f3b9950e93add43a0b71f2b371cf6618c397c7d7723baa6a5ed1e6571c5"
+    },
+    {
+      "name": "0254.js",
+      "url": "https://github.com/slm-lang/slm/blob/337a71d60bf0913fb20e3a03647affd9af832bb6/lib/html/fast.js#L13-L58",
+      "sha256": "ac3cef4b887680b4f3994f95088c96d8f94bd3b3324a72f384d06b1b9f77f2ea"
+    },
+    {
+      "name": "0255.js",
+      "url": "https://github.com/smbolton/dagre-d3v4/blob/78f537785332005b618e087e4226c0267c069ec6/gulpfile.js#L224-L227",
+      "sha256": "a82c05c78bac39ba48a11abd2b794f8264b8c3a0424243c463c66f98ee7033e9"
+    },
+    {
+      "name": "0256.js",
+      "url": "https://github.com/smravi/docco-plus/blob/16a7b3fe3a5c591ed685ff2d853a0a7ad7ed63fb/lib/run.js#L4-L45",
+      "sha256": "5850ad4f9691dc4a81f7fa8250729e8567db3e5cab7be6ad18ff03dca73eea99"
+    },
+    {
+      "name": "0257.js",
+      "url": "https://github.com/socketstream/socketstream/blob/bc783da043de558ee3ff9032ea15b9b8113a8659/docs/js/docs.js#L477-L497",
+      "sha256": "2ff8e25bbff592a40e8698fddec8a138635922a8ffcda0769234bf7b94408ae0"
+    },
+    {
+      "name": "0258.js",
+      "url": "https://github.com/soldair/pinoccio-bridge/blob/b2c6f81914804372eee191ce538240c9bb77b637/serial.js#L43-L74",
+      "sha256": "92e5990ccc568cad47dec071884b7cd0fad152ffe7d091cd899cd2663f14f348"
+    },
+    {
+      "name": "0259.js",
+      "url": "https://github.com/spite/ccapture.js/blob/e4bc8fccc1e10d69b79b1c02fd13f3c448a3fb41/src/webm-writer-0.2.0.js#L257-L274",
+      "sha256": "ca865269d8216e305b867bf94f3d849e59373c81796aec37c832bd650deb9603"
+    },
+    {
+      "name": "0260.js",
+      "url": "https://github.com/splunk/splunk-sdk-javascript/blob/9aec5443860926654c2ab8ee3bf198a407c53b07/contrib/commander.js#L417-L428",
+      "sha256": "ebc9fe65bc326c0e10d5deb0b1c2127a4b6b0a1ed230e07e0fa412af8621fdaa"
+    },
+    {
+      "name": "0261.js",
+      "url": "https://github.com/springernature/boomcatch/blob/5653b382c01de7cdf22553738e87a492343f9ac4/client/boomerang-rt.js#L1815-L1824",
+      "sha256": "d12f01e20cf9c278b3d326468f15df927c0f89d37c69b8c2b535e3ffd4b3348a"
+    },
+    {
+      "name": "0262.js",
+      "url": "https://github.com/stayradiated/onepasswordjs/blob/6f37d31bd5e7e57489885e89ef9df88e8197a2c3/src/crypto_browser.js#L307-L314",
+      "sha256": "40992c5eece386b3f83cbc39125a25c7c8768db66ce81742d88ffb315e80abbe"
+    },
+    {
+      "name": "0263.js",
+      "url": "https://github.com/stemey/gform-app/blob/d97f3091d0d652ed45dddcdefa05e0bb975898ac/src/gform-app/preview/BaseRenderer.js#L536-L551",
+      "sha256": "a3232e3ccdcf2c7d4f037b4126b0ee002db50e59ca80be06870acec787f766cc"
+    },
+    {
+      "name": "0264.js",
+      "url": "https://github.com/straticjs/stratic-handle-offset/blob/2862794f590684155a638f15ccab35b4451399af/index.js#L20-L22",
+      "sha256": "ec6dd254b69be198e558b563a0113be3fc7f146d81201628e886b2230798a883"
+    },
+    {
+      "name": "0265.js",
+      "url": "https://github.com/substance/texture/blob/98649b53c493a1d3e4eab89574ab8d55e121296e/src/article/converter/bib/BibConversion.js#L11-L61",
+      "sha256": "34e550d7bba949a9a5dd949e432bcc49c7a46fe0d716ddc86134cfcbb3c6d52d"
+    },
+    {
+      "name": "0266.js",
+      "url": "https://github.com/sushantdhiman/unexpected-date/blob/23cdea63fce6908f1d9fc49602b84d8efba03daa/lib/helpers.js#L3-L10",
+      "sha256": "b2911a7d9f92ef7b2af88c231f6184f08f4cbdd0e171b340aab9591a42463f51"
+    },
+    {
+      "name": "0267.js",
+      "url": "https://github.com/suskind/network-list/blob/1e3289a13df866954576089334b1a8012091784b/src/index.js#L98-L118",
+      "sha256": "eaaae0b09b3d6f1cfd88a146bfdc1f3f6a5e80e03a7348acc7cacca089f1c87c"
+    },
+    {
+      "name": "0268.js",
+      "url": "https://github.com/tessel/t2-cli/blob/73739db21b40ca643024596b84c11e74e967d761/lib/tessel/update.js#L156-L180",
+      "sha256": "312ea68fe5cd024b3d9a3367444d0e4b6fe670bfd247b2baeaf82e4af7bf5657"
+    },
+    {
+      "name": "0269.js",
+      "url": "https://github.com/textlint/textlint/blob/61ebd75dac6804827aad9b4268867c60e328e566/examples/rulesdir/rules/no-todo.js#L10-L18",
+      "sha256": "004d1b6bfddf492386f4991874319abfc14b598b42829cc8d83475d242ed5fac"
+    },
+    {
+      "name": "0270.js",
+      "url": "https://github.com/thii/abbajs/blob/b75b5d4f0cb6bf920cdec36814b72be1e30cf908/index.js#L195-L205",
+      "sha256": "748df531ec08766490ea41b7e5d7c915037f1a6eee443326789bd47ab1ba143c"
+    },
+    {
+      "name": "0271.js",
+      "url": "https://github.com/thlorenz/6bit-encoder/blob/ea0449137b3c155dcd59bc37c852efa35240dddd/6bit-encoder.js#L244-L252",
+      "sha256": "3e42b29dc27d1d0b218b4c282f53b800bdb6733e22a7f29880f77a67f3980288"
+    },
+    {
+      "name": "0272.js",
+      "url": "https://github.com/tjchaplin/grunt-mox/blob/793161382805089ad59ad5a5cf770ea2da4dc363/tasks/mox.js#L40-L55",
+      "sha256": "4cc782ee740fc4a4ee3fd1a811c3778c43fd37a1378d46ec6a493b8c490f2d3d"
+    },
+    {
+      "name": "0273.js",
+      "url": "https://github.com/tonekk/remood.js/blob/d441b96ed1db1d82fb56877163b814bb2809be47/lib/remood.connection.js#L25-L46",
+      "sha256": "5565e5e3ae8289e5c00bcc1d6431e1309e69a04861b384394a663da45df2190f"
+    },
+    {
+      "name": "0274.js",
+      "url": "https://github.com/torifat/flowtype-loader/blob/7334a152e215dbd43cd86f7ea18e5cf1d9c5d714/lib/flowResult.js#L101-L105",
+      "sha256": "67bb9e53cef1342959d29807110c9179d850b9c0792c840266e563b925c149d3"
+    },
+    {
+      "name": "0275.js",
+      "url": "https://github.com/tryfer/node-tryfer/blob/061ed05a172b70fe04154214d1519be9246ecf5a/lib/tracers.js#L54-L70",
+      "sha256": "4a45b25ca07462c436b0150c86394a30fc30aef3b78ad60d30de2e26bf634d50"
+    },
+    {
+      "name": "0276.js",
+      "url": "https://github.com/tryfer/node-tryfer/blob/061ed05a172b70fe04154214d1519be9246ecf5a/lib/tracers.js#L63-L68",
+      "sha256": "ca12e7627746f6c781c7aa2968485640cc9a2bd7e2e10857d6852fa53fd638f2"
+    },
+    {
+      "name": "0277.js",
+      "url": "https://github.com/tunnckoCore/starts-with/blob/98b9de85f66b10c153b6bf223d56d2ba441b8d8b/benchmark/implementations-browser.js#L56-L60",
+      "sha256": "471f6f88cd244dd678087ea163277df45eb8d5e3b591eb30ae97d491dfe544f2"
+    },
+    {
+      "name": "0278.js",
+      "url": "https://github.com/twcapps/vue-ts-locale/blob/9c97c3c68656297dc1a2b1592d85608b763c719a/lib/locale.directive.js#L72-L79",
+      "sha256": "7ed61b37a652ef87f3d2e070a4742b39e83487e88db835d21243ffac6156a475"
+    },
+    {
+      "name": "0279.js",
+      "url": "https://github.com/twilio/twilio-node/blob/61c56f8345c49ed7fa73fbfc1cdf943b6c324542/spec/integration/rest/taskrouter/v1/workspace/taskQueue/taskQueuesStatistics.spec.js#L320-L412",
+      "sha256": "1520a06c8677f0a373937fa0fb1d952d78feff53743074b569bd6cf6c0b651c3"
+    },
+    {
+      "name": "0280.js",
+      "url": "https://github.com/typeorm/typeorm/blob/360468b7913db8d988346fba1ee2d3f323498eef/extra/typeorm-class-transformer-shim.js#L154-L158",
+      "sha256": "0b37a7519463e805394da76848f43e3d6b39617f6b1c29ec9fc2d8a16818eab8"
+    },
+    {
+      "name": "0281.js",
+      "url": "https://github.com/typhonjs-node-esdoc/esdoc-plugin-dependency-graphs/blob/af2d9cabce2d48edd4ad7ed81c722cc27efacb67/template/html/jquery-tablesorter.js#L2612-L2625",
+      "sha256": "c28378f6093168b105244958fc0b8b18f910b804aa8a5f6823b9a7ae75464a9b"
+    },
+    {
+      "name": "0282.js",
+      "url": "https://github.com/uber/deck.gl/blob/a2010448b7f268bbd03617b812334c68a6b9e5b2/modules/json/src/parsers/convert-json.js#L162-L180",
+      "sha256": "22d85051db9694821ceff57be17657576e804123438065c5a2b2ea1f452d5e94"
+    },
+    {
+      "name": "0283.js",
+      "url": "https://github.com/uptick/js-tinyapi/blob/e70ce2f24b0c2dc7bb6c5441eecf284456b54697/src/utils.js#L267-L275",
+      "sha256": "cff983517d5680b5b573339b44bc1521b3ca35b5760530332edfd9455e2130e3"
+    },
+    {
+      "name": "0284.js",
+      "url": "https://github.com/uupaa/Watch.js/blob/5c8c4d30de6ae4feb20f091c8ccfaedb39bd9c12/bin/Watch.js#L73-L101",
+      "sha256": "40ff5860321812b5b5563ec62917950c6f60026a0baaf050bc4a620d06936ffc"
+    },
+    {
+      "name": "0285.js",
+      "url": "https://github.com/veritone/veritone-sdk/blob/ebe4ad5774c487823925e4083cf34f0e7eef8063/packages/veritone-functional-permissions/util.js#L2-L21",
+      "sha256": "5a867e4f0d5084574114d997ab104f60d41acefb8ad047822cb47944cc6f776d"
+    },
+    {
+      "name": "0286.js",
+      "url": "https://github.com/vesparny/fair-analytics/blob/a53dedf75618304023fccf70907cfc40e19d4ffa/lib/server.js#L8-L12",
+      "sha256": "f18dd7f0dfa920db59681417cbf19b1e0e66ebe3a0d03f870fc77ed1714836f9"
+    },
+    {
+      "name": "0287.js",
+      "url": "https://github.com/vex-coin/vex-lib-js/blob/0696320de183702c0344f8bd07deef32fe1a3709/dist/vex-lib.min.js#L8-L8",
+      "sha256": "e211e1966505fe54f92ee75514fd65ca3578f2f8dd3d4d5ddc6ece10e18c2eba"
+    },
+    {
+      "name": "0288.js",
+      "url": "https://github.com/vmarkdown/vremark-parse/blob/d7b353dcb5d021eeceb40f3c505ece893202db7a/packages/vrehype-hash/index.js#L4-L19",
+      "sha256": "f9361de36df0634488e43375e944b987f9990d448c7fc91cc2449965bb38dc24"
+    },
+    {
+      "name": "0289.js",
+      "url": "https://github.com/voloko/uki/blob/5dfdce6105a5116df091235c8a57c42869f96c10/src/uki-core/utils.js#L79-L87",
+      "sha256": "8b572a6f2b3a48c08c7b0849961f3ef1774c3e0a18e65a8194e771a1b36027cf"
+    },
+    {
+      "name": "0290.js",
+      "url": "https://github.com/warelab/gramene-bins-client/blob/8a78b30971a223b322ed3f1c5760d110c938ec86/spec/bins/BinSpec.js#L78-L86",
+      "sha256": "48622a10830137149411aad01aed7d66233b6b93bd1dbf4733c10bc1d2cccf08"
+    },
+    {
+      "name": "0291.js",
+      "url": "https://github.com/webduinoio/webduino-blockly/blob/f656474c6e4ba1fc12fda217280714c3ca044bbe/code.js#L408-L429",
+      "sha256": "394d02357d61672c45f97eadb2aef1b641987c20dba6b0c6de6dc0672665592e"
+    },
+    {
+      "name": "0292.js",
+      "url": "https://github.com/webpack/loader-utils/blob/b5b74f010cace25ca70a652ebef078f6b1cfaddb/lib/parseQuery.js#L11-L66",
+      "sha256": "cd019b692c706268b7740b7927f70e8a5b6e436a4f6e2f44a76b97faaccb0ae5"
+    },
+    {
+      "name": "0293.js",
+      "url": "https://github.com/weekeight/gulp-joycss/blob/5dc7a1276bcca878c2ac513efe6442fc47a36e29/joycss/bin/update.js#L44-L50",
+      "sha256": "67562a109248951869d437118261dcea89afd4ce00384ff8c05fa1415afb4374"
+    },
+    {
+      "name": "0294.js",
+      "url": "https://github.com/whyhankee/dbwrkr-mongodb/blob/6f4fddc2837294e7a16460edb288b299994f9c00/dbwrkr-mongodb.js#L41-L74",
+      "sha256": "37464b0536b3419e7c86bc865e3918cbd7210173f0f31b1c1e5cb9809e896ebf"
+    },
+    {
+      "name": "0295.js",
+      "url": "https://github.com/winkjs/wink-helpers/blob/ce2792a3f0e1bcd067d151a8ca2cd41ffddc89f6/src/wink-helpers.js#L365-L376",
+      "sha256": "7797f47325766dd97448f7b30641f40fc7064be5dcc4a9f4571dcec0ded622b5"
+    },
+    {
+      "name": "0296.js",
+      "url": "https://github.com/xiamidaxia/xiami/blob/6fcee92c493c12bf8fd67c7068e67fa6a72a306b/meteor/oauth-encryption/encrypt.js#L32-L47",
+      "sha256": "6f16812cd4f16dd498073e4dd61701c95ba957c4eb49f7ff26a864c7bf5f3f7a"
+    },
+    {
+      "name": "0297.js",
+      "url": "https://github.com/xiongwilee/Gracejs/blob/a4ca954d28ddcd1c39a0b3eefe16e79a390fb507/app/blog/static/js/dashboard/post_edit.js#L56-L70",
+      "sha256": "c3000fda3cb4bd844e51e9f81bb3c22385555a07913fde5329f4f6f99dd7dc8f"
+    },
+    {
+      "name": "0298.js",
+      "url": "https://github.com/yefremov/aggregatejs/blob/932b28a15a5707135e7095950000a838db409511/median.js#L19-L33",
+      "sha256": "cbdf5afebb040c3eeea3f8b86b9ec910704b7e5228c1977ce707d4727164096e"
+    },
+    {
+      "name": "0299.js",
+      "url": "https://github.com/zipscene/objtools/blob/24b5ddf1a079561b978e9e131e14fa8bec19f9ae/lib/index.js#L778-L786",
+      "sha256": "bae16f1642b54be237b2b383c6fe63db37702ac610d824fd2c7ec1efa477e5b0"
+    },
+    {
+      "name": "0300.js",
+      "url": "https://github.com/zkat/pacote/blob/33c53cf10b080e78182bccc56ec1d5126f8b627e/lib/fetchers/registry/packument.js#L81-L92",
+      "sha256": "dc118291946d771b22adf92de918a9b0dbac1d47c172759fe8dd11cc5156d98d"
+    },
+    {
+      "name": "0301.js",
+      "url": "https://github.com/zuixjs/zuix/blob/d7c88a5137342ee2918e2a70aa3c01c1c285aea2/src/js/helpers/ZxQuery.js#L510-L519",
+      "sha256": "583720f958bad6f6cb0d7a6395120317778cbff7b179f276b533d34cc47afdb2"
+    },
+    {
+      "name": "0302.js",
+      "url": "https://github.com/zwaveiot/securedgram-psk-aes-node/blob/92078dcb04d496d5f0af7fc66bbabf6a8d183c0d/messages/handshake/HelloVerifyRequestMessage.js#L34-L60",
+      "sha256": "e4b793f7694062ceb21e67fcb1dc18b1c94b2ed5ef574691a47c3cba2d65f418"
+    },
+    {
+      "name": "0303.js",
+      "url": "https://github.com/zwaveiot/zwaveip-node/blob/120d02bbdf6769b819b0becf1198c8be5b9271b9/ZipGatewayUtils.js#L90-L95",
+      "sha256": "0ddd6d420edb09e9932cd16b666bd20f609a5c661f737cf52b976e62d4683eb3"
+    }
+  ],
+  "missing": ["https://github.com/AltspaceVR/AltspaceSDK/blob/3e39b6ebeed500c98f16f4cf2b0db053ec0953cd/examples/js/libs/GLTFLoader.js#L638-L650", "https://github.com/MORPOL/createClass/blob/3e839121357fd25ff1b20fcd4ca02062f1192583/createclass.js#L870-L876", "https://github.com/briancsparks/js-aws/blob/bb403415a1de754e6dee2238d3b5fb9bf5a2bf15/lib/ec2/ec2.js#L912-L950", "https://github.com/dehuinet/minxing-devtools-core/blob/1b1faf8d196ed07717833325b8d62ccd069af398/utils/index.js#L140-L155", "https://github.com/francium/highlight-page/blob/4e67fc531321f9987397dc247abba59b9d5ee521/dist/highlight-page.js#L340-L344", "https://github.com/insistime/qiao.plugin.zip/blob/01160027eb29e9f8c3d30239e749e3c5ecd5b1e3/lib/qiao.plugin.zip.js#L19-L29", "https://github.com/joeferraro/MavensMate/blob/8804517bf8f8edf716405d959abc5f9468aa021f/app/lib/util.js#L498-L508", "https://github.com/kimmobrunfeldt/chokidar-cli/blob/00aee901e41673e85ab5183d4e58eacafec5c983/index.js#L200-L209", "https://github.com/rexxars/mead/blob/12677d043e713cff2bed06ae1a2d1b6db0ad0b3d/src/index.js#L87-L91", "https://github.com/sentsin/layui/blob/1ff124de94e86cd0270b8a99f500aa3149569d67/src/lay/modules/table.js#L1464-L1488", "https://github.com/svelto/svelto/blob/53ad2961fe8037072afb1af9706f09dc5d5b97f6/src/lib/emoji/data/raw/make.js#L14-L18", "https://github.com/teakit/teakit/blob/6ac91796c0e89c1e6bc7e89fcee39393cc461eb9/lib/internal/mapCacheClear.js#L12-L19", "https://github.com/the-labo/the-db/blob/89d4a1d73f14bc67abd85a3ab9492284faa22a38/lib/helpers/execMysql.js#L9-L31", "https://github.com/xpl/useless/blob/f44dcaff5ea6bfa817c1807b4ba29a1aadf5e40d/base/Sort.js#L46-L50"]
+}

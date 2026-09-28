@@ -20,7 +20,8 @@ opening dozens of files to find the ones that matter, reading a long log for the
 labelling every issue or commit. It fits when:
 
 - **each item can be judged from its own content**, without the others or the rest of the codebase;
-  only its first 100,000 characters are read, so a longer file is judged on its beginning;
+  only its first 100,000 characters are read (fewer for dense text such as minified code), so a
+  longer file is judged on its beginning;
 - **the judgment is quick**: a yes/no, a category or a score a reader would give at a glance, not a
   deep analysis;
 - **there are enough items** that reading them yourself would cost real context or time: dozens and

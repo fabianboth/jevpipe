@@ -1,0 +1,338 @@
+{
+  "model": "gpt-6-astra",
+  "written": "2026-09-28T06:09:25+00:00",
+  "patterns": {
+    "q00": {
+      "pattern": "\\baes\\.(NewCipher|BlockSize)\\b|\\b(encrypt|decrypt)[_a-z0-9]*aes\\b|\\baes[_a-z0-9]*(encrypt|decrypt)\\b|\"crypto/aes\"",
+      "retried": false
+    },
+    "q01": {
+      "pattern": "\\b(permute|permutations?|next_?permutation|heap_?permutations?)\\b|\\b(all|generate|list|enumerate)[_a-z0-9]*permut(ations?|e)\\b",
+      "retried": false
+    },
+    "q02": {
+      "pattern": "\\bbinomial\\b|\\b(binom|binomial)[_a-z0-9]*(dist|pmf|cdf|prob|sample|rand)[_a-z0-9]*\\b",
+      "retried": false
+    },
+    "q03": {
+      "pattern": "\\bbufio\\.(NewReader|NewReaderSize|NewScanner)\\b|\\b(buffered_?(file_?)?reader|read_?(text_?)?lines)\\b|\\bReadString\\s*\\(\\s*'\\\\n'",
+      "retried": false
+    },
+    "q05": {
+      "pattern": "\\bconfusion_?matrix\\b|\\bconfusion_?mat\\b|\\b(true_?positives?|false_?positives?|true_?negatives?|false_?negatives?)\\b",
+      "retried": false
+    },
+    "q07": {
+      "pattern": "20060102|yyyy[-_ /]?mm[-_ /]?dd|\\b(date|string|str)[_a-z0-9]*to_?yyyymmdd\\b",
+      "retried": false
+    },
+    "q08": {
+      "pattern": "\\.Unix(Milli|Micro|Nano)?\\s*\\(|\\b(utc|time|date)[_a-z0-9]*to_?(epoch|unix)[_a-z0-9]*\\b|\\b(epoch|unix)_?(seconds|timestamp)\\b",
+      "retried": false
+    },
+    "q09": {
+      "pattern": "\\b(dec(imal)?|int(eger)?|uint)[_a-z0-9]*to_?hex(adecimal)?\\b|\\bstrconv\\.Format(Uint|Int)\\s*\\([^\\r\\n]*,\\s*16\\s*\\)|\\b(fmt\\.(Sprintf|Fprintf|Printf))\\s*\\([^\\r\\n]*\"[^\"\\r\\n]*%[# +0-9.]*x",
+      "retried": false
+    },
+    "q10": {
+      "pattern": "\\b(wkhtmltopdf|html_?to_?pdf|html2pdf|PrintToPDF)\\b|\\b(render|convert)[_a-z0-9]*html[_a-z0-9]*pdf\\b",
+      "retried": false
+    },
+    "q11": {
+      "pattern": "\\b(u?int(8|16|32|64)?|integer|num(ber)?)[_a-z0-9]*to_?bool(ean)?\\b|\\bbool_?from_?(u?int(8|16|32|64)?|integer)\\b|\\bfunc\\s+\\w+\\s*\\(\\s*\\w+\\s+u?int(8|16|32|64)?\\s*\\)\\s+bool\\b",
+      "retried": false
+    },
+    "q12": {
+      "pattern": "\\bstrconv\\.(Itoa|FormatInt|FormatUint)\\s*\\(|\\b(u?int(eger)?(8|16|32|64)?)[_a-z0-9]*to_?(str|string)\\b",
+      "retried": false
+    },
+    "q13": {
+      "pattern": "\\bjson_?(to_?|2)csv\\b|\\b(convert|export|transform)[_a-z0-9]*json[_a-z0-9]*csv\\b|\\bcsv_?from_?json\\b",
+      "retried": false
+    },
+    "q14": {
+      "pattern": "\\bstrconv\\.(Atoi|ParseInt|ParseUint|ParseFloat)\\s*\\(|\\b(str|string)_?to_?(u?int(eger)?(8|16|32|64)?|float(32|64)?|num(ber)?|decimal)\\b",
+      "retried": false
+    },
+    "q15": {
+      "pattern": "\\b(bytes?|uint8|pixels?|rgba|rgb)_?(to_?|2)image\\b|\\bimage_?from_?(bytes?|uint8|pixels?|rgba|rgb)\\b|\\bimage\\.(NewRGBA|NewNRGBA|NewGray|RGBA|NRGBA|Gray)\\b|\\bimage\\.Decode\\s*\\(\\s*bytes\\.NewReader",
+      "retried": false
+    },
+    "q16": {
+      "pattern": "\\bclipboard\\.(WriteAll|Write|Set|SetText)\\b|\\b(copy|write|set)[_a-z0-9]*clipboard\\b|\\b(pbcopy|xclip|xsel)\\b",
+      "retried": false
+    },
+    "q17": {
+      "pattern": "\\b(copy_?file|file_?copy|copy_?to_?(path|file|dir|directory)|copy_?file_?to[_a-z0-9]*)\\b|\\bio\\.Copy(Buffer|N)?\\s*\\(",
+      "retried": false
+    },
+    "q18": {
+      "pattern": "\\bhttp\\.SetCookie\\s*\\(|\\bhttp\\.Cookie\\s*\\{|\\b(new|create|make|set)_?cookie\\b|\"Set-Cookie\"",
+      "retried": false
+    },
+    "q19": {
+      "pattern": "\\bhttp\\.Error\\s*\\(|\\b(write|send|render|respond|handle|new|custom)[_a-z0-9]*(http_?error|error_?response)\\b|\\b(error_?response|http_?error)[_a-z0-9]*\\b|\\b(write|send|render|respond)_?error\\b",
+      "retried": false
+    },
+    "q20": {
+      "pattern": "\\b(subtract|deduct|remove)[_a-z0-9]*median\\b|\\bmedian[_a-z0-9]*(center|centr|subtract|deduct)[_a-z0-9]*\\b|\\b(col(umn)?s?[_a-z0-9]*median|median[_a-z0-9]*col(umn)?s?)\\b|-=\\s*\\w*median\\w*\\b",
+      "retried": false
+    },
+    "q21": {
+      "pattern": "\\bjson\\.(Unmarshal|NewDecoder)\\s*\\(|\\bUnmarshalJSON\\b|\\b(deseriali[sz]e|decode|parse)[_a-z0-9]*json\\b|\\bjson[_a-z0-9]*(deseriali[sz]e|decode|parse)\\b",
+      "retried": false
+    },
+    "q22": {
+      "pattern": "url\\.(QueryEscape|PathEscape)|(?:url|uri)[_\\w]*(?:encod|escap)|(?:encod|escap)[_\\w]*(?:url|uri)",
+      "retried": false
+    },
+    "q24": {
+      "pattern": "excelize|xlsx|(?:export|write|save|to)[_\\w]*(?:excel|spreadsheet)|(?:excel|spreadsheet)[_\\w]*(?:export|writer)",
+      "retried": false
+    },
+    "q25": {
+      "pattern": "goquery|html\\.Parse|(?:extract|scrape|parse)[_\\w]*html|html[_\\w]*(?:extract|scrape)|(?:Find|QuerySelectorAll)\\([^\\n]*\\)\\.(?:Text|Attr)",
+      "retried": false
+    },
+    "q26": {
+      "pattern": "(?:extract|parse|decode)[_\\w]*(?:lat(?:itude)?|lon(?:gitude)?|lng|coord|geoloc)|(?:latlon|latlng|coordinates)[_\\w]*(?:from|parse)|\\b(?:lat|latitude)\\s*,\\s*(?:lon|lng|longitude)\\b",
+      "retried": false
+    },
+    "q28": {
+      "pattern": "\\b(?:filter|retain|select|remove)[_\\w]*(?:array|slice|items|elements)\\b|\\b(?:array|slice)[_\\w]*filter\\w*|\\b(?:func\\s+(?:\\([^\\n)]*\\)\\s*)?|(?:slices|lo|funk)\\.)filter\\w*\\s*(?:\\[|\\()",
+      "retried": false
+    },
+    "q30": {
+      "pattern": "time\\.Since\\s*\\(|\\b(?:elapsed|stopwatch)\\w*|(?:timer|duration)[_\\w]*(?:elapsed|stop)|\\b\\w*(?:end|finish|stop)\\w*\\.Sub\\s*\\([^\\n]*(?:start|begin)",
+      "retried": false
+    },
+    "q31": {
+      "pattern": "(?:format|fmt)[_\\w]*(?:date|time)|(?:date|time)[_\\w]*(?:format|fmt)|\\.Format\\s*\\(\\s*(?:\"[^\"]*(?:2006|Jan|Mon)|time\\.(?:RFC\\w*|DateOnly|DateTime|ANSIC|UnixDate|RubyDate))",
+      "retried": false
+    },
+    "q32": {
+      "pattern": "fuzzy|(?:levenshtein|jaro|damerau)|(?:rank|score)[_\\w]*(?:match|similar)|(?:match|similar)[_\\w]*(?:rank|score)",
+      "retried": false
+    },
+    "q33": {
+      "pattern": "\\b\\w*ancestors?\\w*\\b|(?:all|get|collect|list)[_\\w]*parents\\b|(?:for|while)[^\\n]*\\.Parent\\b|ancestor(?:-or-self)?::",
+      "retried": false
+    },
+    "q34": {
+      "pattern": "(?:get|current|local|public|external|outbound|host)[_\\w]*ip(?:v[46])?(?:addr(?:ess)?)?\\b|net\\.InterfaceAddrs|\\.LocalAddr\\s*\\(|api\\.ipify\\.org|ifconfig\\.me",
+      "retried": false
+    },
+    "q35": {
+      "pattern": "(?:observable|subject|reactive|signal)[_\\w]*(?:value|current|peek)|(?:value|current|peek)[_\\w]*(?:observable|subject|signal)|\\bBehaviorSubject\\b|\\b(?:observable|subject|signal)\\w*\\.(?:Get|Value|Load|Peek)\\s*\\(",
+      "retried": false
+    },
+    "q36": {
+      "pattern": "\\b(?:os|syscall)\\.Getpid\\s*\\(|\\bget_?pid\\b|(?:current|get)[_\\w]*process_?id\\b",
+      "retried": false
+    },
+    "q37": {
+      "pattern": "os\\.Executable\\s*\\(|exec\\.LookPath\\s*\\(|(?:exec|executable|binary)[_\\w]*(?:path|file|location)|(?:path|locate)[_\\w]*(?:executable|binary)|os\\.Args\\[0\\]|/proc/self/exe",
+      "retried": false
+    },
+    "q38": {
+      "pattern": "inner_?html|\\.Html\\s*\\(|(?:get|extract)[_\\w]*inner[_\\w]*(?:html|markup)|goquery\\.NodeHtml",
+      "retried": false
+    },
+    "q40": {
+      "pattern": "http\\.StatusText\\s*\\(|status[_\\w]*(?:text|description|message)|(?:describe|description|text)[_\\w]*status|reason_?phrase",
+      "retried": false
+    },
+    "q41": {
+      "pattern": "(?:group[_\\w]*(?:count|size)|count[_\\w]*(?:group|by)|frequency[_\\w]*(?:map|table)|histogram)|\\b\\w*(?:counts|frequencies)\\w*\\s*\\[[^\\]\\n]+\\]\\s*(?:\\+\\+|\\+=)",
+      "retried": false
+    },
+    "q42": {
+      "pattern": "(?:count|num|number)[_\\w]*(?:distinct|unique)|(?:distinct|unique)[_\\w]*(?:count|size)|\\blen\\s*\\(\\s*(?:seen|unique|distinct|set)\\w*\\s*\\)|\\b(?:seen|unique|distinct)\\w*\\s*(?::=|=)\\s*make\\s*\\(\\s*map\\[",
+      "retried": false
+    },
+    "q43": {
+      "pattern": "heat_?map|(?:voxel|point_?cloud|coord\\w*|3d)[_\\w]*(?:density|heat|histogram)|(?:density|heat|histogram)[_\\w]*(?:voxel|point_?cloud|3d)",
+      "retried": false
+    },
+    "q44": {
+      "pattern": "(?:is|check|get)[_\\w]*checked\\b|checkbox[_\\w]*(?:checked|state|value)|\\.Checked\\b|(?:Get|Has)?Attr(?:ibute)?\\s*\\(\\s*\"checked\"|:checked",
+      "retried": false
+    },
+    "q45": {
+      "pattern": "(?:is|valid|validate|check|contains|lookup)[_\\w]*word\\b|word[_\\w]*(?:valid|check|exists)|spell[_\\w]*check|(?:dictionary|dict|lexicon)\\w*\\.(?:Contains|Has|Lookup|Find|Check)\\s*\\(|\\b(?:hunspell|aspell)\\b",
+      "retried": false
+    },
+    "q46": {
+      "pattern": "\\b(?:empty|clear|reset|truncate)_?(?:array|slice)\\w*\\b|\\b\\w+\\s*=\\s*\\w+\\[:0\\]",
+      "retried": false
+    },
+    "q47": {
+      "pattern": "\\b(?:unzip|extract_?zip|zip_?extract|extract_?archive)\\w*\\b|\\bzip\\.(?:OpenReader|NewReader)\\s*\\(",
+      "retried": false
+    },
+    "q48": {
+      "pattern": "\\btime\\.Now\\s*\\(|\\b(?:get_?)?(?:current_?date|today)\\b",
+      "retried": false
+    },
+    "q50": {
+      "pattern": "\\b(?:get|fetch|download|retrieve|scrape)_?(?:html|web_?page|page_?source)\\w*\\b|\\bgoquery\\.NewDocument(?:FromReader)?\\s*\\(",
+      "retried": false
+    },
+    "q52": {
+      "pattern": "\\brand\\.(?:Intn|Int31n|Int63n|IntN|Int32N|Int64N|Float32|Float64|Int)\\s*\\(|\\b(?:random_?(?:number|int|integer)|rand_?(?:num|int))\\w*\\b",
+      "retried": false
+    },
+    "q54": {
+      "pattern": "\\bgzip\\.NewReader\\s*\\(|\\b(?:read|decode|decompress|extract)_?(?:gzip|gz)\\w*\\b|\\bgunzip\\w*\\b",
+      "retried": false
+    },
+    "q55": {
+      "pattern": "\\b(?:reverse_?(?:string|str|runes)|(?:string|str)_?reverse)\\w*\\b",
+      "retried": false
+    },
+    "q56": {
+      "pattern": "\\b(?:html\\.EscapeString|template\\.HTMLEscapeString|template\\.HTMLEscape)\\s*\\(|\\b(?:html_?(?:encode|escape)|(?:encode|escape)_?html)\\w*\\b",
+      "retried": false
+    },
+    "q57": {
+      "pattern": "\\bhtml\\.UnescapeString\\s*\\(|\\b(?:html_?(?:decode|unescape)|(?:decode|unescape)_?html|(?:replace|decode|unescape)_?(?:html_?)?entit(?:y|ies))\\w*\\b",
+      "retried": false
+    },
+    "q58": {
+      "pattern": "\\b(?:post_?json|json_?post)\\w*\\b|\\b(?:http|client)\\.Post\\s*\\([^\\r\\n]*[\"`]application/json\\b|\\b(?:NewRequest|NewRequestWithContext)\\s*\\([^\\r\\n]*(?:\"POST\"|http\\.MethodPost)",
+      "retried": false
+    },
+    "q59": {
+      "pattern": "\\b(?:init(?:ialize)?|new|make|create)_?(?:array|slice)\\w*\\b|\\bmake\\s*\\(\\s*\\[\\]|\\[(?:\\d+|\\.\\.\\.)?\\](?:\\w+\\.)?\\w+\\s*\\{",
+      "retried": false
+    },
+    "q60": {
+      "pattern": "\\b(?:json_?(?:to_?|2)xml|convert_?json_?to_?xml|xml_?from_?json)\\w*\\b",
+      "retried": false
+    },
+    "q61": {
+      "pattern": "\\bk_?means\\w*\\b|\\blloyd\\w*\\b",
+      "retried": false
+    },
+    "q62": {
+      "pattern": "\\b(?:linear_?regression|lin_?reg|ordinary_?least_?squares|ols_?(?:fit|regression))\\w*\\b",
+      "retried": false
+    },
+    "q63": {
+      "pattern": "\\b(?:map_?(?:to_?|2)json|json_?from_?map|(?:marshal|encode|serialize)_?map|map_?(?:marshal|encode|serialize))\\w*\\b|\\bjson\\.Marshal(?:Indent)?\\s*\\(\\s*map\\s*\\[",
+      "retried": false
+    },
+    "q64": {
+      "pattern": "\\b(?:mat_?mul|matrix_?(?:mul|multiply|multiplication|product)|multiply_?(?:matrices|matrix)|[sdcz]gemm)\\w*\\b|\\bmat\\.Dense\\b",
+      "retried": false
+    },
+    "q66": {
+      "pattern": "\\bnelder_?mead\\w*\\b|\\b(?:downhill_?simplex|simplex_?(?:minimi[sz]e|optimi[sz]e))\\w*\\b",
+      "retried": false
+    },
+    "q68": {
+      "pattern": "\\b(?:write|save|export|output|render)_?(?:to_?)?html\\w*\\b|\\b(?:Create|WriteFile|OpenFile)\\s*\\([^\\r\\n]*\\.html?[\"`]",
+      "retried": false
+    },
+    "q70": {
+      "pattern": "\\bflag\\.(?:Parse|Args|Arg|String|StringVar|Int|IntVar|Bool|BoolVar)\\s*\\(|\\bos\\.Args\\b|\\b(?:parse_?(?:args|arguments|command_?line)|cobra\\.Command|cli\\.App)\\b",
+      "retried": false
+    },
+    "q71": {
+      "pattern": "\\b(?:read|load|parse|decode)_?json_?file\\w*\\b|\\bjson\\.NewDecoder\\s*\\(|\\b(?:ReadFile|Open)\\s*\\([^\\r\\n]*\\.json[\"`]",
+      "retried": false
+    },
+    "q72": {
+      "pattern": "\\b(?:ParseQuery|QueryUnescape)\\b|\\b(?:parse|decode)_?(?:url_?)?query(?:_?string)?\\b|\\.Query\\(\\)",
+      "retried": false
+    },
+    "q73": {
+      "pattern": "\\b(?:strings\\.(?:Index|LastIndex)(?:Any|Byte|Rune)?|FindAllStringIndex)\\b|\\b(?:find|all|substring|substr)_?(?:indices|indexes|positions|occurrences)\\b",
+      "retried": false
+    },
+    "q74": {
+      "pattern": "\\b(?:postgres(?:ql)?|pgx|pq\\.(?:Connect|NewConnector)|pgconn|pgxpool)\\b",
+      "retried": false
+    },
+    "q75": {
+      "pattern": "\\b(?:MarshalIndent|SetIndent|json\\.Indent)\\b|\\b(?:pretty_?(?:print_?)?json|json_?(?:pretty|indent|format)|pretty_?print)\\b",
+      "retried": false
+    },
+    "q76": {
+      "pattern": "\\b(?:(?:print|show|display)_?(?:model_?)?summary|model_?summary|summarize_?model)\\b|\\bmodel\\w*\\.Summary\\b",
+      "retried": false
+    },
+    "q77": {
+      "pattern": "\\b(?:priority_?queue|pqueue|prio_?queue|min_?heap|max_?heap)\\b|\"container/heap\"",
+      "retried": false
+    },
+    "q78": {
+      "pattern": "\\b(?:(?:random_?)?sample_?(?:items|list|slice|without_?replacement)|(?:random|rand)_?(?:sample|subset|pick|select)|(?:pick|select|choose)_?(?:random|rand|n))\\b|\\brand\\.(?:Perm|Shuffle)\\b",
+      "retried": false
+    },
+    "q79": {
+      "pattern": "\\b(?:read|load|parse)_?(?:properties|props)(?:_?file)?\\b|\\bproperties\\.(?:Load\\w*|MustLoad\\w*|Read\\w*|Parse\\w*)\\b|\\.properties\\b",
+      "retried": false
+    },
+    "q80": {
+      "pattern": "\\bbufio\\.NewScanner\\b|\\b(?:ReadString|ReadBytes|ReadLine|ScanLines)\\b|\\b(?:read|scan)_?(?:file_?)?(?:lines|line_?by_?line)\\b",
+      "retried": false
+    },
+    "q81": {
+      "pattern": "\\b(?:Find|FindAll|QuerySelector|QuerySelectorAll|GetElementsByTagName)\\s*\\(\\s*[\"`]td\\b|\\bData\\s*==\\s*\"td\"|\\b(?:read|extract|parse)_?(?:table_?cells?|td)\\b",
+      "retried": false
+    },
+    "q82": {
+      "pattern": "\\b(?:read_?only|immutable|frozen)_?(?:array|slice|list)\\b|\\b(?:array|slice|list)_?(?:read_?only|immutable|view)\\b",
+      "retried": false
+    },
+    "q83": {
+      "pattern": "\\(\\?[imsU-]*i[imsU-]*[):]|\\b(?:(?:regex|regexp)_?(?:ignore_?case|case_?insensitive)|(?:ignore_?case|case_?insensitive)_?(?:regex|regexp))\\b",
+      "retried": false
+    },
+    "q84": {
+      "pattern": "\\b(?:replace|substitute)_?(?:text_?|string_?|all_?|in_?)*(?:file|file_?contents?)\\b|\\bfile_?(?:replace|replace_?all)\\b|\\b(?:search|find)_?and_?replace\\b",
+      "retried": false
+    },
+    "q86": {
+      "pattern": "\\b(?:scatter_?plot|NewScatter|AddScatter|Scatter|ScatterChart)\\b",
+      "retried": false
+    },
+    "q88": {
+      "pattern": "\\b(?:FILE_ATTRIBUTE_HIDDEN|FileAttributeHidden|SetFileAttributes\\w*|set_?(?:file_?)?hidden|hide_?file)\\b",
+      "retried": false
+    },
+    "q90": {
+      "pattern": "\\b(?:SetReadDeadline|SO_RCVTIMEO|ReadTimeout|RecvTimeout|ReceiveTimeout|socket_?(?:recv|read)_?timeout)\\b",
+      "retried": false
+    },
+    "q91": {
+      "pattern": "\\bsort\\.(?:Strings|StringsAreSorted|StringSlice)\\b|\\b(?:sort_?(?:string_?(?:list|slice|array)|strings)|(?:strings|string_?(?:list|slice|array))_?sort)\\b|\\bslices\\.Sort(?:Func)?\\s*\\(\\s*(?:strings|names|words)\\b",
+      "retried": false
+    },
+    "q92": {
+      "pattern": "\\b(?:argsort|arg_sort|sort_?(?:indices|indexes|permutation|parallel|paired|together)|(?:parallel|paired|coupled|multi)_?sort|(?:apply|sort_?by)_?permutation|sort_?by_?(?:another|other|reference|keys))\\b",
+      "retried": false
+    },
+    "q94": {
+      "pattern": "\\btime\\.Parse(?:InLocation)?\\b|\\b(?:strptime|dateparse|(?:string|str)_?to_?(?:date|time)|parse_?(?:date|datetime|timestamp))\\b",
+      "retried": false
+    },
+    "q95": {
+      "pattern": "\\b(?:underline_?(?:text|label)|(?:text|label)_?underline|SetUnderline|TextStyleUnderline)\\b|\\bUnderline\\s*:\\s*true\\b|text-decoration\\s*:\\s*underline",
+      "retried": false
+    },
+    "q96": {
+      "pattern": "\\b\\w*(?:unique|distinct|dedup(?:licate)?|uniq)(?:\\w*)\\b",
+      "retried": false
+    },
+    "q97": {
+      "pattern": "\\b\\w*(?:unzip|extract_?zip|zip_?extract|decompress_?zip)\\w*\\b|\\bzip\\.(?:OpenReader|NewReader)\\b",
+      "retried": false
+    },
+    "q98": {
+      "pattern": "\\b(?:csv\\.NewWriter|\\w*(?:write_?csv|csv_?writ(?:e|er|ing)|export_?csv|csv_?export|encode_?csv|csv_?encod(?:e|er)|to_?csv)\\w*)\\b",
+      "retried": false
+    }
+  }
+}

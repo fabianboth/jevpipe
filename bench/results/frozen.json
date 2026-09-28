@@ -1,0 +1,10 @@
+{
+  "jevpipe": {
+    "wording": 4,
+    "question": "Does this function implement \"{query}\"?"
+  },
+  "deepseek": {
+    "wording": 3,
+    "question": "Would a developer searching for \"{query}\" want to use this function?"
+  }
+}

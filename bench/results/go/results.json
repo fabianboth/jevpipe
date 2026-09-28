@@ -1,0 +1,487 @@
+{
+  "dataset": {
+    "repository": "github/CodeSearchNet",
+    "commit": "106e827405c968597da938f6b373d30183918869",
+    "file": "resources/annotationStore.csv",
+    "language": "Go",
+    "snippets": 161,
+    "missing": 4,
+    "dev_queries": 0,
+    "test_queries": 83
+  },
+  "dates": {
+    "first": "2026-09-28",
+    "last": "2026-09-28"
+  },
+  "models": {
+    "jevpipe": {
+      "model": "typesafe/jev-1.13",
+      "resolved_model": ["typesafe/jev-1.13-20260917"],
+      "wording": 4,
+      "question": "Does this function implement \"{query}\"?",
+      "threshold": 0.5
+    },
+    "deepseek": {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "resolved_model": ["deepseek/deepseek-v4.1-flash"],
+      "wording": 3,
+      "question": "Would a developer searching for \"{query}\" want to use this function?",
+      "threshold": 0.5
+    },
+    "deepseek_providers": {
+      "Wafer": 6752,
+      "Sail Research": 2345,
+      "DekaLLM": 1223,
+      "StreamLake": 521,
+      "GMICloud": 507,
+      "CoreWeave": 456,
+      "NextBit": 421,
+      "Fireworks": 346,
+      "Phala": 218,
+      "Together": 203,
+      "DigitalOcean": 188,
+      "Makora": 183
+    },
+    "grep": {
+      "version": "ripgrep 15.2.0 (rev e89fff89ac)"
+    },
+    "agent": "gpt-6-astra"
+  },
+  "contenders": {
+    "grep-any": {
+      "found": 70.45,
+      "false_hits": 2833.55,
+      "known_relevant": 85.45,
+      "precision": 0.0243,
+      "recall": 0.8245,
+      "f1": 0.0471,
+      "estimated": true,
+      "unjudged": 0,
+      "seconds_median": 0.0428,
+      "seconds_p90": 0.1069,
+      "cost_per_1000": 0.0,
+      "median_per_1000": {
+        "seconds": 0.2659,
+        "cost": 0.0
+      }
+    },
+    "grep-all": {
+      "found": 27,
+      "false_hits": 45,
+      "known_relevant": 79,
+      "precision": 0.375,
+      "recall": 0.3418,
+      "f1": 0.3576,
+      "estimated": false,
+      "unjudged": 0,
+      "seconds_median": 0.1191,
+      "seconds_p90": 0.2564,
+      "cost_per_1000": 0.0,
+      "median_per_1000": {
+        "seconds": 0.74,
+        "cost": 0.0
+      }
+    },
+    "grep-agent": {
+      "found": 44,
+      "false_hits": 72,
+      "known_relevant": 79,
+      "precision": 0.3793,
+      "recall": 0.557,
+      "f1": 0.4513,
+      "estimated": false,
+      "unjudged": 0,
+      "seconds_median": 0.0404,
+      "seconds_p90": 0.0622,
+      "cost_per_1000": 0.0,
+      "median_per_1000": {
+        "seconds": 0.2507,
+        "cost": 0.0
+      }
+    },
+    "jevpipe": {
+      "found": 49,
+      "false_hits": 50,
+      "known_relevant": 79,
+      "precision": 0.4949,
+      "recall": 0.6203,
+      "f1": 0.5506,
+      "estimated": false,
+      "unjudged": 0,
+      "seconds_median": 2.74,
+      "seconds_p90": 4.244,
+      "cost_per_1000": 0.0193,
+      "median_per_1000": {
+        "seconds": 17.0186,
+        "cost": 0.0193
+      }
+    },
+    "deepseek": {
+      "found": 41,
+      "false_hits": 40,
+      "known_relevant": 79,
+      "precision": 0.5062,
+      "recall": 0.519,
+      "f1": 0.5125,
+      "estimated": false,
+      "unjudged": 0,
+      "seconds_median": 4.33,
+      "seconds_p90": 8.236,
+      "cost_per_1000": 0.0196,
+      "median_per_1000": {
+        "seconds": 26.8944,
+        "cost": 0.0193
+      }
+    }
+  },
+  "sweep": {
+    "jevpipe": [
+      {
+        "threshold": 0.3,
+        "found": 63,
+        "false_hits": 93,
+        "known_relevant": 79,
+        "precision": 0.4038,
+        "recall": 0.7975,
+        "f1": 0.5362
+      },
+      {
+        "threshold": 0.35,
+        "found": 61,
+        "false_hits": 78,
+        "known_relevant": 79,
+        "precision": 0.4388,
+        "recall": 0.7722,
+        "f1": 0.5596
+      },
+      {
+        "threshold": 0.4,
+        "found": 60,
+        "false_hits": 70,
+        "known_relevant": 79,
+        "precision": 0.4615,
+        "recall": 0.7595,
+        "f1": 0.5742
+      },
+      {
+        "threshold": 0.45,
+        "found": 54,
+        "false_hits": 61,
+        "known_relevant": 79,
+        "precision": 0.4696,
+        "recall": 0.6835,
+        "f1": 0.5567
+      },
+      {
+        "threshold": 0.5,
+        "found": 49,
+        "false_hits": 50,
+        "known_relevant": 79,
+        "precision": 0.4949,
+        "recall": 0.6203,
+        "f1": 0.5506
+      },
+      {
+        "threshold": 0.55,
+        "found": 48,
+        "false_hits": 41,
+        "known_relevant": 79,
+        "precision": 0.5393,
+        "recall": 0.6076,
+        "f1": 0.5714
+      },
+      {
+        "threshold": 0.6,
+        "found": 44,
+        "false_hits": 37,
+        "known_relevant": 79,
+        "precision": 0.5432,
+        "recall": 0.557,
+        "f1": 0.55
+      },
+      {
+        "threshold": 0.65,
+        "found": 40,
+        "false_hits": 30,
+        "known_relevant": 79,
+        "precision": 0.5714,
+        "recall": 0.5063,
+        "f1": 0.5369
+      },
+      {
+        "threshold": 0.7,
+        "found": 37,
+        "false_hits": 25,
+        "known_relevant": 79,
+        "precision": 0.5968,
+        "recall": 0.4684,
+        "f1": 0.5248
+      },
+      {
+        "threshold": 0.75,
+        "found": 34,
+        "false_hits": 22,
+        "known_relevant": 79,
+        "precision": 0.6071,
+        "recall": 0.4304,
+        "f1": 0.5037
+      },
+      {
+        "threshold": 0.8,
+        "found": 30,
+        "false_hits": 15,
+        "known_relevant": 79,
+        "precision": 0.6667,
+        "recall": 0.3797,
+        "f1": 0.4839
+      },
+      {
+        "threshold": 0.85,
+        "found": 26,
+        "false_hits": 10,
+        "known_relevant": 79,
+        "precision": 0.7222,
+        "recall": 0.3291,
+        "f1": 0.4522
+      },
+      {
+        "threshold": 0.9,
+        "found": 19,
+        "false_hits": 8,
+        "known_relevant": 79,
+        "precision": 0.7037,
+        "recall": 0.2405,
+        "f1": 0.3585
+      }
+    ],
+    "deepseek": [
+      {
+        "threshold": 0.3,
+        "found": 49,
+        "false_hits": 48,
+        "known_relevant": 79,
+        "precision": 0.5052,
+        "recall": 0.6203,
+        "f1": 0.5568
+      },
+      {
+        "threshold": 0.35,
+        "found": 47,
+        "false_hits": 47,
+        "known_relevant": 79,
+        "precision": 0.5,
+        "recall": 0.5949,
+        "f1": 0.5434
+      },
+      {
+        "threshold": 0.4,
+        "found": 45,
+        "false_hits": 44,
+        "known_relevant": 79,
+        "precision": 0.5056,
+        "recall": 0.5696,
+        "f1": 0.5357
+      },
+      {
+        "threshold": 0.45,
+        "found": 44,
+        "false_hits": 41,
+        "known_relevant": 79,
+        "precision": 0.5176,
+        "recall": 0.557,
+        "f1": 0.5366
+      },
+      {
+        "threshold": 0.5,
+        "found": 41,
+        "false_hits": 40,
+        "known_relevant": 79,
+        "precision": 0.5062,
+        "recall": 0.519,
+        "f1": 0.5125
+      },
+      {
+        "threshold": 0.55,
+        "found": 41,
+        "false_hits": 40,
+        "known_relevant": 79,
+        "precision": 0.5062,
+        "recall": 0.519,
+        "f1": 0.5125
+      },
+      {
+        "threshold": 0.6,
+        "found": 40,
+        "false_hits": 39,
+        "known_relevant": 79,
+        "precision": 0.5063,
+        "recall": 0.5063,
+        "f1": 0.5063
+      },
+      {
+        "threshold": 0.65,
+        "found": 39,
+        "false_hits": 38,
+        "known_relevant": 79,
+        "precision": 0.5065,
+        "recall": 0.4937,
+        "f1": 0.5
+      },
+      {
+        "threshold": 0.7,
+        "found": 39,
+        "false_hits": 38,
+        "known_relevant": 79,
+        "precision": 0.5065,
+        "recall": 0.4937,
+        "f1": 0.5
+      },
+      {
+        "threshold": 0.75,
+        "found": 39,
+        "false_hits": 37,
+        "known_relevant": 79,
+        "precision": 0.5132,
+        "recall": 0.4937,
+        "f1": 0.5032
+      },
+      {
+        "threshold": 0.8,
+        "found": 37,
+        "false_hits": 36,
+        "known_relevant": 79,
+        "precision": 0.5068,
+        "recall": 0.4684,
+        "f1": 0.4868
+      },
+      {
+        "threshold": 0.85,
+        "found": 36,
+        "false_hits": 32,
+        "known_relevant": 79,
+        "precision": 0.5294,
+        "recall": 0.4557,
+        "f1": 0.4898
+      },
+      {
+        "threshold": 0.9,
+        "found": 36,
+        "false_hits": 27,
+        "known_relevant": 79,
+        "precision": 0.5714,
+        "recall": 0.4557,
+        "f1": 0.507
+      }
+    ]
+  },
+  "bands": {
+    "jevpipe": [
+      {
+        "confidence": "0.5-0.6",
+        "decisions": 48,
+        "accuracy": 0.5
+      },
+      {
+        "confidence": "0.6-0.7",
+        "decisions": 43,
+        "accuracy": 0.6512
+      },
+      {
+        "confidence": "0.7-0.8",
+        "decisions": 42,
+        "accuracy": 0.6667
+      },
+      {
+        "confidence": "0.8-0.9",
+        "decisions": 68,
+        "accuracy": 0.8529
+      },
+      {
+        "confidence": "0.9-1.0",
+        "decisions": 2094,
+        "accuracy": 0.9919
+      }
+    ],
+    "deepseek": [
+      {
+        "confidence": "0.5-0.6",
+        "decisions": 10,
+        "accuracy": 0.5
+      },
+      {
+        "confidence": "0.6-0.7",
+        "decisions": 10,
+        "accuracy": 0.5
+      },
+      {
+        "confidence": "0.7-0.8",
+        "decisions": 14,
+        "accuracy": 0.7143
+      },
+      {
+        "confidence": "0.8-0.9",
+        "decisions": 16,
+        "accuracy": 0.3125
+      },
+      {
+        "confidence": "0.9-1.0",
+        "decisions": 2245,
+        "accuracy": 0.9764
+      }
+    ]
+  },
+  "missed": {
+    "sampled": 830,
+    "relevant_in_sample": 0,
+    "unflagged": 10402,
+    "estimate": 0.0,
+    "estimated_relevant": 85.45,
+    "recall_against_estimate": {
+      "grep-agent": 0.5149,
+      "jevpipe": 0.5734,
+      "deepseek": 0.4798
+    }
+  },
+  "judge": {
+    "model": "gpt-6-astra",
+    "selected_pairs": 2295,
+    "judged_pairs": 2295,
+    "validation_pairs": 162,
+    "against_experts": {
+      "pairs": 162,
+      "same_verdict": 0.7963,
+      "found": 28,
+      "false_hits": 21,
+      "known_relevant": 40,
+      "precision": 0.5714,
+      "recall": 0.7,
+      "f1": 0.6292
+    },
+    "pairs_rated_twice": 0,
+    "on_pairs_rated_twice": null,
+    "expert_against_experts": null,
+    "passed": false
+  },
+  "repeat": {
+    "queries": [],
+    "changed_share": null
+  },
+  "tally": {
+    "jevpipe": {
+      "decisions": 13363,
+      "failed": 0,
+      "skipped": 0,
+      "without_probability": 0
+    },
+    "deepseek": {
+      "decisions": 13363,
+      "failed": 0,
+      "skipped": 0,
+      "without_probability": 0
+    }
+  },
+  "spend": {
+    "jevpipe": 0.2585,
+    "deepseek": 0.262
+  }
+}

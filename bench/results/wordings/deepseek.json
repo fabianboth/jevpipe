@@ -1,0 +1,113 @@
+{
+  "model": "deepseek/deepseek-v4.1-flash",
+  "trials": [
+    {
+      "wording": 1,
+      "f1": 0.6518518518518519,
+      "cost": 0.00518706139,
+      "decisions": {
+        "q01": [true, false, false, false, false, true, false, false, true, false],
+        "q03": [false, false, true, false, true, false, false, false, true, false],
+        "q06": [true, true, true, true, true, true, true, true, true, true],
+        "q13": [false, false, false, false, true, false, false, false, false],
+        "q14": [false, false, false, false, false, false, false, true, true, true],
+        "q20": [false, false, false, false, false, false, false, false, false, false],
+        "q31": [true, false, true, true, true, true, false, false, true, true],
+        "q32": [true, false, false, true, true, false, false, true, false, false],
+        "q45": [true, false, false, false, false, false, false, false, false, false],
+        "q47": [false, false, false, false, false, false, false],
+        "q48": [false, true, true, true, true, true, false, false, false],
+        "q59": [false, false, false, true, true, false, false, false, true, false],
+        "q60": [false, false, false, false, false, false, false, false, false],
+        "q67": [true, true, true, false, true, false, false, false, true, true],
+        "q69": [false, false, false, true, false, false, false, true, false, false],
+        "q73": [true, false, false, false, true, false, false, false, false, false],
+        "q79": [false, false, false, false, false, false, false, false, false],
+        "q83": [true, true, false, false, false, false, false, false, true, true],
+        "q88": [false, false, false, false, false, false, false, false, false, false],
+        "q94": [true, true, false, false, false, true, false, true, true]
+      }
+    },
+    {
+      "wording": 2,
+      "f1": 0.6808510638297872,
+      "cost": 0.00565719444,
+      "decisions": {
+        "q01": [true, false, false, false, false, true, false, false, true, false],
+        "q03": [false, false, true, false, true, false, false, false, true, false],
+        "q06": [true, true, true, true, true, true, true, true, false, true],
+        "q13": [false, false, false, false, true, false, false, false, false],
+        "q14": [false, false, false, false, false, false, false, true, true, true],
+        "q20": [false, false, false, false, false, false, false, false, false, false],
+        "q31": [true, false, true, true, true, true, false, true, false, true],
+        "q32": [false, false, false, true, true, false, false, true, false, false],
+        "q45": [true, false, false, false, false, false, false, false, false, false],
+        "q47": [false, false, false, false, false, false, false],
+        "q48": [false, true, false, false, true, true, false, false, false],
+        "q59": [false, false, false, true, true, false, false, false, true, false],
+        "q60": [false, false, false, false, false, false, false, false, false],
+        "q67": [true, true, true, false, true, true, false, true, true, true],
+        "q69": [true, false, false, true, true, true, false, true, false, false],
+        "q73": [true, false, false, false, true, false, true, false, false, false],
+        "q79": [false, true, false, false, false, true, false, false, false],
+        "q83": [true, true, false, false, false, true, true, false, true, false],
+        "q88": [false, false, false, false, false, false, false, false, false, false],
+        "q94": [true, true, true, false, false, true, false, true, true]
+      }
+    },
+    {
+      "wording": 3,
+      "f1": 0.7066666666666668,
+      "cost": 0.00566000691,
+      "decisions": {
+        "q01": [true, false, false, false, false, true, false, false, true, false],
+        "q03": [false, false, true, true, true, false, false, true, true, false],
+        "q06": [true, true, true, true, true, true, true, true, true, true],
+        "q13": [false, true, false, false, true, false, false, false, false],
+        "q14": [false, false, false, false, true, false, false, true, true, true],
+        "q20": [false, false, false, false, false, false, false, false, false, false],
+        "q31": [true, false, true, true, true, true, true, false, true, false],
+        "q32": [true, false, true, true, true, false, false, true, false, true],
+        "q45": [true, false, false, false, false, false, false, false, false, false],
+        "q47": [false, false, true, true, false, false, true],
+        "q48": [false, true, true, true, true, true, false, false, false],
+        "q59": [false, false, false, true, true, true, false, false, true, false],
+        "q60": [false, false, false, false, false, false, false, false, false],
+        "q67": [true, true, true, false, true, false, false, false, true, true],
+        "q69": [false, true, false, true, false, true, true, false, false, false],
+        "q73": [true, false, false, false, true, false, false, false, false, false],
+        "q79": [false, true, false, false, false, true, false, false, false],
+        "q83": [false, true, false, false, false, true, true, false, true, true],
+        "q88": [false, false, false, false, false, false, false, false, false, false],
+        "q94": [true, true, true, false, false, false, false, true, true]
+      }
+    },
+    {
+      "wording": 4,
+      "f1": 0.7012987012987013,
+      "cost": 0.00591299593,
+      "decisions": {
+        "q01": [true, false, false, false, false, true, false, false, true, false],
+        "q03": [true, false, true, false, true, false, false, false, true, false],
+        "q06": [true, true, true, true, true, true, true, true, true, true],
+        "q13": [false, false, false, false, true, false, false, false, false],
+        "q14": [false, false, false, false, true, false, false, true, true, true],
+        "q20": [false, false, false, false, false, false, false, false, false, false],
+        "q31": [true, false, true, true, true, true, true, false, true, false],
+        "q32": [false, false, false, true, true, false, false, true, false, false],
+        "q45": [true, false, false, false, false, false, false, false, false, false],
+        "q47": [false, false, false, false, false, false, false],
+        "q48": [false, true, true, true, true, true, false, false, false],
+        "q59": [false, false, true, true, true, true, true, true, true, false],
+        "q60": [false, false, false, false, false, false, false, false, false],
+        "q67": [true, true, false, false, true, true, false, false, true, true],
+        "q69": [true, false, false, true, true, true, true, true, false, false],
+        "q73": [true, false, false, false, true, false, false, false, false, true],
+        "q79": [false, true, true, true, true, true, false, false, true],
+        "q83": [true, true, false, false, false, true, true, false, true, true],
+        "q88": [false, false, false, false, false, false, false, false, false, false],
+        "q94": [true, true, true, false, false, true, false, true, true]
+      }
+    }
+  ]
+}

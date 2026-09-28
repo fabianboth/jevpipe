@@ -1,0 +1,45 @@
+[project]
+name = "bench"
+version = "0.0.0"
+description = "jevpipe against grep and a cheap LLM on the CodeSearchNet Challenge"
+requires-python = ">=3.14"
+dependencies = [
+    "httpx",
+    "matplotlib",
+]
+
+[dependency-groups]
+dev = ["ruff", "pyright", "pytest"]
+
+[project.scripts]
+bench = "bench.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.8.23,<0.9"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = ["D", "CPY", "COM812", "ISC001", "T201", "S311", "S603", "TC"]
+
+[tool.ruff.lint.pylint]
+max-args = 3
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "PLR2004", "INP001"]
+
+[tool.pyright]
+typeCheckingMode = "strict"
+pythonVersion = "3.14"
+include = ["src", "tests"]
+
+[[tool.pyright.executionEnvironments]]
+root = "src/bench/plots"
+reportUnknownMemberType = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,15 @@
+{
+  "source": "AY Automate, Jev vs GPT and Claude: Independent Benchmark",
+  "url": "https://www.ayautomate.com/blog/jev-vs-llm-benchmark",
+  "published": "2026-09-19",
+  "tasks": ["8-way intent routing", "77-way intent routing", "prompt-injection detection"],
+  "datasets": ["Banking77", "deepset/prompt-injections"],
+  "decisions": 791,
+  "models": {
+    "Jev 1.13": {"accuracy": [0.838, 0.788, 0.870], "cost_per_1000": [0.015, 0.040, 0.014], "median_seconds": 0.33},
+    "GPT-5.4 nano": {"accuracy": [0.900, 0.784, 0.808], "cost_per_1000": [0.070, 0.205, 0.081], "median_seconds": 1.15},
+    "Gemini 3.5 Flash-Lite": {"accuracy": [0.775, 0.784, 0.868], "cost_per_1000": [0.087, 0.301, 0.086], "median_seconds": 0.67},
+    "Claude Haiku 4.5": {"accuracy": [0.788, 0.762, 0.890], "cost_per_1000": [0.357, 1.255, 0.344], "median_seconds": 1.02},
+    "GPT-5.6 Terra": {"accuracy": [0.894, 0.840, 0.868], "cost_per_1000": [0.609, 1.957, 0.673], "median_seconds": 1.17}
+  }
+}

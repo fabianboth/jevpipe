@@ -1,0 +1,109 @@
+# Contract: stored results
+
+Everything under `bench/results/` is committed; `bench/.cache/` is not (downloads and snippet code).
+Files are JSON, UTF-8, LF, two-space indent with lists of plain values on one line, written to a
+temporary file and renamed, so a file exists only when its unit is complete. No file holds snippet code
+or a key.
+
+## `pool.json`
+
+```json
+{
+  "dataset": {"repository": "github/CodeSearchNet", "commit": "106e8274…", "file": "resources/annotationStore.csv"},
+  "snippets": [{"name": "0000.py", "url": "https://github.com/…#L10-L20", "sha256": "…"}],
+  "missing": ["https://github.com/…"]
+}
+```
+
+## `ratings.json`
+
+The experts' ratings of the pool's pairs, each rating as given (their mean decides relevance), so
+`score` needs no download:
+
+```json
+{"q00": {"0151.py": [3, 2], "0248.py": [0]}}
+```
+
+## `split.json`
+
+```json
+{"seed": 5, "queries": [{"id": "q00", "text": "aes encryption", "split": "test"}], "repeat": ["q17", "…"]}
+```
+
+## `patterns.json`
+
+```json
+{"model": "gpt-6-astra", "written": "2026-…", "patterns": {"q00": {"pattern": "aes|cipher", "retried": false}}}
+```
+
+## `wordings/<model>.json` and `frozen.json`
+
+```json
+{"model": "typesafe/jev-1.13", "trials": [{"wording": 1, "f1": 0.66, "cost": 0.004, "decisions": {"q03": [0.12, 0.8]}}]}
+```
+
+`decisions` per dev query in the order of that query's rated pairs (by snippet name): Jev's
+probabilities, DeepSeek's yes/no answers.
+
+```json
+{"jevpipe": {"wording": 2, "question": "Is this code a good result for the code search \"{query}\"?"},
+ "deepseek": {"wording": 1, "question": "…"}}
+```
+
+## `runs/<query>.json` and `repeat/<query>.json`
+
+```json
+{
+  "query": "q00",
+  "grep": {"version": "ripgrep 15.2.0", "any": [3, 17], "all": [17], "agent": [17, 402],
+           "seconds": {"any": 0.04, "all": 0.05, "agent": 0.04}},
+  "jevpipe": {"model": "typesafe/jev-1.13", "resolved_model": "typesafe/jev-1.13-20260917", "started": "…",
+              "first": true, "wall_seconds": 8.7, "cost": 0.0204, "failed": 0, "skipped": 0,
+              "probability": [0.1, 0.0, 0.9]},
+  "deepseek": {"model": "deepseek/deepseek-v4.1-flash", "resolved_model": "…", "started": "…",
+               "first": false, "wall_seconds": 20.1, "cost": 0.0547, "failed": 0,
+               "providers": {"DeepInfra": 512}, "answer": [false, false, true], "probability": [0.02, null, 0.97]}
+}
+```
+
+`grep` lists pool indexes of hits; model arrays are in pool order with `null` for no decision.
+`repeat/` files hold only the two model entries.
+
+## `judge/selection.json` and `judge/<NNN>.json`
+
+```json
+{"seed": 5, "complete": true, "items": [{"id": "j00001", "query": "q00", "snippet": "0402.py", "reasons": ["validation"]}]}
+```
+
+```json
+{"batch": 12, "model": "gpt-6-astra", "judged": "…", "seconds": 31.2, "ratings": {"j00001": 3}}
+```
+
+The validation items come first (`j00001` onward) and can be selected before every query has run;
+`complete` turns true when the hits and samples are appended after them. Validation items and the rest
+are batched apart, 40 per batch in `selection.json` order, so a rerun judges the same batches and the
+gate reads whole validation batches.
+
+## `results.json`, `numbers.md`, `chart.png` and the method page's figures
+
+`results.json`: `dataset`, `dates`, `models` (requested and resolved versions, wordings, thresholds,
+DeepSeek's providers, the ripgrep version), `contenders` (found, false hits, known relevant,
+precision, recall, F1, `estimated` for the any-keyword grep, unjudged hits, median and
+90th-percentile seconds including a retry pass, mean cost per 1,000 records, and the median seconds
+and cost per 1,000 over searches), `sweep`, `bands` (accuracy `null` for an empty band), `missed`
+(with the estimated number of relevant pairs and each tool's recall against it), `judge` (the
+judge's verdicts against the experts on every expert-rated pair and, where at least 30 pairs were
+rated twice, on those pairs against the other experts, next to one expert against the others;
+`null` where too few), `repeat` (`changed_share` `null` without repeats), `tally` (decisions,
+failures, skips, answers without a probability) and `spend`. `numbers.md`: the same as Markdown tables for the method
+page. Both exist per language (`results/` for Python, `results/<language>/` for the others).
+`languages.json`: the thresholds, each language's test searches, pool size, judge check and
+contenders, and three groups (`python`, `pooled` over the languages whose judge passed, and
+`pooled_with_every_language`), each with its contenders, bootstrap `gaps`, median `per_1000`
+seconds and cost (`median_per_1000`), `sweep` and `bands`. `licenses.json`: the lookup date and each
+source repository's SPDX license id. `chart.png`: the README chart. `languages.png`,
+`tradeoff.png`, `calibration.png` and `times.png`: the method page's figures over the pooled
+languages; `wordings.png`: the Python dev queries. All are regenerated by `score` from the files
+above alone. `classification.png`, the README's classification chart, is redrawn by `score` from
+`bench/data/ayautomate-2026-09.json`: the published numbers of the independent study, with its
+source and date.

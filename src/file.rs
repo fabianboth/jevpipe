@@ -12,6 +12,14 @@ pub(crate) struct Content {
     pub(crate) truncated: bool,
 }
 
+impl Content {
+    pub(crate) fn halve(&mut self) -> bool {
+        let halved = text::halve(&mut self.text);
+        self.truncated |= halved;
+        halved
+    }
+}
+
 pub(crate) enum Unjudged {
     Skipped(Skip),
     Failed(Failure),

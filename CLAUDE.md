@@ -27,7 +27,9 @@ with `uv tool install jevpipe`.
 ## Layout
 `src/` for product code (`main.rs` only wires the CLI; the logic lives in the library crate `lib.rs`),
 `tests/` for integration tests, `skills/jevpipe/` for the agent skill, `examples/` for the example
-pipelines.
+pipelines. `bench/` is the code search benchmark: its own uv project (Python, ruff, pyright strict,
+pytest), run by hand stage by stage (`uv run bench <stage>`), results committed in `bench/results/`,
+downloads in the gitignored `bench/.cache/`; the product never depends on it.
 
 ## Code Style
 - NO COMMENTS. We strive for self-explanatory code style. Needing one normally means the code is not good enough (names, functions, extraction) — improve the code instead. The exception is a fact the code *cannot* state like an external API's behaviour. Doc comments on clap types are not comments: they are the `--help` text.
@@ -57,6 +59,9 @@ pipelines.
 - `-Filter <text>` narrows the test stage to tests whose name contains the text, to iterate fast
 - `-Stage <names>` runs only those stages (`-Stage test`, `-Stage format,lint`).
 - CI (`.github/workflows/ci.yml`) runs the same script and is the authority.
+- `bench/check.ps1 [-Fix]` checks the benchmark offline (ruff format, ruff check, pyright strict,
+  pytest; needs ripgrep on the path). `.github/workflows/bench.yml` runs it only when `bench/`
+  changes, outside the required gate. Its rule levels live in `bench/pyproject.toml`, never in code.
 
 ## Releases
 - A tag `vMAJOR.MINOR.PATCH` equal to the `Cargo.toml` version runs `.github/workflows/release.yml`:

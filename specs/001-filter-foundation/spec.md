@@ -102,7 +102,7 @@ all valid for `jq`.
 - **Threshold outside 0 to 1**: usage error, exit status 2.
 - **No API key configured**: clear error naming the expected environment variable, before any input is read, exit status 2.
 - **Run-level service errors** (key rejected, no credits left, unknown model, malformed request): the run stops at the first such error with a clear message and exit status 2, because every further record would fail the same way.
-- **Service still rejects a truncated file as too large** (dense text such as minified code uses more tokens per character): the record fails with the reason "too large".
+- **Service still rejects a truncated file as too large** (dense text such as minified code uses more tokens per character): the content is halved and sent again, up to three times while at least 1,000 characters remain; if the service still rejects it, the record fails with the reason "too large". (Added after the code search benchmark, 005, met two minified bundles.)
 - **Rate limiting**: treated like any transient failure, retried after the wait the service asks for. A user who hits limits persistently lowers `--concurrency`.
 - **A request hangs**: it is abandoned after a per-request timeout and treated as a transient failure.
 - **Very long input stream**: memory use stays bounded; records are read, judged and emitted as a stream, not collected first.
@@ -121,7 +121,7 @@ all valid for `jq`.
 - **FR-003**: Lines that are JSON (JSONL) MUST be judged as text like any other line and emitted unchanged, so JSONL input yields JSONL output.
 - **FR-004**: With `--read-files`, each record MUST be treated as a file path; the file's path and text content MUST be judged together, and the path is the record that is emitted.
 - **FR-005**: With `--read-files`, binary, non-UTF-8, empty files and directories MUST be skipped without a service call; missing or unreadable paths MUST fail that record.
-- **FR-006**: With `--read-files`, content beyond the service's size limit MUST be truncated to fit (about 100,000 characters, leaving room for the question); if the service still rejects it as too large, the record fails.
+- **FR-006**: With `--read-files`, content beyond the service's size limit MUST be truncated to fit (about 100,000 characters, leaving room for the question); if the service still rejects it as too large, the content MUST be halved and sent again, up to three times while at least 1,000 characters remain, and only then does the record fail.
 
 **Deciding**
 

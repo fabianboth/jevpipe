@@ -1,0 +1,508 @@
+{
+  "dataset": {
+    "repository": "github/CodeSearchNet",
+    "commit": "106e827405c968597da938f6b373d30183918869",
+    "file": "resources/annotationStore.csv",
+    "language": "Python",
+    "snippets": 943,
+    "missing": 31,
+    "dev_queries": 20,
+    "test_queries": 79
+  },
+  "dates": {
+    "first": "2026-09-27",
+    "last": "2026-09-28"
+  },
+  "models": {
+    "jevpipe": {
+      "model": "typesafe/jev-1.13",
+      "resolved_model": ["typesafe/jev-1.13-20260917"],
+      "wording": 4,
+      "question": "Does this function implement \"{query}\"?",
+      "threshold": 0.5
+    },
+    "deepseek": {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "resolved_model": ["deepseek/deepseek-v4.1-flash"],
+      "wording": 3,
+      "question": "Would a developer searching for \"{query}\" want to use this function?",
+      "threshold": 0.5
+    },
+    "deepseek_providers": {
+      "Wafer": 38244,
+      "Sail Research": 16175,
+      "DekaLLM": 10671,
+      "StreamLake": 5713,
+      "GMICloud": 4819,
+      "CoreWeave": 4067,
+      "NextBit": 3399,
+      "Fireworks": 3211,
+      "Phala": 1991,
+      "Together": 1704,
+      "Makora": 1690,
+      "DigitalOcean": 1673
+    },
+    "grep": {
+      "version": "ripgrep 15.2.0 (rev e89fff89ac)"
+    },
+    "agent": "gpt-6-astra"
+  },
+  "contenders": {
+    "grep-any": {
+      "found": 654.95,
+      "false_hits": 15554.05,
+      "known_relevant": 694.95,
+      "precision": 0.0404,
+      "recall": 0.9424,
+      "f1": 0.0775,
+      "estimated": true,
+      "unjudged": 0,
+      "seconds_median": 0.0898,
+      "seconds_p90": 0.0943,
+      "cost_per_1000": 0.0,
+      "median_per_1000": {
+        "seconds": 0.0952,
+        "cost": 0.0
+      }
+    },
+    "grep-all": {
+      "found": 181,
+      "false_hits": 217,
+      "known_relevant": 604,
+      "precision": 0.4548,
+      "recall": 0.2997,
+      "f1": 0.3613,
+      "estimated": false,
+      "unjudged": 0,
+      "seconds_median": 0.2553,
+      "seconds_p90": 0.4284,
+      "cost_per_1000": 0.0,
+      "median_per_1000": {
+        "seconds": 0.2707,
+        "cost": 0.0
+      }
+    },
+    "grep-agent": {
+      "found": 333,
+      "false_hits": 232,
+      "known_relevant": 604,
+      "precision": 0.5894,
+      "recall": 0.5513,
+      "f1": 0.5697,
+      "estimated": false,
+      "unjudged": 0,
+      "seconds_median": 0.0914,
+      "seconds_p90": 0.0976,
+      "cost_per_1000": 0.0,
+      "median_per_1000": {
+        "seconds": 0.0969,
+        "cost": 0.0
+      }
+    },
+    "jevpipe": {
+      "found": 431,
+      "false_hits": 213,
+      "known_relevant": 604,
+      "precision": 0.6693,
+      "recall": 0.7136,
+      "f1": 0.6907,
+      "estimated": false,
+      "unjudged": 0,
+      "seconds_median": 6.17,
+      "seconds_p90": 8.298,
+      "cost_per_1000": 0.0205,
+      "median_per_1000": {
+        "seconds": 6.5429,
+        "cost": 0.0205
+      }
+    },
+    "deepseek": {
+      "found": 398,
+      "false_hits": 228,
+      "known_relevant": 604,
+      "precision": 0.6358,
+      "recall": 0.6589,
+      "f1": 0.6472,
+      "estimated": false,
+      "unjudged": 0,
+      "seconds_median": 14.19,
+      "seconds_p90": 19.972,
+      "cost_per_1000": 0.0272,
+      "median_per_1000": {
+        "seconds": 15.0477,
+        "cost": 0.0271
+      }
+    }
+  },
+  "sweep": {
+    "jevpipe": [
+      {
+        "threshold": 0.3,
+        "found": 485,
+        "false_hits": 400,
+        "known_relevant": 604,
+        "precision": 0.548,
+        "recall": 0.803,
+        "f1": 0.6514
+      },
+      {
+        "threshold": 0.35,
+        "found": 475,
+        "false_hits": 342,
+        "known_relevant": 604,
+        "precision": 0.5814,
+        "recall": 0.7864,
+        "f1": 0.6685
+      },
+      {
+        "threshold": 0.4,
+        "found": 461,
+        "false_hits": 297,
+        "known_relevant": 604,
+        "precision": 0.6082,
+        "recall": 0.7632,
+        "f1": 0.6769
+      },
+      {
+        "threshold": 0.45,
+        "found": 451,
+        "false_hits": 258,
+        "known_relevant": 604,
+        "precision": 0.6361,
+        "recall": 0.7467,
+        "f1": 0.687
+      },
+      {
+        "threshold": 0.5,
+        "found": 431,
+        "false_hits": 213,
+        "known_relevant": 604,
+        "precision": 0.6693,
+        "recall": 0.7136,
+        "f1": 0.6907
+      },
+      {
+        "threshold": 0.55,
+        "found": 414,
+        "false_hits": 189,
+        "known_relevant": 604,
+        "precision": 0.6866,
+        "recall": 0.6854,
+        "f1": 0.686
+      },
+      {
+        "threshold": 0.6,
+        "found": 398,
+        "false_hits": 159,
+        "known_relevant": 604,
+        "precision": 0.7145,
+        "recall": 0.6589,
+        "f1": 0.6856
+      },
+      {
+        "threshold": 0.65,
+        "found": 378,
+        "false_hits": 137,
+        "known_relevant": 604,
+        "precision": 0.734,
+        "recall": 0.6258,
+        "f1": 0.6756
+      },
+      {
+        "threshold": 0.7,
+        "found": 353,
+        "false_hits": 120,
+        "known_relevant": 604,
+        "precision": 0.7463,
+        "recall": 0.5844,
+        "f1": 0.6555
+      },
+      {
+        "threshold": 0.75,
+        "found": 324,
+        "false_hits": 99,
+        "known_relevant": 604,
+        "precision": 0.766,
+        "recall": 0.5364,
+        "f1": 0.631
+      },
+      {
+        "threshold": 0.8,
+        "found": 302,
+        "false_hits": 85,
+        "known_relevant": 604,
+        "precision": 0.7804,
+        "recall": 0.5,
+        "f1": 0.6095
+      },
+      {
+        "threshold": 0.85,
+        "found": 248,
+        "false_hits": 65,
+        "known_relevant": 604,
+        "precision": 0.7923,
+        "recall": 0.4106,
+        "f1": 0.5409
+      },
+      {
+        "threshold": 0.9,
+        "found": 190,
+        "false_hits": 42,
+        "known_relevant": 604,
+        "precision": 0.819,
+        "recall": 0.3146,
+        "f1": 0.4545
+      }
+    ],
+    "deepseek": [
+      {
+        "threshold": 0.3,
+        "found": 427,
+        "false_hits": 282,
+        "known_relevant": 604,
+        "precision": 0.6023,
+        "recall": 0.707,
+        "f1": 0.6504
+      },
+      {
+        "threshold": 0.35,
+        "found": 417,
+        "false_hits": 262,
+        "known_relevant": 604,
+        "precision": 0.6141,
+        "recall": 0.6904,
+        "f1": 0.65
+      },
+      {
+        "threshold": 0.4,
+        "found": 414,
+        "false_hits": 255,
+        "known_relevant": 604,
+        "precision": 0.6188,
+        "recall": 0.6854,
+        "f1": 0.6504
+      },
+      {
+        "threshold": 0.45,
+        "found": 405,
+        "false_hits": 239,
+        "known_relevant": 604,
+        "precision": 0.6289,
+        "recall": 0.6705,
+        "f1": 0.649
+      },
+      {
+        "threshold": 0.5,
+        "found": 398,
+        "false_hits": 228,
+        "known_relevant": 604,
+        "precision": 0.6358,
+        "recall": 0.6589,
+        "f1": 0.6472
+      },
+      {
+        "threshold": 0.55,
+        "found": 393,
+        "false_hits": 224,
+        "known_relevant": 604,
+        "precision": 0.637,
+        "recall": 0.6507,
+        "f1": 0.6437
+      },
+      {
+        "threshold": 0.6,
+        "found": 384,
+        "false_hits": 216,
+        "known_relevant": 604,
+        "precision": 0.64,
+        "recall": 0.6358,
+        "f1": 0.6379
+      },
+      {
+        "threshold": 0.65,
+        "found": 379,
+        "false_hits": 202,
+        "known_relevant": 604,
+        "precision": 0.6523,
+        "recall": 0.6275,
+        "f1": 0.6397
+      },
+      {
+        "threshold": 0.7,
+        "found": 371,
+        "false_hits": 189,
+        "known_relevant": 604,
+        "precision": 0.6625,
+        "recall": 0.6142,
+        "f1": 0.6375
+      },
+      {
+        "threshold": 0.75,
+        "found": 357,
+        "false_hits": 173,
+        "known_relevant": 604,
+        "precision": 0.6736,
+        "recall": 0.5911,
+        "f1": 0.6296
+      },
+      {
+        "threshold": 0.8,
+        "found": 347,
+        "false_hits": 161,
+        "known_relevant": 604,
+        "precision": 0.6831,
+        "recall": 0.5745,
+        "f1": 0.6241
+      },
+      {
+        "threshold": 0.85,
+        "found": 339,
+        "false_hits": 154,
+        "known_relevant": 604,
+        "precision": 0.6876,
+        "recall": 0.5613,
+        "f1": 0.618
+      },
+      {
+        "threshold": 0.9,
+        "found": 320,
+        "false_hits": 146,
+        "known_relevant": 604,
+        "precision": 0.6867,
+        "recall": 0.5298,
+        "f1": 0.5981
+      }
+    ]
+  },
+  "bands": {
+    "jevpipe": [
+      {
+        "confidence": "0.5-0.6",
+        "decisions": 192,
+        "accuracy": 0.5729
+      },
+      {
+        "confidence": "0.6-0.7",
+        "decisions": 206,
+        "accuracy": 0.6942
+      },
+      {
+        "confidence": "0.7-0.8",
+        "decisions": 175,
+        "accuracy": 0.6171
+      },
+      {
+        "confidence": "0.8-0.9",
+        "decisions": 305,
+        "accuracy": 0.7344
+      },
+      {
+        "confidence": "0.9-1.0",
+        "decisions": 2832,
+        "accuracy": 0.9672
+      }
+    ],
+    "deepseek": [
+      {
+        "confidence": "0.5-0.6",
+        "decisions": 69,
+        "accuracy": 0.5942
+      },
+      {
+        "confidence": "0.6-0.7",
+        "decisions": 80,
+        "accuracy": 0.5
+      },
+      {
+        "confidence": "0.7-0.8",
+        "decisions": 86,
+        "accuracy": 0.4884
+      },
+      {
+        "confidence": "0.8-0.9",
+        "decisions": 91,
+        "accuracy": 0.5385
+      },
+      {
+        "confidence": "0.9-1.0",
+        "decisions": 3384,
+        "accuracy": 0.9173
+      }
+    ]
+  },
+  "missed": {
+    "sampled": 790,
+    "relevant_in_sample": 0,
+    "unflagged": 58133,
+    "estimate": 0.0,
+    "estimated_relevant": 694.95,
+    "recall_against_estimate": {
+      "grep-agent": 0.4792,
+      "jevpipe": 0.6202,
+      "deepseek": 0.5727
+    }
+  },
+  "judge": {
+    "model": "gpt-6-astra",
+    "selected_pairs": 4813,
+    "judged_pairs": 4813,
+    "validation_pairs": 956,
+    "against_experts": {
+      "pairs": 956,
+      "same_verdict": 0.7636,
+      "found": 330,
+      "false_hits": 129,
+      "known_relevant": 427,
+      "precision": 0.719,
+      "recall": 0.7728,
+      "f1": 0.7449
+    },
+    "pairs_rated_twice": 848,
+    "on_pairs_rated_twice": {
+      "pairs": 848,
+      "same_verdict": 0.7406,
+      "found": 311,
+      "false_hits": 97,
+      "known_relevant": 434,
+      "precision": 0.7623,
+      "recall": 0.7166,
+      "f1": 0.7387
+    },
+    "expert_against_experts": {
+      "pairs": 848,
+      "same_verdict": 0.704,
+      "found": 309,
+      "false_hits": 126,
+      "known_relevant": 434,
+      "precision": 0.7103,
+      "recall": 0.712,
+      "f1": 0.7112
+    },
+    "passed": true
+  },
+  "repeat": {
+    "queries": ["q05", "q40", "q56", "q75", "q85"],
+    "changed_share": {
+      "jevpipe": 0.0002,
+      "deepseek": 0.0015
+    }
+  },
+  "tally": {
+    "jevpipe": {
+      "decisions": 93357,
+      "failed": 0,
+      "skipped": 0,
+      "without_probability": 0
+    },
+    "deepseek": {
+      "decisions": 93357,
+      "failed": 0,
+      "skipped": 0,
+      "without_probability": 0
+    }
+  },
+  "spend": {
+    "jevpipe": 1.9132,
+    "deepseek": 2.5404
+  }
+}
