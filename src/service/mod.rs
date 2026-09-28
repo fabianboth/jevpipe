@@ -1,11 +1,13 @@
 mod error;
 
+use std::cell::Cell;
 use std::time::Duration;
 
 use backon::{ExponentialBuilder, Retryable};
 use reqwest::{Client, Response};
 use serde::{Deserialize, Serialize};
 use serde_json::value::RawValue;
+use tokio::time;
 
 use crate::answers::{Answers, UnexpectedAnswer};
 use crate::auth::ApiKey;
@@ -14,7 +16,7 @@ use crate::questions::Questions;
 use crate::settings::Settings;
 use crate::tokens::Tokens;
 
-pub(crate) use error::{Exhausted, ServiceError};
+pub(crate) use error::{Exhausted, ServiceError, Unavailable};
 
 const ENDPOINT: &str = "/v1/systemone";
 const RETRY: ExponentialBuilder = ExponentialBuilder::new()
@@ -41,6 +43,7 @@ pub(crate) struct Service {
     client: Client,
     config: ServiceConfig,
     model: String,
+    request_timeout: Duration,
 }
 
 #[derive(Serialize)]
@@ -85,12 +88,12 @@ impl Service {
     pub(crate) fn new(config: ServiceConfig, settings: &Settings) -> reqwest::Result<Self> {
         let client = Client::builder()
             .user_agent(concat!("jevpipe/", env!("CARGO_PKG_VERSION")))
-            .timeout(settings.request_timeout)
             .build()?;
         Ok(Self {
             client,
             config,
             model: settings.model.clone(),
+            request_timeout: settings.request_timeout,
         })
     }
 
@@ -99,11 +102,23 @@ impl Service {
         questions: &Questions,
         state: &State<'_>,
     ) -> Result<Reply, ServiceError> {
-        (|| self.send(questions, state))
+        let last_cause = Cell::new(Unavailable::TimedOut);
+        let answer = (|| self.send(questions, state))
             .retry(RETRY)
             .when(|error| matches!(error, ServiceError::Transient { .. }))
             .adjust(|error, delay| delay.map(|delay| error.retry_after().unwrap_or(delay)))
-            .await
+            .notify(|error, _| {
+                if let Some(cause) = error.cause() {
+                    last_cause.set(cause.clone());
+                }
+            });
+        let answered = time::timeout(self.request_timeout, answer).await;
+        answered.unwrap_or_else(|_elapsed| {
+            Err(ServiceError::Transient {
+                cause: last_cause.into_inner(),
+                retry_after: None,
+            })
+        })
     }
 
     async fn send(&self, questions: &Questions, state: &State<'_>) -> Result<Reply, ServiceError> {

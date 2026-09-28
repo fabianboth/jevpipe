@@ -1,6 +1,8 @@
 use std::fmt;
 use std::io;
 
+use crate::service::Unavailable;
+
 #[derive(Clone, Copy)]
 pub(crate) enum Skip {
     Directory,
@@ -14,7 +16,7 @@ pub(crate) enum Failure {
     NotText,
     Utf16,
     TooLarge,
-    ServiceUnavailable,
+    ServiceUnavailable(Unavailable),
 }
 
 impl From<io::Error> for Failure {
@@ -43,7 +45,7 @@ impl fmt::Display for Failure {
             Self::NotText => formatter.write_str("not text"),
             Self::Utf16 => formatter.write_str("UTF-16, convert it to UTF-8"),
             Self::TooLarge => formatter.write_str("too large"),
-            Self::ServiceUnavailable => formatter.write_str("service unavailable"),
+            Self::ServiceUnavailable(cause) => write!(formatter, "service unavailable ({cause})"),
         }
     }
 }

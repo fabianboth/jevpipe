@@ -29,7 +29,9 @@ with `uv tool install jevpipe`.
 ## Layout
 `src/` for product code (`main.rs` only wires the CLI; the logic lives in the library crate `lib.rs`),
 `tests/` for integration tests, `skills/jevpipe/` for the agent skill, `examples/` for the example
-pipelines. `bench/` is the code search benchmark: its own uv project (Python, ruff, pyright strict,
+pipelines, `demo/` for the README's terminal recording (a [VHS](https://github.com/charmbracelet/vhs)
+tape, re-recorded by hand from the repo root with `vhs demo/demo.tape`; its bash needs jevpipe, jq,
+python3 and `TYPESAFE_API_KEY`). `bench/` is the code search benchmark: its own uv project (Python, ruff, pyright strict,
 pytest), run by hand stage by stage (`uv run bench <stage>`), results committed in `bench/results/`,
 downloads in the gitignored `bench/.cache/`; the product never depends on it.
 

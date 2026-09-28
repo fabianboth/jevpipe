@@ -135,6 +135,29 @@ async fn retries_wait_only_as_long_as_the_service_asks() {
 }
 
 #[tokio::test]
+async fn retries_end_when_the_request_timeout_is_spent_and_name_the_last_failure() {
+    let stand_in = StandIn::start().await;
+    let started = Instant::now();
+
+    stand_in
+        .filter()
+        .args(["--request-timeout", "3s"])
+        .write_stdin("a p=0.9 fail=503x9 after=2\nb p=0.9\n")
+        .assert()
+        .code(2)
+        .stdout("b p=0.9\n")
+        .stderr(contains(
+            "jevpipe: line 1: service unavailable (503 Service Unavailable: Provider returned error)\n",
+        ));
+
+    assert!(
+        started.elapsed() < Duration::from_secs(6),
+        "the retries outlasted --request-timeout 3s: {:?}",
+        started.elapsed()
+    );
+}
+
+#[tokio::test]
 async fn a_record_failing_after_all_retries_is_reported_and_the_others_still_judged() {
     let stand_in = StandIn::start().await;
 
@@ -144,7 +167,9 @@ async fn a_record_failing_after_all_retries_is_reported_and_the_others_still_jud
         .assert()
         .code(2)
         .stdout("a p=0.9\nc p=0.9\n")
-        .stderr(contains("jevpipe: line 2: service unavailable\n"))
+        .stderr(contains(
+            "jevpipe: line 2: service unavailable (503 Service Unavailable: Provider returned error)\n",
+        ))
         .stderr(contains("3 records, 2 kept, 0 skipped, 1 failed"));
 
     assert_eq!(stand_in.requests().await.len(), 7);

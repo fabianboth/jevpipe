@@ -118,7 +118,9 @@ async fn a_record_failing_after_all_retries_gets_a_failed_line_and_the_others_ar
         .write_stdin("a p=0.9\nb fail=503x9\nc\n")
         .assert()
         .code(2)
-        .stderr(contains("jevpipe: line 2: service unavailable\n"))
+        .stderr(contains(
+            "jevpipe: line 2: service unavailable (503 Service Unavailable: Provider returned error)\n",
+        ))
         .stderr(contains("3 records, 2 answered, 0 skipped, 1 failed"));
 
     let lines = json_lines(output.get_output());
@@ -126,7 +128,11 @@ async fn a_record_failing_after_all_retries_gets_a_failed_line_and_the_others_ar
     assert_eq!(lines[0]["answers"]["relevant"]["noul"], 0.9);
     assert_eq!(
         lines[1],
-        json!({"record": "b fail=503x9", "outcome": "failed", "reason": "service unavailable"})
+        json!({
+            "record": "b fail=503x9",
+            "outcome": "failed",
+            "reason": "service unavailable (503 Service Unavailable: Provider returned error)"
+        })
     );
     assert_eq!(lines[2]["record"], "c");
     assert!(lines[2]["answers"].is_object());

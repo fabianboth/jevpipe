@@ -10,7 +10,7 @@ reviews:
     - "Cargo.toml"
     - "pyproject.toml"
     - "README.md"
-    - "LICENSE"
+    - "LICENSE-*"
     - "clippy.toml"
     - "deny.toml"
     - "rustfmt.toml"
