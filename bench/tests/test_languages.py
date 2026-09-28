@@ -56,6 +56,7 @@ def test_languages_with_files_deepseek_read_in_full_are_left_out_of_cost() -> No
     javascript = sample.scored(store.SUITES["javascript"])
 
     assert languages.costed([_PYTHON, javascript, _JAVA]) == [_PYTHON, _JAVA]
+    assert languages.costed([javascript]) == [javascript]
 
 
 def test_searches_decisions_and_names() -> None:

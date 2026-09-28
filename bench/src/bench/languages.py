@@ -68,7 +68,8 @@ def median_per_1000(everything: Sequence[metrics.Scored], contender: Contender) 
 
 
 def costed(everything: Sequence[metrics.Scored]) -> list[metrics.Scored]:
-    return [s for s in everything if s.data.suite.language not in READ_IN_FULL_BY_DEEPSEEK]
+    fair = [s for s in everything if s.data.suite.language not in READ_IN_FULL_BY_DEEPSEEK]
+    return fair or list(everything)
 
 
 def spend_per_1000(everything: Sequence[metrics.Scored], contender: Contender) -> float:
