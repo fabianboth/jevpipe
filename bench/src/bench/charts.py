@@ -191,8 +191,8 @@ def _tradeoff(pooled: list[metrics.Scored]) -> figures.Tradeoff:
     lowest, highest = decisions.THRESHOLDS[0], decisions.THRESHOLDS[-1]
     header = style.Header(
         tradeoff_title(sweeps),
-        f"Precision and recall for thresholds {lowest} to {highest}; ringed: the threshold "
-        "chosen on the Python tuning searches. grep has none",
+        f"Precision and recall at thresholds {lowest} to {highest}; ringed: the one chosen on "
+        "the Python tuning searches",
         _footnote(pooled),
     )
     return figures.Tradeoff(header, curves, baselines)
