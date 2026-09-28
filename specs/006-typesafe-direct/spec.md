@@ -76,7 +76,9 @@ dollar cost, and both show the counts and time as before.
 ### User Story 3 - Limit a run by tokens (Priority: P3)
 
 A developer or agent adds `--max-tokens 5M` (or sets `max-tokens` in the config file) so that one run
-can never consume more than that many tokens. It works on both providers, and on TypeSafe it is the
+sends no new request once its reported tokens reach that many; requests already in flight still
+complete and count, so the total can end a little above the limit, as with `--max-cost`. It works
+on both providers, and on TypeSafe it is the
 way to cap spend, since tokens are what TypeSafe bills. It stops the run exactly like `--max-cost`:
 the prefix of decided output, one message naming the limit and the resume line, exit status 3.
 

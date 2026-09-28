@@ -23,7 +23,7 @@ The expected output:
 
 ```sh
 jevpipe auth set-key          # paste the TypeSafe key at "TypeSafe API key: "
-TYPESAFE_API_KEY= git log --oneline -5 | jevpipe filter "Does this commit fix a bug?"
+git log --oneline -5 | TYPESAFE_API_KEY= jevpipe filter "Does this commit fix a bug?"
 jevpipe config list           # "# API key: from the keychain"
 ```
 
