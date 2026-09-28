@@ -202,8 +202,21 @@ def pooled(group: Sequence[metrics.Scored]) -> dict[str, object]:
         "median_per_1000": {
             model: _per_1000(languages.median_per_1000(group, model)) for model in MODELS
         },
+        "cost_and_time": _cost_and_time(languages.costed(group)),
         "sweep": {model: _sweep(languages.sweep(group, model)) for model in MODELS},
         "bands": {model: bands_of(languages.bands(group, model)) for model in MODELS},
+    }
+
+
+def _cost_and_time(group: Sequence[metrics.Scored]) -> dict[str, object]:
+    return {
+        "languages": [scored.data.suite.language for scored in group],
+        "spend_per_1000": {
+            model: rounded(languages.spend_per_1000(group, model)) for model in MODELS
+        },
+        "median_seconds_per_1000": {
+            model: rounded(languages.median_per_1000(group, model).seconds) for model in MODELS
+        },
     }
 
 

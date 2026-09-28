@@ -20,6 +20,7 @@ def score() -> None:
     store.write_json(store.RESULTS / _LANGUAGES_FILE, report.all_languages(everything, passed))
     charts.draw_all(passed)
     charts.draw_languages(everything, passed)
+    charts.draw_studies()
     for scored in everything:
         print(_headline(scored))
 

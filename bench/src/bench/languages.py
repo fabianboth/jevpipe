@@ -8,6 +8,7 @@ from bench import bootstrap, counts, metrics
 from bench.contenders import Contender, Model
 from bench.counts import Counts
 
+READ_IN_FULL_BY_DEEPSEEK = frozenset({"javascript"})
 COMPARISONS: tuple[tuple[Contender, Contender], ...] = (
     ("jevpipe", "grep-agent"),
     ("jevpipe", "deepseek"),
@@ -64,6 +65,15 @@ def median_per_1000(everything: Sequence[metrics.Scored], contender: Contender) 
             for q in scored.data.ids("test")
         ),
     )
+
+
+def costed(everything: Sequence[metrics.Scored]) -> list[metrics.Scored]:
+    return [s for s in everything if s.data.suite.language not in READ_IN_FULL_BY_DEEPSEEK]
+
+
+def spend_per_1000(everything: Sequence[metrics.Scored], contender: Contender) -> float:
+    spend = sum(s.data.cost(q, contender) for s in everything for q in s.data.ids("test"))
+    return spend / decisions(everything) * 1000
 
 
 def seconds_per_1000(

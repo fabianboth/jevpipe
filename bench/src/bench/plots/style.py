@@ -22,6 +22,8 @@ _WIDTH_INCHES = 8.0
 _DPI = 200
 _HEADER_INCHES = 1.25
 _FOOTER_INCHES = 0.95
+_FOOTER_LINE_INCHES = 0.17
+_FOOTER_LINES = 2
 _RIGHT = 0.94
 
 
@@ -40,9 +42,11 @@ class Canvas:
 
 
 def canvas(header: Header, body_inches: float, left: float) -> Canvas:
-    height = _HEADER_INCHES + _FOOTER_INCHES + body_inches
+    extra_lines = max(0, header.footnote.count("\n") + 1 - _FOOTER_LINES)
+    footer = _FOOTER_INCHES + _FOOTER_LINE_INCHES * extra_lines
+    height = _HEADER_INCHES + footer + body_inches
     figure = Figure(figsize=(_WIDTH_INCHES, height), dpi=_DPI, facecolor=SURFACE)
-    bottom = _FOOTER_INCHES / height
+    bottom = footer / height
     top = 1 - _HEADER_INCHES / height
     axes = figure.add_axes((left, bottom, _RIGHT - left, top - bottom), facecolor=SURFACE)
     figure.text(

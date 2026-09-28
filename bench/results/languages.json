@@ -340,6 +340,17 @@
         "cost": 0.0271
       }
     },
+    "cost_and_time": {
+      "languages": ["python"],
+      "spend_per_1000": {
+        "jevpipe": 0.0205,
+        "deepseek": 0.0272
+      },
+      "median_seconds_per_1000": {
+        "jevpipe": 6.5429,
+        "deepseek": 15.0477
+      }
+    },
     "sweep": {
       "jevpipe": [
         {
@@ -696,6 +707,17 @@
         "cost": 0.0212
       }
     },
+    "cost_and_time": {
+      "languages": ["python", "java", "php", "ruby"],
+      "spend_per_1000": {
+        "jevpipe": 0.0198,
+        "deepseek": 0.0223
+      },
+      "median_seconds_per_1000": {
+        "jevpipe": 9.2678,
+        "deepseek": 20.0198
+      }
+    },
     "sweep": {
       "jevpipe": [
         {
@@ -1050,6 +1072,17 @@
       "deepseek": {
         "seconds": 24.2466,
         "cost": 0.021
+      }
+    },
+    "cost_and_time": {
+      "languages": ["python", "java", "php", "ruby", "go"],
+      "spend_per_1000": {
+        "jevpipe": 0.0198,
+        "deepseek": 0.0221
+      },
+      "median_seconds_per_1000": {
+        "jevpipe": 10.2055,
+        "deepseek": 22.0548
       }
     },
     "sweep": {

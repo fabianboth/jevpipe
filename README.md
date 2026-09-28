@@ -15,8 +15,8 @@
 <p>
 <a href="https://github.com/fabianboth/jevpipe#quick-start">Quick start</a> ·
 <a href="https://github.com/fabianboth/jevpipe#example">Example</a> ·
-<a href="https://github.com/fabianboth/jevpipe#does-it-beat-grep">Benchmark</a> ·
 <a href="https://github.com/fabianboth/jevpipe#use-cases">Use cases</a> ·
+<a href="https://github.com/fabianboth/jevpipe#measured">Measured</a> ·
 <a href="https://github.com/fabianboth/jevpipe#cost-and-speed">Cost</a>
 </p>
 
@@ -103,17 +103,6 @@ a second look.
 
 </details>
 
-## Does it beat grep?
-
-<img alt="Over 470 code searches in five languages, jevpipe found 1,272 relevant functions with 767 false hits, grep with an agent-written pattern 1,027 with 1,155, and DeepSeek V4.1 Flash 1,173 with 712." src="https://raw.githubusercontent.com/fabianboth/jevpipe/main/bench/results/chart.png" width="800">
-
-470 searches from the
-[extended CodeSearchNet Challenge](https://huggingface.co/datasets/Scoolar/codesearchnet-challenge-extended)
-in Python, Java, JavaScript, PHP and Ruby, each over every function of its language; September 2026,
-Jev 1.13 and DeepSeek V4.1 Flash.
-**[Read the full benchmark](https://github.com/fabianboth/jevpipe/blob/main/bench/README.md)**:
-every language, speed and cost, and the searches where jevpipe loses.
-
 ## Use cases
 
 Each item is judged on its own, so ask what the item itself can answer:
@@ -127,6 +116,22 @@ Each item is judged on its own, so ask what the item itself can answer:
 | Route a support inbox | Which team? How urgent? | choice, score |
 | Moderate a comment queue | Fine, spam or abusive? | choice |
 | Screen papers | How relevant is this abstract to my question? | score 1 to 5 |
+
+## Measured
+
+**Classification.** Jev against general LLMs on intent routing and prompt-injection detection,
+from an [independent study](https://www.ayautomate.com/blog/jev-vs-llm-benchmark):
+
+<img alt="Mean over three labelled tasks: Jev 1.13 reached 83.2% accuracy at $0.023 per 1,000 decisions and 0.33 s, GPT-5.4 nano 83.1% at $0.12, Claude Haiku 4.5 81.3% at $0.65, Gemini 3.5 Flash-Lite 80.9% at $0.16, and GPT-5.6 Terra 86.7% at $1.08." src="https://raw.githubusercontent.com/fabianboth/jevpipe/main/bench/results/classification.png" width="800">
+
+**Code search.** jevpipe in an agent's hands: 470 searches from the
+[extended CodeSearchNet Challenge](https://huggingface.co/datasets/Scoolar/codesearchnet-challenge-extended)
+in five languages, each over every function of its language.
+
+<img alt="Over 470 code searches in five languages, jevpipe found 1,272 relevant functions with 767 false hits, grep with an agent-written pattern 1,027 with 1,155, and DeepSeek V4.1 Flash 1,173 with 712." src="https://raw.githubusercontent.com/fabianboth/jevpipe/main/bench/results/chart.png" width="800">
+
+**[Read the full benchmark](https://github.com/fabianboth/jevpipe/blob/main/bench/README.md)**:
+every language, speed and cost, and the searches where jevpipe loses.
 
 ## Commands
 
@@ -148,15 +153,10 @@ git ls-files | jevpipe filter "Does this file retry failed requests?" --read-fil
 
 ## Cost and speed
 
-Every record is one request billed to your [OpenRouter](https://openrouter.ai) credit. The cost
-follows the size of each record; asking several questions at once barely changes it. Up to 100
-records run at the same time, so hundreds take seconds. Measured runs:
-
-| Input | Records | Time | Cost | Per 1,000 records |
-|---|---:|---:|---:|---:|
-| Commit messages (ripgrep 15.0) | 136 | 2.0 s | $0.0016 | $0.012 |
-| Small source files (jevpipe) | 31 | 1.4 s | $0.0013 | $0.043 |
-| Source files (ripgrep) | 88 | 2.2 s | $0.016 | $0.18 |
+Every record is one request billed to your [OpenRouter](https://openrouter.ai) credit, and the
+cost follows the size of each record: about a cent per 1,000 commit messages, 4 to 18 cents per
+1,000 source files. Asking several questions at once barely changes it. Up to 100 records run at
+the same time, so hundreds take seconds.
 
 `--max-cost 0.50` stops sending requests once the run has spent $0.50; it then exits with status 3
 and names the line to resume from.

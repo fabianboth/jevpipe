@@ -5,7 +5,8 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from matplotlib.axes import Axes
-from matplotlib.ticker import PercentFormatter
+from matplotlib.ticker import FuncFormatter, PercentFormatter
+from matplotlib.transforms import blended_transform_factory
 
 from bench.plots import style
 
@@ -16,6 +17,10 @@ _GOLDEN = 0.618033988749895
 _LABEL_SWITCH = 0.5
 _DODGE = 0.12
 _PADDING = 0.05
+_COST_ROW_INCHES = 0.5
+_COLUMN_WIDTH = 0.11
+_RIGHT_EDGE = 0.95
+_CENTS = 0.1
 
 
 @dataclass(frozen=True)
@@ -83,6 +88,82 @@ class Times:
     header: style.Header
     strips: tuple[Strip, ...]
     axis: str
+
+
+@dataclass(frozen=True)
+class CostRow:
+    name: str
+    cost: float
+    notes: tuple[str, ...]
+    stressed: bool
+
+
+@dataclass(frozen=True)
+class CostBars:
+    header: style.Header
+    rows: tuple[CostRow, ...]
+    columns: tuple[str, ...]
+    axis: str
+
+
+def cost_bars(chart: CostBars, path: Path) -> None:
+    target = style.canvas(chart.header, _COST_ROW_INCHES * len(chart.rows), 0.3)
+    axes = target.axes
+    box = axes.get_position()
+    right = _RIGHT_EDGE - _COLUMN_WIDTH * len(chart.columns) - 0.03
+    axes.set_position((box.x0, box.y0, right - box.x0, box.height))
+    largest = max(row.cost for row in chart.rows)
+    for place, row in zip(style.rows(len(chart.rows)), chart.rows, strict=True):
+        color = style.JEVPIPE if row.stressed else style.GREP
+        axes.barh(place, row.cost, height=0.56, color=color, linewidth=0)
+        axes.text(
+            row.cost + largest * 0.012,
+            place,
+            _money(row.cost),
+            va="center",
+            fontsize=9,
+            color=style.INK,
+            family=style.FONT,
+        )
+        _column_texts(axes, (place, row.notes), stressed=row.stressed)
+    _column_texts(axes, (len(chart.rows) - 0.4, chart.columns), stressed=False)
+    axes.set_xlim(0, largest * 1.1)
+    axes.xaxis.set_major_formatter(FuncFormatter(_dollars))
+    style.frame(axes, "x")
+    axes.spines["bottom"].set_visible(False)
+    style.row_labels(axes, [row.name for row in chart.rows], 10)
+    for label, row in zip(axes.get_yticklabels(), chart.rows, strict=True):
+        label.set_fontweight("bold" if row.stressed else "normal")
+    style.row_limits(axes, len(chart.rows))
+    style.axis_label(axes, chart.axis, "")
+    style.save(target.figure, path)
+
+
+def _column_texts(axes: Axes, line: tuple[float, tuple[str, ...]], *, stressed: bool) -> None:
+    place, texts = line
+    header = place % 1 != 0
+    column = blended_transform_factory(axes.figure.transFigure, axes.transData)
+    for number, text in enumerate(reversed(texts)):
+        axes.text(
+            _RIGHT_EDGE - _COLUMN_WIDTH * number,
+            place,
+            text,
+            transform=column,
+            ha="right",
+            va="bottom" if header else "center",
+            fontsize=8.5 if header else 10,
+            fontweight="bold" if stressed else "normal",
+            color=style.MUTED if header else style.INK,
+            family=style.FONT,
+        )
+
+
+def _money(value: float) -> str:
+    return f"${value:.2f}" if value >= _CENTS else f"${value:.2g}"
+
+
+def _dollars(value: float, _: int) -> str:
+    return f"${value:g}"
 
 
 def tradeoff(chart: Tradeoff, path: Path) -> None:

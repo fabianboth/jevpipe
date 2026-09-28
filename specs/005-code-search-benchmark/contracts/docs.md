@@ -2,16 +2,21 @@
 
 ## README
 
-A short section after the example, titled for the reader's question (for example "Does it beat
-grep?"):
+A short section after the use cases, "Measured", with two charts so that code search reads as
+one measured job next to classification:
 
-- the chart, as an image with an absolute `https://raw.githubusercontent.com/fabianboth/jevpipe/main/bench/results/chart.png` URL and alt text that states the result in words;
-- at most two sentences: what was searched (the test searches of the pooled languages, linked to the
-  published dataset on Hugging Face), the date and the model versions;
+- **Classification**: one sentence linking the independent study, then `classification.png`:
+  Jev against the study's LLMs (accuracy, cost, time), redrawn from its published numbers;
+- **Code search**: one sentence on what was searched (the test searches of the pooled languages,
+  linked to the published dataset on Hugging Face), then the chart; the date and model versions
+  are in the chart's footnote;
+- both images with absolute `https://raw.githubusercontent.com/fabianboth/jevpipe/main/bench/results/`
+  URLs and alt text that states the result in words;
 - a link to the method page (absolute GitHub URL, as all README links), worded as an invitation
   that names what is there beyond the chart.
 
-No table. The existing "Cost and speed" table stays as it is.
+No table. "Cost and speed" gives the price per 1,000 records in words (commit messages, source
+files) instead of its former table of three small runs.
 
 ## Chart
 

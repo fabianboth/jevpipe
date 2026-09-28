@@ -3,19 +3,20 @@
 *A small benchmark on the CodeSearchNet Challenge, September 2026.*
 
 **Abstract.** A coding agent that looks for "the code that does X" can grep, pipe the files through
-jevpipe, or write a script that asks a cheap LLM about every file. We gave all three the searches of
+jevpipe, or write a script that asks a cheap LLM about every file. All three got the searches of
 the CodeSearchNet Challenge in Python, Java, JavaScript, PHP and Ruby, each over every function of
 its language: 470 test searches and 235,559 yes/no decisions per tool. jevpipe found 1,272 of the
 1,784 relevant functions in the answer key with 767 false hits; grep with a pattern written by an
 agent found 1,027 with 1,155, and DeepSeek V4.1 Flash 1,173 with 712. jevpipe beats grep in every
-language, matches or slightly beats DeepSeek, and is more than twice as fast at about the same cost.
+language, matches or slightly beats DeepSeek, and is twice as fast and a little cheaper.
 
 <a id="figure-1"></a>
 
 ![jevpipe finds 24% more relevant code than grep, with fewer false hits](results/chart.png)
 
 *Figure 1. Relevant functions found (blue) and false hits (orange), summed over the 470 test
-searches in five languages. Below each tool: its median cost and time per 1,000 files.*
+searches in five languages. Below each tool: what it spent and its median time per 1,000 files,
+without JavaScript ([section 3.4](#34-twice-as-fast-and-a-little-cheaper)).*
 
 ## 1. The question
 
@@ -23,6 +24,12 @@ grep is instant and free, but it only finds what the agent guesses the code is c
 the code, but a script calling one per file is slow and costs money. jevpipe sits between: a small
 decision model that answers one yes/no question per file, 100 files at a time. Which one should an
 agent reach for when it needs to find code by what it does?
+
+Jev's accuracy as a classifier has been measured elsewhere, on labelled routing and detection tasks
+([an independent study](https://www.ayautomate.com/blog/jev-vs-llm-benchmark)) and on TypeSafe's own
+workflows ([TypeSafe](https://typesafe.ai/blog/introducing-system-one-models-and-jev)). This
+benchmark covers what those leave out: an agent's tool run over every file of a codebase, against
+what the agent would do otherwise.
 
 ## 2. The data
 
@@ -57,8 +64,8 @@ task.
 ### 2.2 One folder per language, every search
 
 An agent searching a codebase does not get a few hand-picked candidates; it gets the whole codebase.
-So for each language we put all its rated functions into one folder, one file each with a neutral
-name (`0000.py`, `0001.py`, …), and ran every search over every file. In Python that is 99 searches
+So each language's rated functions go into one folder, one file each with a neutral
+name (`0000.py`, `0001.py`, …), and every search runs over every file. In Python that is 99 searches
 over 943 functions: 93,357 yes/no decisions per tool. Over all six languages it is 267,782.
 
 ### 2.3 The gap, and a judge to fill it
@@ -85,7 +92,7 @@ check what they missed:
 | random sample: not even that grep matched it (10 per search) | 990 |
 | **total** | **4,813** |
 
-**Can a model stand in for the experts?** In every language we tested it first on the pairs the
+**Can a model stand in for the experts?** In every language it was tested first on the pairs the
 experts had rated, comparing verdicts (relevant or not):
 
 | | Python | Java | JavaScript | PHP | Ruby | Go |
@@ -95,8 +102,8 @@ experts had rated, comparing verdicts (relevant or not):
 | the judge passed the check set in advance | yes | yes | yes | yes | yes | **no** |
 
 Most pairs are irrelevant, so agreeing on them is easy; the check therefore looks at the relevant
-ones. Before judging, we required that the judge find most of the functions the experts called
-relevant and that most of the functions it calls relevant be ones the experts did too (an F1 of at
+ones. Before judging, the judge had to find most of the functions the experts called
+relevant, and most of the functions it called relevant had to be ones the experts did too (an F1 of at
 least 0.67; Python's experts reach 0.71 against each other). Only Python has enough pairs rated by
 two experts (848) to compare the experts with each other, and there the judge agrees with them more
 often than they agree among themselves: measured the same way on those 848 pairs, against the
@@ -123,7 +130,7 @@ jevpipe 0.62, DeepSeek 0.57, grep 0.48 ([appendix B](#appendix-b)).
 
 ### 2.5 Tuning and testing
 
-We set 20 of Python's 99 searches aside for tuning: on them, each model's question wording and
+Twenty of Python's 99 searches were set aside for tuning: on them, each model's question wording and
 threshold were chosen, once, for every language. The other 79 Python searches and every search in
 the other five languages are **test searches**. Nothing was tuned on them, and every result below
 comes from them, like practice questions and an exam.
@@ -213,14 +220,14 @@ answer key at 50% precision.*
 is, from 55% to 98%, so its probability is worth sorting by or thresholding. The pairs shown are the
 labelled ones, which lean towards hard cases.*
 
-### 3.4 Twice as fast, at about the same cost
+### 3.4 Twice as fast, and a little cheaper
 
 ![Time per 1,000 functions](results/times.png)
 
 *Figure 5. Each dot is one search over its language's folder, 100 requests in flight for both
-models, scaled to 1,000 functions; jevpipe's times include the second ask about the two JavaScript
-bundles. DeepSeek's long tail is JavaScript, where it reads those two minified bundles in full on
-every search. Without JavaScript the medians are 9 s for jevpipe and 20 s for DeepSeek. Run a second
+models, scaled to 1,000 functions. JavaScript is left out: its pool holds two minified bundles of
+0.3 and 1.3 MB, which jevpipe cut at 100,000 characters and DeepSeek read in full on every search,
+because the benchmark did not cut them for it. With JavaScript the medians are 10 s and 24 s. Run a second
 time on five Python searches, jevpipe changed 1 of 4,715 decisions and DeepSeek 7.*
 
 The cost depends on the code. DeepSeek is paid per token it reads, so its cost follows the length of
@@ -232,8 +239,10 @@ the functions; jevpipe cuts long files at 100,000 characters, so its cost rises 
 | jevpipe | $0.021 | $0.020 | $0.030 | $0.020 | $0.017 | $0.019 |
 | DeepSeek V4.1 Flash | $0.027 | $0.020 | $0.158 | $0.021 | $0.016 | $0.019 |
 
-JavaScript's pool holds two minified bundles of 0.3 and 1.3 MB, which DeepSeek reads in full on every
-search. In the other languages the two cost about the same, 2 to 3 cents per 1,000 files. Prices are
+In JavaScript the two bundles made DeepSeek's searches seven times as expensive as jevpipe's
+($6.13 against $0.87 for all 96), a cost of the setup rather than of the model, so every cost and
+time above leaves JavaScript out. Over the test searches of the other four pooled languages,
+jevpipe spent $4.08 and DeepSeek $4.60: $0.020 against $0.022 per 1,000 files. Prices are
 OpenRouter's in September 2026 and will change. Jev is TypeSafe's first System One model; DeepSeek
 V4.1 Flash is a mature, cache-priced model.
 

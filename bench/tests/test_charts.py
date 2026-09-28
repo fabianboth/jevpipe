@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from bench import charts, metrics
+from bench import charts, metrics, studies
 from bench.contenders import Model
 from bench.counts import Counts
 from bench.plots import figures, style
@@ -67,3 +67,19 @@ def test_figures_are_the_same_bytes_every_time(tmp_path: Path) -> None:
     figures.times(chart, second)
 
     assert first.read_bytes() == second.read_bytes()
+
+
+def _study(jev: tuple[float, float]) -> studies.Study:
+    results = (
+        studies.Result("Jev 1.13", jev[0], jev[1], 0.3),
+        studies.Result("small", 0.82, 0.12, 1.0),
+        studies.Result("large", 0.87, 1.1, 1.2),
+    )
+    return studies.Study("Source", "2026-09-19", ("task",), 100, results)
+
+
+def test_the_study_title_claims_small_llm_accuracy_only_when_jev_reaches_it() -> None:
+    assert charts.study_title(_study((0.83, 0.024))) == (
+        "Jev classifies as accurately as small LLMs, 5 times cheaper"
+    )
+    assert charts.study_title(_study((0.70, 0.024))).startswith("Jev classifies against LLMs")

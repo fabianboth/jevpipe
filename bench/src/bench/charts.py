@@ -1,5 +1,6 @@
 import itertools
 import math
+import statistics
 from datetime import date
 from pathlib import Path
 
@@ -13,6 +14,7 @@ from bench import (
     metrics,
     openrouter,
     store,
+    studies,
     wording,
 )
 from bench.contenders import MODELS, NAMES, SHORT_NAMES, SHOWN, Contender, Model
@@ -29,6 +31,7 @@ _COLORS: dict[Contender, str] = {
 _BASELINES: tuple[Contender, ...] = ("grep-agent", "grep-all", "grep-any")
 _LANGUAGE_ORDER: tuple[Contender, ...] = ("grep-agent", "deepseek", "jevpipe")
 _SURE = 0.9
+_LEVEL = 0.03
 
 
 def draw_all(pooled: list[metrics.Scored]) -> None:
@@ -37,6 +40,41 @@ def draw_all(pooled: list[metrics.Scored]) -> None:
     figures.calibration(_calibration(pooled), _file("calibration.png"))
     figures.dot_rows(_wordings(), _file("wordings.png"))
     figures.times(_times(pooled), _file("times.png"))
+
+
+def draw_studies() -> None:
+    figures.cost_bars(_classification(studies.ay_automate()), _file("classification.png"))
+
+
+def _classification(study: studies.Study) -> figures.CostBars:
+    ranked = sorted(study.results, key=lambda result: result.accuracy, reverse=True)
+    rows = tuple(
+        figures.CostRow(
+            result.name,
+            result.cost_per_1000,
+            (f"{result.accuracy:.1%}", f"{result.seconds:.2f} s"),
+            stressed=result is study.jev,
+        )
+        for result in ranked
+    )
+    header = style.Header(
+        study_title(study),
+        f"Independent study, mean of {len(study.tasks)} labelled tasks: {', '.join(study.tasks)}",
+        f"Data: {study.source}, {_day(study.published)}; {study.decisions:,} labelled "
+        "decisions.\nRedrawn from its published tables; cost from OpenRouter prices at the time.",
+    )
+    return figures.CostBars(header, rows, ("accuracy", "median time"), "cost per 1,000 decisions")
+
+
+def study_title(study: studies.Study) -> str:
+    jev_result = study.jev
+    cheapest = min(result.cost_per_1000 for result in study.others)
+    ratio = cheapest / jev_result.cost_per_1000
+    best = max(result.accuracy for result in study.others)
+    small = [result.accuracy for result in study.others if result.accuracy < best]
+    level = bool(small) and jev_result.accuracy >= statistics.mean(small) - _LEVEL
+    accuracy = "as accurately as small LLMs" if level else "against LLMs"
+    return f"Jev classifies {accuracy}, {ratio:.0f} times cheaper"
 
 
 def draw_languages(everything: list[metrics.Scored], pooled: list[metrics.Scored]) -> None:
@@ -53,6 +91,23 @@ def _models_line(pooled: list[metrics.Scored]) -> str:
         f"Jev {', '.join(versions)} · {deepseek.LABEL} via OpenRouter · grep pattern "
         f"written by {codex.LABEL}"
     )
+
+
+def _set_aside(pooled: list[metrics.Scored]) -> str:
+    left_out = [s.data.suite.label for s in pooled if s not in languages.costed(pooled)]
+    if not left_out:
+        return ""
+    return (
+        f"\nCost and time leave out {' and '.join(left_out)}: DeepSeek read its minified bundles "
+        "in full, jevpipe cut them."
+    )
+
+
+def _short_set_aside(pooled: list[metrics.Scored]) -> str:
+    left_out = [s.data.suite.label for s in pooled if s not in languages.costed(pooled)]
+    if not left_out:
+        return ""
+    return f"Cost and time without {' and '.join(left_out)}: DeepSeek read its bundles in full."
 
 
 def _footnote(pooled: list[metrics.Scored]) -> str:
@@ -78,10 +133,9 @@ def _headline(pooled: list[metrics.Scored]) -> headline.Headline:
         title(counts["jevpipe"], counts["grep-agent"]),
         f"{searches} searches in {languages.names(pooled)}: "
         f"{languages.decisions(pooled):,} yes/no decisions per tool",
-        "The extended CodeSearchNet Challenge: every search over every function of its language. "
-        "Relevance by the Challenge's\nexperts and, for unrated pairs, a judge model checked "
-        f"against them. {jev.LABEL}, {deepseek.LABEL}; "
-        f"{_month(languages.last_run(pooled))}.",
+        "Extended CodeSearchNet Challenge: relevance by its experts or, for unrated pairs, a judge "
+        f"model checked against them.\n{jev.LABEL}, {deepseek.LABEL}, "
+        f"{_month(languages.last_run(pooled))}. {_short_set_aside(pooled)}",
     )
     known = counts["jevpipe"].known_relevant
     return headline.Headline(
@@ -96,8 +150,10 @@ def _detail(pooled: list[metrics.Scored], contender: Contender) -> str:
         case "grep-any" | "grep-all" | "grep-agent":
             return "agent's pattern · free · instant"
         case "jevpipe" | "deepseek":
-            found = languages.median_per_1000(pooled, contender)
-            return f"${found.cost:.3f} and {found.seconds:.0f} s per 1,000 files"
+            costed = languages.costed(pooled)
+            spend = languages.spend_per_1000(costed, contender)
+            seconds = languages.median_per_1000(costed, contender).seconds
+            return f"${spend:.3f} and {seconds:.0f} s per 1,000 files"
 
 
 def title(jev_counts: Counts, grep: Counts) -> str:
@@ -218,24 +274,25 @@ def _wordings() -> figures.DotRows:
 
 
 def _times(pooled: list[metrics.Scored]) -> figures.Times:
+    costed = languages.costed(pooled)
     strips = tuple(
-        figures.Strip(NAMES[model], _COLORS[model], languages.seconds_per_1000(pooled, model))
+        figures.Strip(NAMES[model], _COLORS[model], languages.seconds_per_1000(costed, model))
         for model in MODELS
     )
-    jev_found = languages.median_per_1000(pooled, "jevpipe")
-    other = languages.median_per_1000(pooled, "deepseek")
+    seconds = {model: languages.median_per_1000(costed, model).seconds for model in MODELS}
+    spend = {model: languages.spend_per_1000(costed, model) for model in MODELS}
     slowest = max(
         scored.data.seconds(query_id, "grep-agent")
-        for scored in pooled
+        for scored in costed
         for query_id in scored.data.ids("test")
     )
     header = style.Header(
-        f"jevpipe reads 1,000 functions in {jev_found.seconds:.0f} s, "
-        f"DeepSeek in {other.seconds:.0f} s",
-        f"{openrouter.IN_FLIGHT} requests in flight each; median ${jev_found.cost:.3f} against "
-        f"${other.cost:.3f} per 1,000 functions; grep takes at most "
+        f"jevpipe reads 1,000 functions in {seconds['jevpipe']:.0f} s, "
+        f"DeepSeek in {seconds['deepseek']:.0f} s",
+        f"{openrouter.IN_FLIGHT} requests in flight each; ${spend['jevpipe']:.3f} against "
+        f"${spend['deepseek']:.3f} per 1,000 functions; grep takes at most "
         f"{math.ceil(slowest * 10) / 10:.1f} s a search",
-        _footnote(pooled),
+        _footnote(costed) + _set_aside(pooled),
     )
     return figures.Times(
         header, strips, "seconds per 1,000 functions (one dot per search, time over its folder)"
@@ -277,6 +334,11 @@ def _languages(everything: list[metrics.Scored], pooled: list[metrics.Scored]) -
 
 def count_of(count: int, total: int) -> str:
     return f"all {total}" if count == total else f"{count} of {total}"
+
+
+def _day(day: str) -> str:
+    published = date.fromisoformat(day)
+    return f"{published.day} {published:%B %Y}"
 
 
 def _month(day: str) -> str:

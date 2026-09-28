@@ -46,6 +46,18 @@ def test_the_median_per_1000_scales_each_search_by_its_pool() -> None:
     assert found.cost == pytest.approx(0.03 / sample.POOL_SIZE * 1000)
 
 
+def test_spend_per_1000_is_the_total_over_every_decision() -> None:
+    spend = languages.spend_per_1000([_PYTHON, _JAVA], "jevpipe")
+
+    assert spend == pytest.approx((0.02 + 0.04) * 2 / (4 * sample.POOL_SIZE) * 1000)
+
+
+def test_languages_with_files_deepseek_read_in_full_are_left_out_of_cost() -> None:
+    javascript = sample.scored(store.SUITES["javascript"])
+
+    assert languages.costed([_PYTHON, javascript, _JAVA]) == [_PYTHON, _JAVA]
+
+
 def test_searches_decisions_and_names() -> None:
     assert languages.searches([_PYTHON, _JAVA]) == 4
     assert languages.decisions([_PYTHON, _JAVA]) == 4 * sample.POOL_SIZE
