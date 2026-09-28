@@ -10,12 +10,12 @@ use std::fmt;
 pub(crate) use command::run;
 use keychain::Unavailable;
 
-const API_KEY_VARIABLE: &str = "OPENROUTER_API_KEY";
+use crate::provider::Provider;
 
 pub(crate) struct ApiKey(String);
 
 pub(crate) enum Source {
-    Environment,
+    Environment(Provider),
     Keychain,
     NotSet,
     Unavailable(Unavailable),
@@ -23,10 +23,15 @@ pub(crate) enum Source {
 
 #[derive(Debug, thiserror::Error)]
 pub(crate) enum LookupError {
-    #[error("no API key: set {API_KEY_VARIABLE} or run jevpipe auth set-key")]
-    Missing,
-    #[error("{0}; set {API_KEY_VARIABLE} instead")]
-    Keychain(#[from] Unavailable),
+    #[error(
+        "no {name} API key: set {variable} or run jevpipe auth set-key (provider {0}; jevpipe config set provider {other} switches)",
+        name = .0.name(),
+        variable = .0.key_variable(),
+        other = .0.other()
+    )]
+    Missing(Provider),
+    #[error(transparent)]
+    Keychain(NoKeychain),
 }
 
 #[derive(Debug, thiserror::Error)]
@@ -37,8 +42,15 @@ pub(crate) enum StoreError {
         "that does not look like an API key (printable ASCII characters only, no spaces, quotes or backslashes)"
     )]
     NotAKey,
-    #[error("{0}; set {API_KEY_VARIABLE} instead")]
-    Keychain(#[from] Unavailable),
+    #[error(transparent)]
+    Keychain(NoKeychain),
+}
+
+#[derive(Debug, thiserror::Error)]
+#[error("{unavailable}; set {variable} instead", variable = .provider.key_variable())]
+pub(crate) struct NoKeychain {
+    unavailable: Unavailable,
+    provider: Provider,
 }
 
 impl ApiKey {
@@ -47,29 +59,37 @@ impl ApiKey {
     }
 }
 
-pub(crate) fn api_key() -> Result<ApiKey, LookupError> {
-    lookup(env::var(API_KEY_VARIABLE).ok()).map(|(key, _)| key)
+pub(crate) fn api_key(provider: Provider) -> Result<ApiKey, LookupError> {
+    lookup(provider, variable(provider)).map(|(key, _)| key)
 }
 
-pub(crate) fn source() -> Source {
-    match lookup(env::var(API_KEY_VARIABLE).ok()) {
+pub(crate) fn source(provider: Provider) -> Source {
+    match lookup(provider, variable(provider)) {
         Ok((_, source)) => source,
-        Err(LookupError::Missing) => Source::NotSet,
-        Err(LookupError::Keychain(unavailable)) => Source::Unavailable(unavailable),
+        Err(LookupError::Missing(_)) => Source::NotSet,
+        Err(LookupError::Keychain(error)) => Source::Unavailable(error.unavailable),
     }
 }
 
-fn lookup(variable: Option<String>) -> Result<(ApiKey, Source), LookupError> {
+fn variable(provider: Provider) -> Option<String> {
+    env::var(provider.key_variable()).ok()
+}
+
+fn lookup(provider: Provider, variable: Option<String>) -> Result<(ApiKey, Source), LookupError> {
     if let Some(key) = variable.filter(|key| !key.is_empty()) {
-        return Ok((ApiKey(key), Source::Environment));
+        return Ok((ApiKey(key), Source::Environment(provider)));
     }
-    match keychain::get()? {
-        Some(key) => Ok((ApiKey(key), Source::Keychain)),
-        None => Err(LookupError::Missing),
+    match keychain::get(provider) {
+        Ok(Some(key)) => Ok((ApiKey(key), Source::Keychain)),
+        Ok(None) => Err(LookupError::Missing(provider)),
+        Err(unavailable) => Err(LookupError::Keychain(NoKeychain {
+            unavailable,
+            provider,
+        })),
     }
 }
 
-fn store(line: &str) -> Result<(), StoreError> {
+fn store(provider: Provider, line: &str) -> Result<(), StoreError> {
     let key = line.trim();
     if key.is_empty() {
         return Err(StoreError::Empty);
@@ -78,13 +98,18 @@ fn store(line: &str) -> Result<(), StoreError> {
     if !key.bytes().all(allowed) {
         return Err(StoreError::NotAKey);
     }
-    Ok(keychain::set(key)?)
+    keychain::set(provider, key).map_err(|unavailable| {
+        StoreError::Keychain(NoKeychain {
+            unavailable,
+            provider,
+        })
+    })
 }
 
 impl fmt::Display for Source {
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Self::Environment => write!(formatter, "from {API_KEY_VARIABLE}"),
+            Self::Environment(provider) => write!(formatter, "from {}", provider.key_variable()),
             Self::Keychain => formatter.write_str("from the keychain"),
             Self::NotSet => formatter.write_str("not set"),
             Self::Unavailable(unavailable) => {

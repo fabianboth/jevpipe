@@ -69,21 +69,29 @@ Exit status:
 
 const CONFIG_HELP: &str = r"Show or change the defaults for filter and map in the user config file
 
-Each option of filter and map that has a default is a key of the same name, such as max-cost;
-base-url is the address of the service (default https://openrouter.ai/api). An option on the
-command line beats the file, and the file beats the built-in default.
+Each option of filter and map that has a default is a key of the same name, such as max-cost.
+provider is the service answering: openrouter (default) or typesafe, TypeSafe's own API.
+base-url is the service's address (default https://openrouter.ai/api, or
+https://api.typesafe.ai with provider typesafe). An option on the command line beats the file,
+and the file beats the built-in default.
+
+A key prefixed with a provider applies only while that provider is in use and beats the same key
+without prefix, e.g. jevpipe config set openrouter.max-cost 0.5 or typesafe.model jev-1.13.0.
+The file keeps them in an [openrouter] or a [typesafe] section.
 
 The file is config.toml in the user config directory: %APPDATA%\jevpipe on Windows,
 $XDG_CONFIG_HOME/jevpipe or ~/.config/jevpipe elsewhere. JEVPIPE_CONFIG names another file.";
 
-const AUTH_HELP: &str = r#"Store or remove the OpenRouter API key in the system keychain
+const AUTH_HELP: &str = r#"Store or remove the API key of the configured provider in the system keychain
 
-filter and map take the key from OPENROUTER_API_KEY when it is set, otherwise from the keychain:
+Each provider has its own key. filter and map take it from OPENROUTER_API_KEY (provider
+openrouter) or TYPESAFE_API_KEY (provider typesafe) when that is set, otherwise from the keychain:
 Credential Manager on Windows, the login keychain on macOS, the Secret Service on Linux.
 
 Examples:
   jevpipe auth set-key
-  echo "$OPENROUTER_API_KEY" | jevpipe auth set-key"#;
+  echo "$OPENROUTER_API_KEY" | jevpipe auth set-key
+  jevpipe config set provider typesafe && echo "$TYPESAFE_API_KEY" | jevpipe auth set-key"#;
 
 const SET_KEY_EXAMPLE: &str = r#"Example:
   echo "$OPENROUTER_API_KEY" | jevpipe auth set-key"#;

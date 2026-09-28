@@ -43,7 +43,7 @@ fn list(config: &Config) -> Result<String, KeyError> {
         .iter()
         .map(|(line, origin)| format!("{line:width$}  # {origin}\n"))
         .collect();
-    lines.push(format!("# API key: {}\n", auth::source()));
+    lines.push(format!("# API key: {}\n", auth::source(config.provider())));
     Ok(lines.concat())
 }
 

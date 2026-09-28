@@ -4,8 +4,7 @@ use std::thread;
 use tokio::signal;
 use tokio::sync::oneshot;
 
-const PROMPT: &str = "OpenRouter API key: ";
-const VISIBLE_PROMPT: &str = "OpenRouter API key (input will be visible): ";
+use crate::provider::Provider;
 
 pub(super) enum Typed {
     Line(String),
@@ -18,9 +17,9 @@ enum Terminal {
     Piped,
 }
 
-pub(super) async fn read_line() -> io::Result<Typed> {
+pub(super) async fn read_line(provider: Provider) -> io::Result<Typed> {
     let terminal = Terminal::open();
-    terminal.prompt()?;
+    terminal.prompt(provider)?;
     let typed = read_or_interrupt().await?;
     terminal.finish(&typed)?;
     Ok(typed)
@@ -39,14 +38,14 @@ impl Terminal {
         }
     }
 
-    fn prompt(&self) -> io::Result<()> {
-        let prompt = match self {
-            Self::Hidden { .. } => PROMPT,
-            Self::Visible => VISIBLE_PROMPT,
+    fn prompt(&self, provider: Provider) -> io::Result<()> {
+        let visibility = match self {
+            Self::Hidden { .. } => "",
+            Self::Visible => " (input will be visible)",
             Self::Piped => return Ok(()),
         };
         let mut stderr = io::stderr();
-        stderr.write_all(prompt.as_bytes())?;
+        write!(stderr, "{} API key{visibility}: ", provider.name())?;
         stderr.flush()
     }
 

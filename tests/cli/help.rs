@@ -1,8 +1,9 @@
 use crate::home::{jevpipe, stdout};
 
-const LIMITS: [&str; 4] = [
+const LIMITS: [&str; 5] = [
     "--request-timeout <DURATION>",
     "--max-cost <DOLLARS|none>",
+    "--max-tokens <COUNT|none>",
     "--max-time <DURATION|none>",
     "3  a limit stopped the run early; standard error names the line to resume from",
 ];
@@ -82,12 +83,19 @@ fn config_help_names_the_commands_the_file_and_the_order() {
             "path",
             "JEVPIPE_CONFIG",
             "base-url",
+            "provider",
+            "typesafe",
+            "https://api.typesafe.ai",
+            "openrouter.max-cost",
+            "[typesafe]",
             "beats",
         ],
     );
     assert_contains(
         &help(&["config", "set", "--help"]),
-        &["base-url, concurrency, max-cost, max-time, model, request-timeout"],
+        &[
+            "base-url, concurrency, max-cost, max-time, max-tokens, model, provider, request-timeout",
+        ],
     );
 }
 
@@ -99,6 +107,8 @@ fn auth_help_describes_both_commands_and_the_piped_form() {
             "set-key",
             "remove-key",
             "OPENROUTER_API_KEY",
+            "TYPESAFE_API_KEY",
+            "configured provider",
             "keychain",
             "| jevpipe auth set-key",
         ],

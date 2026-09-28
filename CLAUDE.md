@@ -3,7 +3,8 @@
 jevpipe is a Unix pipe for typed decisions. Records stream in (plain lines, JSONL lines or file
 paths), calibrated decisions stream out: `filter` prints the kept lines unchanged, `map` prints one JSON
 line per record with its answers. The decisions come from Jev
-(TypeSafe's System One model) or any server speaking the same API. A coding agent writes the loop,
+(TypeSafe's System One model), through OpenRouter or TypeSafe's own API (the `provider` config key),
+or any server speaking the same API. A coding agent writes the loop,
 jevpipe makes the many small yes/no, pick-one or score judgments inside it, and only the outcome reaches
 the agent's context. The draft idea lives in `specs/manual/idea-draft.md`.
 
@@ -20,7 +21,8 @@ with `uv tool install jevpipe`.
   there, never with `#[allow]` or `#[expect]` in code. Exception: `#![expect(clippy::unwrap_used)]`
   at an integration test crate root (rust-clippy#13981).
 - `unsafe` is forbidden.
-- The API key comes from `OPENROUTER_API_KEY` or the OS keychain, never from a file in the repo.
+- The API key comes from the provider's variable (`OPENROUTER_API_KEY` or `TYPESAFE_API_KEY`) or the
+  OS keychain, never from a file in the repo.
   Tests never touch the network, the real keychain or the user's config: binary tests set
   `JEVPIPE_CONFIG` to a temp file, whose `base-url` points at the local stand-in.
 

@@ -1,6 +1,6 @@
 [package]
 name = "jevpipe"
-version = "0.1.1"
+version = "0.2.0"
 edition = "2024"
 rust-version = "1.98"
 description = "A Unix pipe for typed decisions: stream records in, get calibrated decisions out."
@@ -16,12 +16,14 @@ etcetera = "0.11.0"
 futures = "0.3.34"
 humantime = "2.4.0"
 keyring-core = "1.0.0"
+parse-size = "1.1"
 reqwest = { version = "0.13.5", features = ["json"] }
 serde = { version = "1.0.229", features = ["derive"] }
 serde_json = { version = "1.0.151", features = ["raw_value"] }
 thiserror = "2.0.21"
 tokio = { version = "1.53.1", features = ["rt-multi-thread", "macros", "sync", "fs", "io-util", "signal", "time"] }
 toml_edit = "0.25.15"
+unit-prefix = "0.5"
 
 [dev-dependencies]
 assert_cmd = "2.2.2"
@@ -48,6 +50,7 @@ rust_2018_idioms = { level = "warn", priority = -1 }
 pedantic = { level = "warn", priority = -1 }
 missing_errors_doc = "allow"
 missing_panics_doc = "allow"
+cast_precision_loss = "allow"
 unwrap_used = "warn"
 expect_used = "warn"
 panic = "warn"

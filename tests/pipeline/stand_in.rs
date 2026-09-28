@@ -12,21 +12,50 @@ use wiremock::{Mock, MockServer, Request, Respond, ResponseTemplate};
 
 use crate::fixture::QUESTIONS;
 
+const TYPESAFE_MODELS: [&str; 2] = ["jev-latest", "jev-1.13.0"];
+
+pub(crate) const OPENROUTER_KEY: &str = "test-key";
+pub(crate) const TYPESAFE_KEY: &str = "test-typesafe-key";
+const KEY_VARIABLES: [&str; 2] = ["OPENROUTER_API_KEY", "TYPESAFE_API_KEY"];
+
 pub(crate) struct StandIn {
     server: MockServer,
     config_dir: TempDir,
+    provider: Provider,
+}
+
+#[derive(Clone, Copy, Default, PartialEq, Eq)]
+pub(crate) enum Provider {
+    #[default]
+    OpenRouter,
+    TypeSafe,
 }
 
 impl StandIn {
     pub(crate) async fn start() -> Self {
+        Self::start_as(Provider::OpenRouter).await
+    }
+
+    pub(crate) async fn typesafe() -> Self {
+        Self::start_as(Provider::TypeSafe).await
+    }
+
+    async fn start_as(provider: Provider) -> Self {
         let server = MockServer::start().await;
         Mock::given(method("POST"))
             .and(path("/v1/systemone"))
-            .respond_with(Responder::default())
+            .respond_with(Responder {
+                attempts: Mutex::default(),
+                provider,
+            })
             .mount(&server)
             .await;
         let config_dir = TempDir::new().unwrap();
-        let stand_in = Self { server, config_dir };
+        let stand_in = Self {
+            server,
+            config_dir,
+            provider,
+        };
         stand_in.configure("");
         stand_in
     }
@@ -37,7 +66,24 @@ impl StandIn {
 
     pub(crate) fn configure(&self, settings: &str) {
         let base_url = format!("base-url = \"{}\"\n", self.server.uri());
-        fs::write(self.config(), base_url + settings).unwrap();
+        let provider = match self.provider {
+            Provider::OpenRouter => "",
+            Provider::TypeSafe => "provider = \"typesafe\"\n",
+        };
+        fs::write(self.config(), base_url + provider + settings).unwrap();
+    }
+
+    pub(crate) async fn keys(&self) -> Vec<String> {
+        self.server
+            .received_requests()
+            .await
+            .unwrap_or_default()
+            .iter()
+            .map(|request| {
+                let header = request.headers.get("authorization").unwrap();
+                header.to_str().unwrap().to_owned()
+            })
+            .collect()
     }
 
     pub(crate) async fn requests(&self) -> Vec<Value> {
@@ -52,9 +98,16 @@ impl StandIn {
 
     pub(crate) fn command(&self) -> Command {
         let mut command = Command::new(env!("CARGO_BIN_EXE_jevpipe"));
+        for variable in KEY_VARIABLES {
+            command.env_remove(variable);
+        }
+        let (variable, key) = match self.provider {
+            Provider::OpenRouter => ("OPENROUTER_API_KEY", OPENROUTER_KEY),
+            Provider::TypeSafe => ("TYPESAFE_API_KEY", TYPESAFE_KEY),
+        };
         command
             .env("JEVPIPE_CONFIG", self.config())
-            .env("OPENROUTER_API_KEY", "test-key")
+            .env(variable, key)
             .env("NO_PROXY", "127.0.0.1");
         command
     }
@@ -76,9 +129,9 @@ impl StandIn {
     }
 }
 
-#[derive(Default)]
 struct Responder {
     attempts: Mutex<HashMap<String, usize>>,
+    provider: Provider,
 }
 
 impl Respond for Responder {
@@ -96,7 +149,7 @@ impl Respond for Responder {
             *count
         };
         let markers = Markers::parse(&state);
-        let response = markers.respond(&body["questions"], attempt);
+        let response = markers.respond(&body, attempt, self.provider);
         match markers.slow {
             Some(millis) if attempt == 1 => response.set_delay(Duration::from_millis(millis)),
             Some(_) | None => response,
@@ -117,8 +170,23 @@ struct Markers {
     wrong_type: bool,
     slow: Option<u64>,
     cost: Cost,
+    tokens: Tokens,
+    detail: Option<Detail>,
     limit: Option<String>,
     in_flight: Option<usize>,
+}
+
+enum Detail {
+    ErrorTypeOnly,
+    Validation,
+}
+
+#[derive(Default)]
+enum Tokens {
+    #[default]
+    Usual,
+    Of(u64),
+    Missing,
 }
 
 #[derive(Default)]
@@ -145,6 +213,7 @@ impl Markers {
                 Some(("status", value)) => markers.status = Some(value.parse().unwrap()),
                 Some(("slow", value)) => markers.slow = Some(value.parse().unwrap()),
                 Some(("cost", value)) => markers.cost = Cost::Of(value.parse().unwrap()),
+                Some(("tokens", value)) => markers.tokens = Tokens::Of(value.parse().unwrap()),
                 Some(("limit", value)) => markers.limit = Some(format!("openrouter_{value}")),
                 Some(("inflight", value)) => markers.in_flight = Some(value.parse().unwrap()),
                 Some(("fits", value)) => markers.fits = Some(value.parse().unwrap()),
@@ -152,6 +221,9 @@ impl Markers {
                 None if word == "malformed" => markers.malformed = true,
                 None if word == "wrongtype" => markers.wrong_type = true,
                 None if word == "nocost" => markers.cost = Cost::Missing,
+                None if word == "notokens" => markers.tokens = Tokens::Missing,
+                None if word == "errortype" => markers.detail = Some(Detail::ErrorTypeOnly),
+                None if word == "validation" => markers.detail = Some(Detail::Validation),
                 _ => {}
             }
         }
@@ -161,9 +233,30 @@ impl Markers {
         markers
     }
 
-    fn respond(&self, questions: &Value, attempt: usize) -> ResponseTemplate {
+    fn respond(&self, body: &Value, attempt: usize, provider: Provider) -> ResponseTemplate {
+        let error = |status, message| error(provider, status, message);
         if let Some(status) = self.status {
             return error(status, "No cookie auth credentials found");
+        }
+        if provider == Provider::TypeSafe {
+            if let Some(model) = body["model"]
+                .as_str()
+                .filter(|model| !TYPESAFE_MODELS.contains(model))
+            {
+                return error(400, &format!("Unknown model: {model}"));
+            }
+            match self.detail {
+                Some(Detail::ErrorTypeOnly) => {
+                    return ResponseTemplate::new(400)
+                        .set_body_json(json!({ "detail": { "error_type": "api_usage_error" } }));
+                }
+                Some(Detail::Validation) => {
+                    return ResponseTemplate::new(422).set_body_json(json!({ "detail": [
+                        { "type": "missing", "loc": ["body", "questions"], "msg": "Field required" }
+                    ] }));
+                }
+                None => {}
+            }
         }
         if let Some(source) = &self.limit {
             return payment_required(source);
@@ -189,15 +282,19 @@ impl Markers {
         {
             return error(status, "Provider returned error").insert_header("Retry-After", "0");
         }
-        let mut usage = json!({ "input_tokens": 310, "output_tokens": 20 });
-        match self.cost {
-            Cost::Usual => usage["cost"] = json!(0.00001),
-            Cost::Of(cost) => usage["cost"] = json!(cost),
-            Cost::Missing => {}
+        let mut usage = match self.tokens {
+            Tokens::Usual => json!({ "input_tokens": 310, "output_tokens": 20 }),
+            Tokens::Of(count) => json!({ "input_tokens": count, "output_tokens": 0 }),
+            Tokens::Missing => json!({}),
+        };
+        match (provider, &self.cost) {
+            (Provider::OpenRouter, Cost::Usual) => usage["cost"] = json!(0.00001),
+            (Provider::OpenRouter, Cost::Of(cost)) => usage["cost"] = json!(cost),
+            (Provider::OpenRouter, Cost::Missing) | (Provider::TypeSafe, _) => {}
         }
         ResponseTemplate::new(200).set_body_json(json!({
             "model": "typesafe/jev-test",
-            "answers": self.answers(questions),
+            "answers": self.answers(&body["questions"]),
             "usage": usage,
             "id": "gen-dec-test",
             "provider": "TypeSafe"
@@ -262,9 +359,14 @@ impl Markers {
     }
 }
 
-fn error(status: u16, message: &str) -> ResponseTemplate {
-    ResponseTemplate::new(status)
-        .set_body_json(json!({ "error": { "message": message, "code": status } }))
+fn error(provider: Provider, status: u16, message: &str) -> ResponseTemplate {
+    let body = match provider {
+        Provider::OpenRouter => json!({ "error": { "message": message, "code": status } }),
+        Provider::TypeSafe => {
+            json!({ "detail": { "error_type": "api_usage_error", "message": message } })
+        }
+    };
+    ResponseTemplate::new(status).set_body_json(body)
 }
 
 fn payment_required(limit_source: &str) -> ResponseTemplate {

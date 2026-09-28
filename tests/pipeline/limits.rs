@@ -60,7 +60,7 @@ async fn answers_in_flight_at_the_limit_are_printed_and_paid_for() {
         .stderr(contains(
             "jevpipe: stopped: spend limit $0.001 reached ($0.005 spent); input from line 6 on was not processed\n",
         ))
-        .stderr(contains("5 records, 5 answered, 0 skipped, 0 failed, $0.005, "));
+        .stderr(contains("5 records, 5 answered, 0 skipped, 0 failed, 1.6k tokens, $0.005, "));
 
     assert_eq!(
         records(output.get_output()),
@@ -309,4 +309,146 @@ async fn a_stop_outranks_failed_records() {
         .code(3)
         .stderr(contains("jevpipe: line 1: not text\n"))
         .stderr(contains("input from line 3 on was not processed"));
+}
+
+#[tokio::test]
+async fn the_token_limit_stops_sending_on_either_provider() {
+    for stand_in in [StandIn::start().await, StandIn::typesafe().await] {
+        let input = lines(100, "tokens=330");
+
+        let output = stand_in
+            .map()
+            .args(["--concurrency", "1", "--max-tokens", "3300"])
+            .write_stdin(input.clone())
+            .assert()
+            .code(3)
+            .stderr(contains(
+                "jevpipe: stopped: token limit 3300 reached (3300 used); input from line 11 on was not processed\n",
+            ));
+
+        let expected: Vec<_> = input.lines().take(10).map(str::to_owned).collect();
+        assert_eq!(records(output.get_output()), expected);
+        assert_eq!(stand_in.requests().await.len(), 10);
+
+        let rest: String = input.split_inclusive('\n').skip(10).collect();
+        let rerun = stand_in.map().write_stdin(rest).output().unwrap();
+        let whole = stand_in.map().write_stdin(input).output().unwrap();
+        assert_eq!(
+            [output.get_output().stdout.clone(), rerun.stdout].concat(),
+            whole.stdout
+        );
+    }
+}
+
+#[tokio::test]
+async fn token_answers_in_flight_at_the_limit_are_printed_and_counted() {
+    let stand_in = StandIn::typesafe().await;
+
+    let output = stand_in
+        .map()
+        .args(["--concurrency", "5", "--max-tokens", "1k"])
+        .write_stdin(lines(20, "tokens=1000 slow=300"))
+        .assert()
+        .code(3)
+        .stderr(contains(
+            "jevpipe: stopped: token limit 1000 reached (5000 used); input from line 6 on was not processed\n",
+        ));
+
+    assert_eq!(records(output.get_output()).len(), 5);
+}
+
+#[tokio::test]
+async fn whichever_limit_is_reached_first_stops_the_run() {
+    let stand_in = StandIn::start().await;
+    let cases = [
+        ("0.001", "1M", "spend limit $0.001 reached"),
+        ("1", "3300", "token limit 3300 reached"),
+    ];
+    for (max_cost, max_tokens, stop) in cases {
+        stand_in
+            .map()
+            .args(["--concurrency", "1", "--max-cost", max_cost])
+            .args(["--max-tokens", max_tokens])
+            .write_stdin(lines(100, "tokens=330 cost=0.0001"))
+            .assert()
+            .code(3)
+            .stderr(contains(format!("jevpipe: stopped: {stop}")));
+    }
+}
+
+#[tokio::test]
+async fn a_token_limit_needs_the_service_to_report_tokens() {
+    let stand_in = StandIn::typesafe().await;
+
+    stand_in
+        .filter()
+        .args(["--max-tokens", "5M"])
+        .write_stdin("a p=0.9 notokens\n")
+        .assert()
+        .code(2)
+        .stderr(contains(
+            "jevpipe: error: the service reported no token count, so --max-tokens cannot be enforced\n",
+        ));
+}
+
+#[tokio::test]
+async fn a_spend_limit_on_typesafe_is_refused_before_any_request() {
+    let stand_in = StandIn::typesafe().await;
+
+    stand_in
+        .filter()
+        .args(["--max-cost", "0.1"])
+        .write_stdin("a p=0.9\n")
+        .assert()
+        .code(2)
+        .stdout("")
+        .stderr(
+            "jevpipe: error: TypeSafe reports no cost, so --max-cost cannot be enforced; use --max-tokens instead\n",
+        );
+    stand_in.configure("max-cost = 0.5\n");
+    stand_in
+        .filter()
+        .args(["--max-cost", "none"])
+        .write_stdin("a p=0.9\n")
+        .assert()
+        .success();
+    assert_eq!(stand_in.requests().await.len(), 1);
+}
+
+#[tokio::test]
+async fn section_limits_follow_the_provider() {
+    let settings = "[openrouter]\nmax-cost = 0.001\n\n[typesafe]\nmax-tokens = 3300\n";
+    let cases = [
+        (StandIn::start().await, "spend limit $0.001 reached"),
+        (StandIn::typesafe().await, "token limit 3300 reached"),
+    ];
+    for (stand_in, stop) in cases {
+        stand_in.configure(settings);
+
+        let output = stand_in
+            .map()
+            .args(["--concurrency", "1"])
+            .write_stdin(lines(100, "tokens=330 cost=0.0001"))
+            .assert()
+            .code(3)
+            .stderr(contains(format!("jevpipe: stopped: {stop}")));
+
+        assert_eq!(records(output.get_output()).len(), 10);
+    }
+}
+
+#[tokio::test]
+async fn a_shared_spend_limit_on_typesafe_names_the_commands_that_move_it() {
+    let stand_in = StandIn::typesafe().await;
+    stand_in.configure("max-cost = 0.5\n");
+
+    stand_in
+        .filter()
+        .write_stdin("a p=0.9\n")
+        .assert()
+        .code(2)
+        .stderr(
+            "jevpipe: error: max-cost = 0.5 in the config file applies to every provider, but TypeSafe reports no cost; keep it for OpenRouter with jevpipe config set openrouter.max-cost 0.5 and jevpipe config unset max-cost, and limit TypeSafe runs with max-tokens\n",
+        );
+    assert!(stand_in.requests().await.is_empty());
 }

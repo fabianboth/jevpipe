@@ -4,7 +4,7 @@ use std::process::Stdio;
 use predicates::str::contains;
 use toml_edit::DocumentMut;
 
-use crate::home::{API_KEY, Home};
+use crate::home::{API_KEY, Home, stdout};
 
 #[test]
 fn set_creates_the_file_and_its_directory() {
@@ -64,7 +64,7 @@ fn set_checks_the_value_like_the_flag_and_leaves_the_file_alone() {
         ),
         (
             ["concurency", "4"],
-            "unknown key `concurency`; the keys are base-url, concurrency, max-cost, max-time, model, request-timeout",
+            "unknown key `concurency`; the keys are base-url, concurrency, max-cost, max-time, max-tokens, model, provider, request-timeout, and all but provider also as openrouter.<key> or typesafe.<key>",
         ),
     ];
     for (args, problem) in cases {
@@ -82,7 +82,7 @@ fn reading_commands_name_a_broken_file() {
     let home = Home::new();
     home.write("concurency = 4\n");
     let problem = format!(
-        "jevpipe: error: {}: unknown key `concurency`; the keys are base-url, concurrency, max-cost, max-time, model, request-timeout\n",
+        "jevpipe: error: {}: unknown key `concurency`; the keys are base-url, concurrency, max-cost, max-time, max-tokens, model, provider, request-timeout, and all but provider also as openrouter.<key> or typesafe.<key>\n",
         home.config().display()
     );
 
@@ -146,7 +146,9 @@ fn list_prints_every_setting_as_toml_with_its_origin() {
             "concurrency",
             "max-cost",
             "max-time",
+            "max-tokens",
             "model",
+            "provider",
             "request-timeout"
         ]
     );
@@ -171,6 +173,60 @@ fn list_prints_every_setting_as_toml_with_its_origin() {
         "{list}"
     );
     assert!(!list.contains(API_KEY), "{list}");
+}
+
+#[test]
+fn the_provider_decides_the_address_and_whose_key_is_shown() {
+    let home = Home::new();
+    home.config_command(&["set", "provider", "typesafe"])
+        .assert()
+        .success();
+    home.config_command(&["set", "provider", "anthropic"])
+        .assert()
+        .code(2)
+        .stderr(
+            "jevpipe: error: invalid value 'anthropic' for `provider`: the providers are openrouter, typesafe\n",
+        );
+    assert_eq!(home.read(), "provider = \"typesafe\"\n");
+    assert_eq!(
+        home.stdout(&["get", "base-url"]),
+        "https://api.typesafe.ai\n"
+    );
+
+    let list = stdout(
+        home.config_command(&["list"])
+            .env("TYPESAFE_API_KEY", "ts-test-key"),
+    );
+
+    for (start, origin) in [
+        ("provider = \"typesafe\"", "config file"),
+        ("base-url = \"https://api.typesafe.ai\"", "default"),
+        ("model = \"jev-latest\"", "default"),
+    ] {
+        let line = list.lines().find(|line| line.starts_with(start)).unwrap();
+        assert!(line.ends_with(&format!("# {origin}")), "{line}");
+    }
+    assert!(
+        list.ends_with("# API key: from TYPESAFE_API_KEY\n"),
+        "{list}"
+    );
+    assert!(!list.contains("ts-test-key"), "{list}");
+}
+
+#[test]
+fn the_token_limit_takes_counts_with_a_suffix() {
+    let home = Home::new();
+    for value in ["250k", "1.5M", "1000000", "none", "5M"] {
+        home.config_command(&["set", "max-tokens", value])
+            .assert()
+            .success();
+        assert_eq!(home.stdout(&["get", "max-tokens"]), format!("{value}\n"));
+    }
+    home.config_command(&["set", "max-tokens", "0"])
+        .assert()
+        .code(2)
+        .stderr(contains("must be positive"));
+    assert_eq!(home.read(), "max-tokens = \"5M\"\n");
 }
 
 #[test]
@@ -238,5 +294,110 @@ fn reading_commands_end_quietly_when_the_reader_is_gone() {
 
         assert!(output.status.success(), "{args:?}: {output:?}");
         assert!(output.stderr.is_empty(), "{args:?}: {output:?}");
+    }
+}
+
+#[test]
+fn a_provider_prefix_edits_that_providers_section() {
+    let home = Home::new();
+    home.write("# mine\nconcurrency = 50\n");
+
+    for (key, value) in [
+        ("openrouter.max-cost", "0.5"),
+        ("openrouter.model", "jev-1.13"),
+        ("typesafe.model", "jev-1.13.0"),
+    ] {
+        home.config_command(&["set", key, value]).assert().success();
+    }
+    assert_eq!(
+        home.read(),
+        "# mine\nconcurrency = 50\n\n[openrouter]\nmax-cost = 0.5\nmodel = \"jev-1.13\"\n\n[typesafe]\nmodel = \"jev-1.13.0\"\n"
+    );
+
+    home.config_command(&["unset", "typesafe.model"])
+        .assert()
+        .success();
+    home.config_command(&["unset", "openrouter.model"])
+        .assert()
+        .success();
+    assert_eq!(
+        home.read(),
+        "# mine\nconcurrency = 50\n\n[openrouter]\nmax-cost = 0.5\n"
+    );
+}
+
+#[test]
+fn the_active_providers_section_beats_the_top_level() {
+    let home = Home::new();
+    home.write(
+        "provider = \"typesafe\"\nmodel = \"jev-latest\"\nconcurrency = 50\n\n[openrouter]\nmodel = \"jev-1.13\"\nmax-cost = 0.5\n\n[typesafe]\nmodel = \"jev-1.13.0\"\n",
+    );
+
+    assert_eq!(home.stdout(&["get", "model"]), "jev-1.13.0\n");
+    assert_eq!(home.stdout(&["get", "openrouter.model"]), "jev-1.13\n");
+    assert_eq!(home.stdout(&["get", "openrouter.max-cost"]), "0.5\n");
+    assert_eq!(home.stdout(&["get", "max-cost"]), "none\n");
+    assert_eq!(home.stdout(&["get", "openrouter.concurrency"]), "50\n");
+
+    let list = stdout(
+        home.config_command(&["list"])
+            .env("TYPESAFE_API_KEY", "ts-test-key"),
+    );
+    for (start, origin) in [
+        ("model = \"jev-1.13.0\"", "config file [typesafe]"),
+        ("concurrency = 50", "config file"),
+        ("max-cost = \"none\"", "default"),
+    ] {
+        let line = list.lines().find(|line| line.starts_with(start)).unwrap();
+        assert!(line.ends_with(&format!("# {origin}")), "{line}");
+    }
+}
+
+#[test]
+fn keys_that_do_not_fit_a_section_are_refused() {
+    let home = Home::new();
+    home.write("model = \"x\"\n");
+    let cases = [
+        (
+            ["typesafe.max-cost", "1"],
+            "invalid value '1' for `typesafe.max-cost`: TypeSafe reports no cost; use typesafe.max-tokens",
+        ),
+        (
+            ["openrouter.provider", "typesafe"],
+            "unknown key `openrouter.provider`",
+        ),
+        (["anthropic.model", "x"], "unknown key `anthropic.model`"),
+        (
+            ["openrouter.concurrency", "0"],
+            "invalid value '0' for `openrouter.concurrency`",
+        ),
+    ];
+    for (args, problem) in cases {
+        home.config_command(&["set", args[0], args[1]])
+            .assert()
+            .code(2)
+            .stderr(contains(format!("jevpipe: error: {problem}")));
+    }
+    assert_eq!(home.read(), "model = \"x\"\n");
+
+    for (text, problem) in [
+        ("[anthropic]\nmodel = \"x\"\n", "unknown key `anthropic`"),
+        (
+            "[openrouter]\nprovider = \"typesafe\"\n",
+            "unknown key `openrouter.provider`",
+        ),
+        (
+            "[typesafe]\nmax-cost = 1\n",
+            "invalid value '1' for `typesafe.max-cost`: TypeSafe reports no cost",
+        ),
+    ] {
+        home.write(text);
+        home.config_command(&["list"])
+            .assert()
+            .code(2)
+            .stderr(contains(format!(
+                "jevpipe: error: {}: {problem}",
+                home.config().display()
+            )));
     }
 }

@@ -11,12 +11,14 @@ use crate::config::Config;
 use crate::decision::{Decision, Outcome};
 use crate::exit::{self, Exit};
 use crate::file::{self, Content, Unjudged};
-use crate::limits::{Limits, NoCost, Stop, TooLong};
+use crate::limits::{Limits, Stop, TooLong, Unreported};
 use crate::output::{Delivery, Output, report};
+use crate::provider::Provider;
 use crate::questions::Questions;
 use crate::reason::Failure;
 use crate::record::{self, FailedInput, Input, Record};
 use crate::service::{Service, ServiceConfig, ServiceError, State};
+use crate::settings::Limit;
 use crate::summary::Summary;
 
 pub(crate) trait Command {
@@ -43,9 +45,21 @@ enum RunError {
     #[error("service error: {0}")]
     Rejected(String),
     #[error(transparent)]
-    NoCost(#[from] NoCost),
+    Unreported(#[from] Unreported),
     #[error(transparent)]
     TooLong(#[from] TooLong),
+    #[error(
+        "{} reports no cost, so --max-cost cannot be enforced; use --max-tokens instead",
+        .0.name()
+    )]
+    SpendLimitUnsupported(Provider),
+    #[error(
+        "max-cost = {limit} in the config file applies to every provider, but {name} reports no cost; keep it for {other_name} with jevpipe config set {other}.max-cost {limit} and jevpipe config unset max-cost, and limit {name} runs with max-tokens",
+        name = provider.name(),
+        other = provider.other(),
+        other_name = provider.other().name()
+    )]
+    SharedSpendLimit { provider: Provider, limit: String },
 }
 
 enum Decided {
@@ -175,14 +189,24 @@ impl<'a, C: Command> Printer<'a, C> {
 
     fn finish(mut self, limits: &Limits) -> Summary {
         self.summary
-            .finish(limits.reported_cost(), limits.stop_line(self.resume_line));
+            .finish(limits.reported(), limits.stop_line(self.resume_line));
         self.summary
     }
 }
 
 impl<'a> Judge<'a> {
     fn new(questions: &'a Questions, args: &RunArgs, config: &Config) -> Result<Self, RunError> {
-        let service = ServiceConfig::new(config.base_url(), auth::api_key()?);
+        let provider = config.provider();
+        if !provider.reports_cost() && matches!(args.settings.max_cost, Limit::At(_)) {
+            return Err(match config.shared_spend_limit() {
+                Some(limit) => RunError::SharedSpendLimit {
+                    provider,
+                    limit: limit.to_owned(),
+                },
+                None => RunError::SpendLimitUnsupported(provider),
+            });
+        }
+        let service = ServiceConfig::new(config.base_url(), auth::api_key(provider)?);
         Ok(Self {
             service: Service::new(service, &args.settings)?,
             questions,
@@ -246,7 +270,7 @@ impl<'a> Judge<'a> {
         }
         let outcome = match self.service.ask(self.questions, state).await {
             Ok(reply) => {
-                self.limits.add(reply.cost)?;
+                self.limits.add(&reply.usage)?;
                 Outcome::Answered { reply, truncated }
             }
             Err(ServiceError::Transient { .. }) => Outcome::Failed(Failure::ServiceUnavailable),

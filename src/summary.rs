@@ -1,10 +1,9 @@
 use std::fmt;
 use std::time::Instant;
 
-use crate::cost::Cost;
 use crate::decision::Outcome;
 use crate::exit::Exit;
-use crate::limits::StopLine;
+use crate::limits::{Reported, StopLine};
 
 pub(crate) struct Summary {
     results_label: &'static str,
@@ -13,7 +12,7 @@ pub(crate) struct Summary {
     skipped: usize,
     failed: usize,
     truncated: usize,
-    cost: Option<Cost>,
+    reported: Reported,
     started: Instant,
     closed: bool,
     stop: Option<StopLine>,
@@ -28,7 +27,7 @@ impl Summary {
             skipped: 0,
             failed: 0,
             truncated: 0,
-            cost: None,
+            reported: Reported::default(),
             started: Instant::now(),
             closed: false,
             stop: None,
@@ -56,8 +55,8 @@ impl Summary {
         self.closed = true;
     }
 
-    pub(crate) fn finish(&mut self, cost: Option<Cost>, stop: Option<StopLine>) {
-        self.cost = cost;
+    pub(crate) fn finish(&mut self, reported: Reported, stop: Option<StopLine>) {
+        self.reported = reported;
         self.stop = stop;
     }
 
@@ -85,7 +84,10 @@ impl fmt::Display for Summary {
         if self.truncated > 0 {
             write!(formatter, ", {} truncated", self.truncated)?;
         }
-        if let Some(cost) = self.cost {
+        if let Some(tokens) = self.reported.tokens {
+            write!(formatter, ", {} tokens", tokens.abbreviated())?;
+        }
+        if let Some(cost) = self.reported.cost {
             write!(formatter, ", {cost}")?;
         }
         write!(formatter, ", {:.1}s", self.started.elapsed().as_secs_f64())?;

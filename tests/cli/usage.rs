@@ -51,6 +51,13 @@ fn option_values_are_checked_before_any_input_is_read() {
         ("--max-cost", "abc", "not an amount of US dollars"),
         ("--max-time", "10", "needs a unit, for example 10s or 5m"),
         ("--max-time", "0s", "must be longer than zero"),
+        ("--max-tokens", "0", "must be positive"),
+        ("--max-tokens", "-1", "not a count, for example 250k or 5M"),
+        (
+            "--max-tokens",
+            "lots",
+            "not a count, for example 250k or 5M",
+        ),
     ];
     for (option, value, problem) in cases {
         jevpipe()

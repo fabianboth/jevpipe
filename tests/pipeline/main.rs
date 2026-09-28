@@ -10,6 +10,7 @@ mod fixture;
 mod limits;
 mod map_answers;
 mod map_files;
+mod providers;
 mod stand_in;
 mod stderr;
 mod streaming;

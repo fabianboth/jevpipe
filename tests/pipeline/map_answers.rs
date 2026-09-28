@@ -101,7 +101,9 @@ async fn exits_0_with_one_summary_line_when_every_record_is_answered() {
     let stderr = stderr(output.get_output());
     assert_eq!(stderr.lines().count(), 1, "{stderr}");
     assert!(
-        stderr.starts_with("jevpipe: 3 records, 3 answered, 0 skipped, 0 failed, $0.00003, "),
+        stderr.starts_with(
+            "jevpipe: 3 records, 3 answered, 0 skipped, 0 failed, 990 tokens, $0.00003, "
+        ),
         "{stderr}"
     );
     assert!(stderr.trim_end().ends_with('s'), "{stderr}");

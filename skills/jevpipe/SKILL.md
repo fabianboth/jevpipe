@@ -2,7 +2,7 @@
 name: jevpipe
 description: Bulk System 1 decisions from the shell. The jevpipe CLI sends every line, file or record to a small decision model that works as a classifier you configure with plain-language instructions, and returns only typed answers (yes/no, one choice, a score) with their confidence. Use it whenever the same judgment applies to dozens or thousands of items, even if jevpipe is not named - finding files by what the code does, triaging CI failures or logs, labelling issues, sorting commits for release notes, reviewing a large diff, moderating a queue. It judges each item on its own and returns answers, not text.
 license: Apache-2.0
-compatibility: Requires the jevpipe CLI on PATH and network access to OpenRouter; jq recommended for map.
+compatibility: Requires the jevpipe CLI on PATH and network access to OpenRouter or TypeSafe; jq recommended for map.
 ---
 
 # jevpipe
@@ -60,7 +60,7 @@ git log --format=%s 15.0.0..15.1.0 | jevpipe filter "Is this a new feature?"
 ```
 ignore/types: add `ssa` type
 printer: add Cursor hyperlink alias
-jevpipe: 19 records, 2 kept, 0 skipped, 0 failed, $0.000225, 1.1s
+jevpipe: 19 records, 2 kept, 0 skipped, 0 failed, 5.7k tokens, $0.000225, 1.1s
 ```
 
 ## map: typed answers
@@ -157,8 +157,8 @@ TypeSafe's guidance ([confidence](https://docs.typesafe.ai/confidence.md)):
 ## Cost
 
 Every record is a paid request, and the cost follows its size: about $0.01 per 1,000 short lines and
-$0.20 per 1,000 source files. If the user has set a spending cap (`jevpipe config get max-cost`), a
-run stops sending requests once it reaches it.
+$0.20 per 1,000 source files. If the user has set a spending cap (`jevpipe config get max-cost`) or
+a token cap (`jevpipe config get max-tokens`), a run stops sending requests once it reaches it.
 
 Narrow the input first by what is certain, such as file types, directories or leaving out vendored and
 generated files (`git ls-files '*.rs'`). That saves cost and keeps unrelated records out.
@@ -167,7 +167,8 @@ generated files (`git ls-files '*.rs'`). That saves cost and keeps unrelated rec
 
 - 1 from `filter`: nothing matched. That is an answer, not an error.
 - 2: a record failed, or an error stopped the run.
-- 3: the spending cap or time limit stopped the run; standard error names the line to resume from.
+- 3: the spending cap, token cap or time limit stopped the run; standard error names the line to
+  resume from.
 
 ## Setup and more
 

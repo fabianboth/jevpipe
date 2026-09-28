@@ -12,6 +12,7 @@ use crate::auth::ApiKey;
 use crate::cost::Cost;
 use crate::questions::Questions;
 use crate::settings::Settings;
+use crate::tokens::Tokens;
 
 pub(crate) use error::{Exhausted, ServiceError};
 
@@ -51,6 +52,11 @@ pub(crate) enum State<'a> {
 
 pub(crate) struct Reply {
     pub(crate) answers: Answers,
+    pub(crate) usage: Usage,
+}
+
+pub(crate) struct Usage {
+    pub(crate) tokens: Option<Tokens>,
     pub(crate) cost: Option<Cost>,
 }
 
@@ -64,11 +70,14 @@ struct Request<'a> {
 #[derive(Deserialize)]
 struct ReplyBody {
     answers: Box<RawValue>,
-    usage: Option<Usage>,
+    #[serde(default)]
+    usage: UsageBody,
 }
 
-#[derive(Deserialize)]
-struct Usage {
+#[derive(Default, Deserialize)]
+struct UsageBody {
+    input_tokens: Option<u64>,
+    output_tokens: Option<u64>,
     cost: Option<f64>,
 }
 
@@ -127,9 +136,22 @@ impl Reply {
         let body: ReplyBody = serde_json::from_slice(&body).map_err(UnexpectedAnswer::from)?;
         Ok(Self {
             answers: Answers::check(body.answers, questions)?,
+            usage: body.usage.try_into()?,
+        })
+    }
+}
+
+impl TryFrom<UsageBody> for Usage {
+    type Error = ServiceError;
+
+    fn try_from(body: UsageBody) -> Result<Self, Self::Error> {
+        Ok(Self {
+            tokens: body
+                .input_tokens
+                .zip(body.output_tokens)
+                .map(|(input, output)| Tokens::from_count(input.saturating_add(output))),
             cost: body
-                .usage
-                .and_then(|usage| usage.cost)
+                .cost
                 .map(Cost::from_dollars)
                 .transpose()
                 .map_err(|error| ServiceError::Rejected(format!("unexpected cost: {error}")))?,
