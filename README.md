@@ -141,8 +141,7 @@ explicitly state otherwise, any contribution you intentionally submit for inclus
 defined in the Apache-2.0 license, is dual licensed as above, without any additional terms or
 conditions.
 
-jevpipe is an independent
-project, not affiliated with or endorsed by TypeSafe AI; the answers come from
-[Jev](https://typesafe.ai), TypeSafe AI's calibrated decision model, through OpenRouter or
-TypeSafe's own API. Building
-from source needs Rust (rustup picks the pinned toolchain) and PowerShell 7 for `./check.ps1`.
+jevpipe is an independent project, not affiliated with or endorsed by TypeSafe AI; the answers
+come from [Jev](https://typesafe.ai), TypeSafe AI's calibrated decision model, through OpenRouter
+or TypeSafe's own API. Building from source needs Rust (rustup picks the pinned toolchain) and
+PowerShell 7 for `./check.ps1`.

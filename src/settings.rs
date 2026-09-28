@@ -20,7 +20,7 @@ pub(crate) struct Settings {
     #[arg(long, value_name = "N", default_value = "100")]
     pub(crate) concurrency: NonZeroUsize,
 
-    /// Give up on a record's answer after this long, retries included, e.g. 10s or 1m
+    /// Give up on a request after this long, retries included, e.g. 10s or 1m
     #[arg(long, value_name = "DURATION", default_value = "10s", value_parser = duration)]
     pub(crate) request_timeout: Duration,
 

@@ -124,20 +124,15 @@ async fn a_slow_record_does_not_hold_back_the_requests_behind_it() {
     let stand_in = StandIn::start().await;
     let mut running = Running::map(&stand_in, &["--concurrency", "2"]);
     let mut stdin = running.0.stdin.take().unwrap();
-    stdin
-        .write_all(
-            b"a slow=3000
-b
-c
-d
-e
-",
-        )
-        .unwrap();
+    stdin.write_all(b"a slow=4000\nb\nc\nd\ne\n").unwrap();
     drop(stdin);
 
-    thread::sleep(Duration::from_millis(1500));
-    let sent_while_the_first_waits = stand_in.requests().await.len();
+    let deadline = Instant::now() + Duration::from_secs(3);
+    let mut sent_while_the_first_waits = stand_in.requests().await.len();
+    while sent_while_the_first_waits < 5 && Instant::now() < deadline {
+        thread::sleep(Duration::from_millis(50));
+        sent_while_the_first_waits = stand_in.requests().await.len();
+    }
     let mut stdout = String::new();
     running
         .0
@@ -152,7 +147,7 @@ e
         .lines()
         .map(|line| serde_json::from_str::<Value>(line).unwrap()["record"].clone())
         .collect();
-    assert_eq!(records, ["a slow=3000", "b", "c", "d", "e"]);
+    assert_eq!(records, ["a slow=4000", "b", "c", "d", "e"]);
     assert!(running.0.wait().unwrap().success());
 }
 
