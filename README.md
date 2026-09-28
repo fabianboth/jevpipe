@@ -61,7 +61,7 @@ ignore/types: add `ssa` type
 printer: add Cursor hyperlink alias
 
 # the summary, on standard error
-jevpipe: 19 records, 2 kept, 0 skipped, 0 failed, $0.000225, 1.1s
+jevpipe: 19 records, 2 kept, 0 skipped, 0 failed, 5.7k tokens, $0.000225, 1.1s
 ```
 
 <details>

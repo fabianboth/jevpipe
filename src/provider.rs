@@ -12,7 +12,7 @@ pub(crate) enum Provider {
 }
 
 #[derive(Debug, thiserror::Error)]
-#[error("the providers are {OPENROUTER}, {TYPESAFE}")]
+#[error("the providers are {}", Provider::ALL.map(Provider::id).join(", "))]
 pub(crate) struct UnknownProvider;
 
 impl Provider {

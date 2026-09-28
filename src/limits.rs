@@ -61,7 +61,7 @@ enum Reason {
     Exhausted(Exhausted),
 }
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Default)]
 pub(crate) struct Reported {
     pub(crate) cost: Option<Cost>,
     pub(crate) tokens: Option<Tokens>,

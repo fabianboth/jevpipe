@@ -70,10 +70,11 @@ struct Request<'a> {
 #[derive(Deserialize)]
 struct ReplyBody {
     answers: Box<RawValue>,
-    usage: Option<UsageBody>,
+    #[serde(default)]
+    usage: UsageBody,
 }
 
-#[derive(Deserialize)]
+#[derive(Default, Deserialize)]
 struct UsageBody {
     input_tokens: Option<u64>,
     output_tokens: Option<u64>,
@@ -135,16 +136,9 @@ impl Reply {
         let body: ReplyBody = serde_json::from_slice(&body).map_err(UnexpectedAnswer::from)?;
         Ok(Self {
             answers: Answers::check(body.answers, questions)?,
-            usage: body.usage.map_or(Ok(Usage::NONE), Usage::try_from)?,
+            usage: body.usage.try_into()?,
         })
     }
-}
-
-impl Usage {
-    const NONE: Self = Self {
-        tokens: None,
-        cost: None,
-    };
 }
 
 impl TryFrom<UsageBody> for Usage {

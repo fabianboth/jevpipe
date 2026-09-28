@@ -12,7 +12,7 @@ pub(crate) struct Summary {
     skipped: usize,
     failed: usize,
     truncated: usize,
-    reported: Option<Reported>,
+    reported: Reported,
     started: Instant,
     closed: bool,
     stop: Option<StopLine>,
@@ -27,7 +27,7 @@ impl Summary {
             skipped: 0,
             failed: 0,
             truncated: 0,
-            reported: None,
+            reported: Reported::default(),
             started: Instant::now(),
             closed: false,
             stop: None,
@@ -56,7 +56,7 @@ impl Summary {
     }
 
     pub(crate) fn finish(&mut self, reported: Reported, stop: Option<StopLine>) {
-        self.reported = Some(reported);
+        self.reported = reported;
         self.stop = stop;
     }
 
@@ -84,10 +84,10 @@ impl fmt::Display for Summary {
         if self.truncated > 0 {
             write!(formatter, ", {} truncated", self.truncated)?;
         }
-        if let Some(tokens) = self.reported.and_then(|reported| reported.tokens) {
+        if let Some(tokens) = self.reported.tokens {
             write!(formatter, ", {} tokens", tokens.abbreviated())?;
         }
-        if let Some(cost) = self.reported.and_then(|reported| reported.cost) {
+        if let Some(cost) = self.reported.cost {
             write!(formatter, ", {cost}")?;
         }
         write!(formatter, ", {:.1}s", self.started.elapsed().as_secs_f64())?;

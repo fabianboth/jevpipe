@@ -30,8 +30,8 @@ pub(crate) enum LookupError {
         other = .0.other()
     )]
     Missing(Provider),
-    #[error("{0}; set {variable} instead", variable = .1.key_variable())]
-    Keychain(Unavailable, Provider),
+    #[error(transparent)]
+    Keychain(NoKeychain),
 }
 
 #[derive(Debug, thiserror::Error)]
@@ -42,8 +42,15 @@ pub(crate) enum StoreError {
         "that does not look like an API key (printable ASCII characters only, no spaces, quotes or backslashes)"
     )]
     NotAKey,
-    #[error("{0}; set {variable} instead", variable = .1.key_variable())]
-    Keychain(Unavailable, Provider),
+    #[error(transparent)]
+    Keychain(NoKeychain),
+}
+
+#[derive(Debug, thiserror::Error)]
+#[error("{unavailable}; set {variable} instead", variable = .provider.key_variable())]
+pub(crate) struct NoKeychain {
+    unavailable: Unavailable,
+    provider: Provider,
 }
 
 impl ApiKey {
@@ -60,7 +67,7 @@ pub(crate) fn source(provider: Provider) -> Source {
     match lookup(provider, variable(provider)) {
         Ok((_, source)) => source,
         Err(LookupError::Missing(_)) => Source::NotSet,
-        Err(LookupError::Keychain(unavailable, _)) => Source::Unavailable(unavailable),
+        Err(LookupError::Keychain(error)) => Source::Unavailable(error.unavailable),
     }
 }
 
@@ -75,7 +82,10 @@ fn lookup(provider: Provider, variable: Option<String>) -> Result<(ApiKey, Sourc
     match keychain::get(provider) {
         Ok(Some(key)) => Ok((ApiKey(key), Source::Keychain)),
         Ok(None) => Err(LookupError::Missing(provider)),
-        Err(unavailable) => Err(LookupError::Keychain(unavailable, provider)),
+        Err(unavailable) => Err(LookupError::Keychain(NoKeychain {
+            unavailable,
+            provider,
+        })),
     }
 }
 
@@ -88,7 +98,12 @@ fn store(provider: Provider, line: &str) -> Result<(), StoreError> {
     if !key.bytes().all(allowed) {
         return Err(StoreError::NotAKey);
     }
-    keychain::set(provider, key).map_err(|unavailable| StoreError::Keychain(unavailable, provider))
+    keychain::set(provider, key).map_err(|unavailable| {
+        StoreError::Keychain(NoKeychain {
+            unavailable,
+            provider,
+        })
+    })
 }
 
 impl fmt::Display for Source {

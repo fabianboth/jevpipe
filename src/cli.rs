@@ -77,7 +77,7 @@ and the file beats the built-in default.
 
 A key prefixed with a provider applies only while that provider is in use and beats the same key
 without prefix, e.g. jevpipe config set openrouter.max-cost 0.5 or typesafe.model jev-1.13.0.
-The file keeps them in a [openrouter] or [typesafe] section.
+The file keeps them in an [openrouter] or a [typesafe] section.
 
 The file is config.toml in the user config directory: %APPDATA%\jevpipe on Windows,
 $XDG_CONFIG_HOME/jevpipe or ~/.config/jevpipe elsewhere. JEVPIPE_CONFIG names another file.";

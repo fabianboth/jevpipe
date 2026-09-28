@@ -1,5 +1,6 @@
 use std::process::ExitCode;
 
+use super::NoKeychain;
 use super::keychain::{self, Removed};
 use super::prompt::{self, Typed};
 use crate::cli::AuthCommand;
@@ -45,11 +46,11 @@ fn remove_key(provider: Provider) -> ExitCode {
         Ok(Removed::NothingStored) => {
             report(format_args!("no {} API key stored", provider.name()));
         }
-        Err(error) => {
-            return exit::fail(format_args!(
-                "{error}; set {} instead",
-                provider.key_variable()
-            ));
+        Err(unavailable) => {
+            return exit::fail(NoKeychain {
+                unavailable,
+                provider,
+            });
         }
     }
     Exit::Success.into()

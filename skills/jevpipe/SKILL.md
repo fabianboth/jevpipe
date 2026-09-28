@@ -60,7 +60,7 @@ git log --format=%s 15.0.0..15.1.0 | jevpipe filter "Is this a new feature?"
 ```
 ignore/types: add `ssa` type
 printer: add Cursor hyperlink alias
-jevpipe: 19 records, 2 kept, 0 skipped, 0 failed, $0.000225, 1.1s
+jevpipe: 19 records, 2 kept, 0 skipped, 0 failed, 5.7k tokens, $0.000225, 1.1s
 ```
 
 ## map: typed answers
