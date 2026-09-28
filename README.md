@@ -26,12 +26,14 @@
 
 ```sh
 uv tool install jevpipe                             # the CLI
-jevpipe auth set-key                                # your OpenRouter key, kept in the system keychain
+jevpipe auth set-key                                # your API key, kept in the system keychain
 npx skills add fabianboth/jevpipe --skill jevpipe   # teaches your agent when and how to use it
 ```
 
-You need an [OpenRouter API key](https://openrouter.ai/settings/keys). Where there is no keychain,
-as in containers, CI or headless Linux, set `OPENROUTER_API_KEY` instead; it also takes precedence.
+You need an [OpenRouter API key](https://openrouter.ai/settings/keys), or a
+[TypeSafe API key](https://console.typesafe.ai/keys) after `jevpipe config set provider typesafe`.
+Where there is no keychain, as in containers, CI or headless Linux, set `OPENROUTER_API_KEY` or
+`TYPESAFE_API_KEY` instead; it also takes precedence.
 No uv yet? [Install it](https://docs.astral.sh/uv/getting-started/installation/) or use pipx.
 
 <details>
@@ -153,13 +155,14 @@ git ls-files | jevpipe filter "Does this file retry failed requests?" --read-fil
 
 ## Cost and speed
 
-Every record is one request billed to your [OpenRouter](https://openrouter.ai) credit, and the
-cost follows the size of each record: about a cent per 1,000 commit messages, 4 to 18 cents per
+Every record is one request billed to your [OpenRouter](https://openrouter.ai) or
+[TypeSafe](https://typesafe.ai) credit, and the cost follows the size of each record: about a cent per 1,000 commit messages, 4 to 18 cents per
 1,000 source files. Asking several questions at once barely changes it. Up to 100 records run at
 the same time, so hundreds take seconds.
 
 `--max-cost 0.50` stops sending requests once the run has spent $0.50; it then exits with status 3
-and names the line to resume from.
+and names the line to resume from. On TypeSafe, which reports tokens rather than dollars, use
+`--max-tokens 5M` instead.
 To cap every run by default, run `jevpipe config set max-cost 0.50` once; `jevpipe config --help`
 lists the other defaults you can set.
 
@@ -167,5 +170,6 @@ lists the other defaults you can set.
 
 [Apache-2.0](https://github.com/fabianboth/jevpipe/blob/main/LICENSE). jevpipe is an independent
 project, not affiliated with or endorsed by TypeSafe AI; the answers come from
-[Jev](https://typesafe.ai), TypeSafe AI's calibrated decision model, through OpenRouter. Building
+[Jev](https://typesafe.ai), TypeSafe AI's calibrated decision model, through OpenRouter or
+TypeSafe's own API. Building
 from source needs Rust (rustup picks the pinned toolchain) and PowerShell 7 for `./check.ps1`.

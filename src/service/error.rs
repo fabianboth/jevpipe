@@ -21,8 +21,16 @@ pub(crate) enum Exhausted {
 }
 
 #[derive(Deserialize)]
-struct ErrorBody {
-    error: ErrorDetail,
+#[serde(untagged)]
+enum ErrorBody {
+    OpenRouter { error: ErrorDetail },
+    TypeSafe { detail: Detail },
+}
+
+#[derive(Deserialize)]
+struct Detail {
+    message: Option<String>,
+    error_type: Option<String>,
 }
 
 #[derive(Deserialize)]
@@ -74,9 +82,9 @@ impl ServiceError {
         let body = response.text().await.unwrap_or_default();
         let error = serde_json::from_str::<ErrorBody>(&body).ok();
         let rejected = || {
-            Self::Rejected(error.as_ref().map_or_else(
+            Self::Rejected(error.as_ref().and_then(ErrorBody::message).map_or_else(
                 || status.to_string(),
-                |error| format!("{status}: {}", error.error.message),
+                |message| format!("{status}: {message}"),
             ))
         };
         match status.as_u16() {
@@ -102,8 +110,18 @@ impl ServiceError {
 }
 
 impl ErrorBody {
+    fn message(&self) -> Option<&str> {
+        match self {
+            Self::OpenRouter { error } => Some(&error.message),
+            Self::TypeSafe { detail } => detail.message.as_deref().or(detail.error_type.as_deref()),
+        }
+    }
+
     fn limit_source(&self) -> Option<&LimitSource> {
-        self.error.metadata.as_ref()?.limit_source.as_ref()
+        match self {
+            Self::OpenRouter { error } => error.metadata.as_ref()?.limit_source.as_ref(),
+            Self::TypeSafe { .. } => None,
+        }
     }
 }
 

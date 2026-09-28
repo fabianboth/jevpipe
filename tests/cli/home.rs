@@ -65,6 +65,7 @@ fn binary(config: &Path) -> process::Command {
     let mut command = process::Command::new(env!("CARGO_BIN_EXE_jevpipe"));
     command
         .env("JEVPIPE_CONFIG", config)
+        .env_remove("TYPESAFE_API_KEY")
         .env("OPENROUTER_API_KEY", API_KEY);
     command
 }

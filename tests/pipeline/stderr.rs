@@ -88,7 +88,9 @@ async fn the_summary_counts_truncated_files_only_when_there_are_any() {
             .write_stdin("big.txt\nsmall.txt\n")
             .assert()
             .success()
-            .stderr(contains(", 0 skipped, 0 failed, 1 truncated, $"));
+            .stderr(contains(
+                ", 0 skipped, 0 failed, 1 truncated, 660 tokens, $",
+            ));
     }
     for mut command in [stand_in.filter(), stand_in.map()] {
         let output = command
@@ -108,7 +110,7 @@ async fn a_broken_config_file_stops_the_run_before_any_request() {
     let cases = [
         (
             "concurency = 4\n",
-            "unknown key `concurency`; the keys are base-url, concurrency, max-cost, max-time, model, request-timeout",
+            "unknown key `concurency`; the keys are base-url, concurrency",
         ),
         (
             "concurrency = 0\n",
@@ -128,4 +130,47 @@ async fn a_broken_config_file_stops_the_run_before_any_request() {
     }
 
     assert!(stand_in.requests().await.is_empty());
+}
+
+#[tokio::test]
+async fn the_summary_shows_each_measure_the_service_reported() {
+    let typesafe = StandIn::typesafe().await;
+    let openrouter = StandIn::start().await;
+    let ten = "tokens=330\n".repeat(10);
+
+    let cases = [
+        (
+            &typesafe,
+            ten.clone(),
+            "10 records, 10 answered, 0 skipped, 0 failed, 3.3k tokens, ",
+        ),
+        (
+            &openrouter,
+            ten,
+            "10 records, 10 answered, 0 skipped, 0 failed, 3.3k tokens, $0.0001, ",
+        ),
+        (
+            &typesafe,
+            "tokens=812\n".to_owned(),
+            "1 records, 1 answered, 0 skipped, 0 failed, 812 tokens, ",
+        ),
+        (
+            &openrouter,
+            "notokens nocost\n".to_owned(),
+            "1 records, 1 answered, 0 skipped, 0 failed, ",
+        ),
+    ];
+    for (stand_in, input, summary) in cases {
+        let output = stand_in.map().write_stdin(input).assert().success();
+
+        let stderr = stderr(output.get_output());
+        let seconds = stderr
+            .strip_prefix(&format!("jevpipe: {summary}"))
+            .unwrap_or_else(|| panic!("{stderr}"))
+            .trim_end();
+        assert!(
+            seconds.ends_with('s') && !seconds.contains(['$', 't']),
+            "{stderr}"
+        );
+    }
 }

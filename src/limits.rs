@@ -7,15 +7,28 @@ use tokio::sync::watch;
 use tokio::time::{self, Instant};
 
 use crate::cost::Cost;
-use crate::service::Exhausted;
+use crate::service::{Exhausted, Usage};
 use crate::settings::{Limit, Settings};
+use crate::tokens::Tokens;
 
 pub(crate) struct Limits {
-    spent: AtomicU64,
-    costed: AtomicBool,
-    max_cost: Limit<Cost>,
+    spend: Meter,
+    tokens: Meter,
     deadline: Limit<Deadline>,
     stop: watch::Sender<Option<Stop>>,
+}
+
+struct Meter {
+    measure: Measure,
+    total: AtomicU64,
+    reported: AtomicBool,
+    limit: Limit<u64>,
+}
+
+#[derive(Clone, Copy, Debug)]
+pub(crate) enum Measure {
+    Spend,
+    Tokens,
 }
 
 #[derive(Clone, Copy)]
@@ -26,20 +39,37 @@ struct Deadline {
 
 #[derive(Clone, Copy)]
 pub(crate) enum Stop {
-    Spend { limit: Cost },
+    Limit { measure: Measure, limit: u64 },
     Time { limit: Duration },
     Exhausted(Exhausted),
 }
 
 pub(crate) struct StopLine {
-    stop: Stop,
-    spent: Cost,
+    reason: Reason,
     resume_line: usize,
 }
 
+enum Reason {
+    Reached {
+        measure: Measure,
+        limit: u64,
+        used: u64,
+    },
+    Time {
+        limit: Duration,
+    },
+    Exhausted(Exhausted),
+}
+
+#[derive(Clone, Copy)]
+pub(crate) struct Reported {
+    pub(crate) cost: Option<Cost>,
+    pub(crate) tokens: Option<Tokens>,
+}
+
 #[derive(Debug, thiserror::Error)]
-#[error("the service reported no cost, so --max-cost cannot be enforced")]
-pub(crate) struct NoCost;
+#[error("the service reported no {}, so {} cannot be enforced", .0.unreported(), .0.flag())]
+pub(crate) struct Unreported(Measure);
 
 #[derive(Debug, thiserror::Error)]
 #[error("--max-time {} is too long", humantime::format_duration(*.0))]
@@ -55,9 +85,8 @@ impl Limits {
             Limit::Unlimited => Limit::Unlimited,
         };
         Ok(Self {
-            spent: AtomicU64::new(0),
-            costed: AtomicBool::new(false),
-            max_cost: settings.max_cost,
+            spend: Meter::new(Measure::Spend, settings.max_cost.map(Cost::nanos)),
+            tokens: Meter::new(Measure::Tokens, settings.max_tokens.map(Tokens::count)),
             deadline,
             stop: watch::Sender::new(None),
         })
@@ -67,25 +96,18 @@ impl Limits {
         if self.is_stopped() {
             return false;
         }
-        match self.max_cost {
-            Limit::At(limit) if self.spent() >= limit => {
-                self.stop(Stop::Spend { limit });
+        match self.meters().into_iter().find_map(Meter::reached) {
+            Some(stop) => {
+                self.stop(stop);
                 false
             }
-            Limit::At(_) | Limit::Unlimited => true,
+            None => true,
         }
     }
 
-    pub(crate) fn add(&self, cost: Option<Cost>) -> Result<(), NoCost> {
-        match (cost, self.max_cost) {
-            (Some(cost), _) => {
-                self.spent.fetch_add(cost.nanos(), Ordering::Relaxed);
-                self.costed.store(true, Ordering::Relaxed);
-                Ok(())
-            }
-            (None, Limit::At(_)) => Err(NoCost),
-            (None, Limit::Unlimited) => Ok(()),
-        }
+    pub(crate) fn add(&self, usage: &Usage) -> Result<(), Unreported> {
+        self.spend.add(usage.cost.map(Cost::nanos))?;
+        self.tokens.add(usage.tokens.map(Tokens::count))
     }
 
     pub(crate) fn stop(&self, stop: Stop) {
@@ -112,47 +134,127 @@ impl Limits {
         }
     }
 
-    pub(crate) fn reported_cost(&self) -> Option<Cost> {
-        self.costed.load(Ordering::Relaxed).then(|| self.spent())
+    pub(crate) fn reported(&self) -> Reported {
+        Reported {
+            cost: self.spend.reported().map(Cost::from_nanos),
+            tokens: self.tokens.reported().map(Tokens::from_count),
+        }
     }
 
     pub(crate) fn stop_line(&self, resume_line: usize) -> Option<StopLine> {
-        let stop = (*self.stop.borrow())?;
+        let reason = match (*self.stop.borrow())? {
+            Stop::Limit { measure, limit } => Reason::Reached {
+                measure,
+                limit,
+                used: self.meter(measure).total(),
+            },
+            Stop::Time { limit } => Reason::Time { limit },
+            Stop::Exhausted(exhausted) => Reason::Exhausted(exhausted),
+        };
         Some(StopLine {
-            stop,
-            spent: self.spent(),
+            reason,
             resume_line,
         })
+    }
+
+    fn meters(&self) -> [&Meter; 2] {
+        [&self.spend, &self.tokens]
+    }
+
+    fn meter(&self, measure: Measure) -> &Meter {
+        match measure {
+            Measure::Spend => &self.spend,
+            Measure::Tokens => &self.tokens,
+        }
     }
 
     fn is_stopped(&self) -> bool {
         self.stop.borrow().is_some()
     }
+}
 
-    fn spent(&self) -> Cost {
-        Cost::from_nanos(self.spent.load(Ordering::Relaxed))
+impl Meter {
+    const fn new(measure: Measure, limit: Limit<u64>) -> Self {
+        Self {
+            measure,
+            total: AtomicU64::new(0),
+            reported: AtomicBool::new(false),
+            limit,
+        }
+    }
+
+    fn add(&self, amount: Option<u64>) -> Result<(), Unreported> {
+        match (amount, self.limit) {
+            (Some(amount), _) => {
+                self.total.fetch_add(amount, Ordering::Relaxed);
+                self.reported.store(true, Ordering::Relaxed);
+                Ok(())
+            }
+            (None, Limit::At(_)) => Err(Unreported(self.measure)),
+            (None, Limit::Unlimited) => Ok(()),
+        }
+    }
+
+    fn reached(&self) -> Option<Stop> {
+        match self.limit {
+            Limit::At(limit) if self.total() >= limit => Some(Stop::Limit {
+                measure: self.measure,
+                limit,
+            }),
+            Limit::At(_) | Limit::Unlimited => None,
+        }
+    }
+
+    fn reported(&self) -> Option<u64> {
+        self.reported.load(Ordering::Relaxed).then(|| self.total())
+    }
+
+    fn total(&self) -> u64 {
+        self.total.load(Ordering::Relaxed)
+    }
+}
+
+impl Measure {
+    const fn flag(self) -> &'static str {
+        match self {
+            Self::Spend => "--max-cost",
+            Self::Tokens => "--max-tokens",
+        }
+    }
+
+    const fn unreported(self) -> &'static str {
+        match self {
+            Self::Spend => "cost",
+            Self::Tokens => "token count",
+        }
     }
 }
 
 impl fmt::Display for StopLine {
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
         formatter.write_str("stopped: ")?;
-        match self.stop {
-            Stop::Spend { limit } => {
-                write!(
-                    formatter,
-                    "spend limit {limit} reached ({} spent)",
-                    self.spent
-                )?;
-            }
-            Stop::Time { limit } => {
-                write!(
-                    formatter,
-                    "time limit {} reached",
-                    humantime::format_duration(limit)
-                )?;
-            }
-            Stop::Exhausted(exhausted) => write!(formatter, "{exhausted}")?,
+        match self.reason {
+            Reason::Reached {
+                measure: Measure::Spend,
+                limit,
+                used,
+            } => write!(
+                formatter,
+                "spend limit {} reached ({} spent)",
+                Cost::from_nanos(limit),
+                Cost::from_nanos(used)
+            )?,
+            Reason::Reached {
+                measure: Measure::Tokens,
+                limit,
+                used,
+            } => write!(formatter, "token limit {limit} reached ({used} used)")?,
+            Reason::Time { limit } => write!(
+                formatter,
+                "time limit {} reached",
+                humantime::format_duration(limit)
+            )?,
+            Reason::Exhausted(exhausted) => write!(formatter, "{exhausted}")?,
         }
         write!(
             formatter,

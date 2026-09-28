@@ -2,8 +2,9 @@ use std::sync::Arc;
 
 use keyring_core::{CredentialStore, Entry, Error};
 
+use crate::provider::Provider;
+
 const SERVICE: &str = "jevpipe";
-const USER: &str = "openrouter-api-key";
 
 #[derive(Debug, thiserror::Error)]
 #[error("no keychain available here ({reason})")]
@@ -30,31 +31,31 @@ impl From<Error> for Unavailable {
     }
 }
 
-pub(super) fn get() -> Result<Option<String>, Unavailable> {
-    match entry()?.get_password() {
+pub(super) fn get(provider: Provider) -> Result<Option<String>, Unavailable> {
+    match entry(provider)?.get_password() {
         Ok(key) => Ok(Some(key)),
         Err(Error::NoEntry) => Ok(None),
         Err(error) => Err(error.into()),
     }
 }
 
-pub(super) fn set(key: &str) -> Result<(), Unavailable> {
-    Ok(entry()?.set_password(key)?)
+pub(super) fn set(provider: Provider, key: &str) -> Result<(), Unavailable> {
+    Ok(entry(provider)?.set_password(key)?)
 }
 
-pub(super) fn remove() -> Result<Removed, Unavailable> {
-    match entry()?.delete_credential() {
+pub(super) fn remove(provider: Provider) -> Result<Removed, Unavailable> {
+    match entry(provider)?.delete_credential() {
         Ok(()) => Ok(Removed::Removed),
         Err(Error::NoEntry) => Ok(Removed::NothingStored),
         Err(error) => Err(error.into()),
     }
 }
 
-pub(super) fn entry() -> Result<Entry, Unavailable> {
+pub(super) fn entry(provider: Provider) -> Result<Entry, Unavailable> {
     if keyring_core::get_default_store().is_none() {
         keyring_core::set_default_store(platform_store()?);
     }
-    Ok(Entry::new(SERVICE, USER)?)
+    Ok(Entry::new(SERVICE, provider.keychain_user())?)
 }
 
 #[cfg(windows)]

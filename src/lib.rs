@@ -11,6 +11,7 @@ mod limits;
 mod map;
 mod output;
 mod pipeline;
+mod provider;
 mod questions;
 mod reason;
 mod record;
@@ -18,6 +19,7 @@ mod service;
 mod settings;
 mod summary;
 mod text;
+mod tokens;
 
 use std::process::ExitCode;
 
@@ -43,7 +45,7 @@ pub async fn run() -> ExitCode {
             }
         },
         Commands::Config(command) => config::run(command, config),
-        Commands::Auth(command) => auth::run(command).await,
+        Commands::Auth(command) => auth::run(command, config).await,
     }
 }
 
