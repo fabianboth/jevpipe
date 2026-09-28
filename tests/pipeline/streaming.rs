@@ -13,10 +13,11 @@ use crate::stand_in::StandIn;
 struct Running(Child);
 
 impl Running {
-    fn map(stand_in: &StandIn) -> Self {
+    fn map(stand_in: &StandIn, options: &[&str]) -> Self {
         let child = stand_in
             .command()
             .args(["map", "-q", QUESTIONS])
+            .args(options)
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
@@ -36,7 +37,7 @@ impl Drop for Running {
 #[tokio::test]
 async fn map_answers_each_step_before_the_next_line_is_written() {
     let stand_in = StandIn::start().await;
-    let mut running = Running::map(&stand_in);
+    let mut running = Running::map(&stand_in, &[]);
     let mut stdin = running.0.stdin.take().unwrap();
     let stdout = running.0.stdout.take().unwrap();
     let (sender, receiver) = mpsc::channel();
@@ -65,7 +66,7 @@ async fn map_answers_each_step_before_the_next_line_is_written() {
 async fn map_stops_quietly_when_the_reader_goes_away() {
     let stand_in = StandIn::start().await;
     let records = 2000;
-    let mut running = Running::map(&stand_in);
+    let mut running = Running::map(&stand_in, &[]);
     let mut stdin = running.0.stdin.take().unwrap();
     thread::spawn(move || {
         for record in 0..records {
@@ -119,6 +120,38 @@ async fn map_answers_many_records_concurrently() {
 }
 
 #[tokio::test]
+async fn a_slow_record_does_not_hold_back_the_requests_behind_it() {
+    let stand_in = StandIn::start().await;
+    let mut running = Running::map(&stand_in, &["--concurrency", "2"]);
+    let mut stdin = running.0.stdin.take().unwrap();
+    stdin.write_all(b"a slow=4000\nb\nc\nd\ne\n").unwrap();
+    drop(stdin);
+
+    let deadline = Instant::now() + Duration::from_secs(3);
+    let mut sent_while_the_first_waits = stand_in.requests().await.len();
+    while sent_while_the_first_waits < 5 && Instant::now() < deadline {
+        thread::sleep(Duration::from_millis(50));
+        sent_while_the_first_waits = stand_in.requests().await.len();
+    }
+    let mut stdout = String::new();
+    running
+        .0
+        .stdout
+        .take()
+        .unwrap()
+        .read_to_string(&mut stdout)
+        .unwrap();
+
+    assert_eq!(sent_while_the_first_waits, 5);
+    let records: Vec<Value> = stdout
+        .lines()
+        .map(|line| serde_json::from_str::<Value>(line).unwrap()["record"].clone())
+        .collect();
+    assert_eq!(records, ["a slow=4000", "b", "c", "d", "e"]);
+    assert!(running.0.wait().unwrap().success());
+}
+
+#[tokio::test]
 async fn concurrency_limits_the_requests_in_flight() {
     let stand_in = StandIn::start().await;
     let input = "a p=0.9 slow=500\nb p=0.9 slow=500\nc p=0.9 slow=500\nd p=0.9 slow=500\n";
@@ -140,17 +173,20 @@ async fn concurrency_limits_the_requests_in_flight() {
 }
 
 #[tokio::test]
-async fn a_request_that_hangs_is_abandoned_and_retried() {
+async fn a_record_not_answered_within_the_request_timeout_fails_and_the_others_are_judged() {
     let stand_in = StandIn::start().await;
 
     stand_in
         .filter()
         .args(["--request-timeout", "1s"])
-        .write_stdin("a p=0.9 slow=1500\n")
+        .write_stdin("a p=0.9 slow=1500\nb p=0.9\n")
         .assert()
-        .success()
-        .stdout("a p=0.9 slow=1500\n")
-        .stderr(contains("1 records, 1 kept"));
+        .code(2)
+        .stdout("b p=0.9\n")
+        .stderr(contains(
+            "jevpipe: line 1: service unavailable (timed out)\n",
+        ))
+        .stderr(contains("2 records, 1 kept, 0 skipped, 1 failed"));
 
     assert_eq!(stand_in.requests().await.len(), 2);
 }

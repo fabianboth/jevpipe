@@ -4,6 +4,7 @@ use std::pin::pin;
 use std::process::ExitCode;
 
 use futures::StreamExt;
+use tokio::sync::Semaphore;
 
 use crate::auth::{self, LookupError};
 use crate::cli::RunArgs;
@@ -69,6 +70,7 @@ enum Decided {
 }
 
 const HALVINGS: usize = 3;
+const WINDOW_PER_SLOT: usize = 50;
 
 enum Judged {
     Outcome(Outcome),
@@ -86,6 +88,7 @@ struct Judge<'a> {
     questions: &'a Questions,
     subject: Subject,
     limits: Limits,
+    slots: Semaphore,
 }
 
 #[derive(Clone, Copy)]
@@ -128,7 +131,12 @@ async fn decide_all<C: Command>(
     let mut decided = pin!(
         inputs
             .map(|input| judge.decide(input))
-            .buffered(args.settings.concurrency.get())
+            .buffered(
+                args.settings
+                    .concurrency
+                    .get()
+                    .saturating_mul(WINDOW_PER_SLOT)
+            )
             .take_until(limits.until_deadline())
     );
     let mut printer = Printer::new(command);
@@ -216,15 +224,21 @@ impl<'a> Judge<'a> {
                 Subject::Line
             },
             limits: Limits::new(&args.settings)?,
+            slots: Semaphore::new(args.settings.concurrency.get().min(Semaphore::MAX_PERMITS)),
         })
     }
 
     async fn decide(&self, input: Input) -> Result<Decided, RunError> {
         match input {
-            Input::Record(record) => match self.judge(&record).await? {
-                Judged::Outcome(outcome) => Ok(Decided::Record(Decision { record, outcome })),
-                Judged::Unprocessed => Ok(Decided::Unprocessed),
-            },
+            Input::Record(record) => {
+                let Ok(_slot) = self.slots.acquire().await else {
+                    return Ok(Decided::Unprocessed);
+                };
+                match self.judge(&record).await? {
+                    Judged::Outcome(outcome) => Ok(Decided::Record(Decision { record, outcome })),
+                    Judged::Unprocessed => Ok(Decided::Unprocessed),
+                }
+            }
             Input::Invalid(record, failure) => Ok(Decided::Record(Decision {
                 record,
                 outcome: Outcome::Failed(failure),
@@ -273,7 +287,9 @@ impl<'a> Judge<'a> {
                 self.limits.add(&reply.usage)?;
                 Outcome::Answered { reply, truncated }
             }
-            Err(ServiceError::Transient { .. }) => Outcome::Failed(Failure::ServiceUnavailable),
+            Err(ServiceError::Transient { cause, .. }) => {
+                Outcome::Failed(Failure::ServiceUnavailable(cause))
+            }
             Err(ServiceError::TooLarge) => Outcome::Failed(Failure::TooLarge),
             Err(ServiceError::Exhausted(exhausted)) => {
                 self.limits.stop(Stop::Exhausted(exhausted));

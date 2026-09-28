@@ -169,6 +169,7 @@ struct Markers {
     malformed: bool,
     wrong_type: bool,
     slow: Option<u64>,
+    retry_after: Option<u64>,
     cost: Cost,
     tokens: Tokens,
     detail: Option<Detail>,
@@ -212,6 +213,7 @@ impl Markers {
                 }
                 Some(("status", value)) => markers.status = Some(value.parse().unwrap()),
                 Some(("slow", value)) => markers.slow = Some(value.parse().unwrap()),
+                Some(("after", value)) => markers.retry_after = Some(value.parse().unwrap()),
                 Some(("cost", value)) => markers.cost = Cost::Of(value.parse().unwrap()),
                 Some(("tokens", value)) => markers.tokens = Tokens::Of(value.parse().unwrap()),
                 Some(("limit", value)) => markers.limit = Some(format!("openrouter_{value}")),
@@ -280,7 +282,9 @@ impl Markers {
         if let Some((status, times)) = self.fail
             && attempt <= times
         {
-            return error(status, "Provider returned error").insert_header("Retry-After", "0");
+            let retry_after = self.retry_after.unwrap_or(0).to_string();
+            return error(status, "Provider returned error")
+                .insert_header("Retry-After", retry_after);
         }
         let mut usage = match self.tokens {
             Tokens::Usual => json!({ "input_tokens": 310, "output_tokens": 20 }),

@@ -9,12 +9,12 @@
 <p>
 <a href="https://github.com/fabianboth/jevpipe/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/fabianboth/jevpipe/actions/workflows/ci.yml/badge.svg"></a>
 <a href="https://pypi.org/project/jevpipe/"><img alt="PyPI" src="https://img.shields.io/pypi/v/jevpipe"></a>
-<a href="https://github.com/fabianboth/jevpipe/blob/main/LICENSE"><img alt="License: Apache-2.0" src="https://img.shields.io/badge/license-Apache--2.0-blue"></a>
+<a href="https://github.com/fabianboth/jevpipe#license"><img alt="License: MIT OR Apache-2.0" src="https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue"></a>
 </p>
 
 <p>
 <a href="https://github.com/fabianboth/jevpipe#quick-start">Quick start</a> ·
-<a href="https://github.com/fabianboth/jevpipe#example">Example</a> ·
+<a href="https://github.com/fabianboth/jevpipe#examples">Examples</a> ·
 <a href="https://github.com/fabianboth/jevpipe#use-cases">Use cases</a> ·
 <a href="https://github.com/fabianboth/jevpipe#measured">Measured</a> ·
 <a href="https://github.com/fabianboth/jevpipe#cost-and-speed">Cost</a>
@@ -46,9 +46,10 @@ gh skill install fabianboth/jevpipe jevpipe         # the skill, with the GitHub
 
 </details>
 
-## Example
+## Examples
 
-Which of the 19 commits in ripgrep 15.1 are new features? Ask each commit message:
+**One yes/no question with `filter`.** Which of the 19 commits in ripgrep 15.1 are new features?
+Ask each commit message:
 
 ```sh
 # in a clone of https://github.com/BurntSushi/ripgrep
@@ -64,46 +65,11 @@ printer: add Cursor hyperlink alias
 jevpipe: 19 records, 2 kept, 0 skipped, 0 failed, 5.7k tokens, $0.000225, 1.1s
 ```
 
-<details>
-<summary>Typed answers with <code>map</code>: sort every commit into feature, fix, docs or internal</summary>
+**Typed answers with `map`**, next to a `filter`, on 1,000 messages from a bank's support inbox
+([banking77](https://github.com/PolyAI-LDN/task-specific-datasets)): who wants to leave, and which
+team should answer each message?
 
-```sh
-# in a clone of https://github.com/BurntSushi/ripgrep
-git log --format=%s 15.0.0..15.1.0 | jevpipe map -q '{
-  "kind": {
-    "type": "choice",
-    "instructions": "What kind of change is this, for the release notes?",
-    "criteria": {
-      "feature": "a new capability for users",
-      "fix": "a bug fix users would notice",
-      "docs": "documentation only",
-      "internal": "refactoring, tests, CI, dependencies or release chores"
-    }
-  }
-}'
-```
-
-Every commit becomes one JSON line. One of the 19:
-
-```json
-{
-  "record": "printer: add Cursor hyperlink alias",
-  "answers": {
-    "kind": {
-      "type": "choice",
-      "choice": "feature",
-      "probabilities": {"docs": 0.05, "feature": 0.87, "fix": 0.03, "internal": 0.05},
-      "confidence": 0.82
-    }
-  }
-}
-```
-
-All 19 took 1.1 seconds and cost $0.0003. Pick from them with jq, for example the fixes:
-`jq -r 'select(.answers.kind.choice == "fix") | .record'`. A low confidence marks an answer worth
-a second look.
-
-</details>
+<img alt="jevpipe filter keeps the 13 of 1,000 bank support messages whose customer threatens to leave; jevpipe map then routes all 1,000 to the cards, transfers, account or fraud team, counted with jq, sort and uniq." src="https://raw.githubusercontent.com/fabianboth/jevpipe/main/demo/demo.gif" width="800">
 
 ## Use cases
 
@@ -149,6 +115,7 @@ Both read their input like grep: lines through a pipe or from the files you name
 git log --format=%s | jevpipe filter "Is this a new feature?"                       # each commit message
 jevpipe filter "Is this an error worth a closer look?" app.log                      # each line of app.log
 git ls-files | jevpipe filter "Does this file retry failed requests?" --read-files  # each file
+jevpipe map -f team.json inbox.txt | jq -r .answers.team.choice | sort | uniq -c    # each line of inbox.txt, counted by team
 ```
 
 `jevpipe <command> --help` has the rest.
@@ -168,8 +135,13 @@ lists the other defaults you can set.
 
 ## License
 
-[Apache-2.0](https://github.com/fabianboth/jevpipe/blob/main/LICENSE). jevpipe is an independent
-project, not affiliated with or endorsed by TypeSafe AI; the answers come from
-[Jev](https://typesafe.ai), TypeSafe AI's calibrated decision model, through OpenRouter or
-TypeSafe's own API. Building
-from source needs Rust (rustup picks the pinned toolchain) and PowerShell 7 for `./check.ps1`.
+Licensed under either of [Apache-2.0](https://github.com/fabianboth/jevpipe/blob/main/LICENSE-APACHE)
+or [MIT](https://github.com/fabianboth/jevpipe/blob/main/LICENSE-MIT), at your option. Unless you
+explicitly state otherwise, any contribution you intentionally submit for inclusion in jevpipe, as
+defined in the Apache-2.0 license, is dual licensed as above, without any additional terms or
+conditions.
+
+jevpipe is an independent project, not affiliated with or endorsed by TypeSafe AI; the answers
+come from [Jev](https://typesafe.ai), TypeSafe AI's calibrated decision model, through OpenRouter
+or TypeSafe's own API. Building from source needs Rust (rustup picks the pinned toolchain) and
+PowerShell 7 for `./check.ps1`.
