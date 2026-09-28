@@ -1,7 +1,5 @@
 import json
-import os
 import re
-import shutil
 import subprocess
 import time
 from collections.abc import Sequence
@@ -11,32 +9,35 @@ from typing import NotRequired, TypedDict, cast
 
 import httpx
 
-from bench import openrouter
+from bench import openrouter, tools
 from bench.limits import LimitReachedError, StageError
 
 MODEL = "typesafe/jev-1.13"
-BINARY_VARIABLE = "BENCH_JEVPIPE"
-CONCURRENCY = 100
+LABEL = "Jev 1.13"
+_BINARY_VARIABLE = "BENCH_JEVPIPE"
 _SYSTEM_ONE = f"{openrouter.API}/systemone"
+_SOME_FAILED_EXIT = 2
 _LIMIT_EXIT = 3
-_ACCEPTED_EXITS = (0, 2)
+_TIMEOUT_SECONDS = 1800
+_SUMMARY = " records, "
 _COST = re.compile(r"\$(\d+(?:\.\d+)?)")
-
-
-@dataclass(frozen=True)
-class JevRun:
-    probability: tuple[float | None, ...]
-    failed: int
-    skipped: int
-    cost: float
-    wall_seconds: float
 
 
 @dataclass(frozen=True)
 class Parsed:
     probability: tuple[float | None, ...]
-    failed: int
     skipped: int
+
+    @property
+    def failed(self) -> int:
+        return failed_of(self.probability, self.skipped)
+
+
+@dataclass(frozen=True)
+class JevRun:
+    parsed: Parsed
+    cost: float
+    wall_seconds: float
 
 
 class _Answer(TypedDict):
@@ -53,23 +54,16 @@ class _SystemOneReply(TypedDict):
     model: str
 
 
-def questions(question: str) -> str:
+def _questions(question: str) -> str:
     return json.dumps({"match": {"type": "noul", "instructions": question}})
 
 
 def binary() -> str:
-    chosen = os.environ.get(BINARY_VARIABLE) or shutil.which("jevpipe")
-    if chosen is None:
-        message = f"jevpipe is not on the path and {BINARY_VARIABLE} is not set"
-        raise StageError(message)
-    return chosen
+    return tools.find("jevpipe", _BINARY_VARIABLE)
 
 
 def version() -> str:
-    result = subprocess.run(
-        [binary(), "--version"], capture_output=True, text=True, encoding="utf-8", check=True
-    )
-    return result.stdout.strip()
+    return tools.version(binary())
 
 
 def run(names: Sequence[str], question: str, folder: Path) -> JevRun:
@@ -78,29 +72,38 @@ def run(names: Sequence[str], question: str, folder: Path) -> JevRun:
         "map",
         "--read-files",
         *("--model", MODEL),
-        *("--concurrency", str(CONCURRENCY)),
-        *("-q", questions(question)),
+        *("--concurrency", str(openrouter.IN_FLIGHT)),
+        *("-q", _questions(question)),
     ]
     started = time.perf_counter()
-    result = subprocess.run(
-        command,
-        input="".join(f"{name}\n" for name in names),
-        cwd=folder,
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-        check=False,
-    )
+    try:
+        result = subprocess.run(
+            command,
+            input="".join(f"{name}\n" for name in names),
+            cwd=folder,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            timeout=_TIMEOUT_SECONDS,
+            check=False,
+        )
+    except subprocess.TimeoutExpired as error:
+        message = f"jevpipe did not finish within {_TIMEOUT_SECONDS} s"
+        raise StageError(message) from error
     wall_seconds = time.perf_counter() - started
-    if result.returncode == _LIMIT_EXIT:
-        raise LimitReachedError(result.stderr.strip())
-    if result.returncode not in _ACCEPTED_EXITS:
-        message = f"jevpipe exited with {result.returncode}: {result.stderr.strip()}"
-        raise StageError(message)
-    parsed = parse(names, result.stdout)
-    return JevRun(
-        parsed.probability, parsed.failed, parsed.skipped, cost_of(result.stderr), wall_seconds
-    )
+    _check(result)
+    return JevRun(parse(names, result.stdout), cost_of(result.stderr), wall_seconds)
+
+
+def _check(result: subprocess.CompletedProcess[str]) -> None:
+    stderr = result.stderr.strip()
+    status = result.returncode
+    if status == 0 or (status == _SOME_FAILED_EXIT and _SUMMARY in stderr):
+        return
+    if status == _LIMIT_EXIT:
+        raise LimitReachedError(stderr)
+    message = f"jevpipe exited with {status}: {stderr}"
+    raise StageError(message)
 
 
 def parse(names: Sequence[str], stdout: str) -> Parsed:
@@ -112,13 +115,15 @@ def parse(names: Sequence[str], stdout: str) -> Parsed:
             answered[line["record"]] = line["answers"]["match"]["noul"]
         elif line.get("outcome") == "skipped":
             skipped += 1
-    probability = tuple(answered.get(name) for name in names)
-    failed = sum(value is None for value in probability) - skipped
-    return Parsed(probability, failed, skipped)
+    return Parsed(tuple(answered.get(name) for name in names), skipped)
+
+
+def failed_of(probability: Sequence[float | None], skipped: int) -> int:
+    return sum(value is None for value in probability) - skipped
 
 
 def cost_of(stderr: str) -> float:
-    summaries = [line for line in stderr.splitlines() if " records, " in line]
+    summaries = [line for line in stderr.splitlines() if _SUMMARY in line]
     if not summaries:
         return 0.0
     match = _COST.search(summaries[-1])

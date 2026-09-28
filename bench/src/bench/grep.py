@@ -1,15 +1,14 @@
 import re
-import shutil
 import subprocess
 import time
 from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
 
-from bench import pool
+from bench import pool, tools
 from bench.limits import StageError
 
-FILLERS = frozenset(
+_FILLERS = frozenset(
     {
         "a",
         "an",
@@ -43,7 +42,7 @@ class Hits:
 
 def keywords(query: str) -> tuple[str, ...]:
     words = re.findall(r"[a-z0-9]+", query.lower())
-    return tuple(dict.fromkeys(word for word in words if word not in FILLERS))
+    return tuple(dict.fromkeys(word for word in words if word not in _FILLERS))
 
 
 def any_keyword(folder: Path, words: Sequence[str]) -> Hits:
@@ -70,16 +69,14 @@ def compiles(regex: str) -> bool:
         input="",
         capture_output=True,
         text=True,
+        encoding="utf-8",
         check=False,
     )
     return result.returncode != _REGEX_ERROR
 
 
 def version() -> str:
-    result = subprocess.run(
-        [_ripgrep(), "--version"], capture_output=True, text=True, encoding="utf-8", check=True
-    )
-    return result.stdout.splitlines()[0]
+    return tools.version(_ripgrep())
 
 
 def _search(folder: Path, arguments: list[str]) -> Hits:
@@ -105,8 +102,4 @@ def _search(folder: Path, arguments: list[str]) -> Hits:
 
 
 def _ripgrep() -> str:
-    ripgrep = shutil.which("rg")
-    if ripgrep is None:
-        message = "ripgrep (rg) is not on the path"
-        raise StageError(message)
-    return ripgrep
+    return tools.find("rg")

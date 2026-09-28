@@ -1,19 +1,16 @@
 import itertools
 import statistics
+from collections import defaultdict
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from dataclasses import dataclass
-from typing import Literal
+from functools import cached_property
 
-from bench import dataset, judge, labels, runs, store
+from bench import agreement, dataset, labels, selection, store
+from bench.contenders import CONTENDERS, MODELS, Contender, Model
 from bench.counts import Counts
+from bench.decisions import THRESHOLDS, Setting
+from bench.records import RepeatFile, RunFile
 
-type Contender = Literal["grep-any", "grep-all", "grep-agent", "jevpipe", "deepseek"]
-type Model = Literal["jevpipe", "deepseek"]
-type Decisions = runs.RepeatFile | runs.RunFile
-
-CONTENDERS: tuple[Contender, ...] = ("grep-any", "grep-all", "grep-agent", "jevpipe", "deepseek")
-MODELS: tuple[Model, ...] = ("jevpipe", "deepseek")
-THRESHOLDS = tuple(round(0.30 + 0.05 * step, 2) for step in range(13))
 _BAND_EDGES = (0.5, 0.6, 0.7, 0.8, 0.9, 1.0)
 _PERCENTILE = 90
 _DECISION = 0.5
@@ -24,9 +21,9 @@ _EPSILON = 1e-9
 class Data:
     queries: dataset.Queries
     known: labels.Labels
-    runs: Mapping[str, runs.RunFile]
-    repeats: Mapping[str, runs.RepeatFile]
-    selection: Sequence[judge.Item]
+    runs: Mapping[str, RunFile]
+    repeats: Mapping[str, RepeatFile]
+    selection: Sequence[selection.Item]
     pool_size: int
     suite: store.Suite
 
@@ -34,19 +31,43 @@ class Data:
         return tuple(query.id for query in self.queries.of_split(split) if query.id in self.runs)
 
     def relevant(self, query_id: str) -> frozenset[int]:
-        labelled = set(self.known.expert) | set(self.known.judge)
-        return frozenset(
-            index
-            for query, index in labelled
-            if query == query_id and self.known.relevant((query, index))
-        )
+        return self._relevant.get(query_id, frozenset())
 
-    def sampled(self, reason: judge.Reason) -> dict[str, list[int]]:
+    @cached_property
+    def _relevant(self) -> dict[str, frozenset[int]]:
+        found: defaultdict[str, set[int]] = defaultdict(set)
+        for pair in {*self.known.expert, *self.known.judge}:
+            if self.known.relevant(pair):
+                found[pair[0]].add(pair[1])
+        return {query_id: frozenset(indexes) for query_id, indexes in found.items()}
+
+    def sampled(self, reason: selection.Reason) -> dict[str, list[int]]:
         chosen: dict[str, list[int]] = {}
         for item in self.selection:
             if reason in item.reasons:
                 chosen.setdefault(item.query, []).append(item.snippet)
         return chosen
+
+    def seconds(self, query_id: str, contender: Contender) -> float:
+        run = self.runs[query_id]
+        match contender:
+            case "jevpipe" | "deepseek":
+                record = run[contender]
+                retried = record.get("retried")
+                return record["wall_seconds"] + (retried["wall_seconds"] if retried else 0.0)
+            case "grep-any":
+                return run["grep"]["seconds"]["any"]
+            case "grep-all":
+                return run["grep"]["seconds"]["all"]
+            case "grep-agent":
+                return run["grep"]["seconds"]["agent"]
+
+    def cost(self, query_id: str, contender: Contender) -> float:
+        match contender:
+            case "jevpipe" | "deepseek":
+                return self.runs[query_id][contender]["cost"]
+            case "grep-any" | "grep-all" | "grep-agent":
+                return 0.0
 
 
 @dataclass(frozen=True)
@@ -63,7 +84,14 @@ class Band:
     low: float
     high: float
     decisions: int
-    accuracy: float
+    right: int
+
+    @property
+    def accuracy(self) -> float | None:
+        return self.right / self.decisions if self.decisions else None
+
+    def __add__(self, other: Band) -> Band:
+        return Band(self.low, self.high, self.decisions + other.decisions, self.right + other.right)
 
 
 @dataclass(frozen=True)
@@ -82,34 +110,19 @@ class Tally:
     without_probability: int
 
 
-def flagged(run: Decisions, contender: Contender, threshold: float) -> frozenset[int]:
-    match contender:
-        case "jevpipe":
-            probability = run["jevpipe"]["probability"]
-            return frozenset(
-                i for i, p in enumerate(probability) if p is not None and p >= threshold
-            )
-        case "deepseek":
-            deepseek = run["deepseek"]
-            answers = zip(deepseek["answer"], deepseek["probability"], strict=True)
-            return frozenset(
-                i
-                for i, (answer, p) in enumerate(answers)
-                if (p >= threshold if p is not None else answer is True)
-            )
-        case "grep-any":
-            return frozenset(_grep(run)["any"])
-        case "grep-all":
-            return frozenset(_grep(run)["all"])
-        case "grep-agent":
-            return frozenset(_grep(run)["agent"])
+@dataclass(frozen=True)
+class Scored:
+    data: Data
+    thresholds: dict[Model, float]
+    results: dict[Contender, Result]
+    agreement: agreement.Agreement
 
-
-def _grep(run: Decisions) -> runs.GrepRecord:
-    if "grep" not in run:
-        message = f"the run of {run['query']} holds no grep results"
-        raise KeyError(message)
-    return run["grep"]
+    def setting(self, contender: Contender) -> Setting:
+        match contender:
+            case "jevpipe" | "deepseek":
+                return Setting(contender, self.thresholds[contender])
+            case "grep-any" | "grep-all" | "grep-agent":
+                return Setting(contender, 0.0)
 
 
 def counted(
@@ -129,30 +142,28 @@ def counted(
     return Counts(found, false_hits, known_relevant), unjudged
 
 
-def model_counts(data: Data, model: Model, threshold: float) -> Counts:
-    return _model_counts(data, (model, threshold), data.ids("test"))
+def model_counts(data: Data, setting: Setting) -> Counts:
+    return _counts_on(data, setting, data.ids("test"))
 
 
-def _model_counts(data: Data, setting: tuple[Model, float], query_ids: Iterable[str]) -> Counts:
-    model, threshold = setting
-    return counted(data, query_ids, lambda q: flagged(data.runs[q], model, threshold))[0]
+def _counts_on(data: Data, setting: Setting, query_ids: Iterable[str]) -> Counts:
+    return counted(data, query_ids, lambda q: setting.flags(data.runs[q]))[0]
 
 
 def choose_threshold(data: Data, model: Model) -> float:
     dev = data.ids("dev")
-    return max(THRESHOLDS, key=lambda t: (_model_counts(data, (model, t), dev).f1, -t))
+    return max(THRESHOLDS, key=lambda t: (_counts_on(data, Setting(model, t), dev).f1, -t))
 
 
-def result(data: Data, contender: Contender, threshold: float) -> Result:
+def result(data: Data, setting: Setting) -> Result:
     test = data.ids("test")
-    if contender == "grep-any":
-        counts, unjudged = _grep_any_counts(data, test), 0
-    else:
-        counts, unjudged = counted(
-            data, test, lambda q: flagged(data.runs[q], contender, threshold)
-        )
-    seconds = [_seconds(data.runs[q], contender) for q in test]
-    cost = sum(_cost(data.runs[q], contender) for q in test)
+    match setting.contender:
+        case "grep-any":
+            counts, unjudged = _grep_any_counts(data, test), 0
+        case "grep-all" | "grep-agent" | "jevpipe" | "deepseek":
+            counts, unjudged = counted(data, test, lambda q: setting.flags(data.runs[q]))
+    seconds = [data.seconds(q, setting.contender) for q in test]
+    cost = sum(data.cost(q, setting.contender) for q in test)
     return Result(
         counts,
         unjudged,
@@ -174,14 +185,15 @@ def _grep_any_counts(data: Data, test: Sequence[str]) -> Counts:
     found = false_hits = known_relevant = 0.0
     for query_id in test:
         relevant = data.relevant(query_id)
-        hits = flagged(data.runs[query_id], "grep-any", 0.0)
+        hits = Setting("grep-any", 0.0).flags(data.runs[query_id])
         rated = {i for i in hits if data.known.rated_by_expert((query_id, i))}
         unrated = hits - rated
         share = _share(data, [(query_id, i) for i in sample.get(query_id, [])])
         estimated = len(unrated) * (share if share is not None else pooled or 0.0)
-        found += len(rated & relevant) + estimated
-        false_hits += len(rated - relevant) + len(unrated) - estimated
-        known_relevant += len(relevant) + max(0.0, estimated - len(unrated & relevant))
+        relevant_unrated = max(estimated, len(unrated & relevant))
+        found += len(rated & relevant) + relevant_unrated
+        false_hits += len(rated - relevant) + len(unrated) - relevant_unrated
+        known_relevant += len(relevant - unrated) + relevant_unrated
     return Counts(found, false_hits, known_relevant)
 
 
@@ -191,47 +203,25 @@ def _share(data: Data, pairs: Sequence[labels.Pair]) -> float | None:
     return sum(known) / len(known) if known else None
 
 
-def _seconds(run: runs.RunFile, contender: Contender) -> float:
-    match contender:
-        case "jevpipe" | "deepseek":
-            return run[contender]["wall_seconds"]
-        case "grep-any":
-            return run["grep"]["seconds"]["any"]
-        case "grep-all":
-            return run["grep"]["seconds"]["all"]
-        case "grep-agent":
-            return run["grep"]["seconds"]["agent"]
-
-
-def _cost(run: runs.RunFile, contender: Contender) -> float:
-    match contender:
-        case "jevpipe" | "deepseek":
-            return run[contender]["cost"]
-        case "grep-any" | "grep-all" | "grep-agent":
-            return 0.0
-
-
 def sweep(data: Data, model: Model) -> list[tuple[float, Counts]]:
-    return [(threshold, model_counts(data, model, threshold)) for threshold in THRESHOLDS]
+    return [(threshold, model_counts(data, Setting(model, threshold))) for threshold in THRESHOLDS]
 
 
 def bands(data: Data, model: Model) -> list[Band]:
-    decided: list[tuple[float, bool]] = []
-    for query_id in data.ids("test"):
-        probability = data.runs[query_id][model]["probability"]
-        for index, p in enumerate(probability):
-            relevant = data.known.relevant((query_id, index))
-            if p is not None and relevant is not None:
-                decided.append((p, relevant))
     edges = list(itertools.pairwise(_BAND_EDGES))
-    right: list[list[bool]] = [[] for _ in edges]
-    for p, relevant in decided:
-        confidence = max(p, 1 - p)
-        band = min(int((confidence - _BAND_EDGES[0]) * 10 + _EPSILON), len(edges) - 1)
-        right[band].append((p >= _DECISION) == relevant)
+    decided = [0] * len(edges)
+    right = [0] * len(edges)
+    for query_id in data.ids("test"):
+        for index, p in enumerate(data.runs[query_id][model]["probability"]):
+            relevant = data.known.relevant((query_id, index))
+            if p is None or relevant is None:
+                continue
+            band = min(int((max(p, 1 - p) - _BAND_EDGES[0]) * 10 + _EPSILON), len(edges) - 1)
+            decided[band] += 1
+            right[band] += (p >= _DECISION) == relevant
     return [
-        Band(low, high, len(inside), sum(inside) / len(inside) if inside else 0.0)
-        for (low, high), inside in zip(edges, right, strict=True)
+        Band(low, high, count, hits)
+        for (low, high), count, hits in zip(edges, decided, right, strict=True)
     ]
 
 
@@ -243,7 +233,7 @@ def missed(data: Data) -> Missed:
     known = [relevant for relevant in judged if relevant is not None]
     unflagged = 0
     for query_id in test:
-        hits = judge.flags_of(data.runs[query_id]).any_flag()
+        hits = selection.flags_of(data.runs[query_id]).any_flag()
         unflagged += sum(
             1
             for index in range(data.pool_size)
@@ -253,16 +243,18 @@ def missed(data: Data) -> Missed:
     return Missed(len(known), sum(known), unflagged, unflagged * share)
 
 
-def repeat_changes(data: Data, thresholds: Mapping[Model, float]) -> dict[Model, float]:
+def repeat_changes(scored: Scored) -> dict[Model, float] | None:
+    data = scored.data
+    if not data.repeats:
+        return None
     changes: dict[Model, float] = {}
     for model in MODELS:
-        changed = total = 0
-        for query_id, again in data.repeats.items():
-            first = flagged(data.runs[query_id], model, thresholds[model])
-            second = flagged(again, model, thresholds[model])
-            changed += len(first ^ second)
-            total += data.pool_size
-        changes[model] = changed / total if total else 0.0
+        setting = scored.setting(model)
+        changed = sum(
+            len(setting.flags(data.runs[query_id]) ^ setting.flags(again))
+            for query_id, again in data.repeats.items()
+        )
+        changes[model] = changed / (data.pool_size * len(data.repeats))
     return changes
 
 
@@ -276,31 +268,15 @@ def tally(data: Data, model: Model) -> Tally:
     )
 
 
-@dataclass(frozen=True)
-class Scored:
-    data: Data
-    thresholds: dict[Model, float]
-    results: dict[Contender, Result]
-
-
 def chosen_thresholds(data: Data) -> dict[Model, float]:
     return {model: choose_threshold(data, model) for model in MODELS}
 
 
 def scored(data: Data, thresholds: dict[Model, float]) -> Scored:
-    results: dict[Contender, Result] = {
-        contender: result(data, contender, threshold_for(thresholds, contender))
-        for contender in CONTENDERS
-    }
-    return Scored(data, thresholds, results)
-
-
-def threshold_for(thresholds: dict[Model, float], contender: Contender) -> float:
-    match contender:
-        case "jevpipe" | "deepseek":
-            return thresholds[contender]
-        case "grep-any" | "grep-all" | "grep-agent":
-            return 0.0
+    found = agreement.agreement(data.known.expert, data.known.judge)
+    unscored = Scored(data, thresholds, {}, found)
+    results: dict[Contender, Result] = {c: result(data, unscored.setting(c)) for c in CONTENDERS}
+    return Scored(data, thresholds, results, found)
 
 
 def dates(data: Data) -> dict[str, str]:
@@ -316,11 +292,7 @@ def resolved(data: Data, model: Model) -> list[str]:
     return sorted({run[model]["resolved_model"] for run in data.runs.values()})
 
 
-def per_query(data: Data, contender: Contender, threshold: float) -> list[tuple[int, int, int]]:
-    counts: list[tuple[int, int, int]] = []
-    for query_id in data.ids("test"):
-        relevant = data.relevant(query_id)
-        hits = flagged(data.runs[query_id], contender, threshold)
-        false_hits = sum(1 for index in hits if data.known.relevant((query_id, index)) is False)
-        counts.append((len(hits & relevant), false_hits, len(relevant)))
-    return counts
+def per_query(scored: Scored, contender: Contender) -> list[Counts]:
+    data = scored.data
+    setting = scored.setting(contender)
+    return [counted(data, [q], lambda q: setting.flags(data.runs[q]))[0] for q in data.ids("test")]

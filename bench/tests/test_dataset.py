@@ -1,4 +1,7 @@
+import pytest
+
 from bench import dataset, store
+from bench.limits import StageError
 
 _CSV = """Language,Query,GitHubUrl,Relevance,Notes
 Python,aes encryption,https://github.com/a/b/blob/1/x.py#L1-L2,3,
@@ -39,7 +42,7 @@ def test_split_is_deterministic_and_disjoint() -> None:
 def test_query_ids_follow_the_sorted_texts() -> None:
     queries = dataset.split(["sort a list", "aes encryption"] + [f"q {i}" for i in range(30)])
 
-    assert queries.by_id("q00").text == "aes encryption"
+    assert queries.text_of("q00") == "aes encryption"
 
 
 def test_other_languages_keep_the_primary_ids_and_are_all_test() -> None:
@@ -53,6 +56,14 @@ def test_other_languages_keep_the_primary_ids_and_are_all_test() -> None:
 
 
 def test_ratings_follow_the_language() -> None:
-    java = dataset.ratings_of(_CSV, store.SUITES["go"])
+    go = dataset.ratings_of(_CSV, store.SUITES["go"])
 
-    assert java == {("aes encryption", "https://github.com/a/b/blob/1/x.go#L1-L2"): (3,)}
+    assert go == {("aes encryption", "https://github.com/a/b/blob/1/x.go#L1-L2"): (3,)}
+
+
+def test_unknown_query_ids_are_refused() -> None:
+    queries = dataset.split(["sort a list", "aes encryption"] + [f"q {i}" for i in range(30)])
+
+    assert [query.id for query in queries.chosen(("q01", "q00"))] == ["q01", "q00"]
+    with pytest.raises(StageError, match="q99"):
+        queries.chosen(("q00", "q99"))

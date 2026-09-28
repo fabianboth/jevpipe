@@ -41,7 +41,7 @@ def draw(chart: Headline, path: Path) -> None:
 
 
 def _positions(rows: tuple[Row, ...]) -> list[int]:
-    return list(range(len(rows)))[::-1]
+    return style.rows(len(rows))
 
 
 def _bars(axes: Axes, rows: tuple[Row, ...]) -> None:
@@ -62,7 +62,7 @@ def _bars(axes: Axes, rows: tuple[Row, ...]) -> None:
                 family=style.FONT,
             )
     axes.set_xlim(0, largest * 1.12)
-    axes.set_ylim(-0.6, len(rows) - 0.4)
+    style.row_limits(axes, len(rows))
 
 
 def _row_labels(axes: Axes, rows: tuple[Row, ...]) -> None:

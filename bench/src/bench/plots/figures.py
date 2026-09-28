@@ -1,3 +1,4 @@
+import math
 import statistics
 import textwrap
 from dataclasses import dataclass
@@ -14,6 +15,7 @@ _RING = 1.5
 _GOLDEN = 0.618033988749895
 _LABEL_SWITCH = 0.5
 _DODGE = 0.12
+_PADDING = 0.05
 
 
 @dataclass(frozen=True)
@@ -99,7 +101,12 @@ def tradeoff(chart: Tradeoff, path: Path) -> None:
             markeredgewidth=_RING,
         )
         _baseline_label(axes, baseline)
-    axes.set_xlim(0.2, 0.9)
+    recalls = [r for curve in chart.curves for _, r, _ in curve.points]
+    recalls += [baseline.recall for baseline in chart.baselines]
+    axes.set_xlim(
+        max(0.0, math.floor((min(recalls) - _PADDING) * 10) / 10),
+        min(1.0, math.ceil((max(recalls) + _PADDING) * 10) / 10),
+    )
     axes.set_ylim(0, 1)
     axes.xaxis.set_major_formatter(PercentFormatter(1.0))
     axes.yaxis.set_major_formatter(PercentFormatter(1.0))
@@ -201,7 +208,7 @@ def calibration(chart: Calibration, path: Path) -> None:
 def dot_rows(chart: DotRows, path: Path) -> None:
     target = style.canvas(chart.header, 0.75 * len(chart.labels), 0.42)
     axes = target.axes
-    rows = list(range(len(chart.labels)))[::-1]
+    rows = style.rows(len(chart.labels))
     for place, series in enumerate(chart.series):
         dodge = (place - (len(chart.series) - 1) / 2) * _DODGE
         for number, (row, value) in enumerate(zip(rows, series.values, strict=True)):
@@ -216,25 +223,19 @@ def dot_rows(chart: DotRows, path: Path) -> None:
                 markeredgewidth=_RING,
             )
             if chosen:
-                _label(axes, (value - 0.004, row + 0.22), f"{value:.3f}")
-    wrapped = [textwrap.fill(label, 44) for label in chart.labels]
-    axes.set_yticks(rows, labels=wrapped)
-    for label in axes.get_yticklabels():
-        label.set_color(style.INK)
-        label.set_fontsize(8.5)
-    axes.set_ylim(-0.6, len(chart.labels) - 0.4)
+                _label(axes, (value - 0.004, row - dodge + 0.16), f"{value:.3f}")
     style.frame(axes, "x")
-    for label in axes.get_yticklabels():
-        label.set_color(style.INK)
+    style.row_labels(axes, [textwrap.fill(label, 44) for label in chart.labels], 8.5)
+    style.row_limits(axes, len(chart.labels))
     style.axis_label(axes, chart.axis, "")
     style.legend(target, [(series.name, series.color) for series in chart.series])
     style.save(target.figure, path)
 
 
 def times(chart: Times, path: Path) -> None:
-    target = style.canvas(chart.header, 0.8 * len(chart.strips), 0.16)
+    target = style.canvas(chart.header, 0.8 * len(chart.strips), 0.21)
     axes = target.axes
-    rows = list(range(len(chart.strips)))[::-1]
+    rows = style.rows(len(chart.strips))
     for row, strip in zip(rows, chart.strips, strict=True):
         jitter = [((number * _GOLDEN) % 1 - 0.5) * 0.4 for number in range(len(strip.seconds))]
         axes.scatter(
@@ -256,14 +257,9 @@ def times(chart: Times, path: Path) -> None:
             color=style.INK,
             family=style.FONT,
         )
-    axes.set_yticks(rows, labels=[strip.name for strip in chart.strips])
-    for label in axes.get_yticklabels():
-        label.set_color(style.INK)
-        label.set_fontsize(10)
-    axes.set_ylim(-0.6, len(chart.strips) - 0.3)
     axes.set_xlim(left=0)
     style.frame(axes, "x")
-    for label in axes.get_yticklabels():
-        label.set_color(style.INK)
+    style.row_labels(axes, [strip.name for strip in chart.strips], 10)
+    axes.set_ylim(-0.6, len(chart.strips) - 0.3)
     style.axis_label(axes, chart.axis, "")
     style.save(target.figure, path)

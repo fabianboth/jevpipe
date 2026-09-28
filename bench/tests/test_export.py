@@ -1,4 +1,4 @@
-from bench import dataset, export, labels, pool, store
+from bench import dataset, export, labels, licenses, pool, store
 
 _QUERIES = dataset.Queries((dataset.Query("q00", "copy to clipboard", "test"),), ())
 _URL = "https://github.com/o/{}/blob/abc123/src/a.py#L3-L5"
@@ -17,7 +17,7 @@ _SOURCE = export.Source(
     _POOL,
     labels.Labels({("q00", 0): (3, 2)}, {("q00", 0): 1, ("q00", 1): 0, ("q00", 2): 3}),
     {("q00", 0): ("validation",), ("q00", 1): ("hit",), ("q00", 2): ("unflagged-sample",)},
-    {"o/free": "MIT", "o/dropped": "", "o/custom": "NOASSERTION"},
+    licenses.Licenses("2026-09-28", {"o/free": "MIT", "o/dropped": "", "o/custom": "NOASSERTION"}),
 )
 
 
@@ -42,6 +42,15 @@ def test_qrels_prefer_experts_keep_the_judge_and_say_why_a_pair_was_rated() -> N
     assert (pooled["relevance"], pooled["relevant"], pooled["source"]) == (0, False, "judge")
     assert pooled["rated_because"] == "pooled"
     assert (sampled["function_id"], sampled["rated_because"]) == ("python/0002", "sample")
+
+
+def test_the_card_fills_every_number_from_the_data() -> None:
+    card = export.card([_SOURCE])
+
+    assert "{" not in card.split("---", 2)[2]
+    assert "| Python | 1 | 0% | 0.000 | **missed** |" in card
+    assert "\nIn Python the judge missed the gate on only 1 relevant expert pairs;" in card
+    assert "September 2026" in card
 
 
 def test_the_card_counts_each_language() -> None:

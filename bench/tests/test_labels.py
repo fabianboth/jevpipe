@@ -11,7 +11,7 @@ def test_expert_rating_wins_over_the_judge() -> None:
 
 
 def test_the_judge_fills_gaps() -> None:
-    known = labels.Labels(_EXPERT).with_judge({("q00", 3): 2, ("q00", 4): 1})
+    known = labels.Labels(_EXPERT, {("q00", 3): 2, ("q00", 4): 1})
 
     assert known.relevant(("q00", 3)) is True
     assert known.relevant(("q00", 4)) is False

@@ -22,6 +22,20 @@ class Counts:
         total = self.precision + self.recall
         return 2 * self.precision * self.recall / total if total else 0.0
 
+    def __add__(self, other: Counts) -> Counts:
+        return Counts(
+            self.found + other.found,
+            self.false_hits + other.false_hits,
+            self.known_relevant + other.known_relevant,
+        )
+
+
+NONE = Counts(0, 0, 0)
+
+
+def total(counts: Iterable[Counts]) -> Counts:
+    return sum(counts, NONE)
+
 
 def count(decisions: Iterable[tuple[bool, bool]]) -> Counts:
     found = false_hits = known_relevant = 0

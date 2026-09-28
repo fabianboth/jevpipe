@@ -32,9 +32,9 @@ The [CodeSearchNet Challenge](https://github.com/github/CodeSearchNet) (GitHub a
 is a public set of 99 short searches, the kind a developer types into a code search box: "copy to
 clipboard", "convert json to csv", "get current process id". For each search, experts looked at a
 handful of functions from open-source projects and rated each from 0 (irrelevant) to 3 (exactly
-what was asked for); a function whose ratings average 2 or more counts as relevant. The same 99
-searches were rated in six languages: most in Python (2,079 ratings), a few hundred each in Java,
-JavaScript, PHP, Ruby and Go.
+what was asked for); a function whose ratings average 2 or more counts as relevant. The same
+searches, 83 to 99 of them per language, were rated in six languages: most in Python (2,079
+ratings), 166 to 813 in each of Java, JavaScript, PHP, Ruby and Go.
 
 For *"get current process id"* the experts rated eight Python functions. One rated 3 by both experts
 who saw it:
@@ -70,17 +70,20 @@ yes to a function the experts never rated for that search, there is no rating to
 
 Filling the gap takes far fewer ratings than 93,357, because the tools say no to almost everything:
 for "get current process id", the tools said yes to only one function the experts had not rated.
-Across Python's 99 searches, they said yes to 1,118 such pairs. A second model rates exactly those:
-GPT-6 Astra, on the experts' 0-3 scale, seeing only the search and the code, never which tool said
-yes. On top of that it rated two random samples of what the tools said no to, which
-[section 2.4](#24-the-answer-key-and-recall) uses to check what they missed:
+Across Python's 99 searches, they flagged 1,118 such pairs; for this, a model counted as flagging a
+function from a probability of 0.3, the lowest threshold scored later, and DeepSeek also from a plain
+yes. A second model rates exactly those: GPT-6 Astra, on the experts' 0-3 scale, seeing only the search and the code, never which
+tool flagged it. It also rated every pair the experts had rated, to check it first, and two random
+samples of what the tools passed over, which [section 2.4](#24-the-answer-key-and-recall) uses to
+check what they missed:
 
 | Why the judge rated a Python pair | Pairs |
 |---|---:|
-| a tool said yes, and no expert had rated it | 1,118 |
-| random sample: only a loose any-keyword grep matched it (up to 20 per search) | 1,749 |
+| an expert had rated it: the check of the judge | 956 |
+| a tool flagged it, and no expert had rated it | 1,118 |
+| random sample: only a loose any-keyword grep matched it (up to 20 per search; 104 more were already flagged) | 1,749 |
 | random sample: not even that grep matched it (10 per search) | 990 |
-| **total** | **3,857** |
+| **total** | **4,813** |
 
 **Can a model stand in for the experts?** In every language we tested it first on the pairs the
 experts had rated, comparing verdicts (relevant or not):
@@ -96,7 +99,9 @@ ones. Before judging, we required that the judge find most of the functions the 
 relevant and that most of the functions it calls relevant be ones the experts did too (an F1 of at
 least 0.67; Python's experts reach 0.71 against each other). Only Python has enough pairs rated by
 two experts (848) to compare the experts with each other, and there the judge agrees with them more
-often than they agree among themselves. Go has only 40 relevant expert pairs, and the judge called
+often than they agree among themselves: measured the same way on those 848 pairs, against the
+average of the other experts, the judge gives the same verdict in 74% (F1 0.74) and the first
+expert in 70% (F1 0.71). Go has only 40 relevant expert pairs, and the judge called
 more of the rest relevant than Go's experts did, so it missed the check. Go is therefore shown in the
 results but left out of every pooled number. [Appendix B](#appendix-b) has the details.
 
@@ -132,7 +137,7 @@ comes from them, like practice questions and an exam.
 | Functions in the folder | 943 | 758 | 304 | 288 | 292 | 161 | 2,746 |
 | Yes/no decisions per tool | 93,357 | 75,042 | 29,184 | 28,512 | 28,324 | 13,363 | 267,782 |
 | Pairs rated by the experts | 956 | 769 | 305 | 289 | 300 | 162 | 2,781 |
-| Pairs rated by the judge | 3,857 | 3,561 | 3,004 | 2,976 | 2,814 | 2,133 | 18,345 |
+| Pairs rated only by the judge | 3,857 | 3,561 | 3,004 | 2,976 | 2,814 | 2,133 | 18,345 |
 | Relevant pairs in the answer key (test) | 604 | 512 | 247 | 232 | 189 | 79 | 1,863 |
 
 ```mermaid
@@ -172,11 +177,12 @@ for testing other search tools the same way.
 ![F1 per language for grep, DeepSeek and jevpipe](results/languages.png)
 
 *Figure 2. F1 per language. jevpipe beats grep in every language. Against DeepSeek it is ahead in
-Python, Java and Ruby, level in JavaScript and behind in PHP; Go, whose judge missed its check, is
-shown but not pooled.*
+Python, Java, Ruby and Go, level in JavaScript and behind in PHP; Go, whose judge missed its check,
+is shown but not pooled.*
 
 The two models are equally precise overall; jevpipe's edge is that it finds more. How sure are
-these differences? Resampling the searches 10,000 times gives these 95% intervals for the gap in F1:
+these differences? Resampling the searches 10,000 times, within each language, gives these 95% intervals for the
+gap in F1:
 
 | Gap in F1 | Python alone (79 searches) | Pooled (470 searches) |
 |---|---:|---:|
@@ -184,7 +190,7 @@ these differences? Resampling the searches 10,000 times gives these 95% interval
 | DeepSeek over grep | +0.08 (+0.01 to +0.15) | **+0.12 (+0.08 to +0.16)** |
 | jevpipe over DeepSeek | +0.04 (−0.02 to +0.10) | +0.03 (−0.01 to +0.06) |
 
-Both models clearly beat grep. jevpipe is ahead of DeepSeek in 94% of the resamples, not quite
+Both models clearly beat grep. jevpipe is ahead of DeepSeek in 93% of the resamples, not quite
 enough to call it a sure win; adding Go changes none of this. Search by search, jevpipe found more
 relevant functions than grep in 155 of the 470 searches, grep more in 75, and they tied in 240.
 
@@ -193,7 +199,8 @@ relevant functions than grep in 155 of the 470 searches, grep more in 75, and th
 ![Precision against recall for thresholds 0.3 to 0.9](results/tradeoff.png)
 
 *Figure 3. The 470 test searches of the five pooled languages. Each dot is one threshold; the large
-dots are the 0.5 default, which also gives jevpipe its best F1 here. Wherever the two models reach
+dots are the thresholds chosen on the tuning searches, 0.5 for both, which also gives jevpipe its
+best F1 here. Wherever the two models reach
 the same recall, jevpipe is more precise. Lowering jevpipe's threshold to 0.3 finds 82% of the
 answer key at 50% precision.*
 
@@ -211,12 +218,13 @@ labelled ones, which lean towards hard cases.*
 ![Time per 1,000 functions](results/times.png)
 
 *Figure 5. Each dot is one search over its language's folder, 100 requests in flight for both
-models, scaled to 1,000 functions. In the small folders one slow request can hold up a whole search,
-which the scaling magnifies: DeepSeek's long tail is such stragglers, and the medians are unaffected.
-Run a second time on five Python searches, jevpipe changed 1 of 4,715 decisions and DeepSeek 7.*
+models, scaled to 1,000 functions; jevpipe's times include the second ask about the two JavaScript
+bundles. DeepSeek's long tail is JavaScript, where it reads those two minified bundles in full on
+every search. Without JavaScript the medians are 9 s for jevpipe and 20 s for DeepSeek. Run a second
+time on five Python searches, jevpipe changed 1 of 4,715 decisions and DeepSeek 7.*
 
 The cost depends on the code. DeepSeek is paid per token it reads, so its cost follows the length of
-the functions; jevpipe cuts long files and costs about the same per file whatever their length:
+the functions; jevpipe cuts long files at 100,000 characters, so its cost rises far less:
 
 | Median per 1,000 files | Python | Java | JavaScript | PHP | Ruby | Go |
 |---|---:|---:|---:|---:|---:|---:|
@@ -225,22 +233,22 @@ the functions; jevpipe cuts long files and costs about the same per file whateve
 | DeepSeek V4.1 Flash | $0.027 | $0.020 | $0.158 | $0.021 | $0.016 | $0.019 |
 
 JavaScript's pool holds two minified bundles of 0.3 and 1.3 MB, which DeepSeek reads in full on every
-search. For ordinary functions the two cost the same, about 2 cents per 1,000 files. Prices are
+search. In the other languages the two cost about the same, 2 to 3 cents per 1,000 files. Prices are
 OpenRouter's in September 2026 and will change. Jev is TypeSafe's first System One model; DeepSeek
 V4.1 Flash is a mature, cache-priced model.
 
 ### 3.5 The question wording matters
 
-![F1 of the four wordings on the dev searches](results/wordings.png)
+![F1 of the four wordings on the tuning searches](results/wordings.png)
 
 *Figure 6. On the Python tuning searches, asking about the code directly ("Does this function
-implement …?") beat asking about the searcher by 0.11 F1 for jevpipe. DeepSeek did best with the
+implement …?") beat asking about the searcher by 0.03 to 0.11 F1 for jevpipe. DeepSeek did best with the
 third wording. Each model kept its own best, for every language, before any test search was
 scored.*
 
 ### 3.6 A closer look: where grep loses, where jevpipe loses
 
-The biggest gaps each way, in Python:
+Two telling cases in Python, one each way:
 
 **grep loses: "matrix multiply".** The agent's pattern looked for names like `matmul` and
 `matrix_multiply` and for calls like `np.dot(`, a fair guess. But the 8 relevant functions are
@@ -258,7 +266,8 @@ def __mul__(self, other):
 
 grep found none of the 8; its 3 hits were long numerical routines that call `np.dot` somewhere.
 jevpipe flagged all 8, this one at 0.85, plus 3 loosely related functions; DeepSeek flagged 6 of the
-8. Every pattern the agent wrote is in [`results/patterns.json`](results/patterns.json).
+8. The agent's patterns are in [`results/patterns.json`](results/patterns.json) for Python and in
+`results/<language>/patterns.json` for the others.
 
 **jevpipe loses: qualifiers the code cannot show.** grep's two biggest wins were *"how to read .csv
 file in an efficient way?"* (grep 10 of 10, jevpipe 0) and *"unzipping large files"* (grep 12 of 12,
@@ -282,8 +291,8 @@ plain readers and unzippers as relevant.
 - The functions are public GitHub code from 2019 and may be in both models' training data.
 - Function-sized snippets and one task. A folder of 99 topics is easier than a search inside one
   project, where most files are about the same thing.
-- Outside Python the experts rated about three functions per search, each once, so the answer key
-  there rests more on the judge; in Go the judge missed its check, and Go is left out of the pooled
+- Outside Python the experts rated two to eight functions per search (about three in JavaScript,
+  PHP and Ruby), nearly all of them once, so the answer key there rests more on the judge; in Go the judge missed its check, and Go is left out of the pooled
   results.
 - Recall is measured against the answer key, which can miss what every tool missed;
   [appendix B](#appendix-b) estimates how much.
@@ -303,14 +312,20 @@ plain readers and unzippers as relevant.
   of every run. Python, Java and the first 27 JavaScript searches ran on jevpipe 0.1.0 as released.
   Two minified JavaScript bundles were then rejected as too large even after jevpipe's cut to 100,000
   characters, so jevpipe 0.1.1 halves such a file and asks again; the other searches ran on 0.1.1,
-  and the two bundles were asked again with 0.1.1 in the first 27 JavaScript searches. Every run
-  records its version. No other search had a failed record.
+  and the two bundles were asked again with 0.1.1 in the first 27 JavaScript searches. Runs from
+  0.1.1 on record the jevpipe version; the earlier ones predate that field. No other search had a
+  failed record. One Java function, `0030.java`, is empty at its rated lines; jevpipe skips empty
+  files without asking, so it never flags it (its one expert rating is 0).
 - **DeepSeek V4.1 Flash** (`deepseek/deepseek-v4.1-flash`) through OpenRouter, one chat request per
   file: system message "You judge one file at a time. Answer with exactly one word: yes or no.", then
   the question, the file name and the code; temperature 0, at most 5 tokens, reasoning off, 100
-  requests in flight, three attempts. The probability of yes is `p(yes) / (p(yes) + p(no))` from the
-  first token's log probabilities. Requests route only to providers that return log probabilities
-  (`require_parameters`); Novita claims to but did not, so it is excluded.
+  requests in flight. The probability of yes is `p(yes) / (p(yes) + p(no))` from the first token's
+  log probabilities. Requests route only to providers that return log probabilities
+  (`require_parameters`); Novita claims to but did not, so it is excluded. These runs made up to three
+  attempts when a request failed or an answer came without a probability; no request failed, and
+  three answers (two in PHP, one in Ruby) count by their yes or no. The code now retries the way
+  jevpipe does (five attempts, only on timeouts, rate limits and server errors, honouring
+  `Retry-After`) and reads the probability from the first token that holds yes or no.
 - **grep**: ripgrep 15.2.0, case-insensitive, file names only, over the pool folder.
   - *agent's pattern*: GPT-6 Astra wrote one regular expression per search and language from the
     search alone, before any tool ran, told to search a codebase of that language as a coding agent
@@ -318,7 +333,7 @@ plain readers and unzippers as relevant.
   - *any keyword* and *all keywords*: the search's words without filler words (a, an, the, to, of,
     from, in, on, for, and, or, is, how, with, into, by, based, another, x).
 - **Wordings** tried on the Python tuning searches, F1 on their expert-rated pairs (Jev at 0.5,
-  DeepSeek on its yes/no answer):
+  DeepSeek on its yes/no answer; the code now scores both with the rule the test searches use):
 
   | Wording | jevpipe | DeepSeek |
   |---|---:|---:|
@@ -352,7 +367,8 @@ plain readers and unzippers as relevant.
   427; they agree on 330 of those, and on 730 of all 956 pairs (76%). So of the judge's "relevant",
   72% are relevant by the experts (precision 0.719), and of the experts' "relevant", the judge caught
   77% (recall 0.773), F1 0.745. Between experts, on the 848 pairs with two or more ratings, the first
-  expert's verdict against the average of the others agrees on 597 (70%), with F1 0.711. In the other
+  expert's verdict against the average of the others agrees on 597 (70%), with F1 0.711; the
+  judge's verdict against that same average agrees on 628 (74%), with F1 0.739. In the other
   languages the judge reached F1 0.719 (Java, 769 pairs), 0.781 (JavaScript, 305), 0.760 (PHP, 289),
   0.709 (Ruby, 300) and 0.629 (Go, 162); the check set in advance required 0.67.
 - **What was judged**: every unrated function flagged by jevpipe at 0.3 or more, by DeepSeek (yes
@@ -399,8 +415,9 @@ intervals in [`results/languages.json`](results/languages.json).
 | | DeepSeek V4.1 Flash | 41 | 40 | 0.506 | 0.519 | 0.512 |
 
 In Python, two mechanical greps on the search's keywords did worse than the agent's pattern: all
-keywords found 181 with 217 false hits (F1 0.361), any keyword about 549 with about 15,660 (F1 0.065;
-it flags 205 functions per search, so its counts are estimated from its judged sample).
+keywords found 181 with 217 false hits (F1 0.361), any keyword about 655 with about 15,554 (F1
+0.078; it flags 205 functions per search, so its counts are estimated from its judged sample, and
+never below the relevant hits already known).
 
 Spend on OpenRouter: $17.11 for the pool runs of all six languages ($4.45 of it Python, $7.00
 JavaScript because of the two bundles), about $17.40 with the wording trials, the repeats and the
@@ -426,6 +443,7 @@ uv run bench wordings   # the four wordings on the Python tuning searches (about
 uv run bench run        # every search over the pool; per --language (Python about $4.50)
 uv run bench repeat     # 5 Python searches again (about $0.25)
 uv run bench judge      # validation, the gate, then the rest (Codex); per --language
+                        # (Go needs --continue-judging, as its judge misses the gate)
 uv run bench score      # every results file and figure (offline)
 uv run bench licenses   # each source repository's license, for the dataset (GitHub)
 uv run bench export     # queries, corpus, qrels and the dataset card
@@ -436,7 +454,8 @@ uv run bench export     # queries, corpus, qrels and the dataset card
 `.cache/export/`.
 
 Every stage resumes: finished searches and batches are skipped, and a search cut short by a spend
-limit runs again from its start. `BENCH_JEVPIPE` points the runs at a jevpipe binary other than the
-one on the path. `./check.ps1` runs the benchmark's own offline checks.
+limit runs again from its start. `bench run --retry-failed` asks both models again about the
+records a stored run left unanswered. `BENCH_JEVPIPE` points the runs at a jevpipe binary other than
+the one on the path. `./check.ps1` runs the benchmark's own offline checks.
 
 </details>

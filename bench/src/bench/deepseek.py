@@ -12,12 +12,10 @@ from bench import openrouter
 from bench.limits import LimitReachedError
 
 MODEL = "deepseek/deepseek-v4.1-flash"
-SYSTEM = "You judge one file at a time. Answer with exactly one word: yes or no."
-IN_FLIGHT = 100
+LABEL = "DeepSeek V4.1 Flash"
+_SYSTEM = "You judge one file at a time. Answer with exactly one word: yes or no."
 _COMPLETIONS = f"{openrouter.API}/chat/completions"
-_ATTEMPTS = 3
 _TIMEOUT_SECONDS = 60
-_EXHAUSTED_STATUS = 402
 _PUNCTUATION = ".,!?:;\"'`*"
 _WITHOUT_LOGPROBS = ("Novita",)
 
@@ -39,6 +37,13 @@ class Reply:
 
 
 @dataclass(frozen=True)
+class _Outcome:
+    reply: Reply | None
+    again: bool
+    response: httpx.Response | None
+
+
+@dataclass(frozen=True)
 class DeepSeekRun:
     answer: tuple[bool | None, ...]
     probability: tuple[float | None, ...]
@@ -54,12 +59,12 @@ class TopLogprob(TypedDict):
     logprob: float
 
 
-class _TokenLogprob(TypedDict):
+class TokenLogprob(TypedDict):
     top_logprobs: list[TopLogprob]
 
 
 class _Logprobs(TypedDict):
-    content: list[_TokenLogprob] | None
+    content: list[TokenLogprob] | None
 
 
 class _Message(TypedDict):
@@ -90,11 +95,11 @@ class _Session:
     spent: list[float]
 
 
-def request_body(item: Item) -> dict[str, object]:
+def _request_body(item: Item) -> dict[str, object]:
     return {
         "model": MODEL,
         "messages": [
-            {"role": "system", "content": SYSTEM},
+            {"role": "system", "content": _SYSTEM},
             {"role": "user", "content": f"{item.question}\n\nFile: {item.name}\n\n{item.code}"},
         ],
         "temperature": 0,
@@ -124,6 +129,12 @@ def probability_of(top: Sequence[TopLogprob]) -> float | None:
     return yes / (yes + no) if yes + no > 0 else None
 
 
+def first_probability(tokens: Sequence[TokenLogprob]) -> float | None:
+    return next(
+        (p for token in tokens if (p := probability_of(token["top_logprobs"])) is not None), None
+    )
+
+
 def _mass(top: Sequence[TopLogprob], word: str) -> float:
     return sum(
         math.exp(entry["logprob"]) for entry in top if entry["token"].strip().lower() == word
@@ -139,24 +150,25 @@ def reply_of(response: Response) -> Reply | None:
     tokens = logprobs["content"] if logprobs else None
     return Reply(
         answer_of(choice["message"]["content"] or ""),
-        probability_of(tokens[0]["top_logprobs"]) if tokens else None,
+        first_probability(tokens) if tokens else None,
         response.get("provider"),
         response.get("usage", {}).get("cost", 0.0),
         response.get("model"),
     )
 
 
-def run(items: Sequence[Item]) -> DeepSeekRun:
-    return asyncio.run(_run(items))
+def run(items: Sequence[Item], transport: httpx.AsyncBaseTransport | None = None) -> DeepSeekRun:
+    return asyncio.run(_run(items, transport))
 
 
-async def _run(items: Sequence[Item]) -> DeepSeekRun:
-    limits = httpx.Limits(max_connections=IN_FLIGHT, max_keepalive_connections=IN_FLIGHT)
+async def _run(items: Sequence[Item], transport: httpx.AsyncBaseTransport | None) -> DeepSeekRun:
+    in_flight = openrouter.IN_FLIGHT
+    limits = httpx.Limits(max_connections=in_flight, max_keepalive_connections=in_flight)
     headers = openrouter.authorization()
     async with httpx.AsyncClient(
-        headers=headers, timeout=_TIMEOUT_SECONDS, limits=limits
+        headers=headers, timeout=_TIMEOUT_SECONDS, limits=limits, transport=transport
     ) as client:
-        session = _Session(client, asyncio.Semaphore(IN_FLIGHT), asyncio.Event(), [])
+        session = _Session(client, asyncio.Semaphore(in_flight), asyncio.Event(), [])
         started = time.perf_counter()
         replies = await asyncio.gather(*(_ask(session, item) for item in items))
         wall_seconds = time.perf_counter() - started
@@ -184,32 +196,45 @@ def _collect(replies: Sequence[Reply | None], cost: float, wall_seconds: float) 
 async def _ask(session: _Session, item: Item) -> Reply | None:
     kept: Reply | None = None
     async with session.slots:
-        for attempt in range(_ATTEMPTS):
+        for attempt in range(openrouter.ATTEMPTS):
             if session.exhausted.is_set():
                 return None
-            reply = await _attempt(session, item)
+            outcome = await _attempt(session, item)
+            reply = outcome.reply
             if reply is not None:
                 session.spent.append(reply.cost)
                 if reply.probability is not None:
                     return reply
-                kept = reply
-            await asyncio.sleep(2**attempt)
+                kept = reply if reply.answer is not None else kept
+            if not outcome.again or attempt == openrouter.ATTEMPTS - 1:
+                break
+            await asyncio.sleep(openrouter.delay(attempt, outcome.response))
     return kept
 
 
-async def _attempt(session: _Session, item: Item) -> Reply | None:
+async def _attempt(session: _Session, item: Item) -> _Outcome:
     try:
-        response = await session.client.post(_COMPLETIONS, json=request_body(item))
+        response = await session.client.post(_COMPLETIONS, json=_request_body(item))
     except httpx.HTTPError:
-        return None
-    if response.status_code == _EXHAUSTED_STATUS and openrouter.exhausted(
-        cast("openrouter.ErrorBody", response.json())
-    ):
+        return _Outcome(None, again=True, response=None)
+    if response.status_code == openrouter.EXHAUSTED_STATUS and _exhausted(response):
         session.exhausted.set()
-        return None
+        return _Outcome(None, again=False, response=response)
     if not response.is_success:
-        return None
+        return _Outcome(None, openrouter.transient(response.status_code), response)
+    reply = _parsed(response)
+    return _Outcome(reply, again=reply is not None, response=response)
+
+
+def _exhausted(response: httpx.Response) -> bool:
+    try:
+        return openrouter.exhausted(cast("openrouter.ErrorBody", response.json()))
+    except ValueError:
+        return False
+
+
+def _parsed(response: httpx.Response) -> Reply | None:
     try:
         return reply_of(cast("Response", response.json()))
-    except ValueError:
+    except ValueError, KeyError, TypeError, IndexError:
         return None

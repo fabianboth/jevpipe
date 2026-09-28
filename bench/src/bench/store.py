@@ -1,11 +1,11 @@
 import json
 from dataclasses import dataclass
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import cast
 
-BENCH = Path(__file__).resolve().parents[2]
-RESULTS = BENCH / "results"
-CACHE = BENCH / ".cache"
+RESULTS = Path(__file__).resolve().parents[2] / "results"
+CACHE = RESULTS.parent / ".cache"
 _INDENT = "  "
 _PRIMARY = "python"
 
@@ -28,6 +28,18 @@ class Suite:
     def pool(self) -> Path:
         return CACHE / "pool" if self.primary else CACHE / self.language / "pool"
 
+    @property
+    def runs(self) -> Path:
+        return self.results / "runs"
+
+    @property
+    def repeats(self) -> Path:
+        return self.results / "repeat"
+
+    @property
+    def judged(self) -> Path:
+        return self.results / "judge"
+
     def name_of(self, index: int) -> str:
         return f"{index:04d}{self.extension}"
 
@@ -46,11 +58,18 @@ SUITES = {
 PYTHON = SUITES[_PRIMARY]
 
 
+def now() -> str:
+    return datetime.now(UTC).isoformat(timespec="seconds")
+
+
 def write_json(path: Path, value: object) -> None:
-    text = _encode(value, 0) + "\n"
+    write_bytes(path, (_encode(value, 0) + "\n").encode())
+
+
+def write_bytes(path: Path, content: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(f"{path.name}.tmp")
-    temporary.write_text(text, encoding="utf-8", newline="\n")
+    temporary.write_bytes(content)
     temporary.replace(path)
 
 
@@ -77,7 +96,3 @@ def _scalars(items: list[object]) -> bool:
 
 def read_json(path: Path) -> object:
     return json.loads(path.read_text(encoding="utf-8"))
-
-
-def exists(path: Path) -> bool:
-    return path.is_file()

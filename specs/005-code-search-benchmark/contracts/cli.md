@@ -25,7 +25,7 @@ directly; it is never written anywhere. Stages that use the agent need a logged-
 | `--parallel N` | `judge`, `patterns` | Codex calls at once, default 4 |
 | `--continue-judging` | `judge` | go on after a validation F1 below 0.67 (the maintainer's decision, FR-010) |
 | `--language python\|java\|javascript\|php\|ruby\|go` | `prepare`, `patterns`, `run`, `judge` | the CodeSearchNet language; default `python`. Other languages keep Python's search ids, are all test searches and use Python's frozen wordings and thresholds; their results live in `results/<language>/` |
-| `--retry-failed` | `run` | ask jevpipe again about the records a stored run left unanswered, and record the retry |
+| `--retry-failed` | `run` | ask both models again about the records a stored run left unanswered (with `--queries`, only those), and record the retry |
 
 ## Output and exit status
 

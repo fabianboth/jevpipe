@@ -9,8 +9,19 @@
       "pool": 943,
       "judge": {
         "f1": 0.7449,
+        "same_verdict": 0.7636,
         "passed": true,
         "pairs_rated_twice": 848
+      },
+      "median_per_1000": {
+        "jevpipe": {
+          "seconds": 6.5429,
+          "cost": 0.0205
+        },
+        "deepseek": {
+          "seconds": 15.0477,
+          "cost": 0.0271
+        }
       },
       "contenders": {
         "grep-agent": {
@@ -44,8 +55,19 @@
       "pool": 758,
       "judge": {
         "f1": 0.7194,
+        "same_verdict": 0.788,
         "passed": true,
         "pairs_rated_twice": 0
+      },
+      "median_per_1000": {
+        "jevpipe": {
+          "seconds": 7.2427,
+          "cost": 0.02
+        },
+        "deepseek": {
+          "seconds": 18.4433,
+          "cost": 0.0204
+        }
       },
       "contenders": {
         "grep-agent": {
@@ -79,8 +101,19 @@
       "pool": 304,
       "judge": {
         "f1": 0.7811,
+        "same_verdict": 0.8328,
         "passed": true,
         "pairs_rated_twice": 0
+      },
+      "median_per_1000": {
+        "jevpipe": {
+          "seconds": 14.3586,
+          "cost": 0.0299
+        },
+        "deepseek": {
+          "seconds": 119.6875,
+          "cost": 0.1582
+        }
       },
       "contenders": {
         "grep-agent": {
@@ -114,8 +147,19 @@
       "pool": 288,
       "judge": {
         "f1": 0.76,
+        "same_verdict": 0.7924,
         "passed": true,
         "pairs_rated_twice": 0
+      },
+      "median_per_1000": {
+        "jevpipe": {
+          "seconds": 10.7639,
+          "cost": 0.0197
+        },
+        "deepseek": {
+          "seconds": 23.1597,
+          "cost": 0.0206
+        }
       },
       "contenders": {
         "grep-agent": {
@@ -149,8 +193,19 @@
       "pool": 292,
       "judge": {
         "f1": 0.7093,
+        "same_verdict": 0.8333,
         "passed": true,
         "pairs_rated_twice": 2
+      },
+      "median_per_1000": {
+        "jevpipe": {
+          "seconds": 12.089,
+          "cost": 0.0174
+        },
+        "deepseek": {
+          "seconds": 32.089,
+          "cost": 0.0156
+        }
       },
       "contenders": {
         "grep-agent": {
@@ -184,8 +239,19 @@
       "pool": 161,
       "judge": {
         "f1": 0.6292,
+        "same_verdict": 0.7963,
         "passed": false,
         "pairs_rated_twice": 0
+      },
+      "median_per_1000": {
+        "jevpipe": {
+          "seconds": 17.0186,
+          "cost": 0.0193
+        },
+        "deepseek": {
+          "seconds": 26.8944,
+          "cost": 0.0193
+        }
       },
       "contenders": {
         "grep-agent": {
@@ -264,14 +330,14 @@
         "above_zero": 0.9895
       }
     },
-    "per_1000": {
+    "median_per_1000": {
       "jevpipe": {
-        "seconds": 6.542948038176034,
-        "cost": 0.02046235418875928
+        "seconds": 6.5429,
+        "cost": 0.0205
       },
       "deepseek": {
-        "seconds": 15.047720042417815,
-        "cost": 0.02708022860021209
+        "seconds": 15.0477,
+        "cost": 0.0271
       }
     },
     "sweep": {
@@ -603,31 +669,31 @@
     "gaps": {
       "jevpipe - grep-agent": {
         "f1_gap": 0.1475,
-        "low": 0.1073,
-        "high": 0.1914,
+        "low": 0.1067,
+        "high": 0.1912,
         "above_zero": 1.0
       },
       "jevpipe - deepseek": {
         "f1_gap": 0.026,
-        "low": -0.0077,
+        "low": -0.0079,
         "high": 0.0591,
-        "above_zero": 0.9385
+        "above_zero": 0.9327
       },
       "deepseek - grep-agent": {
         "f1_gap": 0.1215,
-        "low": 0.0842,
-        "high": 0.1593,
+        "low": 0.0844,
+        "high": 0.1587,
         "above_zero": 1.0
       }
     },
-    "per_1000": {
+    "median_per_1000": {
       "jevpipe": {
-        "seconds": 10.155298706240488,
-        "cost": 0.01999604221635884
+        "seconds": 10.1974,
+        "cost": 0.02
       },
       "deepseek": {
-        "seconds": 23.50263852242744,
-        "cost": 0.021225836661261363
+        "seconds": 23.5026,
+        "cost": 0.0212
       }
     },
     "sweep": {
@@ -959,31 +1025,31 @@
     "gaps": {
       "jevpipe - grep-agent": {
         "f1_gap": 0.1456,
-        "low": 0.1067,
-        "high": 0.1878,
+        "low": 0.1066,
+        "high": 0.1865,
         "above_zero": 1.0
       },
       "jevpipe - deepseek": {
         "f1_gap": 0.0262,
-        "low": -0.0061,
-        "high": 0.0582,
-        "above_zero": 0.9398
+        "low": -0.0063,
+        "high": 0.0576,
+        "above_zero": 0.9453
       },
       "deepseek - grep-agent": {
         "f1_gap": 0.1193,
-        "low": 0.0839,
-        "high": 0.156,
+        "low": 0.0832,
+        "high": 0.1554,
         "above_zero": 1.0
       }
     },
-    "per_1000": {
+    "median_per_1000": {
       "jevpipe": {
-        "seconds": 10.868055555555554,
-        "cost": 0.019909722222222224
+        "seconds": 10.8904,
+        "cost": 0.0199
       },
       "deepseek": {
-        "seconds": 24.246575342465754,
-        "cost": 0.020981061345646437
+        "seconds": 24.2466,
+        "cost": 0.021
       }
     },
     "sweep": {

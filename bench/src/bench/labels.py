@@ -27,9 +27,6 @@ class Labels:
     def rated_by_expert(self, pair: Pair) -> bool:
         return pair in self.expert
 
-    def with_judge(self, judge: Mapping[Pair, int]) -> Labels:
-        return Labels(self.expert, judge)
-
 
 def experts(
     queries: dataset.Queries, snippets: pool.Pool, ratings: dataset.Ratings

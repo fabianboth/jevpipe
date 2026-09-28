@@ -108,6 +108,21 @@ def frame(axes: Axes, grid: Literal["both", "x", "y"]) -> None:
         axes.spines[side].set_color(BASELINE)
 
 
+def rows(count: int) -> list[int]:
+    return list(range(count))[::-1]
+
+
+def row_limits(axes: Axes, count: int) -> None:
+    axes.set_ylim(-0.6, count - 0.4)
+
+
+def row_labels(axes: Axes, labels: list[str], size: float) -> None:
+    axes.set_yticks(rows(len(labels)), labels=labels)
+    for label in axes.get_yticklabels():
+        label.set_color(INK)
+        label.set_fontsize(size)
+
+
 def axis_label(axes: Axes, x: str, y: str) -> None:
     axes.set_xlabel(x, color=MUTED, fontsize=8.5, family=FONT, labelpad=6)
     axes.set_ylabel(y, color=MUTED, fontsize=8.5, family=FONT, labelpad=6)

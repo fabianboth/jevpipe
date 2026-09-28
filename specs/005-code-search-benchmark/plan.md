@@ -85,30 +85,39 @@ bench/
 ├── README.md            # the method page
 ├── src/bench/
 │   ├── cli.py           # argparse: one subcommand per stage, exit status
-│   ├── limits.py        # LimitReached: spend limit, Codex quota, judge gate → exit 3
-│   ├── store.py         # atomic JSON read and write under results/
-│   ├── dataset.py       # ratings download, queries, split
-│   ├── pool.py          # snippet fetch and cut, neutral names
+│   ├── limits.py        # LimitReached (exit 3), StageError, the failed-share limit
+│   ├── store.py         # suites and their folders, atomic writes under results/
+│   ├── tools.py         # finding and versioning the external programs
+│   ├── download.py      # cached downloads; only 404/410 mean gone
+│   ├── dataset.py       # ratings, queries, split
+│   ├── pool.py          # snippet cut, neutral names
 │   ├── prepare.py       # the prepare stage: dataset, pool, expert ratings
+│   ├── contenders.py    # contender names and types
+│   ├── records.py       # the stored run formats
+│   ├── decisions.py     # thresholds and the one rule for "a tool flagged this"
 │   ├── wording.py       # the four wordings, trial and freeze
-│   ├── openrouter.py    # API base, key from the environment, spend-limit errors
+│   ├── openrouter.py    # API base, key, retry policy shared with jevpipe's
 │   ├── jev.py           # jevpipe subprocess, resolved-version call
 │   ├── deepseek.py      # OpenRouter requests, logprob probability
-│   ├── runs.py          # per-query pool runs of both models, alternating, resumable
+│   ├── runs.py          # per-query pool runs of both models, alternating, resumable, retries
 │   ├── grep.py          # keywords, ripgrep runs
 │   ├── codex.py         # codex exec runner with output schema
 │   ├── patterns.py      # agent-written patterns
-│   ├── judge.py         # selection, batches, validation gate
+│   ├── selection.py     # which pairs the judge rates, batches, stored ratings
+│   ├── agreement.py     # the judge against the experts, the gate
+│   ├── judge.py         # the judge stage: prompting and batch runs
 │   ├── labels.py        # expert and judge labels per pair
 │   ├── counts.py        # found, false hits, precision, recall, F1
-│   ├── bootstrap.py     # resampled intervals for gaps in F1
+│   ├── bootstrap.py     # resampled intervals for gaps in F1, within each language
+│   ├── metrics.py       # thresholds, per-contender results, sweep, bands, misses, repeats
 │   ├── languages.py     # pooling across languages
+│   ├── report.py        # one summary per language, the JSON reports
+│   ├── numbers.py       # numbers.md from the summary
 │   ├── licenses.py      # source repository licenses from GitHub
 │   ├── export.py        # the published dataset: queries, corpus, qrels, card
-│   ├── metrics.py       # thresholds, per-contender results, sweep, bands, misses, repeats
 │   ├── charts.py        # builds the README chart and the method page's figures from the scores
 │   ├── plots/           # matplotlib drawing: style.py, headline.py, figures.py
-│   └── score.py         # the score stage: results.json, numbers.md, the figures
+│   └── score.py         # the score stage: reports and figures
 ├── tests/               # pytest, offline fixtures
 └── results/             # committed outputs (contracts/results.md)
 

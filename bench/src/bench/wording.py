@@ -1,27 +1,27 @@
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from typing import Literal, TypedDict, cast
+from pathlib import Path
+from typing import NotRequired, TypedDict, cast
 
-from bench import counts, dataset, deepseek, jev, labels, pool, store
+from bench import counts, dataset, decisions, deepseek, jev, labels, limits, pool, store
+from bench.contenders import MODELS, Model
+from bench.limits import StageError
 
-type Model = Literal["jevpipe", "deepseek"]
-
-MODELS: tuple[Model, ...] = ("jevpipe", "deepseek")
 WORDINGS = (
     'Does this code do what a developer searching for "{query}" is looking for?',
     'Is this code a good result for the code search "{query}"?',
     'Would a developer searching for "{query}" want to use this function?',
     'Does this function implement "{query}"?',
 )
-JEV_THRESHOLD = 0.5
-_FOLDER = store.PYTHON.results / "wordings"
-_FROZEN_FILE = store.PYTHON.results / "frozen.json"
 
 
 class _Trial(TypedDict):
     wording: int
     f1: float
     cost: float
-    decisions: dict[str, list[float | None]] | dict[str, list[bool | None]]
+    decisions: NotRequired[dict[str, list[float | None]] | dict[str, list[bool | None]]]
+    probability: NotRequired[dict[str, list[float | None]]]
+    answer: NotRequired[dict[str, list[bool | None]]]
 
 
 class _TrialsFile(TypedDict):
@@ -41,8 +41,11 @@ class _Dev:
     relevant: dict[str, tuple[bool, ...]]
 
 
-def question(wording: int, query: str) -> str:
-    return WORDINGS[wording - 1].format(query=query)
+@dataclass(frozen=True)
+class _Answers:
+    probability: dict[str, list[float | None]]
+    answer: dict[str, list[bool | None]]
+    cost: float
 
 
 def try_wordings() -> None:
@@ -50,14 +53,28 @@ def try_wordings() -> None:
     known = labels.Labels(labels.load_experts(store.PYTHON))
     dev = _dev(queries, known)
     for model in MODELS:
-        path = _FOLDER / f"{model}.json"
-        if store.exists(path):
-            print(f"wordings: {model} already tried")
-            continue
-        trials = [_trial(model, wording, dev) for wording in range(1, len(WORDINGS) + 1)]
-        data: _TrialsFile = {"model": _model_id(model), "trials": trials}
-        store.write_json(path, data)
+        stored = _trials(model)
+        done = {trial["wording"] for trial in stored}
+        for number in range(1, len(WORDINGS) + 1):
+            if number in done:
+                continue
+            stored.append(_trial(model, number, dev))
+            data: _TrialsFile = {"model": _model_id(model), "trials": stored}
+            store.write_json(_trials_file(model), data)
     _freeze()
+
+
+def _trials_file(model: Model) -> Path:
+    return store.PYTHON.results / "wordings" / f"{model}.json"
+
+
+def _frozen_file() -> Path:
+    return store.PYTHON.results / "frozen.json"
+
+
+def _trials(model: Model) -> list[_Trial]:
+    path = _trials_file(model)
+    return cast("_TrialsFile", store.read_json(path))["trials"] if path.is_file() else []
 
 
 def _dev(queries: tuple[dataset.Query, ...], known: labels.Labels) -> _Dev:
@@ -71,35 +88,50 @@ def _dev(queries: tuple[dataset.Query, ...], known: labels.Labels) -> _Dev:
 
 
 def _trial(model: Model, wording: int, dev: _Dev) -> _Trial:
+    template = WORDINGS[wording - 1]
     match model:
         case "jevpipe":
-            trial = _jev_trial(wording, dev)
+            answers = _jev_answers(template, dev)
         case "deepseek":
-            trial = _deepseek_trial(wording, dev)
-    print(f"wordings: {model} wording {wording}: F1 {trial['f1']:.3f}, ${trial['cost']:.4f}")
-    return trial
+            answers = _deepseek_answers(template, dev)
+    flags = (
+        (decisions.says_yes(p, decisions.DEFAULT_THRESHOLD, answer=answer), relevant)
+        for query in dev.queries
+        for p, answer, relevant in zip(
+            answers.probability[query.id],
+            answers.answer[query.id],
+            dev.relevant[query.id],
+            strict=True,
+        )
+    )
+    f1 = counts.count(flags).f1
+    print(f"wordings: {model} wording {wording}: F1 {f1:.3f}, ${answers.cost:.4f}")
+    return {
+        "wording": wording,
+        "f1": f1,
+        "cost": answers.cost,
+        "probability": answers.probability,
+        "answer": answers.answer,
+    }
 
 
-def _jev_trial(wording: int, dev: _Dev) -> _Trial:
-    decisions: dict[str, list[float | None]] = {}
+def _jev_answers(template: str, dev: _Dev) -> _Answers:
+    probability: dict[str, list[float | None]] = {}
     cost = 0.0
     for query in dev.queries:
         names = [store.PYTHON.name_of(index) for index in dev.snippets[query.id]]
-        result = jev.run(names, question(wording, query.text), store.PYTHON.pool)
-        decisions[query.id] = list(result.probability)
+        result = jev.run(names, template.format(query=query.text), store.PYTHON.pool)
+        _check_failures(result.parsed.failed, len(names))
+        probability[query.id] = list(result.parsed.probability)
         cost += result.cost
-    flags = (
-        (probability is not None and probability >= JEV_THRESHOLD, relevant)
-        for query in dev.queries
-        for probability, relevant in zip(decisions[query.id], dev.relevant[query.id], strict=True)
-    )
-    return {"wording": wording, "f1": counts.count(flags).f1, "cost": cost, "decisions": decisions}
+    answer: dict[str, list[bool | None]] = {q: [None] * len(p) for q, p in probability.items()}
+    return _Answers(probability, answer, cost)
 
 
-def _deepseek_trial(wording: int, dev: _Dev) -> _Trial:
+def _deepseek_answers(template: str, dev: _Dev) -> _Answers:
     items = [
         deepseek.Item(
-            question(wording, query.text),
+            template.format(query=query.text),
             store.PYTHON.name_of(index),
             pool.code(store.PYTHON, index),
         )
@@ -107,19 +139,21 @@ def _deepseek_trial(wording: int, dev: _Dev) -> _Trial:
         for index in dev.snippets[query.id]
     ]
     result = deepseek.run(items)
-    answers = iter(result.answer)
-    decisions = {query.id: [next(answers) for _ in dev.snippets[query.id]] for query in dev.queries}
-    flags = (
-        (answer is True, relevant)
-        for query in dev.queries
-        for answer, relevant in zip(decisions[query.id], dev.relevant[query.id], strict=True)
-    )
-    return {
-        "wording": wording,
-        "f1": counts.count(flags).f1,
-        "cost": result.cost,
-        "decisions": decisions,
-    }
+    _check_failures(result.failed, len(items))
+    probability = _per_query(result.probability, dev)
+    answer = _per_query(result.answer, dev)
+    return _Answers(probability, answer, result.cost)
+
+
+def _per_query[T](values: Sequence[T], dev: _Dev) -> dict[str, list[T]]:
+    flat = iter(values)
+    return {query.id: [next(flat) for _ in dev.snippets[query.id]] for query in dev.queries}
+
+
+def _check_failures(failed: int, decided: int) -> None:
+    if failed > limits.MAX_FAILED_SHARE * decided:
+        message = f"{failed} of {decided} decisions failed; the trial is not stored, run again"
+        raise StageError(message)
 
 
 def _model_id(model: Model) -> str:
@@ -133,25 +167,32 @@ def _model_id(model: Model) -> str:
 def _freeze() -> None:
     frozen: dict[str, _Frozen] = {}
     for model in MODELS:
-        data = cast("_TrialsFile", store.read_json(_FOLDER / f"{model}.json"))
-        best = max(data["trials"], key=lambda trial: (trial["f1"], -trial["wording"]))
-        frozen[model] = {"wording": best["wording"], "question": WORDINGS[best["wording"] - 1]}
-        print(f"wordings: {model} uses wording {best['wording']} (dev F1 {best['f1']:.3f})")
-    store.write_json(_FROZEN_FILE, frozen)
+        scores = {trial["wording"]: trial["f1"] for trial in _trials(model)}
+        best = best_wording(scores)
+        frozen[model] = {"wording": best, "question": WORDINGS[best - 1]}
+        print(f"wordings: {model} uses wording {best} (dev F1 {scores[best]:.3f})")
+    store.write_json(_frozen_file(), frozen)
 
 
-def frozen_templates() -> dict[Model, str]:
-    data = cast("dict[Model, _Frozen]", store.read_json(_FROZEN_FILE))
-    return {model: data[model]["question"] for model in MODELS}
+def best_wording(scores: Mapping[int, float]) -> int:
+    return max(scores, key=lambda number: (scores[number], -number))
+
+
+def _frozen() -> dict[Model, _Frozen]:
+    return cast("dict[Model, _Frozen]", store.read_json(_frozen_file()))
 
 
 def frozen_wordings() -> dict[Model, int]:
-    data = cast("dict[Model, _Frozen]", store.read_json(_FROZEN_FILE))
-    return {model: data[model]["wording"] for model in MODELS}
+    frozen = _frozen()
+    return {model: frozen[model]["wording"] for model in MODELS}
+
+
+def frozen_templates() -> dict[Model, str]:
+    frozen = _frozen()
+    return {model: frozen[model]["question"] for model in MODELS}
 
 
 def trial_f1s(model: Model) -> tuple[float, ...]:
-    data = cast("_TrialsFile", store.read_json(_FOLDER / f"{model}.json"))
     return tuple(
-        trial["f1"] for trial in sorted(data["trials"], key=lambda trial: trial["wording"])
+        trial["f1"] for trial in sorted(_trials(model), key=lambda trial: trial["wording"])
     )

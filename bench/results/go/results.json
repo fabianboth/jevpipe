@@ -49,16 +49,21 @@
   },
   "contenders": {
     "grep-any": {
-      "found": 61.3,
-      "false_hits": 2842.7,
+      "found": 70.45,
+      "false_hits": 2833.55,
       "known_relevant": 85.45,
-      "precision": 0.0211,
-      "recall": 0.7174,
-      "f1": 0.041,
+      "precision": 0.0243,
+      "recall": 0.8245,
+      "f1": 0.0471,
+      "estimated": true,
       "unjudged": 0,
       "seconds_median": 0.0428,
       "seconds_p90": 0.1069,
-      "cost_per_1000": 0.0
+      "cost_per_1000": 0.0,
+      "median_per_1000": {
+        "seconds": 0.2659,
+        "cost": 0.0
+      }
     },
     "grep-all": {
       "found": 27,
@@ -67,10 +72,15 @@
       "precision": 0.375,
       "recall": 0.3418,
       "f1": 0.3576,
+      "estimated": false,
       "unjudged": 0,
       "seconds_median": 0.1191,
       "seconds_p90": 0.2564,
-      "cost_per_1000": 0.0
+      "cost_per_1000": 0.0,
+      "median_per_1000": {
+        "seconds": 0.74,
+        "cost": 0.0
+      }
     },
     "grep-agent": {
       "found": 44,
@@ -79,10 +89,15 @@
       "precision": 0.3793,
       "recall": 0.557,
       "f1": 0.4513,
+      "estimated": false,
       "unjudged": 0,
       "seconds_median": 0.0404,
       "seconds_p90": 0.0622,
-      "cost_per_1000": 0.0
+      "cost_per_1000": 0.0,
+      "median_per_1000": {
+        "seconds": 0.2507,
+        "cost": 0.0
+      }
     },
     "jevpipe": {
       "found": 49,
@@ -91,10 +106,15 @@
       "precision": 0.4949,
       "recall": 0.6203,
       "f1": 0.5506,
+      "estimated": false,
       "unjudged": 0,
       "seconds_median": 2.74,
       "seconds_p90": 4.244,
-      "cost_per_1000": 0.0193
+      "cost_per_1000": 0.0193,
+      "median_per_1000": {
+        "seconds": 17.0186,
+        "cost": 0.0193
+      }
     },
     "deepseek": {
       "found": 41,
@@ -103,10 +123,15 @@
       "precision": 0.5062,
       "recall": 0.519,
       "f1": 0.5125,
+      "estimated": false,
       "unjudged": 0,
       "seconds_median": 4.33,
       "seconds_p90": 8.236,
-      "cost_per_1000": 0.0196
+      "cost_per_1000": 0.0196,
+      "median_per_1000": {
+        "seconds": 26.8944,
+        "cost": 0.0193
+      }
     }
   },
   "sweep": {
@@ -409,7 +434,13 @@
     "sampled": 830,
     "relevant_in_sample": 0,
     "unflagged": 10402,
-    "estimate": 0.0
+    "estimate": 0.0,
+    "estimated_relevant": 85.45,
+    "recall_against_estimate": {
+      "grep-agent": 0.5149,
+      "jevpipe": 0.5734,
+      "deepseek": 0.4798
+    }
   },
   "judge": {
     "model": "gpt-6-astra",
@@ -417,6 +448,8 @@
     "judged_pairs": 2295,
     "validation_pairs": 162,
     "against_experts": {
+      "pairs": 162,
+      "same_verdict": 0.7963,
       "found": 28,
       "false_hits": 21,
       "known_relevant": 40,
@@ -424,21 +457,14 @@
       "recall": 0.7,
       "f1": 0.6292
     },
-    "expert_against_experts": {
-      "found": 0,
-      "false_hits": 0,
-      "known_relevant": 0,
-      "precision": 0.0,
-      "recall": 0.0,
-      "f1": 0.0
-    }
+    "pairs_rated_twice": 0,
+    "on_pairs_rated_twice": null,
+    "expert_against_experts": null,
+    "passed": false
   },
   "repeat": {
     "queries": [],
-    "changed_share": {
-      "jevpipe": 0.0,
-      "deepseek": 0.0
-    }
+    "changed_share": null
   },
   "tally": {
     "jevpipe": {

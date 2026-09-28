@@ -1,65 +1,50 @@
+import functools
+import operator
 import statistics
 from collections.abc import Sequence
-from typing import Literal
+from dataclasses import dataclass
 
-from bench import bootstrap, metrics
+from bench import bootstrap, counts, metrics
+from bench.contenders import Contender, Model
 from bench.counts import Counts
 
-SHOWN: tuple[metrics.Contender, ...] = ("grep-agent", "jevpipe", "deepseek")
-COMPARISONS: tuple[tuple[metrics.Contender, metrics.Contender], ...] = (
+COMPARISONS: tuple[tuple[Contender, Contender], ...] = (
     ("jevpipe", "grep-agent"),
     ("jevpipe", "deepseek"),
     ("deepseek", "grep-agent"),
 )
 
 
-def pooled(everything: Sequence[metrics.Scored], contender: metrics.Contender) -> Counts:
-    return _summed([scored.results[contender].counts for scored in everything])
+@dataclass(frozen=True)
+class PerThousand:
+    seconds: float
+    cost: float
 
 
-def _summed(counts: Sequence[Counts]) -> Counts:
-    return Counts(
-        sum(count.found for count in counts),
-        sum(count.false_hits for count in counts),
-        sum(count.known_relevant for count in counts),
-    )
+def pooled(everything: Sequence[metrics.Scored], contender: Contender) -> Counts:
+    return counts.total(scored.results[contender].counts for scored in everything)
 
 
-def sweep(everything: Sequence[metrics.Scored], model: metrics.Model) -> list[tuple[float, Counts]]:
+def sweep(everything: Sequence[metrics.Scored], model: Model) -> list[tuple[float, Counts]]:
     sweeps = [metrics.sweep(scored.data, model) for scored in everything]
     return [
-        (points[0][0], _summed([counts for _, counts in points]))
+        (points[0][0], counts.total(found for _, found in points))
         for points in zip(*sweeps, strict=True)
     ]
 
 
-def bands(everything: Sequence[metrics.Scored], model: metrics.Model) -> list[metrics.Band]:
+def bands(everything: Sequence[metrics.Scored], model: Model) -> list[metrics.Band]:
     per_language = [metrics.bands(scored.data, model) for scored in everything]
-    return [_merged(group) for group in zip(*per_language, strict=True)]
+    return [functools.reduce(operator.add, group) for group in zip(*per_language, strict=True)]
 
 
-def _merged(group: Sequence[metrics.Band]) -> metrics.Band:
-    decisions = sum(band.decisions for band in group)
-    right = sum(band.decisions * band.accuracy for band in group)
-    return metrics.Band(
-        group[0].low, group[0].high, decisions, right / decisions if decisions else 0.0
-    )
-
-
-def gap(
-    everything: Sequence[metrics.Scored], pair: tuple[metrics.Contender, metrics.Contender]
-) -> bootstrap.Gap:
+def gap(everything: Sequence[metrics.Scored], pair: tuple[Contender, Contender]) -> bootstrap.Gap:
     first, second = pair
-    units: list[bootstrap.Unit] = []
-    for scored in everything:
-        units += zip(
-            metrics.per_query(scored.data, first, metrics.threshold_for(scored.thresholds, first)),
-            metrics.per_query(
-                scored.data, second, metrics.threshold_for(scored.thresholds, second)
-            ),
-            strict=True,
-        )
-    return bootstrap.f1_gap(units)
+    strata = [
+        list(zip(metrics.per_query(scored, first), metrics.per_query(scored, second), strict=True))
+        for scored in everything
+    ]
+    return bootstrap.f1_gap(strata)
 
 
 def searches(everything: Sequence[metrics.Scored]) -> int:
@@ -70,28 +55,24 @@ def decisions(everything: Sequence[metrics.Scored]) -> int:
     return sum(scored.data.pool_size * len(scored.data.ids("test")) for scored in everything)
 
 
-def per_1000(everything: Sequence[metrics.Scored], model: metrics.Model) -> tuple[float, float]:
-    return (
-        statistics.median(seconds_per_1000(everything, model)),
-        statistics.median(_per_search(everything, (model, "cost"))),
+def median_per_1000(everything: Sequence[metrics.Scored], contender: Contender) -> PerThousand:
+    return PerThousand(
+        statistics.median(seconds_per_1000(everything, contender)),
+        statistics.median(
+            scored.data.cost(q, contender) / scored.data.pool_size * 1000
+            for scored in everything
+            for q in scored.data.ids("test")
+        ),
     )
 
 
 def seconds_per_1000(
-    everything: Sequence[metrics.Scored], model: metrics.Model
+    everything: Sequence[metrics.Scored], contender: Contender
 ) -> tuple[float, ...]:
-    return _per_search(everything, (model, "wall_seconds"))
-
-
-def _per_search(
-    everything: Sequence[metrics.Scored],
-    measure: tuple[metrics.Model, Literal["wall_seconds", "cost"]],
-) -> tuple[float, ...]:
-    model, field = measure
     return tuple(
-        scored.data.runs[query_id][model][field] / scored.data.pool_size * 1000
+        scored.data.seconds(q, contender) / scored.data.pool_size * 1000
         for scored in everything
-        for query_id in scored.data.ids("test")
+        for q in scored.data.ids("test")
     )
 
 

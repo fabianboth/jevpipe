@@ -147,6 +147,30 @@ queries and the wording chosen on dev, with a recommendation.
 
 ---
 
+## Phase 8: Review follow-up
+
+A review of the finished branch; the stored runs and ratings stay as they are, `score` regenerates
+everything else.
+
+- [X] T045 One rule for "a tool flagged this" (`decisions.py`) used by the judge's selection, the
+  scoring and the wording trials; contender names in one place (`contenders.py`); run formats in
+  `records.py`
+- [X] T046 Split `judge.py` into `selection.py`, `agreement.py` and the judge stage; split `score.py`
+  into `report.py`, `numbers.py` and the stage; pooling through `Counts` sums and exact band merges
+- [X] T047 Fairness: DeepSeek retries like jevpipe (five attempts, transient errors only,
+  `Retry-After`, no wait after the last attempt); `--retry-failed` covers both models; a retry's time
+  counts with its cost
+- [X] T048 Robustness: jevpipe's exit 2 without a summary is a fatal error; timeouts for jevpipe and
+  Codex; a failing Codex task cancels the waiting ones; downloads fail loudly unless gone; atomic
+  cache writes; `prepare` refuses to replace a pool that stored runs use; a failed license lookup is
+  not stored as "no license"
+- [X] T049 Honest numbers: values never measured are `null`; the any-keyword grep's found count uses
+  the same estimate as its answer key; the bootstrap resamples within each language; the judge is
+  also compared like for like with the experts; chart and card text computed from the data
+- [X] T050 Tests for pooling, titles, the wording tie-break, the card, figure determinism, jevpipe
+  against a stand-in binary and DeepSeek against a mock transport; the method page checked against
+  every results file
+
 ## Dependencies & Execution Order
 
 - **Setup (T001-T006)** → **Foundational (T007-T014)** → **US2 (T015-T033)** → **US1 (T034-T038)** →

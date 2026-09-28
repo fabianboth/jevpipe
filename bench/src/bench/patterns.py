@@ -1,5 +1,4 @@
 from collections.abc import Sequence
-from datetime import UTC, datetime
 from typing import TypedDict, cast
 
 from bench import codex, dataset, grep, store
@@ -55,7 +54,7 @@ class _PatternsFile(TypedDict):
 
 def write_patterns(suite: store.Suite, parallel: int) -> None:
     path = suite.results / _PATTERNS_FILE
-    if store.exists(path):
+    if path.is_file():
         print(f"patterns: {suite.label} already written")
         return
     queries = dataset.load(suite).queries
@@ -76,7 +75,7 @@ def write_patterns(suite: store.Suite, parallel: int) -> None:
             patterns[query.id] = {"pattern": _retry(query, suite, first), "retried": True}
     data: _PatternsFile = {
         "model": codex.MODEL,
-        "written": datetime.now(UTC).isoformat(timespec="seconds"),
+        "written": store.now(),
         "patterns": patterns,
     }
     store.write_json(path, data)

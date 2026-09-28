@@ -37,12 +37,9 @@ typeCheckingMode = "strict"
 pythonVersion = "3.14"
 include = ["src", "tests"]
 
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-
 [[tool.pyright.executionEnvironments]]
 root = "src/bench/plots"
 reportUnknownMemberType = false
 
-[[tool.pyright.executionEnvironments]]
-root = "src"
+[tool.pytest.ini_options]
+testpaths = ["tests"]

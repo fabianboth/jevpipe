@@ -7,11 +7,10 @@ from typing import TypedDict, cast
 
 import httpx
 
-from bench import dataset, store
+from bench import dataset, download, store
 
 _URL = re.compile(r"https://github\.com/([^/]+)/([^/]+)/blob/([0-9a-f]+)/(.+?)#L(\d+)(?:-L(\d+))?$")
 _POOL_FILE = "pool.json"
-_RAW = store.CACHE / "raw"
 
 
 @dataclass(frozen=True)
@@ -107,21 +106,10 @@ def fetcher(client: httpx.Client) -> Callable[[str], str | None]:
         source = parse(url)
         if source is None:
             return None
-        text = _fetch_raw(client, source.raw_url)
-        return None if text is None else cut(text, source)
+        content = download.cached(client, source.raw_url)
+        return None if content is None else cut(content.decode("utf-8", errors="replace"), source)
 
     return code_of
-
-
-def _fetch_raw(client: httpx.Client, raw_url: str) -> str | None:
-    cached = _RAW / hashlib.sha256(raw_url.encode()).hexdigest()
-    if not cached.is_file():
-        response = client.get(raw_url, follow_redirects=True)
-        if not response.is_success:
-            return None
-        cached.parent.mkdir(parents=True, exist_ok=True)
-        cached.write_bytes(response.content)
-    return cached.read_bytes().decode("utf-8", errors="replace")
 
 
 def write_files(codes: list[str], suite: store.Suite) -> None:
@@ -139,6 +127,10 @@ def save(pool: Pool, suite: store.Suite) -> None:
         "missing": list(pool.missing),
     }
     store.write_json(suite.results / _POOL_FILE, data)
+
+
+def stored(suite: store.Suite) -> bool:
+    return (suite.results / _POOL_FILE).is_file()
 
 
 def load(suite: store.Suite) -> Pool:

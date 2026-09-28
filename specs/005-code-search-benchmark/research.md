@@ -43,7 +43,9 @@ code is a prototype; the benchmark is rebuilt in `bench/`.
   `reasoning: {enabled: false}`, `logprobs: true`, `top_logprobs: 5`, and
   `provider: {require_parameters: true}`. The probability of yes is
   `p(yes) / (p(yes) + p(no))` over the first token's top alternatives. Up to 100 requests in flight,
-  three attempts per request. Record `provider` and `usage.cost` per request.
+  three attempts per request. Record `provider` and `usage.cost` per request. (After the runs, the
+  review aligned the retries with jevpipe's: five attempts, transient errors only, `Retry-After`;
+  the probability comes from the first token that holds yes or no.)
 - **Rationale**: The spike's shape worked (0 errors over 956 + 1,886 requests). Without
   `require_parameters`, 75 of 956 answers came from providers that dropped logprobs; OpenRouter's
   provider-routing docs say `require_parameters: true` routes only to providers that support every
