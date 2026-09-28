@@ -1,6 +1,6 @@
 [package]
 name = "jevpipe"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2024"
 rust-version = "1.98"
 description = "A Unix pipe for typed decisions: stream records in, get calibrated decisions out."
