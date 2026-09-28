@@ -2,6 +2,7 @@ use encoding_rs::{DecoderResult, Encoding, UTF_8};
 
 pub(crate) const MAX_CHARACTERS: usize = 100_000;
 pub(crate) const MAX_BYTES: u64 = 400_000;
+const MIN_HALVED_CHARACTERS: usize = 1_000;
 
 pub(crate) fn is_utf16(start: &[u8]) -> bool {
     Encoding::for_bom(start).is_some_and(|(encoding, _)| encoding != UTF_8)
@@ -21,7 +22,16 @@ pub(crate) fn decode(bytes: &[u8], partial: bool) -> Option<String> {
 }
 
 pub(crate) fn shorten(text: &mut String) -> bool {
-    match text.char_indices().nth(MAX_CHARACTERS) {
+    shorten_to(text, MAX_CHARACTERS)
+}
+
+pub(crate) fn halve(text: &mut String) -> bool {
+    let half = text.chars().count() / 2;
+    half >= MIN_HALVED_CHARACTERS && shorten_to(text, half)
+}
+
+fn shorten_to(text: &mut String, characters: usize) -> bool {
+    match text.char_indices().nth(characters) {
         Some((end, _)) => {
             text.truncate(end);
             true

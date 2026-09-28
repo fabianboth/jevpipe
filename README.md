@@ -15,6 +15,7 @@
 <p>
 <a href="https://github.com/fabianboth/jevpipe#quick-start">Quick start</a> ·
 <a href="https://github.com/fabianboth/jevpipe#example">Example</a> ·
+<a href="https://github.com/fabianboth/jevpipe#does-it-beat-grep">Benchmark</a> ·
 <a href="https://github.com/fabianboth/jevpipe#use-cases">Use cases</a> ·
 <a href="https://github.com/fabianboth/jevpipe#cost-and-speed">Cost</a>
 </p>
@@ -101,6 +102,17 @@ All 19 took 1.1 seconds and cost $0.0003. Pick from them with jq, for example th
 a second look.
 
 </details>
+
+## Does it beat grep?
+
+<img alt="Over 470 code searches in five languages, jevpipe found 1,272 relevant functions with 767 false hits, grep with an agent-written pattern 1,027 with 1,155, and DeepSeek V4.1 Flash 1,173 with 712." src="https://raw.githubusercontent.com/fabianboth/jevpipe/main/bench/results/chart.png" width="800">
+
+470 searches from the
+[extended CodeSearchNet Challenge](https://huggingface.co/datasets/Scoolar/codesearchnet-challenge-extended)
+in Python, Java, JavaScript, PHP and Ruby, each over every function of its language; September 2026,
+Jev 1.13 and DeepSeek V4.1 Flash.
+**[Read the full benchmark](https://github.com/fabianboth/jevpipe/blob/main/bench/README.md)**:
+every language, speed and cost, and the searches where jevpipe loses.
 
 ## Use cases
 

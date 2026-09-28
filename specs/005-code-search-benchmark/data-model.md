@@ -89,8 +89,9 @@ Per query: the ripgrep pattern the agent wrote, and whether it compiled on the f
 - `validation`: every pair with an expert rating.
 - `hit`: every unrated pair flagged by `jevpipe` at 0.3, by `deepseek` (answer yes or probability 0.3
   or more), by `grep-all` or by `grep-agent`.
-- `grep-any-sample`: per query, 20 unrated `grep-any` hits drawn with the seed (all, if fewer);
-  pairs already selected as `hit` count toward the 20.
+- `grep-any-sample`: per query, 20 unrated `grep-any` hits drawn at random with the seed (all, if
+  fewer); a drawn pair that is also a `hit` is judged once and counts toward the 20, so the sample
+  stays a plain random sample of the unrated hits.
 - `unflagged-sample`: per query, 10 unrated pairs flagged by no contender, drawn with the seed.
 
 A pair is judged once, whatever the reasons; batches mix queries and reasons.
@@ -101,10 +102,10 @@ Computed over the test queries per contender:
 
 | Metric | Rule |
 |---|---|
-| `found` | flagged and relevant; for `grep-any`, its relevant rated hits plus its unrated hits × the relevant share of its sample |
+| `found` | flagged and relevant; for `grep-any`, its relevant expert-rated hits plus its other hits × the relevant share of that query's sample (the share over all samples where a query's sample has no rating) |
 | `false_hits` | flagged and labelled not relevant; for `grep-any`, estimated the same way with the not-relevant share |
 | `precision` | `found / (found + false_hits)` |
-| `recall` | `found / known relevant`, where known relevant counts every relevant pair of the test queries, from any source |
+| `recall` | `found / known relevant`, where known relevant counts every relevant pair of the test queries, from any source (for `grep-any` plus its estimated relevant hits not yet labelled) |
 | `f1` | harmonic mean |
 | `seconds_median`, `seconds_p90` | of the per-query wall time (grep: ripgrep's wall time) |
 | `cost_per_1000` | total cost / records × 1000 (grep: 0) |

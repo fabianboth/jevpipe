@@ -13,7 +13,9 @@ directly; it is never written anywhere. Stages that use the agent need a logged-
 | `run` | per query: grep baselines, then jevpipe and DeepSeek over the whole pool in alternating order | ~$7.4 | `results/runs/<query>.json` |
 | `repeat` | second run of jevpipe and DeepSeek for the 5 repeat queries | ~$0.4 | `results/repeat/<query>.json` |
 | `judge` | select the pairs to judge (validation first), judge them in batches; stop after validation if the judge's F1 is below 0.67 | subscription | `results/judge/selection.json`, `results/judge/<batch>.json` |
-| `score` | compute every metric, draw the chart, write the numbers for the method page | no, offline | `results/results.json`, `results/chart.png`, `results/numbers.md` |
+| `score` | compute every metric for every judged language, pool the languages whose judge passed, draw the figures, write the numbers | no, offline | `results/**/results.json`, `results/**/numbers.md`, `results/languages.json`, `results/*.png` |
+| `licenses` | look up each source repository's license on GitHub (`gh api`) | no, GitHub | `results/licenses.json` |
+| `export` | write the dataset: queries, corpus (with code and license), qrels and the card | no, offline | `.cache/export/` |
 
 ## Options
 
@@ -22,6 +24,8 @@ directly; it is never written anywhere. Stages that use the agent need a logged-
 | `--queries q03,q17` | `run`, `repeat` | only these queries (for a trial) |
 | `--parallel N` | `judge`, `patterns` | Codex calls at once, default 4 |
 | `--continue-judging` | `judge` | go on after a validation F1 below 0.67 (the maintainer's decision, FR-010) |
+| `--language python\|java\|javascript\|php\|ruby\|go` | `prepare`, `patterns`, `run`, `judge` | the CodeSearchNet language; default `python`. Other languages keep Python's search ids, are all test searches and use Python's frozen wordings and thresholds; their results live in `results/<language>/` |
+| `--retry-failed` | `run` | ask jevpipe again about the records a stored run left unanswered, and record the retry |
 
 ## Output and exit status
 

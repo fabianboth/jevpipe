@@ -89,7 +89,9 @@ bench/
 │   ├── store.py         # atomic JSON read and write under results/
 │   ├── dataset.py       # ratings download, queries, split
 │   ├── pool.py          # snippet fetch and cut, neutral names
+│   ├── prepare.py       # the prepare stage: dataset, pool, expert ratings
 │   ├── wording.py       # the four wordings, trial and freeze
+│   ├── openrouter.py    # API base, key from the environment, spend-limit errors
 │   ├── jev.py           # jevpipe subprocess, resolved-version call
 │   ├── deepseek.py      # OpenRouter requests, logprob probability
 │   ├── runs.py          # per-query pool runs of both models, alternating, resumable
@@ -98,8 +100,15 @@ bench/
 │   ├── patterns.py      # agent-written patterns
 │   ├── judge.py         # selection, batches, validation gate
 │   ├── labels.py        # expert and judge labels per pair
-│   ├── metrics.py       # found, false hits, precision, recall, sweep, bands
-│   └── chart.py         # the README chart
+│   ├── counts.py        # found, false hits, precision, recall, F1
+│   ├── bootstrap.py     # resampled intervals for gaps in F1
+│   ├── languages.py     # pooling across languages
+│   ├── licenses.py      # source repository licenses from GitHub
+│   ├── export.py        # the published dataset: queries, corpus, qrels, card
+│   ├── metrics.py       # thresholds, per-contender results, sweep, bands, misses, repeats
+│   ├── charts.py        # builds the README chart and the method page's figures from the scores
+│   ├── plots/           # matplotlib drawing: style.py, headline.py, figures.py
+│   └── score.py         # the score stage: results.json, numbers.md, the figures
 ├── tests/               # pytest, offline fixtures
 └── results/             # committed outputs (contracts/results.md)
 

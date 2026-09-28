@@ -1,0 +1,28 @@
+name: Bench
+
+on:
+  push:
+    branches: [main]
+    paths: ['bench/**', '.github/workflows/bench.yml']
+  pull_request:
+    paths: ['bench/**', '.github/workflows/bench.yml']
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+      - run: sudo apt-get update && sudo apt-get install --yes --no-install-recommends ripgrep
+      - run: ./bench/check.ps1
+        shell: pwsh

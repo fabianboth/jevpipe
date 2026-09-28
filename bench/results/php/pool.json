@@ -1,0 +1,1450 @@
+{
+  "dataset": {
+    "repository": "github/CodeSearchNet",
+    "commit": "106e827405c968597da938f6b373d30183918869",
+    "file": "resources/annotationStore.csv"
+  },
+  "snippets": [
+    {
+      "name": "0000.php",
+      "url": "https://github.com/ARCANEDEV/LaravelHtml/blob/539ed117df0b21d2a267aac074446c6dadf50828/src/Helpers/Obfuscater.php#L48-L66",
+      "sha256": "2942217d14d90a7405f105e263ffa5914e76807b59cbe136ce1a298c323bc7ce"
+    },
+    {
+      "name": "0001.php",
+      "url": "https://github.com/AbcAeffchen/SepaDocumentor/blob/f9f980a7f2e02505816e6e8dcd6ee1e65b279e51/src/BasicDocumentor.php#L122-L128",
+      "sha256": "5da23c8e06a142f5d9231c30a950a88d3b37a39a4f8494c1365d0f3ee33e7370"
+    },
+    {
+      "name": "0002.php",
+      "url": "https://github.com/AccioCMS/core/blob/b279e79624db20f93fdddc7c9c0ae1a73cedcd48/src/app/Commands/PluginInstall.php#L303-L321",
+      "sha256": "8054117ff29e6ce9b39d985af3f55e8fc0a6a52c63306a567b8a5d4f8dd5468e"
+    },
+    {
+      "name": "0003.php",
+      "url": "https://github.com/AccioCMS/core/blob/b279e79624db20f93fdddc7c9c0ae1a73cedcd48/src/app/Services/Environment.php#L29-L51",
+      "sha256": "dffd7da98aad580ba5f9f7f0e599da7c16059cbe238b5a5127aa8ca6f95d4c72"
+    },
+    {
+      "name": "0004.php",
+      "url": "https://github.com/Arbitracker/VCSWrapper/blob/64907c0c438600ce67d79a5d17f5155563f2bbf2/src/main/php/Arbit/VCSWrapper/GitCli/File.php#L94-L126",
+      "sha256": "0b02458e1a536511557845617e7eabb16d935b5306289450c558ee7c5a0f099c"
+    },
+    {
+      "name": "0005.php",
+      "url": "https://github.com/Archi-Strasbourg/archi-wiki/blob/b9fb39f43a78409890a7de96426c1f6c49d5c323/modules/archi/includes/archiAdresse.class.php#L10688-L10749",
+      "sha256": "acc54317fae563cdc8ba8b1e4ca441985ab22709d8b63e4f0deb9b682270c384"
+    },
+    {
+      "name": "0006.php",
+      "url": "https://github.com/Baddum/Model418/blob/a525a85060bc9241df3f0bca4b5e387980dc62fc/src/Core/Request/FileRequest/JSONFileRequest.php#L18-L25",
+      "sha256": "9ac91192d9f2312d25281c50cdd4dc8fda0802ce28cb865cc8252e2368a7e392"
+    },
+    {
+      "name": "0007.php",
+      "url": "https://github.com/CORE-POS/Common-Bundle/blob/07c74a9331157c50863ce638d07e1d34d479ca30/src/adodb5/session/adodb-session2.php#L363-L379",
+      "sha256": "cc2074ad8d4177d51b03e4f62d449e466278d00eacc251d314b3ab4013c733cc"
+    },
+    {
+      "name": "0008.php",
+      "url": "https://github.com/CampaignChain/core/blob/82526548a223ed49fcd65ed7c23638544499775f/Util/ParserUtil.php#L29-L55",
+      "sha256": "b42c9dc051ad31ace2b34e8c320722427e01e8e7eec77838d2014194d4ff51d7"
+    },
+    {
+      "name": "0009.php",
+      "url": "https://github.com/CeusMedia/Common/blob/1138adf9341782a6284c05884989f7497532bcf4/src/Alg/Sort/MapList.php#L65-L87",
+      "sha256": "f9f9ea2cd1a88aad2e88cc6127b41d48a133250056299aeb7e3aa632eda34bd3"
+    },
+    {
+      "name": "0010.php",
+      "url": "https://github.com/CeusMedia/Common/blob/1138adf9341782a6284c05884989f7497532bcf4/src/Net/HTTP/Response/Decompressor.php#L94-L110",
+      "sha256": "036216694233db76367624ab040ebaf2493bee52cd1a05d656b462a29c854e1e"
+    },
+    {
+      "name": "0011.php",
+      "url": "https://github.com/DesignPond/newsletter/blob/0bf0e7a8a42fa4b90a5e937771bb80058e0a91c3/src/Newsletter/Repo/NewsletterClipboardEloquent.php#L39-L52",
+      "sha256": "c1182897db5ea1d5bc82bb526d5b89b81d3f19704b39d53edae2241d6bf0c7b1"
+    },
+    {
+      "name": "0012.php",
+      "url": "https://github.com/DigitalState/Core/blob/51a6b8f7c72cf93045f1e10ef9d3675946d51da8/src/Parameter/Fixture/ParameterSequenceFixture.php#L19-L29",
+      "sha256": "f7f3e985837df51eee256ea9395ab6f19a179794252dbd0816567526a37afad6"
+    },
+    {
+      "name": "0013.php",
+      "url": "https://github.com/EaDesgin/magento2-pdf-generator2/blob/87e4d346d1ad6afe25aa3812476e89320d95ffa2/Helper/Pdf.php#L219-L244",
+      "sha256": "a6defacfb376d13a3cb3178ff24271ff4aaa9c41f8e5bf75fd7fa9caed837a88"
+    },
+    {
+      "name": "0014.php",
+      "url": "https://github.com/EmicoEcommerce/Magento2TweakwiseExport/blob/a77533a9301450ab059c8681061300be4f4b1d9a/src/Model/Config/Source/PriceField.php#L48-L62",
+      "sha256": "537ee7daf63cdc5034bff0a9a23ec4d9ce8ab76d276f808d6a938f6972762847"
+    },
+    {
+      "name": "0015.php",
+      "url": "https://github.com/Erebot/Module_Wordlists/blob/121d1cc72619ec0be2ddf0f3d6a66bac0a5bd1b7/src/Wordlists/Base.php#L98-L104",
+      "sha256": "73e02351dc8eb876c79a598a6a5539aa51dc8e0bc398e401227ec4f0ba20b2e4"
+    },
+    {
+      "name": "0016.php",
+      "url": "https://github.com/FWidm/dwd-hourly-crawler/blob/36dec7d84a85af599e9d4fb6a3bcc302378ce4a8/src/fwidm/dwdHourlyCrawler/DWDUtil.php#L55-L76",
+      "sha256": "f1a0067180eacf10547ea2aa3c40a26336bdc52c4c962daad84ca18ee2e2751a"
+    },
+    {
+      "name": "0017.php",
+      "url": "https://github.com/Fenzland/Htsl.php/blob/28ecc4afd1a5bdb29dea3589c8132adba87f3947/libs/Parser/Document.php#L368-L387",
+      "sha256": "319e715c58a4d02c8c1a3dfe8061d5345bcc0e3bafaa586a9a43a8c4ff0eac3b"
+    },
+    {
+      "name": "0018.php",
+      "url": "https://github.com/GemsTracker/gemstracker-library/blob/31f9af74cbb08a2785b002db360fdc2eedf46869/classes/Gems/Menu/SubMenuItem.php#L467-L478",
+      "sha256": "2bf9059e46951261640d9c09e6daa18bb45e7be958eb0e7192fd56b933bd5df3"
+    },
+    {
+      "name": "0019.php",
+      "url": "https://github.com/HaaseIT/HCSF/blob/8c8f33e8230f1d8b225a9b92707a951565fce25d/src/Shop/Helper.php#L463-L510",
+      "sha256": "84ae3d49c03aff9ec1057326389d28bea011464fbdf605a7bbe880348f71300e"
+    },
+    {
+      "name": "0020.php",
+      "url": "https://github.com/Innmind/UrlTemplate/blob/18b099821e497dca40b17461aac9dd45d5f5a247/src/Expression/Level3.php#L66-L74",
+      "sha256": "5770c765e11f052e123ef51a08cd309c4976dbe96a7386c2f7688180ceeb98f9"
+    },
+    {
+      "name": "0021.php",
+      "url": "https://github.com/JamieYnonan/helpers/blob/172ef9579beca6cc258aacde7585e8a14c5b65d4/src/Form.php#L149-L161",
+      "sha256": "150f61a450d6601ee284a6658802f4f044fa3483544891db2f667d78431fbee5"
+    },
+    {
+      "name": "0022.php",
+      "url": "https://github.com/JanGalek/netteCalendar/blob/52d1c90ebe264a33a8604b01e4e76ab95a36eae6/src/Galek/Utils/Calendar/Business/Shipper.php#L73-L81",
+      "sha256": "9a58d695bb161ae743543dabe4d40fdb5cb17f55976e734f40ad66be7c6fa2a9"
+    },
+    {
+      "name": "0023.php",
+      "url": "https://github.com/Jinxes/layton/blob/27b8eab2c59b9887eb93e40a533eb77cc5690584/Layton/Library/Http/Response.php#L168-L179",
+      "sha256": "beae8b209fffa2f139d8b5160ba51872acd97e09233c7a1a34ffc9b54dedcfa3"
+    },
+    {
+      "name": "0024.php",
+      "url": "https://github.com/JosephSilber/bouncer/blob/c2a4eb33266a36e381e09f8a3556f056e8ea996d/src/Bouncer.php#L210-L215",
+      "sha256": "5b5ccc6421193dcee65b632e2f6db141263d9f034ccdc9cd4af9cec6d59d4c9f"
+    },
+    {
+      "name": "0025.php",
+      "url": "https://github.com/KDF5000/EasyThink/blob/86efc9c8a0d504e01e2fea55868227fdc8928841/src/ThinkPHP/Library/Think/Controller.php#L95-L101",
+      "sha256": "3fb17919d1be51037b34d5f9794a1b44d6cdb888cfba11d335f61104e1de5e34"
+    },
+    {
+      "name": "0026.php",
+      "url": "https://github.com/KDF5000/EasyThink/blob/86efc9c8a0d504e01e2fea55868227fdc8928841/src/ThinkPHP/Library/Vendor/phpRPC/phprpc_client.php#L231-L240",
+      "sha256": "1c948eeb6e2292f4e85a1cba1cf628096a3ec8040f10676a65c0514e6ad0ff7e"
+    },
+    {
+      "name": "0027.php",
+      "url": "https://github.com/KnpLabs/KnpSnappyBundle/blob/322a3b33ea9d71c4395f600ad81f299b9a526d36/Snappy/Generator/LoggableGenerator.php#L61-L68",
+      "sha256": "6acb44a0d26ea67fe625c1175606ae1350328ccc8ddd177afbf722b3b360d9cb"
+    },
+    {
+      "name": "0028.php",
+      "url": "https://github.com/Krinkle/intuition/blob/36f48ffe925905ae5d60c7f04d76077e150d3a2c/src/Util.php#L63-L74",
+      "sha256": "9c27e3dbca871e0eaa9f525e0e3db16f9e5c00ddd7b62120b66aa283dfd754c0"
+    },
+    {
+      "name": "0029.php",
+      "url": "https://github.com/Laralum/Laralum/blob/6f13eec2c898bcc523fb6c19bc78146b9898e689/src/Commands/LaralumInfo.php#L38-L58",
+      "sha256": "e31a8c7f488fef203fda189f06713e3adcabb81719f208a604c8e4dbfa038060"
+    },
+    {
+      "name": "0030.php",
+      "url": "https://github.com/Linkvalue-Interne/MajoraFrameworkExtraBundle/blob/6f368380cfc39d27fafb0844e9a53b4d86d7c034/src/Majora/Framework/Model/TimedTrait.php#L28-L34",
+      "sha256": "6f3340cdc07d7986b1eca3fbe73dda0234fb9e6c670a276d3c9665fe33ed3ac6"
+    },
+    {
+      "name": "0031.php",
+      "url": "https://github.com/LupeCode/phpTraderInterface/blob/91976b8665199f441e4f43842461104f82f3ef66/source/TraderTrait.php#L1976-L1983",
+      "sha256": "d052fb476fce1f8fc11c4cb0fcbadd9a45049d58f1967bd3c87c7991b9d83bd8"
+    },
+    {
+      "name": "0032.php",
+      "url": "https://github.com/MichaelMueller/Quick/blob/509afbdf696d919d69a7a7831cefb4963f6a4fcc/src/IpAddress.php#L72-L87",
+      "sha256": "a6d12fe236a01165534eafcb7eb6fe8366443334e2f8903a884e4f0c12a24737"
+    },
+    {
+      "name": "0033.php",
+      "url": "https://github.com/MovingImage24/VMProApiClient/blob/e242a88a93a7a915898c888a575502c21434e35b/lib/Entity/Attachment.php#L144-L165",
+      "sha256": "ebed2920c2f13ecc4e1f45ee8505efc964c042369ab4eabee0a554a4e3774408"
+    },
+    {
+      "name": "0034.php",
+      "url": "https://github.com/Opifer/Cms/blob/fa288bc9d58bf9078c2fa265fa63064fa9323797/src/CmsBundle/Entity/Cron.php#L341-L344",
+      "sha256": "015b548d37b889c5ca53e529bc5d6353040876f70bc7e0cd1148cfae9aa3b895"
+    },
+    {
+      "name": "0035.php",
+      "url": "https://github.com/PHPExif/php-exif/blob/41f23db39d7b48e4af0e134c2e80e577c1782ac9/lib/PHPExif/Mapper/Exiftool.php#L198-L209",
+      "sha256": "8270211b71891593c21ddbb7ecfcc0acdb6aa36d0d89c722cb0c05e7d378c254"
+    },
+    {
+      "name": "0036.php",
+      "url": "https://github.com/ReactiveX/RxPHP/blob/fd74a0cd2b5edd4a48e4ff12aaa44cc6cdc4a9b4/src/React/Promise.php#L47-L69",
+      "sha256": "050354ce43fab2fa933f0eab792ffdcab3c6d21e63873874be46182d5b193dc5"
+    },
+    {
+      "name": "0037.php",
+      "url": "https://github.com/RocknRoot/strayFw/blob/bd7f8f1c66d79dc5630efad4df2c57ddafcf9f34/src/RocknRoot/StrayFw/Render/RenderJson.php#L20-L28",
+      "sha256": "a1b9deaf4c7576c9a946d0b00b98ad62daccc7b40f7fc37fdf21e1e4fc6abb3f"
+    },
+    {
+      "name": "0038.php",
+      "url": "https://github.com/RubixML/RubixML/blob/837385e2eb9f05c76c9522fc1673bdb87d11742d/src/Other/Helpers/Stats.php#L142-L162",
+      "sha256": "fa6b9d2e01cb0a2af2efaad4e2b18cca24a35efc67181c9ca75272a91d1c833c"
+    },
+    {
+      "name": "0039.php",
+      "url": "https://github.com/RubixML/Tensor/blob/ddc0284f987cc697631e1b18327498ead040b577/src/Matrix.php#L1862-L1870",
+      "sha256": "78b3f51a5582e4f255c15af81e189ade0a3c5bc18c365c7ecd10a6b883ca5982"
+    },
+    {
+      "name": "0040.php",
+      "url": "https://github.com/RubixML/Tensor/blob/ddc0284f987cc697631e1b18327498ead040b577/src/Matrix.php#L2685-L2711",
+      "sha256": "3fea79371f9c79f40fcb4ece0b7179aa64600d6a642313200d6297201e43de10"
+    },
+    {
+      "name": "0041.php",
+      "url": "https://github.com/RubixML/Tensor/blob/ddc0284f987cc697631e1b18327498ead040b577/src/Vector.php#L1212-L1232",
+      "sha256": "319918b81714f6c187f207dab3d8944662da15b524ad68bfcdddf78d5a9c4f4b"
+    },
+    {
+      "name": "0042.php",
+      "url": "https://github.com/RubixML/Tensor/blob/ddc0284f987cc697631e1b18327498ead040b577/src/Vector.php#L1459-L1479",
+      "sha256": "2874b09bcc2561313a268bb9cf2ca54e2428cb832589242af564f50d499e980e"
+    },
+    {
+      "name": "0043.php",
+      "url": "https://github.com/RudyMas/Emvc_Login/blob/9bcb50b08836d0639338ca2bc173182bc6b4bce3/src/Login.php#L336-L353",
+      "sha256": "4b4f7dde827c44b2b407ea40c8436f870ce0360ab11ce41a440ea18d3356b6cc"
+    },
+    {
+      "name": "0044.php",
+      "url": "https://github.com/RunningGrass/phptools/blob/5ebdde3d7480a705e49ed9c0e224418d415ec69f/src/Leo/Net.php#L27-L52",
+      "sha256": "aa9645cfd0283abee64e2451adadffa611a5c8f1d2cf8a8e520b6ae2843bca6b"
+    },
+    {
+      "name": "0045.php",
+      "url": "https://github.com/SDIS62/toolbox/blob/fd543d98bd0e571618aad73db81450b18f37e278/library/SDIS62/Model/Proxy/Abstract.php#L124-L142",
+      "sha256": "915cc85bba26252bee8de9d947818eff430e5b4b5f92ebfddd42bc9e9805288d"
+    },
+    {
+      "name": "0046.php",
+      "url": "https://github.com/SIELOnline/libAcumulus/blob/82f8d6c9c4929c41948c97d6cfdfac3f27c37255/src/Invoice/CompletorStrategy/TryAllVatRatePermutations.php#L102-L116",
+      "sha256": "992381b3d722d511f9535847a2569895bfe49e4e0b2255806c94dfa0f7e184ff"
+    },
+    {
+      "name": "0047.php",
+      "url": "https://github.com/SIELOnline/libAcumulus/blob/82f8d6c9c4929c41948c97d6cfdfac3f27c37255/src/Web/Communicator.php#L302-L321",
+      "sha256": "8f3173e784d3f47eb7ed62795a83e97d30855d5125fd3475f525696b19e459da"
+    },
+    {
+      "name": "0048.php",
+      "url": "https://github.com/Smile-SA/elasticsuite/blob/0199ac1383c8db3b996ae3a0963e94edadaf0880/src/module-elasticsuite-catalog/Model/ResourceModel/Category/Fulltext/Collection.php#L342-L353",
+      "sha256": "8bdd561f0f0a49e959447242463f3944b3ca757d7d29157897644a651eff7b81"
+    },
+    {
+      "name": "0049.php",
+      "url": "https://github.com/TECLIB/CFPropertyList/blob/4da03c276479e20905e57837d53ba6912bab7394/src/CFPropertyList/CFPropertyList.php#L458-L484",
+      "sha256": "16dae88caf2be9e94901f5b9d960a066c228ca65cda74227e167da12329507eb"
+    },
+    {
+      "name": "0050.php",
+      "url": "https://github.com/TYPO3-Solr/ext-solr/blob/b9fd8b98341d9935dba44e0ad226e7f5e3c19a93/Classes/Domain/Search/Query/AbstractQueryBuilder.php#L93-L100",
+      "sha256": "a355c57a9b4379709d9f5e8e7fc020c1e57d7686263f2e3ff81f0e8bf2558870"
+    },
+    {
+      "name": "0051.php",
+      "url": "https://github.com/TopShelfCraft/Wordsmith/blob/efe40e9324d2449d431444070e0972fd60aaac37/src/libs/APTitleCapitalizer.php#L236-L245",
+      "sha256": "451500bd0a459cf2e32fc0200f8504a6a53946fc97ab05a09cb132ff7b826a26"
+    },
+    {
+      "name": "0052.php",
+      "url": "https://github.com/Tustin/psn-php/blob/2f640b8790efa8f8570bc7e6a69dae115148c999/src/Api/AbstractApi.php#L28-L31",
+      "sha256": "b0ee705d70452e943b0492bebc7bac2dd7693ea9b5190a9bb09c052dff13ece9"
+    },
+    {
+      "name": "0053.php",
+      "url": "https://github.com/Zeeml/Algorithms/blob/8b000dac8d2ecbf8b1d8eb5819dfa1c54d50fc88/src/Prediction/Linear/LinearRegression.php#L33-L60",
+      "sha256": "b144556a47b02bd01303323b85b79f3d4fc2a8b311f145b746f7d5c78a30600f"
+    },
+    {
+      "name": "0054.php",
+      "url": "https://github.com/academic/VipaBibTexBundle/blob/1cd82b0961e1a9fee804a85fd774d1384c3e089b/Helper/Bibtex.php#L769-L802",
+      "sha256": "7b52c261a6f41122633c53e80c74c3744251120d6937f3d164e11d7c07e94d14"
+    },
+    {
+      "name": "0055.php",
+      "url": "https://github.com/activecollab/humannameparser/blob/5170a5d85a505e74c1dd8ebfc4546ce412680823/src/Name.php#L66-L83",
+      "sha256": "7ae0453f2e85a99d3b83391f0086f1e548e9a879fe06b2bc06c4fb251092bbc9"
+    },
+    {
+      "name": "0056.php",
+      "url": "https://github.com/agentmedia/phine-framework/blob/0b5e24515897bf8e5124ab21b61823987e944959/src/Database/Mysql/Date.php#L43-L49",
+      "sha256": "3bef4dd6c66869c4e9880a9150f3eaccf1835a4682d4ec1c94c07786dc388ca2"
+    },
+    {
+      "name": "0057.php",
+      "url": "https://github.com/aidantwoods/SecureHeaders/blob/6037dbfbd32dcbffd2409afd25ed6293c8e3fb43/src/Http/Psr7Adapter.php#L57-L69",
+      "sha256": "79d6fd749ad46d485dfed771406bb7a62bbe3188159596558d4cf420aa88c1e7"
+    },
+    {
+      "name": "0058.php",
+      "url": "https://github.com/ajgarlag/AjglCsvRfc/blob/358ba360ffa8bc8e3255f2ebfb129d0051c2bdd1/src/Spl/SplFileObjectTrait.php#L38-L42",
+      "sha256": "309f865914643390274b786b05680296e5a7ecfa6219ce08b8718da769262e33"
+    },
+    {
+      "name": "0059.php",
+      "url": "https://github.com/alchemy-fr/Phraseanet/blob/904b67192e276ab4706efb7b72df4910f9e00973/lib/classes/unicode.php#L1753-L1782",
+      "sha256": "4af8af6320f9c2e8a1bf8e518c90b0343997fb65157ee142411ddba9d1a66efb"
+    },
+    {
+      "name": "0060.php",
+      "url": "https://github.com/alchemy-fr/rest-bundle/blob/e795b3cd565086d575ee919d1b23279656c982ad/src/Bundle/Rest/Request/SortRequest.php#L41-L55",
+      "sha256": "881b48a8b3637ea1f0d89d2aafccdbc23570493031f8766762f57ef3676f87e7"
+    },
+    {
+      "name": "0061.php",
+      "url": "https://github.com/alexandresalome/journal-extension/blob/de87304abb52abfa6905f1b83d2e35cc7bc52c0d/src/Behat/JournalExtension/Formatter/JournalFormatter.php#L42-L59",
+      "sha256": "cfd9074c17e6fc9da248c34b1b5f2477921ac79aaaa806c4ef6f58c076f794a5"
+    },
+    {
+      "name": "0062.php",
+      "url": "https://github.com/alexdebril/feed-io/blob/e805f342879bcf63daa7b1e0b338f8bc69740aaf/src/FeedIo/Rule/DateTimeBuilder.php#L146-L157",
+      "sha256": "5e76eeb4a5799acf798c09557afeb54e7c0dad7aa32f9ca45929194976895873"
+    },
+    {
+      "name": "0063.php",
+      "url": "https://github.com/alfredoem/ragnarok/blob/e7de18cbe7a64e6ce480093d9d98d64078d35dff/app/Support/EncryptAes.php#L43-L71",
+      "sha256": "9f29b38b908e72a74a485aaaeea6ce88b9bbba446dce9bc5833d2ee659ff0161"
+    },
+    {
+      "name": "0064.php",
+      "url": "https://github.com/aliyun/aliyun-oss-php-sdk/blob/339a4021da5e763eaa967bd7f67357b7061a3962/src/OSS/Http/RequestCore.php#L422-L428",
+      "sha256": "f2180d5c48f90b5e27cdd1b2a499f61b6333c8d190b18254e2a7db367a1f89b2"
+    },
+    {
+      "name": "0065.php",
+      "url": "https://github.com/alphazygma/Combinatorics/blob/153d096119d21190a32bbe567f1eec367e2f4709/src/Math/Combinatorics/Permutation.php#L70-L83",
+      "sha256": "5bc151b514199be676dc8ea321352f29f0d941c3e4c7bd5d87f91319b458c526"
+    },
+    {
+      "name": "0066.php",
+      "url": "https://github.com/amabnl/amadeus-ws-client/blob/a8b79e066d37348c37a19d1753656c428ac8441b/src/Amadeus/Client/Struct/Fop/ExtendedPaymentDetails.php#L160-L184",
+      "sha256": "052a1d2f50a7e3ed2f1ecc4a43be607e26d4664ecb423d22649fdfaddbd2e29c"
+    },
+    {
+      "name": "0067.php",
+      "url": "https://github.com/amarcinkowski/hospitalplugin/blob/acdc2be5157abfbdcafb4dcf6c6ba505e291263f/src/utils/ExcelExport.php#L26-L39",
+      "sha256": "e6dfc60e3dea09bb187fcd8c54697cf0d1603a01844e81042ae8cb9209fced5b"
+    },
+    {
+      "name": "0068.php",
+      "url": "https://github.com/amphp/parallel/blob/2d02d964f4eb6f21ad0c50b259ec6128630dce53/lib/Context/Process.php#L145-L161",
+      "sha256": "ffd418d940bcceff549e14f52c0a34544e05a14aa044e773cab8ba4c937a5342"
+    },
+    {
+      "name": "0069.php",
+      "url": "https://github.com/andyburton/Sonic-Framework/blob/a5999448a0abab4d542413002a780ede391e7374/src/Model/Tools/NewClass.php#L164-L300",
+      "sha256": "d92e0874e47f63c805f8d35964fd52de5c07ba98f3b2c7cb382e6ab317030c5c"
+    },
+    {
+      "name": "0070.php",
+      "url": "https://github.com/angel-project/core/blob/c806d175a6825afc243cd680b81d651412cb83d7/src/sql/sql.php#L72-L78",
+      "sha256": "8f7a9448588970d371854826ad01ad92b2c3795386e300c88b92226916d6a8a2"
+    },
+    {
+      "name": "0071.php",
+      "url": "https://github.com/angel-project/core/blob/c806d175a6825afc243cd680b81d651412cb83d7/src/sql/sql.php#L80-L91",
+      "sha256": "397afa987eae5323ec9003ba4a4283dc1c1c563813608af3c3cab4897cfaa3a0"
+    },
+    {
+      "name": "0072.php",
+      "url": "https://github.com/angeloskath/php-nlp-tools/blob/476e07c27fc032e4ca03ee599e7cd1ad0901af33/src/NlpTools/Similarity/Euclidean.php#L17-L49",
+      "sha256": "fbbfc33ac5086ab8687e78479930854bb8d1b4ddb868eb168f77fcc555a52efd"
+    },
+    {
+      "name": "0073.php",
+      "url": "https://github.com/anklimsk/cakephp-basic-functions/blob/7554e8b0b420fd3155593af7bf76b7ccbdc8701e/Vendor/langcode-conv/zendframework/zend-stdlib/benchmark/InsertPriorityQueue.php#L19-L24",
+      "sha256": "c108700b6881d09192d0418f84f1c4503c6f8beb525b904dbb00bba68dd44bc8"
+    },
+    {
+      "name": "0074.php",
+      "url": "https://github.com/anklimsk/cakephp-basic-functions/blob/7554e8b0b420fd3155593af7bf76b7ccbdc8701e/Vendor/langcode-conv/zendframework/zend-stdlib/benchmark/RemovePriorityQueue.php#L18-L28",
+      "sha256": "3c5361eeec146f3e88e6193b5f2875f0c0d901db72c74ed56c2a76e34e31072e"
+    },
+    {
+      "name": "0075.php",
+      "url": "https://github.com/antaresproject/core/blob/b6d088d9f8a0642e71e8ff7a93997f1f34bc5ca2/src/utils/date/src/DateFormatter.php#L64-L83",
+      "sha256": "d76296f823b05c7054332757df8058f110a13df5f2b0aa3da75c612519db59b8"
+    },
+    {
+      "name": "0076.php",
+      "url": "https://github.com/antaresproject/notifications/blob/60de743477b7e9cbb51de66da5fd9461adc9dd8a/src/Adapter/VariablesAdapter.php#L222-L242",
+      "sha256": "79302adfebce044ea35107dcba7e4244df9039d99b8d9ddb40b408aa9191c05b"
+    },
+    {
+      "name": "0077.php",
+      "url": "https://github.com/apache/thrift/blob/acdd4226c210336e9e15eb812e5932a645fcd5ce/lib/php/lib/Transport/TSocket.php#L161-L166",
+      "sha256": "c31a0c76cc19f20e75fa2ad020dbd44507c9c0256d852b107c874b962b2027b6"
+    },
+    {
+      "name": "0078.php",
+      "url": "https://github.com/arangodb/arangodb-php/blob/89fac3fc9ab21ec8cf0a5dc35118abfaa3d49b02/lib/ArangoDBClient/Document.php#L261-L276",
+      "sha256": "bf7a4c4dd81f68384f05994548378959c52f6b34d0afa1c4ebda6aa112fa7a16"
+    },
+    {
+      "name": "0079.php",
+      "url": "https://github.com/atelierspierrot/library/blob/a2988a11370d13c7e0dc47f9d2d81c664c30b8dd/src/Library/Tool/MorseCode.php#L117-L125",
+      "sha256": "72c16067bba2154d4fc726ffc360bc488b23e2e3bca944d27b751531d31aabed"
+    },
+    {
+      "name": "0080.php",
+      "url": "https://github.com/b01/slib/blob/56149adcd85f1493c11651a50dda4612a3705cbb/src/Tools/Strings.php#L100-L110",
+      "sha256": "d83908f1eda1896f2fd059744aca79e79f9d4e60ceb7524016d03e4733a0199a"
+    },
+    {
+      "name": "0081.php",
+      "url": "https://github.com/bit3archive/string-builder/blob/34818844aad3f19d9263d559196b49d58431f5f8/src/StringBuilder.php#L361-L371",
+      "sha256": "7e84035ee15f447e8a7068a5439bbd8f498a26b7161958c5c5210b9a5e44c2d1"
+    },
+    {
+      "name": "0082.php",
+      "url": "https://github.com/blockcypher/php-client/blob/c1f875cdbad4e0e19fa697749309e5d7c28b7b4a/lib/BlockCypher/Crypto/Cipher.php#L31-L39",
+      "sha256": "1947c08a906d35cf8c45b07bcac7a23a74165d755ed206d9b5e3f62f5afc0784"
+    },
+    {
+      "name": "0083.php",
+      "url": "https://github.com/bluetree-service/container/blob/9827b98a9b12043ae94ae5dc60fdd971eba5d741/src/ContainerObject.php#L1486-L1501",
+      "sha256": "344fe8141de9023382670171f84cd769999258913ab5e3fc3aa3ec6bec733516"
+    },
+    {
+      "name": "0084.php",
+      "url": "https://github.com/bobthecow/psysh/blob/9aaf29575bb8293206bb0420c1e1c87ff2ffa94e/src/Input/FilterOptions.php#L34-L41",
+      "sha256": "28cf8a4f4978b36a24d28c73cf65987f089ec0659ad966733bce8cfa48b7e3f5"
+    },
+    {
+      "name": "0085.php",
+      "url": "https://github.com/bolt/bolt/blob/127434d79990b54abfb3e830243deaf725baa4de/src/Storage/Entity/LogChange.php#L307-L327",
+      "sha256": "6121b1175edf004d53fc5d0cfdaef07e114665bd593f4a2160572e9041ec5a10"
+    },
+    {
+      "name": "0086.php",
+      "url": "https://github.com/brick/math/blob/5f1fff59b3413c9dafa67b9c4571c1df1898fac2/src/Internal/Calculator.php#L649-L670",
+      "sha256": "e674c73a093ed46951ac3f1991d78669f4964f56072459f889512275e28782ad"
+    },
+    {
+      "name": "0087.php",
+      "url": "https://github.com/bseddon/XPath20/blob/69882b6efffaa5470a819d5fdd2f6473ddeb046d/ExtFuncs.php#L3621-L3627",
+      "sha256": "9943a3d1e2e3e7f0e6e5d719609600a3e09e883d4dc8da0591483f07a3b1ba71"
+    },
+    {
+      "name": "0088.php",
+      "url": "https://github.com/bupy7/yii2-bbcode/blob/fc2b30dabd6c544a2b4f6acf1c82b6e743ca4bd3/definitions/TableCodeDefinition.php#L33-L56",
+      "sha256": "7a4019928ce144a774503810f0e5f043e0a5ea7b0980ec19d870dc45d49d1af6"
+    },
+    {
+      "name": "0089.php",
+      "url": "https://github.com/caffeina-core/core/blob/819134644dfb3b6379a12fff08fa5ec45a2c614c/classes/Cache/Files.php#L71-L74",
+      "sha256": "7d653e3e6db4c6fb4095df6980a15cefbc3812bd1fd93d4a33efe0f6d03e75b1"
+    },
+    {
+      "name": "0090.php",
+      "url": "https://github.com/cedx/lcov.php/blob/ae0129ec01f3e77e3598b82971383c334b213afe/lib/Record.php#L50-L57",
+      "sha256": "c6c4a9305c66641e67c74192d9aec3977c7a2c978f625d62789829c94c9b2d5e"
+    },
+    {
+      "name": "0091.php",
+      "url": "https://github.com/charliedevelopment/craft3-section-field/blob/4c57a7a1cd69105453d9e188b8b64fe83409064e/src/fields/SectionField.php#L161-L187",
+      "sha256": "aeccb7639f104ce3189d25e080c5ea081c3da01379cd82a3840d245035b79620"
+    },
+    {
+      "name": "0092.php",
+      "url": "https://github.com/chartmogul/chartmogul-php/blob/1a2bcdf8b71600aaa4fb2ce40191f289fecc018e/src/Resource/SummaryTrait.php#L12-L19",
+      "sha256": "d5591f038403ac0f278f44d9791fb1eae09dcc716946d3012ec45c398868ced1"
+    },
+    {
+      "name": "0093.php",
+      "url": "https://github.com/chippyash/Matrix/blob/f686c2371d3d42248e539faff9b89781fb5f890b/src/Chippyash/Matrix/Transformation/Colreduce.php#L33-L60",
+      "sha256": "261d8322ccd101a357ab028160389d864ac7db43f572015cc397a0ac3dd0b37a"
+    },
+    {
+      "name": "0094.php",
+      "url": "https://github.com/chriskonnertz/DeepLy/blob/91f091cac09c8cc7bd2bc89170b490279ebbc46b/src/ChrisKonnertz/DeepLy/HttpClient/CurlHttpClient.php#L112-L140",
+      "sha256": "ce43f4c460f5320045fe3a0bec6c13ae180433077d374803414c6f3921453e19"
+    },
+    {
+      "name": "0095.php",
+      "url": "https://github.com/christophe-brachet/aspi-framework/blob/17a36c8a8582e0b8d8bff7087590c09a9bd4af1e/src/Framework/Form/Element/AbstractSelect.php#L99-L107",
+      "sha256": "dfe6ea62777b2c5f954e0e56d1ec14842e4cd12050a622ae2363a4246743ad24"
+    },
+    {
+      "name": "0096.php",
+      "url": "https://github.com/cityware/city-format/blob/1e292670639a950ecf561b545462427512950c74/src/Stringy.php#L718-L728",
+      "sha256": "f984e3f3b249912b7685893d32462f777fb1bf1e01c567983c4005bb577c6e64"
+    },
+    {
+      "name": "0097.php",
+      "url": "https://github.com/claroline/Distribution/blob/a2d9762eddba5732447a2915c977a3ce859103b6/plugin/exo/Validator/JsonSchema/ExerciseValidator.php#L95-L127",
+      "sha256": "1ff394f27ff3e4f3c158e0f30d055f000cb604bbff98dcfa1ffc850785c23396"
+    },
+    {
+      "name": "0098.php",
+      "url": "https://github.com/clxcommunications/sdk-xms-php/blob/73c127150b47df6adae90e317b5ccd70e4f0b535/src/Deserialize.php#L201-L205",
+      "sha256": "53689ae4058145d981d3ab6c49ba3f7fac4c066e4a88bd38f368e13a6204bd3c"
+    },
+    {
+      "name": "0099.php",
+      "url": "https://github.com/codeigniter4/CodeIgniter4/blob/a31039291ff627150b0e3304d191b2a51b16271d/system/CLI/CLI.php#L705-L741",
+      "sha256": "ce1a154ea7fbd9b92fddb683f4ce959b503866304635b1ceefe56a1b13e68624"
+    },
+    {
+      "name": "0100.php",
+      "url": "https://github.com/codeigniter4/CodeIgniter4/blob/a31039291ff627150b0e3304d191b2a51b16271d/system/Database/Postgre/Connection.php#L81-L116",
+      "sha256": "157901b69fed882313bb0744c8b3ac7dc346d38f86d2ce08d5887224df30ca84"
+    },
+    {
+      "name": "0101.php",
+      "url": "https://github.com/codezero-be/courier/blob/31f3ed501e86997d7f0ae5ac3f54b6aff0edd5af/src/CurlCourier.php#L283-L294",
+      "sha256": "4bc438ca6c28647b2f180aa88ccdb209577ffa530c2f1e6d4970062406026baa"
+    },
+    {
+      "name": "0102.php",
+      "url": "https://github.com/composer/composer/blob/5d615a16d175fcbdb67a536ef9d6fc4e8a1f6f2b/src/Composer/Json/JsonFile.php#L270-L281",
+      "sha256": "c88c21e36f367257471231540d5bd4a2b88410f40d47b28bc784326c4828e67e"
+    },
+    {
+      "name": "0103.php",
+      "url": "https://github.com/composer/composer/blob/5d615a16d175fcbdb67a536ef9d6fc4e8a1f6f2b/src/Composer/Package/Loader/JsonLoader.php#L33-L44",
+      "sha256": "cc1d9b530709af1bf0b92c974d47a55382eee682cc8b32e5bfc8d972cd4e771e"
+    },
+    {
+      "name": "0104.php",
+      "url": "https://github.com/concrete5/concrete5/blob/c54c94e4eb6d45696fed85a5b8b415f70ea677b8/concrete/src/Area/Layout/PresetColumn.php#L66-L78",
+      "sha256": "8467825fa62a7c9cd56f67f317df12c4cc59a0c18627748f19f3b167686f06d3"
+    },
+    {
+      "name": "0105.php",
+      "url": "https://github.com/concrete5/concrete5/blob/c54c94e4eb6d45696fed85a5b8b415f70ea677b8/concrete/src/Cookie/ResponseCookieJar.php#L36-L42",
+      "sha256": "88c5393534dc6684ea4c743ff55d02dfb9ab24a658882eebf33f0d272584b6a4"
+    },
+    {
+      "name": "0106.php",
+      "url": "https://github.com/concrete5/concrete5/blob/c54c94e4eb6d45696fed85a5b8b415f70ea677b8/concrete/src/Session/SessionFactory.php#L259-L279",
+      "sha256": "605986eb1454d39da887eaae72ed565075b24915ea983cc379080659d94aae3b"
+    },
+    {
+      "name": "0107.php",
+      "url": "https://github.com/contao-community-alliance/dc-general/blob/bf59fc2085cc848c564e40324dee14ef2897faa6/src/Contao/View/Contao2BackendView/Controller/ClipboardController.php#L164-L187",
+      "sha256": "e97cd77093c1061979d6bb5a5b3b8b7b60ec7aabc159e6fe658cc52d636c6cb4"
+    },
+    {
+      "name": "0108.php",
+      "url": "https://github.com/contao/contao/blob/fbc056e5b3dd2e645bfe7812cb997ece8ff6b578/core-bundle/src/Resources/contao/library/Contao/StringUtil.php#L523-L546",
+      "sha256": "070be5fdfd766ed0877cc9f612fcd1b868c923caef862a73ab37464c1a511e17"
+    },
+    {
+      "name": "0109.php",
+      "url": "https://github.com/contao/contao/blob/fbc056e5b3dd2e645bfe7812cb997ece8ff6b578/core-bundle/src/Resources/contao/library/Contao/ZipReader.php#L334-L419",
+      "sha256": "772bcbbaa1e84d57cb5647e7fc67da084d3ecd619be90d75e958e0df6b71bc8b"
+    },
+    {
+      "name": "0110.php",
+      "url": "https://github.com/cygnite/framework/blob/58d0cc1c946415eb0867d76218bd35166e999093/src/Cygnite/Common/Input/Input.php#L226-L233",
+      "sha256": "72bdc002d86afdcb61978afb576ba7da784ad6b491b7bcd8fe457750be498336"
+    },
+    {
+      "name": "0111.php",
+      "url": "https://github.com/daniel-ac-martin/php-seids/blob/1a5a2a9a53d158dcb97f2592512da9676de65c35/src/SEIDS/Heaps/Binary/Heap.php#L67-L101",
+      "sha256": "a85888604320fa208d526fc252c0e50a9c3ab5c7bf4d9d937fb50f16b33b24e3"
+    },
+    {
+      "name": "0112.php",
+      "url": "https://github.com/danielgp/common-lib/blob/627b99b4408414c7cd21a6c8016f6468dc9216b2/source/MySQLiByDanielGP.php#L57-L71",
+      "sha256": "bcde47f6052e0f0bf32c30db71091a280197a154a3d6ad4eedadfbed9f777f01"
+    },
+    {
+      "name": "0113.php",
+      "url": "https://github.com/ddtraceweb/smtp-validator-email/blob/b90515fe5acbcb9b6f4b143a6789204fb1fbd6bc/lib/SmtpValidatorEmail/Smtp/Smtp.php#L412-L436",
+      "sha256": "2b0c5b5499615c37edca70c136806da1f76619842a7e50744d669076a5f2c41a"
+    },
+    {
+      "name": "0114.php",
+      "url": "https://github.com/demouth/DmImage/blob/cf14053c5a57fc001eb124802f0e824bf0f19803/example/sample_node/animate/GifMerge.class.php#L353-L405",
+      "sha256": "3900fc6bd0b6890dd14b930c01b1f24a3a2838c66f0fd4b511aa9fbdadbd8edf"
+    },
+    {
+      "name": "0115.php",
+      "url": "https://github.com/devp-eu/tmcms-core/blob/b031af5643b6dc641539847784875137c8979cdd/src/HTML/Element/CheckboxList.php#L72-L80",
+      "sha256": "2741f93de309e0e06787a20a953a8a600c7da1605c59cb2b04a61dcb74080034"
+    },
+    {
+      "name": "0116.php",
+      "url": "https://github.com/devture/dbal/blob/e2538d13baf9220fc388a48596acd176cd2bb42f/src/Devture/Component/DBAL/Repository/EavSqlRepository.php#L359-L378",
+      "sha256": "ea37bfff3a884b137375e077f59fcced8b5d4bafe783451cebed6ef2f6c27575"
+    },
+    {
+      "name": "0117.php",
+      "url": "https://github.com/dms-org/package.analytics/blob/2eb972b51a3b36dd078f4b8735704e881f6ed741/src/Persistence/AnalyticsDriverConfigMapper.php#L28-L49",
+      "sha256": "cdb3eb6c2eda34b6e6c294165953262acd94c465203f80b089efa1c1503b4038"
+    },
+    {
+      "name": "0118.php",
+      "url": "https://github.com/doctrine-dbal-util/connection-pagerfanta/blob/ecf14481a4fcc0c83c8ef8bd5b9a51ab96610fde/PagedQueryTrait.php#L83-L108",
+      "sha256": "f77bf836c368d4274845a454c1b06f2ef1302fe9c9a638f996836b6bede5acd6"
+    },
+    {
+      "name": "0119.php",
+      "url": "https://github.com/donquixote/cellbrush/blob/09c70b421828624756e56591de41d5e86030f50e/src/BuildContainer/BuildContainer.php#L253-L262",
+      "sha256": "8ea1c97a56cb66aa5e66592a1f296d926670e0c13a114b865b1bc88532836ed4"
+    },
+    {
+      "name": "0120.php",
+      "url": "https://github.com/duncan3dc/sql-class/blob/a2b31ceced57c651199c787f4b1e509bc5a022ae/src/Sql.php#L463-L485",
+      "sha256": "767d39c0ce53d6735d2e7c1efc70b3183effba9bfaf8c16509a9c0a9de857edc"
+    },
+    {
+      "name": "0121.php",
+      "url": "https://github.com/ekyna/PayumMonetico/blob/1251ab0166a79c6dc6424005e8e8eb85227db361/src/Api/Api.php#L261-L281",
+      "sha256": "25fd2720f6ad26997edb71b7fe65a869c3e8427d0cf90c3629f264d381d4fedb"
+    },
+    {
+      "name": "0122.php",
+      "url": "https://github.com/eureka-framework/component-string/blob/9500d8ec4ba6b41f7a65354f90ec89844f0bdccd/src/Strings/Strings.php#L295-L300",
+      "sha256": "54314d0f02d50f892aadb1a4e89813f8059c7983dad70797f1f87ee781128442"
+    },
+    {
+      "name": "0123.php",
+      "url": "https://github.com/eureka-framework/component-string/blob/9500d8ec4ba6b41f7a65354f90ec89844f0bdccd/src/Strings/Strings.php#L309-L314",
+      "sha256": "9356e2de309d087fecc0f0241b9843fb96a42efbcab67e892a6cce0e7ce04c7d"
+    },
+    {
+      "name": "0124.php",
+      "url": "https://github.com/execut/yii2-crud-fields/blob/2b4b0ac1848008e99a6bef681f3df5dbe4207d56/fields/Date.php#L105-L114",
+      "sha256": "cf772e5c793000c0b5bccb241ac901e6ce5dd4d0293847267c59194e7b69d0aa"
+    },
+    {
+      "name": "0125.php",
+      "url": "https://github.com/ezsystems/ezpublish-kernel/blob/ef2ae730a46e9718ebd80f1047c0f8b866209ce9/eZ/Publish/Core/IO/IOMetadataHandler/LegacyDFSCluster.php#L268-L277",
+      "sha256": "50f90f68e8c1e38f4048146b552d431f65eafd754af44488ff55c821547ba77e"
+    },
+    {
+      "name": "0126.php",
+      "url": "https://github.com/ezsystems/ezpublish-kernel/blob/ef2ae730a46e9718ebd80f1047c0f8b866209ce9/eZ/Publish/Core/IO/IOMetadataHandler/LegacyDFSCluster.php#L284-L293",
+      "sha256": "96e1adad438fa3730ad2ee4a811d614d9e40ac1312ab60110982d86a71abda3a"
+    },
+    {
+      "name": "0127.php",
+      "url": "https://github.com/fgrosse/PHPASN1/blob/7ebf2a09084a7bbdb7b879c66fdf7ad80461bbe8/lib/ASN1/Universal/UTCTime.php#L44-L76",
+      "sha256": "3ae4c4eb84f4356f54b03eb2f72c711e46165629245963b79a829b447d9dbfde"
+    },
+    {
+      "name": "0128.php",
+      "url": "https://github.com/fisharebest/webtrees/blob/840bd0d721dc479520ec24a065996bc6becb8348/app/Services/UpgradeService.php#L82-L93",
+      "sha256": "801f6ef8ed2b0481d6872e1ade6871fe4d07de509d97d758397d480cdec3b2ed"
+    },
+    {
+      "name": "0129.php",
+      "url": "https://github.com/flamecore/webtools/blob/a2dffc8964a8ef9c9a309ef1bb0729edad9c4c1e/lib/OEmbed.php#L330-L335",
+      "sha256": "fd10db4a19716927ceae77567acad83540e501287f9b94e924d89f842bbd420e"
+    },
+    {
+      "name": "0130.php",
+      "url": "https://github.com/flextype-components/form/blob/b3fea245c996dc19d7a0081db6e48dac39fac5e5/Form.php#L182-L193",
+      "sha256": "a62171c7a2e90b2df91996407f6b648f0578349b50f2b9702103320ceb158090"
+    },
+    {
+      "name": "0131.php",
+      "url": "https://github.com/foodcoopshop/foodcoopshop/blob/376a51986686a55bc87695acf4657546e046b2a3/src/View/Helper/PricePerUnitHelper.php#L80-L89",
+      "sha256": "9289290cc8c3139055c2bb5a8ce4d1e557b1506fd64d4d86e8922570c393add0"
+    },
+    {
+      "name": "0132.php",
+      "url": "https://github.com/fuelphp/fieldset/blob/23c9d624849a989bdea289495f8cf998f793b6e8/src/Input/CheckboxGroup.php#L37-L65",
+      "sha256": "54d251beb9d4d1ae337b12a37c2ab58e6eeac75df1def68f0819b48e339c05b3"
+    },
+    {
+      "name": "0133.php",
+      "url": "https://github.com/furkankadioglu/Modvel/blob/323a6ec03e089d884eb8ed2785c0ab40a7112020/src/Console/ModuleMakeCommand.php#L167-L172",
+      "sha256": "2b83732974efdd6c3be4137428eb7e3ebeba13de3b775e1b986943d92d7e1f12"
+    },
+    {
+      "name": "0134.php",
+      "url": "https://github.com/genkgo/xsl/blob/4a281115cd6ef6b2a438cf8ddb529d48bd7d2340/src/Callback/Arguments.php#L59-L77",
+      "sha256": "777522e87bd842b5c13cf09dcb44cc9d7b94456f8581fcabe8f3410105359853"
+    },
+    {
+      "name": "0135.php",
+      "url": "https://github.com/getyoti/yoti-php-sdk/blob/f3c770c1df2cbba3dc76a1f329938c379191ad7a/src/phpseclib/Net/SSH2.php#L2026-L2060",
+      "sha256": "b1098d889d600870afa6237769a3fe448cae93e6ae279a9327a90dde32a46bea"
+    },
+    {
+      "name": "0136.php",
+      "url": "https://github.com/giorgiosironi/eris/blob/0e8bf23f0b2658f62083a739b2bf454606632e1f/src/Generator/FrequencyGenerator.php#L79-L93",
+      "sha256": "24dd08899d7885934ad67fd05586b9935da28fa7be7b1213401588420a25cf3b"
+    },
+    {
+      "name": "0137.php",
+      "url": "https://github.com/gitonomy/gitlib/blob/9eb6a89434e09a701ad0acef7e8ef9c27c08c69a/src/Gitonomy/Git/Admin.php#L131-L142",
+      "sha256": "471217a663d88f0e99e0e433e3362ccd5033663578b132cc092e5aa56f5f7b88"
+    },
+    {
+      "name": "0138.php",
+      "url": "https://github.com/gmazzap/Url_To_Query/blob/2537affbbb8b9062d46bb2deec1933acab63d007/UrlToQueryItem.php#L161-L168",
+      "sha256": "28cf6ecccb25d94851878038d5377b2f85e65bf35fa8a1720f22442339c01ff3"
+    },
+    {
+      "name": "0139.php",
+      "url": "https://github.com/googleads/googleads-php-lib/blob/d552b800ad53c400b1a50c7852e7ad184245d2ea/src/Google/AdsApi/AdWords/Query/QueryValidator.php#L74-L105",
+      "sha256": "6cbdaa08c71d9024d7ba5d5a12158e03b0da3371f7f7fc55dddcec0ccd884d17"
+    },
+    {
+      "name": "0140.php",
+      "url": "https://github.com/gorriecoe/silverstripe-groupbycount/blob/922edd2749ca22fdecab8569915a308a8ebe1839/src/GroupByCountExtension.php#L23-L86",
+      "sha256": "3660044e8ee799190b2bd7463865d7c06ecd7955712aee3c390177120d4fe797"
+    },
+    {
+      "name": "0141.php",
+      "url": "https://github.com/groupby/api-php/blob/43c31ed1f729981dd9532ce5c3efbeaaa016c147/src/API/Url/UrlReplacement.php#L38-L70",
+      "sha256": "fbd054fb376a20fd05547c94ee7f18d65f9672c271d3c0b21da1c96af29e3853"
+    },
+    {
+      "name": "0142.php",
+      "url": "https://github.com/hail-framework/framework/blob/d419e6c098d29ef9b62192b74050e51985b94f90/src/Optimize/OptimizeTrait.php#L14-L17",
+      "sha256": "9e7169d349da497c77dba5df4e2e102ab846561cefa3e6821c5660f89bef3e79"
+    },
+    {
+      "name": "0143.php",
+      "url": "https://github.com/hail-framework/framework/blob/d419e6c098d29ef9b62192b74050e51985b94f90/src/Redis/Client/Native.php#L124-L137",
+      "sha256": "b585162c3624c793ad492d3b621d24fb5823ef227567acd69732985442c1d9b9"
+    },
+    {
+      "name": "0144.php",
+      "url": "https://github.com/hscstudio/yii2-export/blob/1fd85e2e3672a411109f51a32235f4280c650d26/libraries/tbs/plugins/tbs_plugin_opentbs.php#L5878-L5913",
+      "sha256": "a9fe16d3c4c544226e45d72c39492408ad0538f4adad600dec9197a5f6baa8c2"
+    },
+    {
+      "name": "0145.php",
+      "url": "https://github.com/iMoneza/imoneza-php-api/blob/8347702c88c3cf754d21631a304a2c2d3abac98e/src/iMoneza/Helper.php#L20-L35",
+      "sha256": "e8c0c1318ecb729af384723296f32145cad8c5f312220fe7975d02ab3b87efc8"
+    },
+    {
+      "name": "0146.php",
+      "url": "https://github.com/icicleio/icicle/blob/991c2d2799e81b1aa054ba237e55d6155c403b9f/src/Observable/Internal/EmitQueue.php#L73-L116",
+      "sha256": "05aeaa0234164a06f31faf30999100e5184f64f0ee479f04d4d57072cef8f7ed"
+    },
+    {
+      "name": "0147.php",
+      "url": "https://github.com/inhere/php-librarys/blob/e6ca598685469794f310e3ab0e2bc19519cd0ae6/src/Helpers/UrlHelper.php#L170-L184",
+      "sha256": "c0c1473e3c27f9ac374f931aad0f0447a29cbf15f224266684dcc96f0ce89c7a"
+    },
+    {
+      "name": "0148.php",
+      "url": "https://github.com/intpro/quickstart/blob/6b7318650a10d6488ee220b4d5e697f3581eaeb0/src/Laravel/QSource.php#L152-L181",
+      "sha256": "92078f594f5fdf3c0881c8db3f88116827b1a1f11b47fbb6b080145aecad035f"
+    },
+    {
+      "name": "0149.php",
+      "url": "https://github.com/intrip/laravel-import-export/blob/2e6963778a0214c9123d0c51a0d01d8127e1e935/src/Jacopo/LaravelImportExport/Models/ParseCsv/CsvFileHandler.php#L241-L262",
+      "sha256": "2b1fd5a367be0d14621531195cfc54da1bc2bcbc8345b0a5cf3cc7053b3a7e92"
+    },
+    {
+      "name": "0150.php",
+      "url": "https://github.com/intuit/QuickBooks-V3-PHP-SDK/blob/09f9f42e4cf49a7d6e0aa4d2c15e15eba245bfd5/src/Core/HttpClients/SyncRestHandler.php#L400-L404",
+      "sha256": "cb6a9651adbb4decd3456193a4d703169e6ef35b7a753e023ad5abd30ba05ab7"
+    },
+    {
+      "name": "0151.php",
+      "url": "https://github.com/ionux/phactor/blob/667064d3930e043fd78abed9a2324aee52466fa5/src/BC.php#L256-L265",
+      "sha256": "e9c60cb47d5c0987501bdfc1c02a6e1fe9b5650914f647c0106df2b486ee7da4"
+    },
+    {
+      "name": "0152.php",
+      "url": "https://github.com/ionux/phactor/blob/667064d3930e043fd78abed9a2324aee52466fa5/src/BC.php#L274-L283",
+      "sha256": "3f9a1782921d54afe89e8bd8ebdd25f0506f8199f0cfbee9cb9690f9543e9430"
+    },
+    {
+      "name": "0153.php",
+      "url": "https://github.com/ivliev/imagefly/blob/0363eb37cc0748292a2142f0ec9027827e9d4eba/src/Ivliev/Imagefly/Imagefly.php#L142-L160",
+      "sha256": "d07b08993d6fcdc2c0f71a194eed073a94877d22173efb9f12d8fa47d0b43fa1"
+    },
+    {
+      "name": "0154.php",
+      "url": "https://github.com/ixocreate/database-package/blob/d4156b3bd640a45d645f7a36b77768f454d6ba7c/src/Generator/AbstractGenerator.php#L258-L271",
+      "sha256": "808003e2096bde4d013c3d558bb722ccbd45a12d8e40972135ea78e1556b93ca"
+    },
+    {
+      "name": "0155.php",
+      "url": "https://github.com/jabernardo/console.php/blob/a526458f4d1a525d0ccff62cd9cfcfbc5526bc9c/src/Console/Input.php#L64-L100",
+      "sha256": "e955e1f05d9999d69142eecdfb5382b5ecc1626254475c8f3163ebc8bf679d8a"
+    },
+    {
+      "name": "0156.php",
+      "url": "https://github.com/jacksleight/coast/blob/cd6cd41e8304adce41f59f799d4183adcaf666f9/library/App/Subpath.php#L30-L40",
+      "sha256": "423607d8698782478acd04dde47794de67381492f3ff1a62d8ce863e67e54618"
+    },
+    {
+      "name": "0157.php",
+      "url": "https://github.com/jacksleight/coast/blob/cd6cd41e8304adce41f59f799d4183adcaf666f9/library/Xml.php#L28-L32",
+      "sha256": "c3ad7b8cad16c96d70d15a3e20c02a2ba4b8828ff69e0312c4fee6340d7fd738"
+    },
+    {
+      "name": "0158.php",
+      "url": "https://github.com/jasny/iterator-stream/blob/a4d63eb2825956a879740cc44addd6170f7a481d/src/JsonOutputStream.php#L72-L87",
+      "sha256": "c297a21fd6437c34744239b1994ac05cded21aaccf4e7c618da81839c64ff51c"
+    },
+    {
+      "name": "0159.php",
+      "url": "https://github.com/jasonhinkle/phreeze/blob/6e45b1b29449ab5e7b81d2b8cb60ed61ec438e62/libs/PEAR/PHPExcel/Style/Protection.php#L181-L189",
+      "sha256": "b5486916791709f13e0c6d8718d1ab1dde1cf3b397a500577ad943bf37a8bde6"
+    },
+    {
+      "name": "0160.php",
+      "url": "https://github.com/jfusion/org.jfusion.framework/blob/65771963f23ccabcf1f867eb17c9452299cfe683/src/Installer/Installer.php#L295-L400",
+      "sha256": "2cbd5b25c36c530a73a82e2983f5819f398009f5a095acc14863fc612ee4dbbb"
+    },
+    {
+      "name": "0161.php",
+      "url": "https://github.com/jkoudys/immutable.php/blob/5a605a5bf3e2da3ce8ff55bc2790ca9c25ce4c1e/src/Collection/ImmArray.php#L215-L221",
+      "sha256": "6d00f0b5c92439d91515dee18239c8e6daa9af48433a167f5b957e909cfa7307"
+    },
+    {
+      "name": "0162.php",
+      "url": "https://github.com/jkoudys/immutable.php/blob/5a605a5bf3e2da3ce8ff55bc2790ca9c25ce4c1e/src/Collection/ImmArray.php#L504-L523",
+      "sha256": "2ecfc8f956bb17d13b7ca72b3c1c38fa81e46aa15ce90b3227841efebe83f821"
+    },
+    {
+      "name": "0163.php",
+      "url": "https://github.com/joegreen88/zf1-component-filter/blob/c19c3729ad352cb0ece6ae4777921722d46a1711/src/Zend/Filter/Compress/Gz.php#L147-L172",
+      "sha256": "3dc7633333e4f26f8c57c2d204414e0ecbe8fca8cd009799efa0cb251c8fd88e"
+    },
+    {
+      "name": "0164.php",
+      "url": "https://github.com/joegreen88/zf1-component-locale/blob/2e8dab3c9a1878f91ff2b934716638f4eb2e7f94/src/Zend/Locale/Math.php#L174-L186",
+      "sha256": "ab3ad3ab0fdb681c7885560a79e5ddcc3c4bef3b3dd326596657324c9932f6d6"
+    },
+    {
+      "name": "0165.php",
+      "url": "https://github.com/jotafurtado/geocode/blob/d598f618ea485333e972a04c0ccd263f0884c933/src/Jcf/Geocode/Geocode.php#L58-L93",
+      "sha256": "0fb6f638bc9a372294535d80b7abe8787337fa6ccc0b55d2b8cae497fa4db2f2"
+    },
+    {
+      "name": "0166.php",
+      "url": "https://github.com/julien-boudry/Condorcet/blob/6340e72428e6785b1f424c59164bf5fe479dadd3/lib/Algo/Methods/Schulze_Core.php#L129-L170",
+      "sha256": "b093be54bcf76eb916577c56efca20e898e205593fa9ea73f72a60fe6d0c5aa9"
+    },
+    {
+      "name": "0167.php",
+      "url": "https://github.com/kengoldfarb/underscore_libs/blob/e0d584f25093b594e67b8a3068ebd41c7f6483c5/src/_Libs/_WebResponse.php#L103-L115",
+      "sha256": "ce02f05c379b0616b2eeb7c752efa4d72741035bb0f119d199811539d79d9a7f"
+    },
+    {
+      "name": "0168.php",
+      "url": "https://github.com/kherge-abandoned/lib-phar/blob/458ee3f113b12a5d41e540407b2c2efae8a35313/src/lib/Phine/Phar/Extract.php#L98-L134",
+      "sha256": "5dc6b27b1d7dbce897917a72b0fd0db7539f429062c4b032d4eb8c1510ab22e6"
+    },
+    {
+      "name": "0169.php",
+      "url": "https://github.com/ko-ko-ko/php-assert/blob/e4968588fd3f42c95a763ca3c36cfb846b24ab81/src/Assert.php#L868-L879",
+      "sha256": "8ec9fadb548b78cdf83e84b86be22f250fd233714e2819f42b96a0197e231c7c"
+    },
+    {
+      "name": "0170.php",
+      "url": "https://github.com/kreta/SimpleApiDocBundle/blob/786aa9310cdf087253f65f68165a0a0c8ad5c816/src/Kreta/SimpleApiDocBundle/Annotation/ApiDoc.php#L94-L108",
+      "sha256": "34e94c4b3c4fa2c2f63af928ef73f207bae2cab182ad55bef4d983d2b16d1ca8"
+    },
+    {
+      "name": "0171.php",
+      "url": "https://github.com/krystal-framework/krystal.framework/blob/a5ff72384f3efbe74f390538793feb7d522b9c39/src/Krystal/Http/Response/StatusGenerator.php#L131-L143",
+      "sha256": "fe2b46a7f9a52cdd92c1d46a701e6a91a0c7155168489ce6a6408ba735dde0e8"
+    },
+    {
+      "name": "0172.php",
+      "url": "https://github.com/laravel-enso/DataTable/blob/4034587a9c81b85b67dcdc9d5c243c07c1cc8104/src/app/Classes/QueryBuilder.php#L155-L160",
+      "sha256": "f4918b9c8bab962a149576f55896e0a8da8a76450d4d9dfdb08255eceb2972e1"
+    },
+    {
+      "name": "0173.php",
+      "url": "https://github.com/lciolecki/php-image-optimizer/blob/d205161f38aac05e941868eaf3c54936af97fb32/src/Extlib/ImageOptimizer.php#L90-L112",
+      "sha256": "a843c2d950d2b19199801e78cfe68e18df062fd39c5ce70cfeb5251da72ec66c"
+    },
+    {
+      "name": "0174.php",
+      "url": "https://github.com/lekoala/silverstripe-form-extras/blob/e0c1200792af8e6cea916e1999c73cf8408c6dd2/code/controller/AjaxUploadController.php#L259-L284",
+      "sha256": "141841af21decac20420e8e97e986c2f8ea9ac44d71538d849d776ffbed3dbd9"
+    },
+    {
+      "name": "0175.php",
+      "url": "https://github.com/limoncello-php/framework/blob/2dde109e820f1cf518719be71bf2d9ac64da5ae0/components/Auth/src/Contracts/Authorization/PolicyAdministration/EvaluationEnum.php#L52-L84",
+      "sha256": "e907e8dc3a07f557cfff7c74b023d10262675932b2a13b4d1bc37864a23a8b6f"
+    },
+    {
+      "name": "0176.php",
+      "url": "https://github.com/lodev09/php-util/blob/8f3adb0b1bbc1c9f71cab126fdf8110414e65515/src/Util.php#L892-L905",
+      "sha256": "947ac25c64b037007970794f51da70e87e73eb56ab5203a6a336724173858e98"
+    },
+    {
+      "name": "0177.php",
+      "url": "https://github.com/louislam/louislam-utilities/blob/1c51e7473a4f3103f39fb6a5b4bf6ffead2a5528/src/LouisLam/Util.php#L99-L165",
+      "sha256": "b1c59a9099ff1361c10fcc09a2d68b5b2834e6cda688d0deb4a52b38e8573567"
+    },
+    {
+      "name": "0178.php",
+      "url": "https://github.com/madsleejensen/opbeat-php/blob/2cafc63bf33af641e1bc90d3252d4c5b95b34464/Opbeat/Log/Trace.php#L55-L74",
+      "sha256": "4ee7e7cfd2125fc57af732987919dc3f4a4278a8f9b7117271f32bf84e9030a3"
+    },
+    {
+      "name": "0179.php",
+      "url": "https://github.com/malenkiki/bah/blob/23495014acec63c2790e8021c75bc97d7e04a9c7/src/Malenki/Bah/A.php#L998-L1033",
+      "sha256": "a046d4abcf84bf3b15e059d899da2ef5f219175de8561cb1f2f1bbbff262bfff"
+    },
+    {
+      "name": "0180.php",
+      "url": "https://github.com/marc-mabe/php-enum/blob/3304afafc9e977e938824ed68e97683b3f152d2b/src/EnumSet.php#L978-L986",
+      "sha256": "d3bed18d8a8ceb77572fa5ec5ef2c3780e33366d7e80b28f7c5022371ea58580"
+    },
+    {
+      "name": "0181.php",
+      "url": "https://github.com/markenwerk/php-string-builder/blob/ce02ea5c81d24102075bd7d3b0fcb20209dab865/src/StringBuilder.php#L134-L143",
+      "sha256": "801929c3e5f0b6fcba28877093a791fb1b0e0f90a987a9abbef3245911a42dc4"
+    },
+    {
+      "name": "0182.php",
+      "url": "https://github.com/matks/Vivian/blob/cce8602f1c7d98911ac9561288a56cf8b93e8ba0/src/Matks/Vivian/Border/BorderManager.php#L144-L150",
+      "sha256": "39f9f6a45b351b376c40f21b7b335cb19c9ed24518ef7f464adb146eb80b574c"
+    },
+    {
+      "name": "0183.php",
+      "url": "https://github.com/mauchede/rancher-api/blob/ea79b7ed2feab809122f92b6686593532eeba14e/src/Resource/Container.php#L228-L237",
+      "sha256": "275ab7321bbd4b432d452e4aa1901e51a2f8777ee0ca2903d827459fa70b0e04"
+    },
+    {
+      "name": "0184.php",
+      "url": "https://github.com/melisplatform/melis-core/blob/f8b0648930e21d1f2b2e5b9300781c335bd34ea4/src/View/Helper/MelisModal.php#L38-L50",
+      "sha256": "27c7daaaec90c91ae4ac4a376679876a67d04bbe2d671c359c0eb2b33e615a08"
+    },
+    {
+      "name": "0185.php",
+      "url": "https://github.com/meritoo/common-library/blob/b166b8b805ae97c15688d27323cae8976bd0f6dc/src/Utilities/Arrays.php#L1653-L1669",
+      "sha256": "8fb07a06d1c75bb2de23952a074de1799b4f565e8557b5a39fd2d51fb521d8b2"
+    },
+    {
+      "name": "0186.php",
+      "url": "https://github.com/meritoo/common-library/blob/b166b8b805ae97c15688d27323cae8976bd0f6dc/src/Utilities/Arrays.php#L1678-L1699",
+      "sha256": "6e51b6b107d23d16791d1b760d9f8c7e92757c9c31bda3f989237867b5d6e1db"
+    },
+    {
+      "name": "0187.php",
+      "url": "https://github.com/metaclassing/utility/blob/dd4f25f26f42bb11525cea4335e855634242b4b4/lib/VerisignDNSClient2.php#L120-L145",
+      "sha256": "9e225f2e9ced986716bdc832536dfeb70316695a78a8a78633a18b8e01836fa5"
+    },
+    {
+      "name": "0188.php",
+      "url": "https://github.com/milejko/mmi/blob/c1e8dddf83665ad3463ff801074aa2b0875db19b/src/Mmi/Mvc/Router.php#L105-L138",
+      "sha256": "5a109d091b06e1ea47a2861750cd62e3e1213787824e6d4082aa4f09be1d82b1"
+    },
+    {
+      "name": "0189.php",
+      "url": "https://github.com/moodle/moodle/blob/a411b499b98afc9901c24a9466c7e322946a04aa/lib/mlbackend/php/phpml/src/Phpml/Clustering/FuzzyCMeans.php#L110-L131",
+      "sha256": "a58bf52aa450c0a11c9aea5eec5646583a5eb0d635807b012fb0b14b4adc87a0"
+    },
+    {
+      "name": "0190.php",
+      "url": "https://github.com/moodle/moodle/blob/a411b499b98afc9901c24a9466c7e322946a04aa/lib/mlbackend/php/phpml/src/Phpml/Clustering/KMeans/Space.php#L149-L167",
+      "sha256": "d07fa70bc43419eed293aa0811b4e84cd21367e0d1b444f1716828a46b520f7a"
+    },
+    {
+      "name": "0191.php",
+      "url": "https://github.com/moodle/moodle/blob/a411b499b98afc9901c24a9466c7e322946a04aa/lib/phpexcel/PHPExcel/Shared/trend/powerBestFitClass.php#L102-L122",
+      "sha256": "59335e872069b6545a171a32abf39d49aed3c8b183fca9ca2c1d6e57a643d939"
+    },
+    {
+      "name": "0192.php",
+      "url": "https://github.com/moodle/moodle/blob/a411b499b98afc9901c24a9466c7e322946a04aa/mod/wiki/editors/wikifiletable.php#L88-L137",
+      "sha256": "2d45e31ea7f63112c008d6c8894996e9256cf81708953b5347f5d7afdf7fc917"
+    },
+    {
+      "name": "0193.php",
+      "url": "https://github.com/motivatedsloth/noaa/blob/621c8dab1d774ec2810a508941f568b716ce779a/noaa/NOAA.php#L157-L163",
+      "sha256": "9a9440bee9e1cc0ab6ad0dda0418057b8d58c86ffd6f6ae989988afaa9295935"
+    },
+    {
+      "name": "0194.php",
+      "url": "https://github.com/mpdf/mpdf/blob/ee370f89a21956ec0ea3e38c0678ced491c6b56a/src/Barcode/Imb.php#L318-L337",
+      "sha256": "eab46084a946d157e4c063f386db93545499854467b611838f0fefea1de48da7"
+    },
+    {
+      "name": "0195.php",
+      "url": "https://github.com/mundschenk-at/php-typography/blob/e10fc42263afad7c8e8f07f516cc5cb273dbc575/src/class-hyphenator.php#L241-L285",
+      "sha256": "466f3a1b2709aab567952919f4f09621e94716f4f162dedd389c11bb3ddb6132"
+    },
+    {
+      "name": "0196.php",
+      "url": "https://github.com/n2n/n2n-io/blob/ff642e195f0c0db1273b6c067eff1192cf2cd987/src/app/n2n/io/fs/FsPath.php#L348-L367",
+      "sha256": "a55ba5c367a3440f406deebfda0898b41f267179e3d009ee78e1ba42ca918509"
+    },
+    {
+      "name": "0197.php",
+      "url": "https://github.com/n2n/n2n-web/blob/1640c79f05d10d73093b98b70860ef8076d23e81/src/app/n2n/web/http/Response.php#L512-L532",
+      "sha256": "48524babae2c4a85bf44c337d29f1dbc7aaede0a3d7b63ae48c88759d02305ad"
+    },
+    {
+      "name": "0198.php",
+      "url": "https://github.com/narrowspark/framework/blob/6b45d64668f8551c1c3116bd4526a7060e121795/src/Viserio/Component/Support/Traits/BytesFormatTrait.php#L70-L81",
+      "sha256": "026c156f70c9cae8c85fa2a0eaefa1a25d31ea5d7041dd5a94df0c47ad2f7800"
+    },
+    {
+      "name": "0199.php",
+      "url": "https://github.com/nattreid/utils/blob/117d6d67f49de52091ae05cd38e142ef6e92ea01/src/TempFile.php#L121-L125",
+      "sha256": "6712eb4d466736096675450ec4c60e3d4dd8d2f7f4f3df9c671c5a7d151d7ea4"
+    },
+    {
+      "name": "0200.php",
+      "url": "https://github.com/ncjoes/fuzzy-number/blob/142700f176dc97ca1be59b2a83553f66ea9b320b/src/FuzzyNumber/FuzzyNumber.php#L220-L230",
+      "sha256": "be7e2123392135ba973a33707d1798d7b0fc39430f3a8ae8948ba7de482c6b46"
+    },
+    {
+      "name": "0201.php",
+      "url": "https://github.com/neilime/zf2-assets-bundle/blob/6399912d05d37c91be330e7accf3291a2dbdfe49/src/AssetsBundle/AssetFile/AssetFileFilter/ImageAssetFileFilter/GifAssetFileFilter.php#L26-L33",
+      "sha256": "f8ab0a532032aa14d386616e9a448a7e26598a8743a7a8a74131c0a3acf7d97e"
+    },
+    {
+      "name": "0202.php",
+      "url": "https://github.com/neilime/zf2-assets-bundle/blob/6399912d05d37c91be330e7accf3291a2dbdfe49/src/AssetsBundle/AssetFile/AssetFileFilter/ImageAssetFileFilter/JpegAssetFileFilter.php#L45-L52",
+      "sha256": "fe17640e3708ffb1ff3770e05fa706ea6bf4e0c96e0c53c08921765307e005c7"
+    },
+    {
+      "name": "0203.php",
+      "url": "https://github.com/neos/flow-development-collection/blob/a4484ef2a57e050dc9bd87c8481eeb250c7a36fa/Neos.Eel/Classes/Helper/DateHelper.php#L58-L70",
+      "sha256": "dbf14b04b33b010f4ea524d77d6f43d333f8fc9c0844eec94e83f0376666eefa"
+    },
+    {
+      "name": "0204.php",
+      "url": "https://github.com/nimetu/ryzom_extra/blob/2aa2ef35aa17cb1ddb2a693f538d90e39f434121/lib/RyzomExtra/AtysDateTime.php#L243-L262",
+      "sha256": "f90664336b178ef1ca4a621a96338b331b45b41a85e80d0bd7c92fcddd990918"
+    },
+    {
+      "name": "0205.php",
+      "url": "https://github.com/nirix/radium/blob/cc6907bfee296b64a7630b0b188e233d7cdb86fd/src/Database/Model.php#L136-L144",
+      "sha256": "047cafbc68a2f38d95d1bf788c35ec00310c31643c5575bdc3302b029f075c4d"
+    },
+    {
+      "name": "0206.php",
+      "url": "https://github.com/ntesic/phalcon-helpers/blob/8aa04eb56eba5bae3426caebac2dd1fb134a5dcb/Tag.php#L29-L36",
+      "sha256": "9cbc260a819e96f088205a2417d65cdfcf88e478b604ad06e4d954620fe771b2"
+    },
+    {
+      "name": "0207.php",
+      "url": "https://github.com/oat-sa/extension-tao-devtools/blob/a9aba4ec8f47380e6d3796a8a193f5ead265f5d4/models/ExtensionCreator.php#L111-L135",
+      "sha256": "18fe5ccec77df90bce4ceba94e0c4649bf86b2096a8d27e50bc02f3c60fcca8d"
+    },
+    {
+      "name": "0208.php",
+      "url": "https://github.com/oat-sa/extension-tao-itemqti/blob/a55b73c7894523bde169ba520d5001ce7b5bb88c/model/qti/ResponseDeclaration.php#L329-L359",
+      "sha256": "a70184aa9139cf6557ec9316a304bd5b6b850eedef09ae9a6fa91a8a673b2a3d"
+    },
+    {
+      "name": "0209.php",
+      "url": "https://github.com/obtao/Html2PdfBundle/blob/df43177eb864cd96ea577c848c22b91fd4a7082c/DependencyInjection/PdfGenerator.php#L45-L55",
+      "sha256": "8098979ff9ac5a04abc945c8a53fb4f1e9b7237e5dd464a13eedaca62a6cc1e4"
+    },
+    {
+      "name": "0210.php",
+      "url": "https://github.com/openid/php-openid/blob/99d24177dbad21d13878ac653bbfb1ed18b66114/Auth/OpenID/Parse.php#L200-L206",
+      "sha256": "c5aa74303151e0a2c537375fdbda186dbf0c4099e78abedb1d822371c1ab91dd"
+    },
+    {
+      "name": "0211.php",
+      "url": "https://github.com/opis/database/blob/a750c8e58da37b23b70cc4b10fa5a97376db2bc7/src/SQL/Expression.php#L137-L144",
+      "sha256": "56853a650df28359cf01e6dd2c0b1a48a16a3cbf7a2ea2c0fc89b10b934cd129"
+    },
+    {
+      "name": "0212.php",
+      "url": "https://github.com/opulencephp/Opulence/blob/27c86747f893a78ab0bc9b8a90aae3cad6e7afb5/src/Opulence/Databases/Providers/PostgreSqlProvider.php#L56-L67",
+      "sha256": "b69334fe08dcbf638533f2d3e8947270f026b4d746f680d52f16e11311603c01"
+    },
+    {
+      "name": "0213.php",
+      "url": "https://github.com/ozdemirburak/json-csv/blob/add96ef62c7643d0ff3781f9cfaa7feeabd7c131/src/File/Json.php#L43-L54",
+      "sha256": "c2f5a017cea5add1d48f7c90a78164dfdc3caef371d0437ffbec1eb56085ac01"
+    },
+    {
+      "name": "0214.php",
+      "url": "https://github.com/payapi/payapi-sdk-php/blob/6a675749c88742b261178d7977f2436d540132b4/src/payapi/core/core.files.php#L61-L69",
+      "sha256": "14b0b636b35676c3e4bd241c92e0b444f12f6e88a101e3dd20eba416ec86628c"
+    },
+    {
+      "name": "0215.php",
+      "url": "https://github.com/peridot-php/leo/blob/2a6f60f237498cd7c3e912d71dcb90424ab66e72/src/DynamicObjectTrait.php#L49-L54",
+      "sha256": "ae24730677d955e5a075415956c16a8ad9765d4f1dd559332e788d9e700887ce"
+    },
+    {
+      "name": "0216.php",
+      "url": "https://github.com/phPoirot/Stream/blob/db448ee0528c2a5b07c594b8a30e2543fbc15f57/Streamable.php#L305-L331",
+      "sha256": "0fb56414ddc1e38b2c69ed2586ea9cf9124393ba066f96529a7dfa66b2967e4b"
+    },
+    {
+      "name": "0217.php",
+      "url": "https://github.com/phergie/phergie-irc-bot-react/blob/17745ef6b846513258af3dbd86e5612d3deb19b7/src/EventQueue.php#L114-L124",
+      "sha256": "d3a7947e7cc46efb0b69d346d00b13acbc136de288ac25c47065a9a31b66b6b4"
+    },
+    {
+      "name": "0218.php",
+      "url": "https://github.com/php-comp/queue/blob/61eb3787cda32b469382c8430a663ea2154dc288/src/Driver/ShmQueue.php#L73-L101",
+      "sha256": "fee805b403c566b00642464b009ca3636ca2a35d1fee3f51ffddb65dbfc80e92"
+    },
+    {
+      "name": "0219.php",
+      "url": "https://github.com/php-http/client-common/blob/9a2a4c1735ee00eac3e6939a8e2ea29321ae2593/src/Plugin/CookiePlugin.php#L96-L163",
+      "sha256": "f6e622a372cb0cc57ab4156bd9085842ca05eb16eba62213aa1730761c7e28a3"
+    },
+    {
+      "name": "0220.php",
+      "url": "https://github.com/php-http/message/blob/31f25d63e9c84aa22f02c5d888e22fe23d0b65da/src/Stream/BufferedStream.php#L201-L225",
+      "sha256": "32d98124ea120264fdd9c905418ceec4246077842ccddabb4c815d431f53d0e4"
+    },
+    {
+      "name": "0221.php",
+      "url": "https://github.com/phpMv/phpMv-UI/blob/1fb59e44082756e6750e647c76b4ec13c04ddc16/Ajax/semantic/widgets/datatable/HasCheckboxesTrait.php#L72-L78",
+      "sha256": "6bdef6ff89798faf07f1f41585146caa7febb1e3f55085692ba9de2ddfff21f7"
+    },
+    {
+      "name": "0222.php",
+      "url": "https://github.com/phpgearbox/arrays/blob/2454b7eb0633126412e4c9132906ec9b5ccae969/src/Arrays/Conversions/From/Xml.php#L39-L46",
+      "sha256": "e4271228dbe3517b544106c909154739ffb10506d90a035b72194cac6e82256d"
+    },
+    {
+      "name": "0223.php",
+      "url": "https://github.com/phrest/api/blob/271d604f332cbd3ef0dc8593ea0904fee0a42a84/src/Exceptions/HandledException.php#L47-L103",
+      "sha256": "25e60f542a84effb7c0f5d16fb4f2977cc2d0576e6bf995c58573b45fbf2bf1b"
+    },
+    {
+      "name": "0224.php",
+      "url": "https://github.com/picturae/OaiPmh/blob/2d96b5d4005c0d9eb97371b5c5824d41d9fcde14/src/Provider.php#L142-L147",
+      "sha256": "4b617dd64b4fa40d4b10715209229d9af7b5ecbaaaac14700ef3f855e8518f25"
+    },
+    {
+      "name": "0225.php",
+      "url": "https://github.com/pilipinews/common/blob/a39f16e935b3b8e97b54b6e9348a1deab2d0a2a0/src/Converter.php#L78-L98",
+      "sha256": "29587f36e920155ad6bad6a57a6ff7ced93fe058ff27b4bac36786149ece2de7"
+    },
+    {
+      "name": "0226.php",
+      "url": "https://github.com/praxisnetau/silverware/blob/2fa731c7f0737b350e0cbc676e93ac5beb430792/src/Extensions/Lists/ListSourceExtension.php#L412-L437",
+      "sha256": "631c7a92d5b0be21ef274ad027110e19082e2cb66a9122b3b254d79354c8b4c4"
+    },
+    {
+      "name": "0227.php",
+      "url": "https://github.com/psfs/core/blob/e3c67b4a0c24d3c3d4369705ea604cd757a6d0f8/src/base/Cache.php#L97-L115",
+      "sha256": "d1b70f0e85912854910c62faf6ad603796877c4dffd27ab9c3ddfc272f7e9942"
+    },
+    {
+      "name": "0228.php",
+      "url": "https://github.com/qingbing/php-database/blob/cfd915c9d25dbe5d5cdd9b4c93eca5fd63cb7015/src/supports/Builder/Traits/BuilderFind.php#L21-L29",
+      "sha256": "6c02e4e30fc81dbcc15af23e33c085dfcd5e035f470721e3506a506756d3dd5b"
+    },
+    {
+      "name": "0229.php",
+      "url": "https://github.com/qq1060656096/brief-db/blob/19f693cc107cd6db677aa8385502310526395c7b/src/Database/Query/ConnectionFactor.php#L131-L146",
+      "sha256": "b85ef768a26b247381a9afa63ea0f72ea796ae4fd083eb685f9ca0a02bdbdadc"
+    },
+    {
+      "name": "0230.php",
+      "url": "https://github.com/railsphp/railsphp/blob/489cb17f4e00a122ab8e57dc9d3a662e699de5dd/lib/Rails/Application/Base.php#L210-L219",
+      "sha256": "8b7e0ee5f90a6dce82f63df95fc21aac101a5e6a49fbe50a901c21e3c0767aad"
+    },
+    {
+      "name": "0231.php",
+      "url": "https://github.com/rap2hpoutre/similar-text-finder/blob/8e9a5dfc0a35261c02f7f980a6d3cb391087576e/src/Finder.php#L151-L158",
+      "sha256": "fa69095524e6ec81003c66539e5cb4289bd0dce32d0ec3d610138040eb93c2e9"
+    },
+    {
+      "name": "0232.php",
+      "url": "https://github.com/remialvado/RiakBundle/blob/089ae818738e512a90b2fa93de6c4991242f5b7b/Model/Search/Result.php#L66-L75",
+      "sha256": "8d9db26ac51f74e06f4fbc57656f1d7fa2d8517a59b93fca698c8db827aac901"
+    },
+    {
+      "name": "0233.php",
+      "url": "https://github.com/ringcentral/ringcentral-php/blob/4fbe7ed819f476872f37f2ba480c77d140591944/src/Subscription/Subscription.php#L463-L490",
+      "sha256": "18348fc6fc2f010c0e44a25f1bde0f75d29f32fd8f4a64c493abe9db61fcb957"
+    },
+    {
+      "name": "0234.php",
+      "url": "https://github.com/ruflin/Elastica/blob/9bda1596f79a28534dfd7b3513443478ad152e4e/lib/Elastica/QueryBuilder/DSL/Query.php#L182-L185",
+      "sha256": "73324b093e0453341faeab9018a1140f9720de7a3d5a9c213459c066bc29c3db"
+    },
+    {
+      "name": "0235.php",
+      "url": "https://github.com/s9e/TextFormatter/blob/cfb9bb738541378f3c9553c88605c92257af41ab/src/Configurator/TemplateNormalizations/OptimizeChoose.php#L131-L148",
+      "sha256": "d5f25e175767f183843ddaa82cc3240a3be43f6a8011a9acae16ee0535692df2"
+    },
+    {
+      "name": "0236.php",
+      "url": "https://github.com/saleem-hadad/larecipe/blob/d59a639c633cd51fbcc7f607db1513a04f93d213/src/Commands/AssetCommand.php#L201-L204",
+      "sha256": "7f4e80df83f00bebe8ae9868f81233f2c2671adbc90c53eb3202b1a0b2fd4062"
+    },
+    {
+      "name": "0237.php",
+      "url": "https://github.com/samurai-fw/samurai/blob/7ca3847b13f86e2847a17ab5e8e4e20893021d5a/spec/Samurai/Component/Helper/FormHelperSpec.php#L66-L76",
+      "sha256": "37f4afc71487ea5b90affc6c65c7ca3e48e8f8af4a3e9e176ee6be3a9aeda7ea"
+    },
+    {
+      "name": "0238.php",
+      "url": "https://github.com/schpill/thin/blob/a9102d9d6f70e8b0f6be93153f70849f46489ee1/src/Crud.php#L377-L508",
+      "sha256": "55f48aac00023d671487a30f4e0278eba50059db84be8f1713cd0c0d157005f0"
+    },
+    {
+      "name": "0239.php",
+      "url": "https://github.com/seagoj/devtools/blob/15dd451a0b00c272d3e1961f114342d5e0f526ba/spec/Devtools/PDOAdapterSpec.php#L21-L40",
+      "sha256": "117a82db11380eab7cca6e93f97da67a686b8b926c08efb39eaa8baaebfea576"
+    },
+    {
+      "name": "0240.php",
+      "url": "https://github.com/semaio/Magento2-ConfigImportExport/blob/e14c49b13abd9a2ef01dafb94ebb9d91589e85a0/Model/Validator/ScopeValidator.php#L61-L81",
+      "sha256": "d52c653fa34a986e2dd4bb41c00b05cba8daaf05c56bdfcef0ad0ae275a6a400"
+    },
+    {
+      "name": "0241.php",
+      "url": "https://github.com/seotracker/seo-core/blob/a41a594cf26ad5c47ebbaad67b642fe1b20332c0/Model/GoogleEngine.php#L73-L90",
+      "sha256": "c2c4168124c5eb190371aa54f8239cbca0625270fc2fad47c0ce4f7a506e593f"
+    },
+    {
+      "name": "0242.php",
+      "url": "https://github.com/serverfireteam/panel/blob/b6d6794f5a03079d99d9eaa39d4d8a8269285c6b/src/controllers/ExportImportController.php#L12-L26",
+      "sha256": "899d56a9595c5a8b7986c85b3f95e37c750f4e786c72873f5bef7bf56c0d00f9"
+    },
+    {
+      "name": "0243.php",
+      "url": "https://github.com/shgysk8zer0/core_api/blob/9e9b8baf761af874b95256ad2462e55fbb2b2e58/traits/file_resources.php#L419-L436",
+      "sha256": "3cf2469bb5ff30f368e84292ee06c22d3b8824cbc58948098a9a089d49358d55"
+    },
+    {
+      "name": "0244.php",
+      "url": "https://github.com/shopgate/cart-integration-sdk/blob/cf12ecf8bdb8f4c407209000002fd00261e53b06/src/configuration.php#L895-L936",
+      "sha256": "7ba1dc28700d2d4ce9a1799afe755aae4f23a975aa4692646d744d48ff4834fb"
+    },
+    {
+      "name": "0245.php",
+      "url": "https://github.com/sil-project/SeedBatchBundle/blob/a2640b5359fe31d3bdb9c9fa2f72141ac841729c/src/Admin/PlotAdmin.php#L30-L33",
+      "sha256": "e62f1021c1e4269a133a96eadfc89826abbd0a3859f95dbb411a5978da108e21"
+    },
+    {
+      "name": "0246.php",
+      "url": "https://github.com/silverstripe/silverstripe-docsviewer/blob/eba2d4536c37b7241ed973fc21f9628753d87b70/code/controllers/DocumentationViewer.php#L320-L334",
+      "sha256": "6151fdb8ba505c94d07ba1f1ffd8484514c5cc4e2f342dbbb632d3d0f5772e68"
+    },
+    {
+      "name": "0247.php",
+      "url": "https://github.com/silverstripe/silverstripe-framework/blob/ed7aaff7da61eefa172fe213ec25e35d2568bc20/src/Control/HTTPResponse.php#L175-L189",
+      "sha256": "deb3c47ad9eeaa739949a436c02f5836b2e22d6ac68bd7b9ecbff3f36469dd2c"
+    },
+    {
+      "name": "0248.php",
+      "url": "https://github.com/silverstripe/silverstripe-framework/blob/ed7aaff7da61eefa172fe213ec25e35d2568bc20/src/Forms/CompositeField.php#L290-L297",
+      "sha256": "32b94960bac365a5d82bbc9d2beb78510e9bd444a89fc24704a1e0e4c4b638db"
+    },
+    {
+      "name": "0249.php",
+      "url": "https://github.com/silverstripe/silverstripe-framework/blob/ed7aaff7da61eefa172fe213ec25e35d2568bc20/src/Forms/FormField.php#L1224-L1237",
+      "sha256": "c9f401e79532b1e14a254bbe89fc8b6e41db4c7888e2314798a67c2494ab6399"
+    },
+    {
+      "name": "0250.php",
+      "url": "https://github.com/silverstripe/silverstripe-framework/blob/ed7aaff7da61eefa172fe213ec25e35d2568bc20/src/Forms/GridField/GridField.php#L309-L314",
+      "sha256": "a9ff194913480178f55afc23018d03198e456e31e4d1f1cb0392d5b45840c0a8"
+    },
+    {
+      "name": "0251.php",
+      "url": "https://github.com/silverstripe/silverstripe-framework/blob/ed7aaff7da61eefa172fe213ec25e35d2568bc20/src/View/Requirements_Backend.php#L1177-L1200",
+      "sha256": "e7c1652d5713cc5505496f1e9e62e7ebff20eb7aa31929a2ebf0f083c0890de0"
+    },
+    {
+      "name": "0252.php",
+      "url": "https://github.com/simplesamlphp/saml2/blob/09e374fe0033f4706936c59033f86bd56411b1b1/src/SAML2/HTTPRedirect.php#L169-L209",
+      "sha256": "51764f411a8c8363b20205d84ea5f514d1cffa316fd0e5e51d2e659def05e9fc"
+    },
+    {
+      "name": "0253.php",
+      "url": "https://github.com/skilla/Matrix/blob/417b914473cb4c0c56c45ad6c4627ac8ecc65152/lib/Operations.php#L36-L45",
+      "sha256": "81671f9577f56408a9d14e47667dbfcc1e29187298a993cb784e9928d626a3c7"
+    },
+    {
+      "name": "0254.php",
+      "url": "https://github.com/skyeng/php-lemmatizer/blob/9f5154a0de3c64e08c1a96be793b4eec236962cb/src/Dictionary/FindIrregularBaseBehavior/IrregularBaseFinder.php#L11-L19",
+      "sha256": "557afaa7611f41d1f47968fc2bc2ef49c83ab51943805e040d0abeee7a6edf01"
+    },
+    {
+      "name": "0255.php",
+      "url": "https://github.com/squareproton/Bond/blob/a04ad9dd1a35adeaec98237716c2a41ce02b4f1a/lib/php-ref/ref.php#L306-L320",
+      "sha256": "721236d2b8c1b15b1b77e61b2bb3f3dcaac6004c14605113f09a673091779abd"
+    },
+    {
+      "name": "0256.php",
+      "url": "https://github.com/sulu/sulu/blob/6766a36cc2f0c807c59202bf7540a08c4ef31192/src/Sulu/Bundle/ContactBundle/Command/AccountRecoverCommand.php#L156-L165",
+      "sha256": "2d5e9847f788e114effcd0641294b43b434b8a3d5f67afa6f40a7c83c3572091"
+    },
+    {
+      "name": "0257.php",
+      "url": "https://github.com/superv/platform/blob/8576db3f0005ef18a83d5fd2142b3dc289584472/src/Domains/Auth/Access/Guard/Guard.php#L25-L41",
+      "sha256": "e4ccef12dde36ffecc52d7a8a78791d7ee0355b8941d749dd23be957fb5370b5"
+    },
+    {
+      "name": "0258.php",
+      "url": "https://github.com/symphonycms/symphony-2/blob/68f44f0c36ad3345068676bfb8a61c2e6a2e51f4/symphony/lib/toolkit/class.json.php#L86-L115",
+      "sha256": "a530213c0ab8a96671fc8b0a2c75bbd8b0b5af41810d6d433b00830eef21c57a"
+    },
+    {
+      "name": "0259.php",
+      "url": "https://github.com/symphonycms/symphony-2/blob/68f44f0c36ad3345068676bfb8a61c2e6a2e51f4/symphony/lib/toolkit/email-gateways/email.sendmail.php#L154-L180",
+      "sha256": "ac89eed8382d1ac95d9af6b54f32c53fb5da86776b7434e03e2914bb9e94672c"
+    },
+    {
+      "name": "0260.php",
+      "url": "https://github.com/szymach/c-pchart/blob/c6df46476e949bd930f7f44dd3170a78a8fe0f3b/src/Data.php#L436-L449",
+      "sha256": "555f6d6c70063318424c5cf43a70642ade38860f478f15c07d788fa279be9c33"
+    },
+    {
+      "name": "0261.php",
+      "url": "https://github.com/tableau-mkt/eggs-n-cereal/blob/778b83ddae1dd687724a84545ce8afa1a31e4bcf/src/Utils/ConverterToHTML.php#L84-L114",
+      "sha256": "2e272f5406402e042745d58af37b88ebd77a1bdcf514328eec912401b4a0e14a"
+    },
+    {
+      "name": "0262.php",
+      "url": "https://github.com/tengzhinei/rapphp/blob/491336cfcc09e051a42838df05f61ef1385b903b/util/FileUtil.php#L98-L105",
+      "sha256": "192d803170b111da74e8a86adcfde490da6eacfbb7d5e010b21ed0b338cbd856"
+    },
+    {
+      "name": "0263.php",
+      "url": "https://github.com/tenside/core-bundle/blob/a7ffad3649cddac1e5594b4f8b65a5504363fccd/src/Annotation/TensideApiDocHandler.php#L86-L109",
+      "sha256": "69bab3145203470dc3cf0c2859f9d3813aba3afc6bcd29c894db8925fa3e52b3"
+    },
+    {
+      "name": "0264.php",
+      "url": "https://github.com/teqneers/PHP-Stream-Wrapper-for-Git/blob/2d9aef4d11d7094186185b37306dd05b7a051925/src/TQ/Vcs/Cli/Call.php#L132-L141",
+      "sha256": "950c640d8c529c4bff8bd6a69568b8f2e4c8e2d05c3b149600e06d52ca2f5cf8"
+    },
+    {
+      "name": "0265.php",
+      "url": "https://github.com/the-eater/odango.php/blob/6c78f983e7b3c49ff2f8a10ce7299747d3c82e3f/src/NyaaMatcher/Fuzzy.php#L16-L23",
+      "sha256": "b8f9c4d39f0912e182e07a1063e43c5c27d8127c702430d8c010db5ef9ad79d0"
+    },
+    {
+      "name": "0266.php",
+      "url": "https://github.com/theopera/framework/blob/fa6165d3891a310faa580c81dee49a63c150c711/src/Component/Http/RequestBuilder.php#L150-L160",
+      "sha256": "bfa46e70aa318c3bdce284ddef81557d93bea5b30fff53a08dd29d097cd9e8e3"
+    },
+    {
+      "name": "0267.php",
+      "url": "https://github.com/tinymighty/skinny/blob/c653369c68e61522e6a22a729182a49f070cff21/Skinny.class.php#L152-L164",
+      "sha256": "ef46ec23e0a1540b0ddbc901f69fe78381c8bf88ccaff0984f3e45dce0fee2b0"
+    },
+    {
+      "name": "0268.php",
+      "url": "https://github.com/titledk/silverstripe-calendar/blob/afba392d26f28d6e5c9a44765eab5a3a171cc850/code/libs/colorpool/Color.php#L93-L99",
+      "sha256": "195afac90b77309cfa86c58766d9dcb92f4e31be33da1ad6bc0cbeeebb5acb9f"
+    },
+    {
+      "name": "0269.php",
+      "url": "https://github.com/traderinteractive/filter-php/blob/a8dec173063ee2444ec297f065f64496b7d21590/src/Filterer.php#L547-L560",
+      "sha256": "57d57023841c870bfc9ae00ead380f3a749567e037e1917deb7732e8a5b1cfae"
+    },
+    {
+      "name": "0270.php",
+      "url": "https://github.com/twohill/silverstripe-nestedcontrollers/blob/2fc263c31b7e23e2f768dc56f4f0df2912b6b3b1/code/NestedModelController.php#L277-L284",
+      "sha256": "a4617eeb762fc1f10f9806e40cb28583701331585abb6f5dc64f2d291d2564c1"
+    },
+    {
+      "name": "0271.php",
+      "url": "https://github.com/ventoviro/windwalker/blob/9653ea83fbd765f24ea3cba15398a31f875c55fd/src/IO/Cli/Input/CliInput.php#L161-L227",
+      "sha256": "185b35022aaa9a5338757acee2aedfa6296e87d510136439b6ffa92e09f49367"
+    },
+    {
+      "name": "0272.php",
+      "url": "https://github.com/vespolina/VespolinaCommerceBundle/blob/0644dd2c0fb39637a0a6c2838b02e17bc480bdbc/Controller/Process/AbstractProcessStepController.php#L45-L53",
+      "sha256": "114cfec75f1f79d356b41fd1f7f703a6197509c449efc6b1984d018e71573e8f"
+    },
+    {
+      "name": "0273.php",
+      "url": "https://github.com/vgrem/phpSPO/blob/4ec81109a154f88d188f9e87c7d7f004e91af666/src/Runtime/OData/JsonLightSerializerContext.php#L30-L34",
+      "sha256": "a9035723c8a7342bb75a994bab828bf0cca6da0c19785eb2b6da6cdd3db1d5af"
+    },
+    {
+      "name": "0274.php",
+      "url": "https://github.com/vinala/kernel/blob/346c8a4dca48fd1ab88fdc9f7004ecb7bce6a67a/src/Strings/Strings.php#L338-L353",
+      "sha256": "07dd914917f2a4c5fca20cb7d383e10fa1e940eed74b18c4434cfb91150b0c32"
+    },
+    {
+      "name": "0275.php",
+      "url": "https://github.com/wamania/php-stemmer/blob/eaf55d32b08259b9ca68b1b7010f90b10c3818fd/src/Norwegian.php#L54-L67",
+      "sha256": "bcc0a2f11bff91b0449f1ba92b64416f2434b90976dbfdde179b0ef567a0c1cb"
+    },
+    {
+      "name": "0276.php",
+      "url": "https://github.com/wdbo/webdocbook/blob/7d4e806f674b6222c9a3e85bfed34e72bc9d584e/src/WebDocBook/Filesystem/Helper.php#L169-L181",
+      "sha256": "01f07c66b9e7ccbbc375b022fc483bd3d2c9c967cc382f416d7b290cc5f74160"
+    },
+    {
+      "name": "0277.php",
+      "url": "https://github.com/webforge-labs/psc-cms/blob/467bfa2547e6b4fa487d2d7f35fa6cc618dbc763/lib/Psc/UI/Form.php#L336-L346",
+      "sha256": "d890f207fa99fe54240700000ae074eb3217c736b8a3f42437cf2247cf313a80"
+    },
+    {
+      "name": "0278.php",
+      "url": "https://github.com/webinarium/linode-api3/blob/6a13880afacff955bfe9be7e3c3aab82a1abd8c4/src/AvailApi.php#L97-L104",
+      "sha256": "8c68251c66c3a807fcb7bfc5e349e76f3e14c5f4e602196ecf5dca174028a5fb"
+    },
+    {
+      "name": "0279.php",
+      "url": "https://github.com/webservco/framework/blob/2c539e9473c945e0f0e56e0313d5a49e1bec3bbe/src/WebServCo/Framework/AbstractApplication.php#L94-L170",
+      "sha256": "cbdc0b531141e7caadbd4d702fe5fbc04204892e5fc1c1f73ff9cb0ccf3fafcc"
+    },
+    {
+      "name": "0280.php",
+      "url": "https://github.com/webservco/framework/blob/2c539e9473c945e0f0e56e0313d5a49e1bec3bbe/src/WebServCo/Framework/Utils/Dates.php#L15-L19",
+      "sha256": "59215159ceca10cf534c4bd42d69b18f24f8c519441f094bfb162fe9adce190d"
+    },
+    {
+      "name": "0281.php",
+      "url": "https://github.com/webuni/front-matter/blob/c7d1c51f9864ff015365ce515374e63bcd3b558e/src/Haml/FrontMatterFilter.php#L36-L39",
+      "sha256": "2bca454b0b8cb7310735514c6be64e3d13409c97d750198d8a5629a37a9d3ee0"
+    },
+    {
+      "name": "0282.php",
+      "url": "https://github.com/weew/url/blob/117be15e899cc343f22f04f5eb9e92e2164c56c1/src/Weew/Url/UrlBuilder.php#L17-L28",
+      "sha256": "f72c25f4a2d47e3c8ca09f119fd7d747fcc21668971d9f10b232aa722aa029bf"
+    },
+    {
+      "name": "0283.php",
+      "url": "https://github.com/wp-cli/wp-cli/blob/564bf7b7cf1ac833071d1afed5d649d2a7198e15/php/WP_CLI/Extractor.php#L40-L64",
+      "sha256": "2e848fcb55949ca8af11ad44d2e8e09402bdebb978f233dd874fbbabe9e2cb96"
+    },
+    {
+      "name": "0284.php",
+      "url": "https://github.com/xcorp1986/next-think/blob/de3a8fcab31a520d9284aa807ed16de30de31f0c/Think/Template/TagLib/Html.php#L204-L222",
+      "sha256": "60974f2395abcb871de22199489184ce96f5912a70f75eb864a2688c36146ffa"
+    },
+    {
+      "name": "0285.php",
+      "url": "https://github.com/yidas/codeigniter-model/blob/14cd273bb0620dc0e2993fe924ee37f00301992f/src/Model.php#L1263-L1268",
+      "sha256": "d486eccadc9dc861e62206aa75a65f2327168445fe296dff55bc9cf86792bba2"
+    },
+    {
+      "name": "0286.php",
+      "url": "https://github.com/yoanm/php-jsonrpc-server-sdk/blob/484f1a8a2182d5d0ab4d49fcdbdd0cf4a537fd37/src/App/Serialization/JsonRpcRequestDenormalizer.php#L49-L59",
+      "sha256": "7f224bdea30bb8e99f813cee657222c0fa746ebca1a73be3b17efb72e38987ea"
+    },
+    {
+      "name": "0287.php",
+      "url": "https://github.com/zf-metal/email-campaigns/blob/d4a8cbad15405840877f16010fe7735228eb9d83/src/Controller/DistributionRecordController.php#L98-L113",
+      "sha256": "76794ad4984c7a30c0539d0c7354dbdf3b90be80e66436e1378dbc3f46452b2a"
+    }
+  ],
+  "missing": ["https://github.com/AeonDigital/PHP-Tools/blob/502fad10aadb37fce98bd3994e866a8bfdc8dc00/src/TryParse.php#L126-L139", "https://github.com/CharlotteDunois/Livia/blob/75d8778a49805721961ececc710dc719404fbade/src/Commands/Context.php#L166-L180", "https://github.com/CharlotteDunois/Livia/blob/75d8778a49805721961ececc710dc719404fbade/src/Utils/HRTimer.php#L78-L94", "https://github.com/KessieHeldieheren/Havoc-Enumerable/blob/23dac90d77f012ad0b464f76cb8f373e4fb8ac6b/Havoc/Enumerable/Enumerable.php#L57-L67", "https://github.com/QoboLtd/cakephp-csv-migrations/blob/49300070cdd9b829670a3c40f747c535c8e539b3/src/Utility/DTZone.php#L90-L106", "https://github.com/benfranke/gdax-php/blob/be02fe48b10a31591dbdf3abb472088f7a693138/src/Types/Response/Authenticated/Part/LimitActionPart.php#L90-L104", "https://github.com/cherrylabs/arx-core/blob/53d2bc96ab9ccdaca1f68b2af6d358ed65f3fa67/src/Arx/classes/Convert.php#L1357-L1424", "https://github.com/cultuurnet/udb3-php/blob/1568f0d1e57990003349074ece97faa845048b13/src/Offer/ReadModel/History/OfferHistoryProjector.php#L165-L172", "https://github.com/i-MSCP/roundcube/blob/141965e74cf301575198abc6bf12f207aacaa6c3/roundcubemail/program/include/rcmail_output_html.php#L1741-L1761", "https://github.com/koolkode/http/blob/3c1626d409d5ce5d71d26f0e8f31ae3683a2a966/src/Uri.php#L400-L408", "https://github.com/linhecheng/cmlphp/blob/4d6208a79df93f8703231ce0ecb5505e1f95d8da/src/Vendor/StringProcess.php#L40-L90", "https://github.com/lizards-and-pumpkins/catalog/blob/068b60aeb0875aef49aa79d02230a315cfefcc91/src/Import/Product/View/AbstractProductView.php#L273-L278", "https://github.com/marvinlabs/laravel-html-bootstrap-4/blob/77e1823cb3b5b395a2d30ad5a8cee82b21cffb33/src/Bootstrap/Traits/BuildsForms.php#L211-L221", "https://github.com/petrhejna/geth-jsonrpc-php-client/blob/7e5153cfc7d39f9213d76b8cd8c9c4bdb1dabb3f/src/Utils.php#L21-L30", "https://github.com/php-ai/php-ml/blob/f6aa1a59b0525b8fca3d2786d661ab3e70904016/src/Clustering/KMeans/Space.php#L202-L243", "https://github.com/php-ai/php-ml/blob/f6aa1a59b0525b8fca3d2786d661ab3e70904016/src/Math/Statistic/Covariance.php#L117-L147", "https://github.com/php-ai/php-ml/blob/f6aa1a59b0525b8fca3d2786d661ab3e70904016/src/Math/Statistic/Gaussian.php#L30-L38", "https://github.com/projet-normandie/ForumBundle/blob/c245f05e6cf9dffab5eeda3470bd38fdef144b5b/Filter/Bbcode.php#L298-L312", "https://github.com/proyecto404/gigya-php-sdk/blob/d4c1c0c508a75cef12f94a5a160dab50a0378840/GSSDK.php#L779-L789", "https://github.com/ruxon/framework/blob/d6c9a48df41c8564ee1b0455cd09fbe789e6b086/src/Helpers/DateHelper.class.php#L12-L16", "https://github.com/simpspector/analyser/blob/842f9f393f8e182758c0e40ad670bf876bed1950/src/Gadget/PhpcsGadget.php#L96-L112", "https://github.com/tekkla/core-http/blob/00d386eee1acadbce13010aab77b89848ed6cc7f/Core/Http/Cookie/CookieHandler.php#L37-L45", "https://github.com/wb-crowdfusion/crowdfusion/blob/8cad7988f046a6fefbed07d026cb4ae6706c1217/system/core/classes/systemdb/config/ConfigService.php#L142-L157", "https://github.com/zackslash/PHP-Web-Article-Extractor/blob/f93d25d588dc0f8ddc4572429288edddb69386f6/src/Extract.php#L23-L33", "https://github.com/zackslash/PHP-Web-Article-Extractor/blob/f93d25d588dc0f8ddc4572429288edddb69386f6/src/Extract.php#L41-L87"]
+}

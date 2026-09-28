@@ -49,6 +49,13 @@ code is a prototype; the benchmark is rebuilt in `bench/`.
   provider-routing docs say `require_parameters: true` routes only to providers that support every
   parameter in the request. The first implementation step verifies that it also enforces logprobs;
   if not, answers without a probability stay (spec edge case) and are counted.
+- **Verified 2026-09-27** (T022): `require_parameters` alone is not enough. Novita lists `logprobs`
+  and `top_logprobs` as supported but returned no logprobs in 25 of 25 answers (10 of the first 20
+  snippets); the other providers returned them. The request therefore also sets
+  `provider.ignore: ["Novita"]`, and an answer without a probability is asked again (up to three
+  attempts, all paid attempts counted in the cost); only if every attempt lacks one does the answer
+  stay without a probability. With this, 20 of 20 answers carried a probability, served by seven
+  providers.
 - **Alternatives considered**: Pinning one provider with `order` (steadier timing, but not what a user
   gets and a single point of failure); a JSON-schema answer (adds tokens and fails on some providers).
 
@@ -59,7 +66,10 @@ code is a prototype; the benchmark is rebuilt in `bench/`.
   word), and the agent-written pattern (`-e <pattern>`). Keywords are the query's lowercase words
   minus a fixed list of filler words, frozen in the code.
 - **Rationale**: "An agent reaches for grep" means ripgrep; its regex dialect is the one the pattern is
-  written for. It is installed here (14.1.1) and on any machine running Claude Code or Codex.
+  written for. It must be a program on the path: Claude Code's built-in `rg` is not one, and the PyPI
+  `ripgrep` package has no Windows wheel. Here it is ripgrep 15.2.0 from scoop; CI installs Ubuntu's
+  package. The version is stored with every run. The search passes `--no-ignore`, because the pool
+  lives in the gitignored cache.
 - **Alternatives considered**: Python `re` (different dialect from what the agent writes).
 
 ## 6. Agent-written patterns

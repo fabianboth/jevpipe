@@ -112,6 +112,7 @@ struct Markers {
     fail: Option<(u16, usize)>,
     status: Option<u16>,
     too_large: bool,
+    fits: Option<usize>,
     malformed: bool,
     wrong_type: bool,
     slow: Option<u64>,
@@ -146,12 +147,16 @@ impl Markers {
                 Some(("cost", value)) => markers.cost = Cost::Of(value.parse().unwrap()),
                 Some(("limit", value)) => markers.limit = Some(format!("openrouter_{value}")),
                 Some(("inflight", value)) => markers.in_flight = Some(value.parse().unwrap()),
+                Some(("fits", value)) => markers.fits = Some(value.parse().unwrap()),
                 None if word == "toolarge" => markers.too_large = true,
                 None if word == "malformed" => markers.malformed = true,
                 None if word == "wrongtype" => markers.wrong_type = true,
                 None if word == "nocost" => markers.cost = Cost::Missing,
                 _ => {}
             }
+        }
+        if let Some(characters) = markers.fits {
+            markers.too_large |= state.chars().count() > characters;
         }
         markers
     }

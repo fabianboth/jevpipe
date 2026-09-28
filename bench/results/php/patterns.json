@@ -1,0 +1,402 @@
+{
+  "model": "gpt-6-astra",
+  "written": "2026-09-28T06:06:40+00:00",
+  "patterns": {
+    "q00": {
+      "pattern": "\\baes\\b|aes[_-]?(128|192|256)|\\w*aes\\w*(encrypt|decrypt)|\\w*(encrypt|decrypt)\\w*aes|\\bMCRYPT_RIJNDAEL_128\\b",
+      "retried": false
+    },
+    "q01": {
+      "pattern": "\\w*permut(ation|ations|e|es|ing|ate)\\w*|\\w*(next|all|generate)[_]?perm\\w*",
+      "retried": false
+    },
+    "q02": {
+      "pattern": "\\w*binom(ial)?\\w*|\\b(nchoosek|dbinom|pbinom|rbinom)\\b",
+      "retried": false
+    },
+    "q03": {
+      "pattern": "\\bfgets\\s*\\(|\\bSplFileObject\\b|\\w*buffer(ed)?[_]?(file|text|stream|read)\\w*|\\w*read\\w*(buffer|lines)\\w*",
+      "retried": false
+    },
+    "q04": {
+      "pattern": "\\w*(concat|merge|combine|append)\\w*files?\\w*|\\w*files?\\w*(concat|merge|combine)\\w*|\\w*(skip|strip|remove|drop)\\w*headers?\\w*|\\w*headers?\\w*(skip|strip|remove)\\w*",
+      "retried": false
+    },
+    "q05": {
+      "pattern": "\\w*confusion[_]?matri(x|ces)\\w*|\\w*(true|false)[_]?positives?\\w*|\\w*(true|false)[_]?negatives?\\w*",
+      "retried": false
+    },
+    "q06": {
+      "pattern": "\\b(mysqli?_(p?connect|real_connect)|pg_(p?connect)|sqlsrv_connect|oci_(p?connect|new_connect))\\s*\\(|\\bnew\\s+(\\\\?PDO|\\\\?mysqli)\\s*\\(|\\w*(sql|database|db)[_]?connect\\w*|\\w*connect[_]?(to[_]?)?(sql|database|db)\\w*",
+      "retried": false
+    },
+    "q07": {
+      "pattern": "\\byyyy[_/-]?mm[_/-]?dd\\b|\\b(date|gmdate|format)\\s*\\(\\s*['\"]Ymd['\"]|\\w*(date|string)\\w*to[_]?ymd\\w*",
+      "retried": false
+    },
+    "q08": {
+      "pattern": "\\w*utc\\w*(epoch|timestamp|unix)\\w*|\\w*(epoch|timestamp|unix)\\w*utc\\w*|\\bgmmktime\\s*\\(|\\b(strtotime|DateTime|DateTimeImmutable)\\s*\\([^\\r\\n;]{0,160}\\bUTC\\b|\\b(setTimezone|getTimestamp)\\s*\\(",
+      "retried": false
+    },
+    "q09": {
+      "pattern": "\\bdechex\\s*\\(|\\w*(decimal|dec|integer|int)[_]?to[_]?hex\\w*|\\bbase_convert\\s*\\([^,\\r\\n]+,\\s*10\\s*,\\s*16\\s*\\)|\\b(s?printf)\\s*\\(\\s*['\"]%[0-9.# +-]*[xX]",
+      "retried": false
+    },
+    "q10": {
+      "pattern": "\\w*html[_]?2?[_]?(to[_]?)?pdf\\w*|\\b(dompdf|mpdf|tcpdf|wkhtmltopdf)\\b|\\b(writeHTML|writeHTMLCell|loadHtml)\\s*\\(",
+      "retried": false
+    },
+    "q11": {
+      "pattern": "\\w*(int|integer)[_]?to[_]?bool(ean)?\\w*|\\bboolval\\s*\\(|\\(\\s*bool(ean)?\\s*\\)\\s*\\$|\\bFILTER_VALIDATE_BOOL(EAN)?\\b",
+      "retried": false
+    },
+    "q12": {
+      "pattern": "\\w*(int|integer|number)[_]?to[_]?(string|str)\\w*|\\bstrval\\s*\\(|\\(\\s*string\\s*\\)\\s*\\$|\\bsprintf\\s*\\(\\s*['\"]%[0-9+ -]*d['\"]",
+      "retried": false
+    },
+    "q13": {
+      "pattern": "\\w*json[_]?(to|2)[_]?csv\\w*|\\w*(convert|export)\\w*json\\w*csv\\w*|\\bfputcsv\\s*\\(|\\b(new\\s+)?CsvWriter\\b",
+      "retried": false
+    },
+    "q14": {
+      "pattern": "\\w*(string|str)[_]?(to|2)[_]?(number|numeric|int|integer|float|double|decimal)\\w*|\\b(intval|floatval|doubleval|parseInt|parseFloat)\\s*\\(|\\bNumberFormatter\\b|\\(\\s*(int|integer|float|double)\\s*\\)\\s*\\$",
+      "retried": false
+    },
+    "q15": {
+      "pattern": "\\bUint8(Clamped)?Array\\b|\\w*(byte|uint8|pixel)\\w*(image|bitmap|png|jpeg)\\w*|\\b(imagecreatefromstring|readImageBlob|importImagePixels|putImageData)\\s*\\(",
+      "retried": false
+    },
+    "q16": {
+      "pattern": "\\w*clipboard\\w*|\\bexecCommand\\s*\\(\\s*['\"]copy['\"]|\\b(pbcopy|xclip|xsel)\\b",
+      "retried": false
+    },
+    "q17": {
+      "pattern": "\\bcopy\\s*\\(|\\b(move_uploaded_file|stream_copy_to_stream|copyFile|copy_file)\\s*\\(|\\w*(copy|duplicate)\\w*file\\w*|\\w*file\\w*(copy|duplicate)\\w*",
+      "retried": false
+    },
+    "q18": {
+      "pattern": "\\b(setcookie|setrawcookie)\\s*\\(|\\w*(create|set|add|queue|make|with)[_]?cookie\\w*|\\bCookie\\s*::\\s*(make|queue|create|forever)\\b|\\bSet-Cookie\\s*:",
+      "retried": false
+    },
+    "q19": {
+      "pattern": "\\bhttp_response_code\\s*\\(|\\b(abort|abort_if|abort_unless)\\s*\\(|\\w*(HttpException|HttpError|ErrorResponse|error_response)\\w*|\\bHTTP/[12](\\.[01])?\\s+[45][0-9]{2}\\b|\\b(setStatusCode|withStatus)\\s*\\(\\s*[45][0-9]{2}\\b",
+      "retried": false
+    },
+    "q20": {
+      "pattern": "(?:subtract|deduct|sub|center|centre)_?median|median_?(?:subtract|deduct|sub|center|centre)|(?:column|col)_?median|\\bmedian\\s*\\(",
+      "retried": false
+    },
+    "q21": {
+      "pattern": "\\bjson_decode\\s*\\(|(?:deserialize|decode|parse|from)_?json|json_?(?:deserialize|decode|parse)",
+      "retried": false
+    },
+    "q22": {
+      "pattern": "\\b(?:rawurlencode|urlencode)\\s*\\(|(?:url|uri)_?encode|encode_?(?:url|uri|uri_?component)",
+      "retried": false
+    },
+    "q23": {
+      "pattern": "aes[-_ ]?(?:128[-_ ]?|192[-_ ]?|256[-_ ]?)?ctr|\\b(?:MODE_CTR|CRYPT_AES_MODE_CTR)\\b|(?:setMode|set_mode)\\s*\\([^\\r\\n)]*\\bctr\\b",
+      "retried": false
+    },
+    "q24": {
+      "pattern": "(?:export|write|save|to)_?(?:excel|xlsx?|spreadsheet)|(?:excel|xlsx?|spreadsheet)_?(?:export|writer)|\\b(?:PHPExcel|PhpSpreadsheet)\\b",
+      "retried": false
+    },
+    "q25": {
+      "pattern": "(?:extract|parse|scrape)_?(?:data_?from_?)?html|html_?(?:extract|parse|scrap)|\\b(?:str_get_html|file_get_html|loadHTML|loadHTMLFile)\\s*\\(",
+      "retried": false
+    },
+    "q26": {
+      "pattern": "(?:extract|parse|find|detect|decode)_?(?:geo_?)?(?:coordinates?|lat_?lon(?:g)?|latitude|longitude)|\\b(?:geo_?code|geocoding)\\b|\\b(?:lat|latitude)\\b[^\\r\\n]{0,80}\\b(?:lon|lng|longitude)\\b",
+      "retried": false
+    },
+    "q27": {
+      "pattern": "(?:extract|parse|read|load)_?(?:data_?from_?)?(?:text|txt)_?file|(?:text|txt)_?file_?(?:extract|parse|read)|\\b(?:fgets|fgetcsv|fscanf)\\s*\\(",
+      "retried": false
+    },
+    "q28": {
+      "pattern": "\\barray_filter\\s*\\(|filter_?array|array_?filter",
+      "retried": false
+    },
+    "q29": {
+      "pattern": "(?:extract|find|parse|match)_?(?:all_?)?(?:integers?|ints?|numbers?|digits?)|(?:integers?|ints?|numbers?|digits?)_?from_?(?:string|str|text)|\\b(?:intval|sscanf)\\s*\\(",
+      "retried": false
+    },
+    "q30": {
+      "pattern": "\\b(?:microtime|hrtime)\\s*\\(|elapsed_?(?:time|seconds|milliseconds)?|(?:timer|stopwatch)_?(?:start|stop|elapsed|duration)|(?:get_?)?(?:elapsed_?time|time_?elapsed)",
+      "retried": false
+    },
+    "q31": {
+      "pattern": "(?:format_?date|date_?format|format_?datetime|datetime_?format)|\\b(?:date|gmdate|strftime)\\s*\\(|->\\s*format\\s*\\(",
+      "retried": false
+    },
+    "q32": {
+      "pattern": "\\b(?:levenshtein|similar_text|soundex|metaphone)\\s*\\(|fuzzy_?(?:match|rank|search|score)|(?:similarity|relevance)_?(?:score|rank)|(?:jaro_?winkler|jaro_?distance)",
+      "retried": false
+    },
+    "q33": {
+      "pattern": "(?:get|find|collect|list)_?(?:all_?)?ancestors|ancestor(?:-or-self)?::|\\bparentNode\\b|(?:get_?)?parent_?nodes",
+      "retried": false
+    },
+    "q34": {
+      "pattern": "(?:get_?)?(?:current|client|remote|request|user|server|local|public)_?ip(?:_?address)?|\\b(?:REMOTE_ADDR|HTTP_X_FORWARDED_FOR|HTTP_CLIENT_IP|SERVER_ADDR)\\b|\\bgetClientIp\\s*\\(",
+      "retried": false
+    },
+    "q35": {
+      "pattern": "\\b(?:BehaviorSubject|ReplaySubject)\\b|(?:observable|subject|behavior)_?(?:get_?)?(?:current_?)?value|(?:get_?)?current_?value|->\\s*get_?value\\s*\\(",
+      "retried": false
+    },
+    "q36": {
+      "pattern": "\\b(?:getmypid|posix_getpid)\\s*\\(|(?:get_?)?(?:current_?)?process_?id|\\bget_?pid\\s*\\(",
+      "retried": false
+    },
+    "q37": {
+      "pattern": "\\bPHP_BINARY\\b|/proc/(?:self|[0-9]+)/exe|(?:get|find|resolve)_?(?:executable|binary|bin)_?(?:path)?|(?:executable|binary)_?path|\\bExecutableFinder\\b",
+      "retried": false
+    },
+    "q38": {
+      "pattern": "inner_?html|\\b(?:getInnerHtml|innertext)\\b|->\\s*(?:saveHTML|html)\\s*\\(",
+      "retried": false
+    },
+    "q39": {
+      "pattern": "(?:enum|enumeration)_?(?:get_?)?(?:case_?)?name|(?:get_?)?name_?from_?value|\\b(?:UnitEnum|BackedEnum|ReflectionEnum|ReflectionEnumUnitCase|ReflectionEnumBackedCase)\\b|::\\s*(?:tryFrom|from)\\s*\\([^\\r\\n;]*\\)\\s*\\??->\\s*name\\b",
+      "retried": false
+    },
+    "q40": {
+      "pattern": "(?:http_?)?status_?(?:code_?)?(?:text|description|message|reason)|reason_?phrase|(?:get|lookup)_?(?:http_?)?(?:status_?)?(?:description|message)_?(?:for_?)?(?:status_?)?code",
+      "retried": false
+    },
+    "q41": {
+      "pattern": "group_?by_?count|count_?by|count_?(?:groups|grouped)|group_?counts?|array_count_values\\s*\\(|group\\s+by|count\\s*\\([^\\r\\n;]*\\)\\s+as",
+      "retried": false
+    },
+    "q42": {
+      "pattern": "(?:hash_?set|distinct_?(?:count|set|values)|unique_?(?:count|set|values)|count_?(?:distinct|unique)|cardinality)|count\\s*\\(\\s*array_(?:unique|flip)\\s*\\(",
+      "retried": false
+    },
+    "q43": {
+      "pattern": "heat_?map|(?:voxel|point_?cloud|3d|xyz)_?(?:density|histogram)|(?:density|histogram)_?(?:3d|xyz|grid|map)",
+      "retried": false
+    },
+    "q44": {
+      "pattern": "(?:is|has|check)_?(?:checkbox_?)?checked|(?:is|has)_?checkbox_?(?:selected|ticked)|checkbox[^\\r\\n]{0,60}(?:isChecked|is_checked|\\[checked\\]|:checked)|(?:isset|!empty)\\s*\\(\\s*\\$_(?:POST|GET|REQUEST)\\s*\\[\\s*['\"][^'\"]*(?:check|agree|accept|subscribe)",
+      "retried": false
+    },
+    "q45": {
+      "pattern": "(?:is|check|validate)_?(?:a_?)?(?:valid_?)?word|word_?(?:exists|valid|validation|check)|(?:dictionary|lexicon)_?(?:contains|lookup|check)|(?:pspell_check|enchant_dict_check|ctype_alpha)\\s*\\(",
+      "retried": false
+    },
+    "q46": {
+      "pattern": "(?:empty|clear|reset|truncate)_?(?:an?_?)?(?:array|list)|(?:array|list)_?(?:clear|reset|empty)|\\$[a-z_][a-z0-9_]*\\s*=\\s*(?:\\[\\s*\\]|array\\s*\\(\\s*\\))",
+      "retried": false
+    },
+    "q47": {
+      "pattern": "(?:recursive(?:ly)?_?(?:unzip|extract)|(?:unzip|extract)_?(?:zip_?|archive_?)?recursive(?:ly)?)|(?:extract|unpack)_?(?:nested_?)?(?:zip|archives?)|\\bZipArchive\\b|\\b(?:unzip|extractTo)\\s*\\(",
+      "retried": false
+    },
+    "q48": {
+      "pattern": "\\b(?:get_?)?(?:current_?(?:date|datetime)|(?:date|datetime)_?now|today|now_?date)\\b|\\b(?:date|gmdate|idate)\\s*\\(\\s*['\"][^'\"]+['\"]\\s*\\)|\\bnew\\s+DateTime(?:Immutable)?\\s*\\(\\s*(?:\\)|['\"](?:now|today)['\"])|\\b(?:Carbon|Date|DateTime)::(?:now|today)\\s*\\(",
+      "retried": true
+    },
+    "q49": {
+      "pattern": "(?:get|resolve|fetch)_?(?:(?:db|database|model)_?)?table_?(?:name)?\\b|\\btable_?name\\b|\\$table\\b|SHOW\\s+TABLES|information_schema\\.tables",
+      "retried": false
+    },
+    "q50": {
+      "pattern": "(?:get|fetch|download|load)_?(?:(?:website|webpage|page|url)_?)?(?:html|page_?source)|(?:file_get_contents|fopen)\\s*\\(\\s*['\"]https?://|\\bcurl_exec\\s*\\(|\\b(?:Http|Client)::get\\s*\\(",
+      "retried": false
+    },
+    "q51": {
+      "pattern": "(?:set|mark)_?(?:checkbox_?)?(?:checked|selected|ticked)|check_?checkbox|->setChecked\\s*\\(|\\bchecked\\s*=\\s*(?:true|1|['\"]checked['\"]|['\"]['\"])|(?:attr|prop)\\s*\\(\\s*['\"]checked['\"]\\s*,",
+      "retried": false
+    },
+    "q52": {
+      "pattern": "\\b(?:rand|mt_rand|random_int|lcg_value)\\s*\\(|(?:get|generate|pick)_?(?:a_?)?random_?(?:number|int|integer)|random_?(?:number|int|integer)|->getInt\\s*\\(",
+      "retried": false
+    },
+    "q53": {
+      "pattern": "\\b(?:fgetcsv|str_getcsv)\\s*\\(|\\bREAD_CSV\\b|(?:read|parse|stream|iterate|import)_?csv|csv_?(?:reader|iterator|stream)|Reader::createFrom(?:Path|Stream)",
+      "retried": false
+    },
+    "q54": {
+      "pattern": "\\b(?:gzopen|gzread|gzgets|gzfile|readgzfile|gzdecode)\\s*\\(|compress\\.zlib://|(?:read|decode|decompress|open)_?(?:gz|gzip)\\b",
+      "retried": false
+    },
+    "q55": {
+      "pattern": "\\bstrrev\\s*\\(|(?:str|string|text)_?reverse|reverse_?(?:str|string|text)|implode\\s*\\([^;\\r\\n]*array_reverse\\s*\\(",
+      "retried": false
+    },
+    "q56": {
+      "pattern": "\\b(?:htmlspecialchars|htmlentities)\\s*\\(|(?:html_?(?:encode|escape)|(?:encode|escape)_?html)|(?:escape|encode)_?(?:html_?)?(?:entities|markup)",
+      "retried": false
+    },
+    "q57": {
+      "pattern": "\\b(?:html_entity_decode|htmlspecialchars_decode|htmlentities|htmlspecialchars)\\s*\\(|(?:replace|decode|encode|convert|strip)_?(?:html_?)?entit(?:y|ies)|(?:html_?)?entit(?:y|ies)_?(?:replace|decode|encode|convert)",
+      "retried": false
+    },
+    "q58": {
+      "pattern": "(?:post|send)_?json|json_?post|(?:->|::)post\\s*\\(|['\"](?:method|http_method)['\"]\\s*=>\\s*['\"]POST['\"]|CURLOPT_POST\\b|application/(?:[a-z0-9.+-]+\\+)?json",
+      "retried": false
+    },
+    "q59": {
+      "pattern": "(?:init(?:ialize|ialise)?|create|build|make)_?(?:an?_?)?array|\\barray_(?:fill|fill_keys|combine)\\s*\\(|\\$[a-z_][a-z0-9_]*\\s*=\\s*(?:array\\s*\\(|\\[)|\\bnew\\s+SplFixedArray\\b",
+      "retried": false
+    },
+    "q60": {
+      "pattern": "json[_\\s-]*(to|2)[_\\s-]*xml|xml[_\\s-]*from[_\\s-]*json|json[^\\r\\n]{0,50}xml",
+      "retried": false
+    },
+    "q61": {
+      "pattern": "k[_\\s-]*means|lloyd[_\\s-]*(algorithm|cluster)",
+      "retried": false
+    },
+    "q62": {
+      "pattern": "linear[_\\s-]*regress|ordinary[_\\s-]*least[_\\s-]*squares|\\bols\\b|least[_\\s-]*squares[_\\s-]*(fit|regress)",
+      "retried": false
+    },
+    "q63": {
+      "pattern": "(map|dict(ionary)?|assoc(iative)?[_\\s-]*array)[_\\s-]*(to|2|as)[_\\s-]*json|json[_\\s-]*encode\\s*\\(|json[_\\s-]*from[_\\s-]*(map|dict|array)",
+      "retried": false
+    },
+    "q64": {
+      "pattern": "mat(rix)?[_\\s-]*(mul(t(iply|iplication)?)?|prod(uct)?)|multiply[_\\s-]*(matrices|matrix)|matrix[^\\r\\n]{0,40}(multiply|product)",
+      "retried": false
+    },
+    "q65": {
+      "pattern": "(memoiz|memois)[^\\r\\n]{0,80}(disk|file|persist)|(disk|file|persist)[^\\r\\n]{0,80}(memoiz|memois)|(file|disk|persistent)[_\\s-]*(cache|caching)|cache[_\\s-]*(to[_\\s-]*)?(disk|file)",
+      "retried": false
+    },
+    "q66": {
+      "pattern": "nelder[_\\s-]*mead|downhill[_\\s-]*simplex|simplex[_\\s-]*(optim|minimi)",
+      "retried": false
+    },
+    "q67": {
+      "pattern": "(normal|gaussian)[_\\s-]*(distribution|dist|pdf|cdf|random|variate)|\\b(randn|rnorm|dnorm|pnorm|qnorm)\\b|box[_\\s-]*muller",
+      "retried": false
+    },
+    "q68": {
+      "pattern": "(write|save|export|output|render)[_\\w]*(html)|html[_\\w]*(file|write|save|export)|file_put_contents\\s*\\([^\\r\\n]{0,120}\\.html?\\b",
+      "retried": false
+    },
+    "q69": {
+      "pattern": "(parse|read|decode|deserialize|unpack)[_\\w]*binary|binary[_\\w]*(parser|reader|decoder|deserializer)|from[_\\s-]*binary|\\bunpack\\s*\\(",
+      "retried": false
+    },
+    "q70": {
+      "pattern": "\\bgetopt\\s*\\(|(parse|process)[_\\s-]*(command[_\\s-]*line|cli|args|arguments)|\\b(argv|ArgvInput|InputArgument|Console_Getopt)\\b|argument[_\\s-]*parser",
+      "retried": false
+    },
+    "q71": {
+      "pattern": "(parse|read|load|decode)[_\\s-]*json[_\\s-]*file|json[_\\s-]*file[_\\s-]*(parse|read|load|decode)|json_decode\\s*\\(\\s*file_get_contents|json_decode\\s*\\(\\s*\\$(file|content|buffer|data)",
+      "retried": false
+    },
+    "q72": {
+      "pattern": "\\bparse_str\\s*\\(|\\bPHP_URL_QUERY\\b|(parse|decode)[_\\s-]*query[_\\s-]*(string|params|parameters)|query[_\\s-]*string[_\\s-]*(parse|decode)",
+      "retried": false
+    },
+    "q73": {
+      "pattern": "(find|all|get)[_\\s-]*(all[_\\s-]*)?(positions|occurrences|offsets|indices)|\\b(strpos|stripos|mb_strpos|mb_stripos)\\s*\\(|\\bPREG_OFFSET_CAPTURE\\b",
+      "retried": false
+    },
+    "q74": {
+      "pattern": "\\bpg_(p?connect|connection_status)\\s*\\(|\\bpgsql\\s*:|postgres(ql)?[_\\w]*(connect|database|client)|connect[_\\w]*postgres|\\bPdoPgsql\\b",
+      "retried": false
+    },
+    "q75": {
+      "pattern": "\\bJSON_PRETTY_PRINT\\b|pretty[_\\s-]*(print[_\\s-]*)?json|json[_\\s-]*(pretty|prettify|beautify)|pretty[_\\s-]*print[^\\r\\n]{0,30}json",
+      "retried": false
+    },
+    "q76": {
+      "pattern": "model[_\\s-]*(summary|summarize|summarise)|\\$model\\s*->\\s*(summary|summarize|summarise)\\s*\\(|(print|show|display)[_\\s-]*(model[_\\s-]*)?summary|summary[_\\s-]*of[_\\s-]*(the[_\\s-]*)?model",
+      "retried": false
+    },
+    "q77": {
+      "pattern": "priority[_\\s-]*queue|\\bSplPriorityQueue\\b|\\bpqueue\\b|\\b(min|max)[_\\s-]*heap\\b",
+      "retried": false
+    },
+    "q78": {
+      "pattern": "\\barray_rand\\s*\\(|(random|rand)[_\\s-]*(sample|select|subset|pick|choice)|sample[_\\s-]*(random|without[_\\s-]*replacement)|reservoir[_\\s-]*sampl|\\bshuffle\\s*\\(",
+      "retried": false
+    },
+    "q79": {
+      "pattern": "(read|load|parse)[_\\s-]*(properties|props)([_\\s-]*file)?|propert(y|ies)[_\\s-]*(file|reader|parser)|\\bparse_ini_file\\s*\\(|file_get_contents\\s*\\([^\\r\\n]{0,120}\\.properties\\b",
+      "retried": false
+    },
+    "q80": {
+      "pattern": "\\b(?:fgets|readline)\\s*\\(|\\b(?:read|iterate|each)[_a-z]*(?:file[_a-z]*lines?|lines?[_a-z]*file)\\b|\\bSplFileObject\\b",
+      "retried": false
+    },
+    "q81": {
+      "pattern": "(?:getElementsByTagName|querySelector(?:All)?)\\s*\\(\\s*[\"']td\\b|(?:xpath|find|filter)\\s*\\([^\\r\\n;]*[\"'][^\"'\\r\\n]*\\btd\\b|<td\\b",
+      "retried": false
+    },
+    "q82": {
+      "pattern": "\\b(?:read_?only|immutable|frozen)[_a-z]*(?:array|collection|list)\\b|\\b(?:array|collection|list)[_a-z]*(?:read_?only|immutable|frozen)\\b|\\breadonly\\s+(?:\\??array|\\$)",
+      "retried": false
+    },
+    "q83": {
+      "pattern": "\\b(?:preg_[a-z_]+\\s*\\(\\s*[\"'][^\\r\\n]*[/~#][a-z]*i[a-z]*[\"']|mb_eregi(?:_replace)?\\s*\\(|eregi(?:_replace)?\\s*\\(|(?:case_?insensitive|ignore_?case|caseless)\\b)|\\(\\?[imsxU-]*i[imsxU-]*[:)]",
+      "retried": false
+    },
+    "q84": {
+      "pattern": "\\b(?:replace|substitute|rewrite)[_a-z]*(?:file|contents)\\b|\\bfile[_a-z]*(?:replace|substitute)\\b|(?:str_replace|preg_replace)\\s*\\([^;]*file_get_contents\\s*\\(",
+      "retried": false
+    },
+    "q85": {
+      "pattern": "\\b(?:save|write|export|serialize)[_a-z]*(?:list|array|collection)[_a-z]*(?:file|disk)\\b|\\b(?:list|array|collection)[_a-z]*(?:to_?file|save|export)\\b|file_put_contents\\s*\\([^;]*\\b(?:implode|serialize|json_encode)\\s*\\(",
+      "retried": false
+    },
+    "q86": {
+      "pattern": "\\bscatter(?:[_a-z]*(?:plot|chart|graph|series))?\\b|\\b(?:plot|chart|graph)[_a-z]*scatter\\b",
+      "retried": false
+    },
+    "q87": {
+      "pattern": "\\b(?:serial|uart|rs_?232)[_a-z]*(?:write|send|transmit)\\b|\\b(?:write|send|transmit)[_a-z]*(?:serial|uart|rs_?232)\\b|\\b(?:sendMessage|deviceOpen|dio_write)\\s*\\(",
+      "retried": false
+    },
+    "q88": {
+      "pattern": "\\battrib(?:\\.exe)?\\s+\\+h\\b|\\bFILE_ATTRIBUTE_HIDDEN\\b|\\b(?:set|mark|make)[_a-z]*(?:file[_a-z]*hidden|hidden[_a-z]*file)\\b|\\b(?:set_?hidden|hide_?file)\\b",
+      "retried": false
+    },
+    "q89": {
+      "pattern": "\\bchdir\\s*\\(|\\b(?:set|change)[_a-z]*(?:working_?(?:dir|directory)|cwd|work_?dir)\\b",
+      "retried": false
+    },
+    "q90": {
+      "pattern": "\\b(?:SO_RCVTIMEO|socket_set_timeout|stream_set_timeout)\\b|\\b(?:recv|receive|read|socket)[_a-z]*timeout\\b|\\btimeout[_a-z]*(?:recv|receive|socket)\\b",
+      "retried": false
+    },
+    "q91": {
+      "pattern": "\\b(?:natcasesort|natsort)\\s*\\(|\\bSORT_(?:STRING|NATURAL)\\b|\\b(?:sort[_a-z]*(?:strings?|list)|(?:strings?|list)[_a-z]*sort)\\b|\\b(?:usort|uasort)\\s*\\([^;]*\\b(?:strcmp|strcasecmp|strnatcmp|strnatcasecmp)\\b",
+      "retried": false
+    },
+    "q92": {
+      "pattern": "\\barray_multisort\\s*\\(|\\b(?:sort[_a-z]*(?:parallel|multiple|associated|dependent|by_?(?:another|reference|array))|(?:parallel|multiple|associated|dependent)[_a-z]*sort)\\b",
+      "retried": false
+    },
+    "q93": {
+      "pattern": "\\b(?:levenshtein|similar_text)\\s*\\(|\\b(?:levenshtein[_a-z]*|(?:string|text|edit)[_a-z]*(?:similarity|distance)|(?:similarity|distance)[_a-z]*(?:string|text))\\b",
+      "retried": false
+    },
+    "q94": {
+      "pattern": "\\b(?:strtotime|date_create(?:_from_format)?)\\s*\\(|\\bDateTime(?:Immutable)?::createFromFormat\\s*\\(|\\bnew\\s+DateTime(?:Immutable)?\\s*\\(|\\b(?:parse_?date|str(?:ing)?_?to_?date(?:time)?)\\b",
+      "retried": false
+    },
+    "q95": {
+      "pattern": "\\b(?:label[_a-z]*underline|underline[_a-z]*label|set_?underline|PANGO_UNDERLINE[_a-z]*)\\b|[\"']underline[\"']\\s*(?:=>|,)\\s*(?:true|[0-9]+)|\\btext-decoration\\s*:\\s*underline\\b",
+      "retried": false
+    },
+    "q96": {
+      "pattern": "\\barray_unique\\s*\\(|\\b(?:unique|distinct)[_a-z]*(?:elements?|items?|values?|array|list)\\b|\\b(?:dedup(?:licate)?|remove_?duplicates|array_?unique)\\b",
+      "retried": false
+    },
+    "q97": {
+      "pattern": "\\b(?:ZipArchive|ZipFile|PclZip|zip_open|zip_entry_read|gzopen|gzread|extractTo)\\b|\\b(?:unzip|decompress|extract)[_a-z]*(?:large|big|stream|archive|zip)\\b|\\b(?:large|big|stream)[_a-z]*(?:unzip|decompress|extract)\\b",
+      "retried": false
+    },
+    "q98": {
+      "pattern": "\\bfputcsv\\s*\\(|\\b(?:write|save|export|generate|create)[_a-z]*csv\\b|\\bcsv[_a-z]*(?:write|writer|save|export)\\b|\\bWriter::createFrom(?:Path|Stream|FileObject)\\s*\\(",
+      "retried": false
+    }
+  }
+}

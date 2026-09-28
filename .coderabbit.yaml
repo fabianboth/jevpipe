@@ -19,6 +19,9 @@ reviews:
     - "check.ps1"
     - "CLAUDE.md"
     - "specs/**/*.md"
+    - "bench/**"
+    - "!bench/results/**"
+    - "!bench/uv.lock"
     - "!Cargo.lock"
 
   path_instructions:
@@ -36,6 +39,17 @@ reviews:
       instructions: >-
         Flag any command, flag or output shape that does not match the CLI, and
         any relative link (the README is also the PyPI description).
+    - path: "bench/**/*.py"
+      instructions: >-
+        Ruff (all rules) and pyright strict fail bench.yml; skip what they check.
+        Focus on the CLAUDE.md rules a linter can't, and on anything that could
+        bias the measurement: counting, sampling, thresholds chosen on test
+        queries, or one contender treated differently from another.
+    - path: "bench/README.md"
+      instructions: >-
+        Flag any number or setting that does not match the code or
+        bench/results/, and any choice that could favour a tool without a
+        stated reason.
 
   auto_review:
     enabled: true

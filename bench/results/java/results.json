@@ -1,0 +1,461 @@
+{
+  "dataset": {
+    "repository": "github/CodeSearchNet",
+    "commit": "106e827405c968597da938f6b373d30183918869",
+    "file": "resources/annotationStore.csv",
+    "language": "Java",
+    "snippets": 758,
+    "missing": 41,
+    "dev_queries": 0,
+    "test_queries": 99
+  },
+  "dates": {
+    "first": "2026-09-28",
+    "last": "2026-09-28"
+  },
+  "models": {
+    "jevpipe": {
+      "model": "typesafe/jev-1.13",
+      "resolved_model": ["typesafe/jev-1.13-20260917"],
+      "wording": 4,
+      "question": "Does this function implement \"{query}\"?",
+      "threshold": 0.5
+    },
+    "deepseek": {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "resolved_model": ["deepseek/deepseek-v4.1-flash"],
+      "wording": 3,
+      "question": "Would a developer searching for \"{query}\" want to use this function?",
+      "threshold": 0.5
+    },
+    "deepseek_providers": {
+      "Wafer": 36117,
+      "Sail Research": 14316,
+      "DekaLLM": 7303,
+      "GMICloud": 3102,
+      "StreamLake": 3001,
+      "CoreWeave": 2583,
+      "NextBit": 2269,
+      "Fireworks": 1880,
+      "Phala": 1258,
+      "Together": 1099,
+      "DigitalOcean": 1059,
+      "Makora": 1055
+    },
+    "grep": {
+      "version": "ripgrep 15.2.0 (rev e89fff89ac)"
+    },
+    "agent": "gpt-6-astra"
+  },
+  "contenders": {
+    "grep-any": {
+      "found": 429.65,
+      "false_hits": 20070.35,
+      "known_relevant": 606.05,
+      "precision": 0.021,
+      "recall": 0.7089,
+      "f1": 0.0407,
+      "unjudged": 0,
+      "seconds_median": 0.0797,
+      "seconds_p90": 0.1017,
+      "cost_per_1000": 0.0
+    },
+    "grep-all": {
+      "found": 179,
+      "false_hits": 277,
+      "known_relevant": 512,
+      "precision": 0.3925,
+      "recall": 0.3496,
+      "f1": 0.3698,
+      "unjudged": 0,
+      "seconds_median": 0.2375,
+      "seconds_p90": 0.3807,
+      "cost_per_1000": 0.0
+    },
+    "grep-agent": {
+      "found": 299,
+      "false_hits": 343,
+      "known_relevant": 512,
+      "precision": 0.4657,
+      "recall": 0.584,
+      "f1": 0.5182,
+      "unjudged": 0,
+      "seconds_median": 0.0858,
+      "seconds_p90": 0.1065,
+      "cost_per_1000": 0.0
+    },
+    "jevpipe": {
+      "found": 377,
+      "false_hits": 230,
+      "known_relevant": 512,
+      "precision": 0.6211,
+      "recall": 0.7363,
+      "f1": 0.6738,
+      "unjudged": 0,
+      "seconds_median": 5.49,
+      "seconds_p90": 7.592,
+      "cost_per_1000": 0.02
+    },
+    "deepseek": {
+      "found": 364,
+      "false_hits": 286,
+      "known_relevant": 512,
+      "precision": 0.56,
+      "recall": 0.7109,
+      "f1": 0.6265,
+      "unjudged": 0,
+      "seconds_median": 13.98,
+      "seconds_p90": 18.126,
+      "cost_per_1000": 0.0206
+    }
+  },
+  "sweep": {
+    "jevpipe": [
+      {
+        "threshold": 0.3,
+        "found": 432,
+        "false_hits": 419,
+        "known_relevant": 512,
+        "precision": 0.5076,
+        "recall": 0.8438,
+        "f1": 0.6339
+      },
+      {
+        "threshold": 0.35,
+        "found": 422,
+        "false_hits": 358,
+        "known_relevant": 512,
+        "precision": 0.541,
+        "recall": 0.8242,
+        "f1": 0.6533
+      },
+      {
+        "threshold": 0.4,
+        "found": 406,
+        "false_hits": 307,
+        "known_relevant": 512,
+        "precision": 0.5694,
+        "recall": 0.793,
+        "f1": 0.6629
+      },
+      {
+        "threshold": 0.45,
+        "found": 394,
+        "false_hits": 271,
+        "known_relevant": 512,
+        "precision": 0.5925,
+        "recall": 0.7695,
+        "f1": 0.6695
+      },
+      {
+        "threshold": 0.5,
+        "found": 377,
+        "false_hits": 230,
+        "known_relevant": 512,
+        "precision": 0.6211,
+        "recall": 0.7363,
+        "f1": 0.6738
+      },
+      {
+        "threshold": 0.55,
+        "found": 358,
+        "false_hits": 195,
+        "known_relevant": 512,
+        "precision": 0.6474,
+        "recall": 0.6992,
+        "f1": 0.6723
+      },
+      {
+        "threshold": 0.6,
+        "found": 347,
+        "false_hits": 159,
+        "known_relevant": 512,
+        "precision": 0.6858,
+        "recall": 0.6777,
+        "f1": 0.6817
+      },
+      {
+        "threshold": 0.65,
+        "found": 333,
+        "false_hits": 131,
+        "known_relevant": 512,
+        "precision": 0.7177,
+        "recall": 0.6504,
+        "f1": 0.6824
+      },
+      {
+        "threshold": 0.7,
+        "found": 311,
+        "false_hits": 106,
+        "known_relevant": 512,
+        "precision": 0.7458,
+        "recall": 0.6074,
+        "f1": 0.6695
+      },
+      {
+        "threshold": 0.75,
+        "found": 285,
+        "false_hits": 94,
+        "known_relevant": 512,
+        "precision": 0.752,
+        "recall": 0.5566,
+        "f1": 0.6397
+      },
+      {
+        "threshold": 0.8,
+        "found": 247,
+        "false_hits": 75,
+        "known_relevant": 512,
+        "precision": 0.7671,
+        "recall": 0.4824,
+        "f1": 0.5923
+      },
+      {
+        "threshold": 0.85,
+        "found": 210,
+        "false_hits": 47,
+        "known_relevant": 512,
+        "precision": 0.8171,
+        "recall": 0.4102,
+        "f1": 0.5462
+      },
+      {
+        "threshold": 0.9,
+        "found": 159,
+        "false_hits": 30,
+        "known_relevant": 512,
+        "precision": 0.8413,
+        "recall": 0.3105,
+        "f1": 0.4536
+      }
+    ],
+    "deepseek": [
+      {
+        "threshold": 0.3,
+        "found": 394,
+        "false_hits": 376,
+        "known_relevant": 512,
+        "precision": 0.5117,
+        "recall": 0.7695,
+        "f1": 0.6147
+      },
+      {
+        "threshold": 0.35,
+        "found": 387,
+        "false_hits": 354,
+        "known_relevant": 512,
+        "precision": 0.5223,
+        "recall": 0.7559,
+        "f1": 0.6177
+      },
+      {
+        "threshold": 0.4,
+        "found": 380,
+        "false_hits": 327,
+        "known_relevant": 512,
+        "precision": 0.5375,
+        "recall": 0.7422,
+        "f1": 0.6235
+      },
+      {
+        "threshold": 0.45,
+        "found": 371,
+        "false_hits": 304,
+        "known_relevant": 512,
+        "precision": 0.5496,
+        "recall": 0.7246,
+        "f1": 0.6251
+      },
+      {
+        "threshold": 0.5,
+        "found": 364,
+        "false_hits": 286,
+        "known_relevant": 512,
+        "precision": 0.56,
+        "recall": 0.7109,
+        "f1": 0.6265
+      },
+      {
+        "threshold": 0.55,
+        "found": 361,
+        "false_hits": 275,
+        "known_relevant": 512,
+        "precision": 0.5676,
+        "recall": 0.7051,
+        "f1": 0.6289
+      },
+      {
+        "threshold": 0.6,
+        "found": 355,
+        "false_hits": 265,
+        "known_relevant": 512,
+        "precision": 0.5726,
+        "recall": 0.6934,
+        "f1": 0.6272
+      },
+      {
+        "threshold": 0.65,
+        "found": 350,
+        "false_hits": 251,
+        "known_relevant": 512,
+        "precision": 0.5824,
+        "recall": 0.6836,
+        "f1": 0.6289
+      },
+      {
+        "threshold": 0.7,
+        "found": 346,
+        "false_hits": 240,
+        "known_relevant": 512,
+        "precision": 0.5904,
+        "recall": 0.6758,
+        "f1": 0.6302
+      },
+      {
+        "threshold": 0.75,
+        "found": 339,
+        "false_hits": 227,
+        "known_relevant": 512,
+        "precision": 0.5989,
+        "recall": 0.6621,
+        "f1": 0.6289
+      },
+      {
+        "threshold": 0.8,
+        "found": 334,
+        "false_hits": 211,
+        "known_relevant": 512,
+        "precision": 0.6128,
+        "recall": 0.6523,
+        "f1": 0.632
+      },
+      {
+        "threshold": 0.85,
+        "found": 323,
+        "false_hits": 190,
+        "known_relevant": 512,
+        "precision": 0.6296,
+        "recall": 0.6309,
+        "f1": 0.6302
+      },
+      {
+        "threshold": 0.9,
+        "found": 303,
+        "false_hits": 174,
+        "known_relevant": 512,
+        "precision": 0.6352,
+        "recall": 0.5918,
+        "f1": 0.6127
+      }
+    ]
+  },
+  "bands": {
+    "jevpipe": [
+      {
+        "confidence": "0.5-0.6",
+        "decisions": 201,
+        "accuracy": 0.5124
+      },
+      {
+        "confidence": "0.6-0.7",
+        "decisions": 223,
+        "accuracy": 0.6413
+      },
+      {
+        "confidence": "0.7-0.8",
+        "decisions": 186,
+        "accuracy": 0.7151
+      },
+      {
+        "confidence": "0.8-0.9",
+        "decisions": 301,
+        "accuracy": 0.7641
+      },
+      {
+        "confidence": "0.9-1.0",
+        "decisions": 3371,
+        "accuracy": 0.9813
+      }
+    ],
+    "deepseek": [
+      {
+        "confidence": "0.5-0.6",
+        "decisions": 87,
+        "accuracy": 0.5747
+      },
+      {
+        "confidence": "0.6-0.7",
+        "decisions": 97,
+        "accuracy": 0.5979
+      },
+      {
+        "confidence": "0.7-0.8",
+        "decisions": 89,
+        "accuracy": 0.5393
+      },
+      {
+        "confidence": "0.8-0.9",
+        "decisions": 122,
+        "accuracy": 0.5984
+      },
+      {
+        "confidence": "0.9-1.0",
+        "decisions": 3935,
+        "accuracy": 0.9319
+      }
+    ]
+  },
+  "missed": {
+    "sampled": 990,
+    "relevant_in_sample": 1,
+    "unflagged": 54317,
+    "estimate": 54.865656565656565
+  },
+  "judge": {
+    "model": "gpt-6-astra",
+    "selected_pairs": 4330,
+    "judged_pairs": 4330,
+    "validation_pairs": 769,
+    "against_experts": {
+      "found": 209,
+      "false_hits": 131,
+      "known_relevant": 241,
+      "precision": 0.6147,
+      "recall": 0.8672,
+      "f1": 0.7194
+    },
+    "expert_against_experts": {
+      "found": 0,
+      "false_hits": 0,
+      "known_relevant": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    }
+  },
+  "repeat": {
+    "queries": [],
+    "changed_share": {
+      "jevpipe": 0.0,
+      "deepseek": 0.0
+    }
+  },
+  "tally": {
+    "jevpipe": {
+      "decisions": 75042,
+      "failed": 0,
+      "skipped": 99,
+      "without_probability": 99
+    },
+    "deepseek": {
+      "decisions": 75042,
+      "failed": 0,
+      "skipped": 0,
+      "without_probability": 0
+    }
+  },
+  "spend": {
+    "jevpipe": 1.5028,
+    "deepseek": 1.5468
+  }
+}

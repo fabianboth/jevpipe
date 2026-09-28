@@ -27,3 +27,8 @@ Thumbs.db
 /scratch
 /.reviews
 .claude/settings.local.json
+/bench/.cache/
+/bench/.venv/
+/bench/**/__pycache__/
+/bench/.pytest_cache/
+/bench/.ruff_cache/

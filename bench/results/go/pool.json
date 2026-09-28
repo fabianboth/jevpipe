@@ -1,0 +1,815 @@
+{
+  "dataset": {
+    "repository": "github/CodeSearchNet",
+    "commit": "106e827405c968597da938f6b373d30183918869",
+    "file": "resources/annotationStore.csv"
+  },
+  "snippets": [
+    {
+      "name": "0000.go",
+      "url": "https://github.com/ChrisTrenkamp/goxpath/blob/c385f95c6022e7756e91beac5f5510872f7dcb7d/internal/execxp/findutil/findUtil.go#L48-L55",
+      "sha256": "c6ddb33b8f8a24e5220f57fffbdd30af630b6e3a918579ea8e5a7a39140abf02"
+    },
+    {
+      "name": "0001.go",
+      "url": "https://github.com/ForceCLI/force/blob/dcf4021894573897981e05f26e1282dd209519e2/command/query.go#L40-L51",
+      "sha256": "f56a40d0548e0fad586a848f3db50965d2391794fc7b44a2bff474b478d2ace3"
+    },
+    {
+      "name": "0002.go",
+      "url": "https://github.com/JamesClonk/vultr/blob/fed59ad207c9bda0a5dfe4d18de53ccbb3d80c91/cmd/commands.go#L12-L190",
+      "sha256": "246f9fe72398a98589f451479193fd36d89595c69062c5d7e7329a96b6933d3f"
+    },
+    {
+      "name": "0003.go",
+      "url": "https://github.com/Microsoft/go-winio/blob/3fe4fa31662f6ede2353d913e93907b8e096e0b6/pkg/etw/fieldopt.go#L222-L230",
+      "sha256": "e01e850d27b6c056d0e2baf558b795445efad16f82f07a69b4620128da130283"
+    },
+    {
+      "name": "0004.go",
+      "url": "https://github.com/Microsoft/go-winio/blob/3fe4fa31662f6ede2353d913e93907b8e096e0b6/wim/wim.go#L199-L207",
+      "sha256": "cc8557f69cedfb952437384a439774f1da13331f3ca060f70bc513777af77209"
+    },
+    {
+      "name": "0005.go",
+      "url": "https://github.com/NebulousLabs/merkletree/blob/08d5d54b07f5e86a27f2d7431d0bc0300f5a9328/fuzz.go#L70-L76",
+      "sha256": "08c0c5a6b4e25f7373225228a69cbe9ccfd762ee28a4b4a189f378797fc0956a"
+    },
+    {
+      "name": "0006.go",
+      "url": "https://github.com/Songmu/strrand/blob/5195340ba52ce1bb6918091f054e4c8fdc645c41/strrand.go#L37-L43",
+      "sha256": "0a8bf58cf4732cb925e021adf3c8991bee23231fedb3493e993dce0d80cbcf2c"
+    },
+    {
+      "name": "0007.go",
+      "url": "https://github.com/TheThingsNetwork/go-utils/blob/aa2a11bd59104d2a8609328c2b2b55da61826470/errors/http.go#L53-L60",
+      "sha256": "e44bb2f9c0de5447229ee6e8d5be9b8fb78f85fea45fd0930b6304565c5ccda0"
+    },
+    {
+      "name": "0008.go",
+      "url": "https://github.com/Unknwon/com/blob/0fed4efef7553eed2cd04624befccacda78bb8e2/time.go#L31-L34",
+      "sha256": "22b81459b17a1ad576358cef5d408e23ad3fab34148df4e11f787d01af34f49a"
+    },
+    {
+      "name": "0009.go",
+      "url": "https://github.com/Workiva/go-datastructures/blob/f07cbe3f82ca2fd6e5ab94afce65fe43319f675f/numerics/optimization/nelder_mead.go#L555-L559",
+      "sha256": "2615ea74ded664039b274046a7dcd37e62c416d482823c0295bce0e1ced1f6a5"
+    },
+    {
+      "name": "0010.go",
+      "url": "https://github.com/aarzilli/nucular/blob/64ec1eba91814ebb417978927206070dd1fc44e1/nucular.go#L1658-L1672",
+      "sha256": "7be77e4b0c482b1203949068628c961355429dbc92c17c9dd2bd76b0b604345b"
+    },
+    {
+      "name": "0011.go",
+      "url": "https://github.com/advancedlogic/GoOse/blob/6cd46faf50eb2105cd5de7328ee8eb62557895c9/cleaner.go#L418-L441",
+      "sha256": "db8944b5c59c5f7e6d9b70d4679d2c54703dec23c1bc7c012d6e14c6e3f31336"
+    },
+    {
+      "name": "0012.go",
+      "url": "https://github.com/advancedlogic/GoOse/blob/6cd46faf50eb2105cd5de7328ee8eb62557895c9/cleaner.go#L487-L568",
+      "sha256": "ebec0814879b70e217bcce6c3832a569ca4335a0717787ddd70f12c10f86f454"
+    },
+    {
+      "name": "0013.go",
+      "url": "https://github.com/antongulenko/golib/blob/5860401d795186159946857d3d6057628e049840/sort.go#L36-L42",
+      "sha256": "8bb38d3641791779b2a6c91c5de9f16c5ecec2de65168c8eb259a86d1bf25294"
+    },
+    {
+      "name": "0014.go",
+      "url": "https://github.com/ardielle/ardielle-go/blob/c4ab435c6f1ae2ece59bdd174b5b27c4f9828cff/rdl/basictypes_model.go#L284-L292",
+      "sha256": "e0cc16c869e02476e3a26230d6c69f19f5c5565deddedabf2d6948edac36461f"
+    },
+    {
+      "name": "0015.go",
+      "url": "https://github.com/asaskevich/govalidator/blob/f61b66f89f4a311bef65f13e575bcf1a2ffadda6/arrays.go#L39-L47",
+      "sha256": "cf07dd68f17f98c7d66b3b2b35bca87665bf56874c13452dcc6251a03804113b"
+    },
+    {
+      "name": "0016.go",
+      "url": "https://github.com/assertgo/assert/blob/a3e1a2d6fd7ef7614e7f3cacb8a6c341ca978024/string.go#L44-L47",
+      "sha256": "dcd38d4e4ea708673c612ba9f864d57549e27da113618db03c56f45befb94dbf"
+    },
+    {
+      "name": "0017.go",
+      "url": "https://github.com/aws/aws-sdk-go/blob/6c4060605190fc6f00d63cd4e5572faa9f07345d/service/cloudfront/api.go#L6650-L6653",
+      "sha256": "7dc958ed2fe29cfb09cac2ff999927b2ebd3556ec0963707cce9ad76f9d08135"
+    },
+    {
+      "name": "0018.go",
+      "url": "https://github.com/aws/aws-sdk-go/blob/6c4060605190fc6f00d63cd4e5572faa9f07345d/service/cloudfront/api.go#L6720-L6723",
+      "sha256": "12101e0d66be81a731b9c750b227a4641445f1677f71fae7e8b941989ec6bd4c"
+    },
+    {
+      "name": "0019.go",
+      "url": "https://github.com/aymerick/douceur/blob/f9e29746e1161076eae141dd235f5d98b546ec3e/inliner/inliner.go#L93-L102",
+      "sha256": "0a338b49667aa5d633e5b7e82b74073a2bb2cc598e39957734ecbd9d32fe1a0b"
+    },
+    {
+      "name": "0020.go",
+      "url": "https://github.com/badgerodon/penv/blob/7a4c6d64fa119b52afe2eb3f0801886bd8785318/penv.go#L23-L35",
+      "sha256": "37ced926e3317b371818ed8159fc744a0b4783350c2770166b382943c3462270"
+    },
+    {
+      "name": "0021.go",
+      "url": "https://github.com/beeker1121/goque/blob/4044bc29b28064db4f08e947c4972d5ca3e0f3c8/priority_queue.go#L122-L124",
+      "sha256": "b56db1fa71919216ce4f5d76f240c0506d6269507210bdebae3e3748f33fd558"
+    },
+    {
+      "name": "0022.go",
+      "url": "https://github.com/beeker1121/goque/blob/4044bc29b28064db4f08e947c4972d5ca3e0f3c8/priority_queue.go#L84-L118",
+      "sha256": "8ce31b29949d477f77787233d1a4ad09e7a5a63ee7e051ba09f124319efc00d9"
+    },
+    {
+      "name": "0023.go",
+      "url": "https://github.com/chasex/redis-go-cluster/blob/222d81891f1d3fa7cf8b5655020352c3e5b4ec0f/cluster.go#L182-L222",
+      "sha256": "ae19e63407678dcd31dcc4cd9dcbc314cf1733667d1318fff9642622ed9773ab"
+    },
+    {
+      "name": "0024.go",
+      "url": "https://github.com/choria-io/go-validator/blob/4ce2ef25983faa873cc4bcea0f1ef2a4273d42cc/regex/regex.go#L10-L21",
+      "sha256": "b3619880655076f66bc3db0baf296ee6abae22a53492e5b71768e1f503a25bf2"
+    },
+    {
+      "name": "0025.go",
+      "url": "https://github.com/chrislusf/gleam/blob/a7aa467b545f5e5e452aaf818299a5f6e6b23760/sql/parser/yy_parser.go#L156-L164",
+      "sha256": "e3a2ad4a60523415916e54f8be465051e7f2cb4f14211de4eebafec7bcd4a8f5"
+    },
+    {
+      "name": "0026.go",
+      "url": "https://github.com/chzyer/logex/blob/445be9e134b204a8c920a30fedad02b2f2ab1efd/logex.go#L109-L117",
+      "sha256": "94137cc04778b76da4cf85b026d10edfa6d84f31d7edd08d992dbc85af9f6666"
+    },
+    {
+      "name": "0027.go",
+      "url": "https://github.com/clbanning/x2j/blob/5e605d46809c441eb0e565867b63f7d80c9140c2/x2j.go#L124-L141",
+      "sha256": "95a557b280fb86f23cb9596f28e1e684f3a965caddaf6dfecf6bd00391df29fd"
+    },
+    {
+      "name": "0028.go",
+      "url": "https://github.com/cloudflare/golibs/blob/4efefffc6d5c2168e1c209e44dad549e0674e7a3/bytepool/bytepool.go#L128-L135",
+      "sha256": "68b8fcb513376dadd996e6a49d6f70f47ff1d97d857c8ac7162e93b1ef592827"
+    },
+    {
+      "name": "0029.go",
+      "url": "https://github.com/cloudfoundry/bosh-utils/blob/757f0ce2bf30bab7848e17679ca54f74e574facb/httpclient/socksify.go#L25-L107",
+      "sha256": "e31efd090feaae7f0c1dbe0e69d5d4da16da227b7eb91fa8ab3f85e731586191"
+    },
+    {
+      "name": "0030.go",
+      "url": "https://github.com/cloudfoundry/cli/blob/5010c000047f246b870475e2c299556078cdad30/cf/util/json/json_parser.go#L29-L54",
+      "sha256": "dfaac83be8d6d60122f72338c449ddddfde959266ddc217ad2aa68a6dd19b47e"
+    },
+    {
+      "name": "0031.go",
+      "url": "https://github.com/containerd/containerd/blob/a17c8095716415cebb1157a27db5fccace56b0fc/runtime/v2/runhcs/service.go#L178-L183",
+      "sha256": "37daac84740eda034f5882cb28fb037e7c3de2ae367de4d8cc75071394e477c7"
+    },
+    {
+      "name": "0032.go",
+      "url": "https://github.com/containerd/containerd/blob/a17c8095716415cebb1157a27db5fccace56b0fc/windows/task.go#L404-L410",
+      "sha256": "773f8a3ef9ae2156594d1a1c67bf1d6a7eaddf53267c1bb8afcffb55f234ca7e"
+    },
+    {
+      "name": "0033.go",
+      "url": "https://github.com/contiv/netplugin/blob/965773066d2b8ebed3514979949061a03d46fd20/netplugin/plugin/netplugin.go#L286-L305",
+      "sha256": "12372ac05452e3a4c6cb08f535258f5c29abb419147e15052d467dda0f3f9d78"
+    },
+    {
+      "name": "0034.go",
+      "url": "https://github.com/coreos/go-omaha/blob/e409d983eb60842452f0fb6245137458ca45201a/omaha/client/fuzzytime.go#L31-L41",
+      "sha256": "1b7914a42435283a171710f2ef3cb782474359149249fbd316d25d2faece05f7"
+    },
+    {
+      "name": "0035.go",
+      "url": "https://github.com/coreos/go-omaha/blob/e409d983eb60842452f0fb6245137458ca45201a/omaha/client/fuzzytime.go#L45-L47",
+      "sha256": "223700e4e6b1eb5956f1852604fa20f8b63db67cd0197754a4149caa039f92aa"
+    },
+    {
+      "name": "0036.go",
+      "url": "https://github.com/coreos/go-omaha/blob/e409d983eb60842452f0fb6245137458ca45201a/omaha/client/fuzzytime.go#L51-L53",
+      "sha256": "5d29ac60db08187dfa0b9e06b3507da7d465a9371bc1f54670d9ee006aa34929"
+    },
+    {
+      "name": "0037.go",
+      "url": "https://github.com/cuigh/auxo/blob/35f08384a278c4f5c01bf96896e5964611e4a05d/db/gsd/select.go#L306-L309",
+      "sha256": "561df29345d6ff881e33efeb22a87c06d228c9561046ef751fb109dda2859df8"
+    },
+    {
+      "name": "0038.go",
+      "url": "https://github.com/cuigh/auxo/blob/35f08384a278c4f5c01bf96896e5964611e4a05d/util/cast/try.go#L10-L27",
+      "sha256": "cd27cb029f1287986483135a499d0060a7bd6675a70a37472568eae2548408ec"
+    },
+    {
+      "name": "0039.go",
+      "url": "https://github.com/cupcake/gokiq/blob/ebbb02812f6826798d779fbda06921d45b2c4446/worker.go#L79-L85",
+      "sha256": "0006dfe7cae0f2bc1329288b3c7f15d03d2b8dd038ae0e2123e0f775c6a5acc1"
+    },
+    {
+      "name": "0040.go",
+      "url": "https://github.com/darkhelmet/tinderizer/blob/f46418cc7edd6695140867d40446645c428cbda2/job/job.go#L106-L110",
+      "sha256": "5b282d0c9b43595d4668837524c263a7ff81b27de82fe9661a5f6806ed84c162"
+    },
+    {
+      "name": "0041.go",
+      "url": "https://github.com/denverdino/aliyungo/blob/611ead8a6fedf409d6512b6e4f44f3f1cbc65755/util/util.go#L179-L185",
+      "sha256": "6b3bab853524d916467c65dda559b2db09ebcb93dea202de81e370bb75192316"
+    },
+    {
+      "name": "0042.go",
+      "url": "https://github.com/dmiller/go-seq/blob/7e6f351b75cf7a8534be0b93dd1929ea5f08d86a/stm/ref.go#L99-L106",
+      "sha256": "de83c470bb1bdc5eda8fd429e0d5e4979c4a3bdafc858f902b8249e3c2a8e42d"
+    },
+    {
+      "name": "0043.go",
+      "url": "https://github.com/dop251/goja/blob/8d6ee3d1661108ff8433016620abb64dfa6d9937/string_ascii.go#L256-L258",
+      "sha256": "6e82bef93206e01fb76a4a3163307de16106463dd36208de2720d93da1654bf8"
+    },
+    {
+      "name": "0044.go",
+      "url": "https://github.com/dop251/goja/blob/8d6ee3d1661108ff8433016620abb64dfa6d9937/string_unicode.go#L201-L213",
+      "sha256": "6f8887063585ce2e3d38eaa0bb0a233ea1b8dbaa9fd63312e4b7be1c1ed84859"
+    },
+    {
+      "name": "0045.go",
+      "url": "https://github.com/ericchiang/k8s/blob/68fb2168bedf77759577a56e44f2ccfaf7229673/apis/extensions/v1beta1/generated.pb.go#L141-L146",
+      "sha256": "d45c601b31261db34368ffd9371ce770425a0b5e5c9372e6e9325e0562e19b5b"
+    },
+    {
+      "name": "0046.go",
+      "url": "https://github.com/ethereum/go-ethereum/blob/b6c0234e0b5c9d459d1ed784c910f6348890d56b/consensus/ethash/algorithm.go#L234-L263",
+      "sha256": "f823a17f7fec421df2cdf83b71146cb7cbcc1d544dfe26259af9d1d9da9b8517"
+    },
+    {
+      "name": "0047.go",
+      "url": "https://github.com/fabric8-services/fabric8-wit/blob/54759c80c42ff2cf29b352e0f6c9330ce4ad7fce/kubernetes/deployments_kubeclient.go#L2066-L2077",
+      "sha256": "a1ca25c91e9e86264297784ac8ee3f23042215237a514d56c0184269a4a3f19c"
+    },
+    {
+      "name": "0048.go",
+      "url": "https://github.com/fabric8-services/fabric8-wit/blob/54759c80c42ff2cf29b352e0f6c9330ce4ad7fce/search/search_repository.go#L204-L213",
+      "sha256": "680eb3fc254fb09668dd0fee86fff982dd431334bf64b057a16ea61233d0d4ab"
+    },
+    {
+      "name": "0049.go",
+      "url": "https://github.com/fogleman/gg/blob/72436a171bf31757dc87fb8fa9f7485307350307/matrix.go#L82-L84",
+      "sha256": "883d25451893b9edf810c805fb26c9c05bdfe92d3d562a0043e2e0f2bf7833ed"
+    },
+    {
+      "name": "0050.go",
+      "url": "https://github.com/foolin/gocsv/blob/d1cfc1a54940e0b038e7f221a362c8c51eacd2c9/tools/mergecsv/mergecsv.go#L21-L117",
+      "sha256": "ab6f821a0347800607743f04fad834872154149499c97bbe0ada26e019965dd8"
+    },
+    {
+      "name": "0051.go",
+      "url": "https://github.com/franela/goreq/blob/bcd34c9993f899273c74baaa95e15386cd97b6e7/goreq.go#L130-L138",
+      "sha256": "ccf52f9d21b28b51c42317489bbfa9b26296cd5674636c0324c812c121927068"
+    },
+    {
+      "name": "0052.go",
+      "url": "https://github.com/ghetzel/diecast/blob/3cf4315555ad6d1e50e51ddf7778eedb91da56ca/util.go#L122-L156",
+      "sha256": "dfe623b7f4be4b09517f6db9e88b015a8d2224de0b2e7f7138f4c8a0cfb70dd7"
+    },
+    {
+      "name": "0053.go",
+      "url": "https://github.com/ghetzel/go-webfriend/blob/0746aa14b9afa6b488313705edf19a33d9dff469/browser/tab.go#L945-L988",
+      "sha256": "86eab389488ad218acaa1ece74d92eba69733d7c9f13306c9b2adc8b0a51a087"
+    },
+    {
+      "name": "0054.go",
+      "url": "https://github.com/glycerine/zygomys/blob/36f1c7120ff2d831cebbb6f059ddc948273a8b56/zygo/functions.go#L783-L809",
+      "sha256": "bf97b702db7ce134596426321091ce3c763ca79532a3744ac613dd68981db232"
+    },
+    {
+      "name": "0055.go",
+      "url": "https://github.com/go-gl/gl/blob/bf2b1f2f34d7f6a60a99a830f65dcd6afb0c6587/v3.1/gles2/package.go#L9402-L9404",
+      "sha256": "0ee3d972563097d0ba3f91b205fa077bb0713acb1c9a6d318666ca8715188cc0"
+    },
+    {
+      "name": "0056.go",
+      "url": "https://github.com/go-ole/go-ole/blob/97b6244175ae18ea6eef668034fd6565847501c9/_example/excel2/excel.go#L80-L96",
+      "sha256": "e9ca630613295596d43b3929607e0b1c91afc9466ff1a23e8ac4de244a09b99f"
+    },
+    {
+      "name": "0057.go",
+      "url": "https://github.com/go-openapi/swag/blob/b3e2804c8535ee0d1b89320afd98474d5b8e9e3b/convert.go#L91-L97",
+      "sha256": "ca5ca80315b96e63326b3c972c15f0975e089f1a279e035f17444d8fb25d16f5"
+    },
+    {
+      "name": "0058.go",
+      "url": "https://github.com/go-openapi/swag/blob/b3e2804c8535ee0d1b89320afd98474d5b8e9e3b/json.go#L170-L181",
+      "sha256": "4caa031cd2c329f1d891c1f4e702a894ca49811e60e5a28a3e72296c458ca5bf"
+    },
+    {
+      "name": "0059.go",
+      "url": "https://github.com/go-vgo/robotgo/blob/d643b9ffe5a44c524740136edc428be68ddbecae/examples/window/main.go#L30-L52",
+      "sha256": "c47ef5c5002e4bf2a2cf07092127518430ca1ccb962b2dfa367df0e11d4fe7a6"
+    },
+    {
+      "name": "0060.go",
+      "url": "https://github.com/go-xorm/xorm/blob/ce804aee6c5118ed9a6bc04754aea4ea65232fe5/session_cols.go#L177-L180",
+      "sha256": "f4bfeb9e3ae926ae3778bf6487ebb6bc2d3b68dd2712410f40a3a1564d09bf5b"
+    },
+    {
+      "name": "0061.go",
+      "url": "https://github.com/gobs/httpclient/blob/a93d469d8657e74a3d5a8f72bd46b54a19c341f1/httpfile.go#L78-L128",
+      "sha256": "a48af6d6510ef27bc8443e6f40cff7ac5acc1d3e1efe91dbb86838b70b3bec0b"
+    },
+    {
+      "name": "0062.go",
+      "url": "https://github.com/gobuffalo/buffalo/blob/7f360181f4ccd79dcc9dcea2c904a4801f194f04/mail/internal/mail/message.go#L182-L184",
+      "sha256": "df05b22edc0889a7bcfe0df616e3a5b464bddee21584b547cd75ef12c0db0d4d"
+    },
+    {
+      "name": "0063.go",
+      "url": "https://github.com/gogs/gogs/blob/4f9c5b60c56606e709c4da2d1587aa7096ae24da/pkg/template/template.go#L130-L132",
+      "sha256": "13c1186fe35d8b5ebc33ac3d9d167a7124c3357d710667099375864c10df8c2b"
+    },
+    {
+      "name": "0064.go",
+      "url": "https://github.com/gohugoio/hugo/blob/f94a388ad319eaa6b2d9b32658c1257e9ca8ce4c/releaser/releaser.go#L304-L328",
+      "sha256": "6ab93afdb1e12d5cfca95b40398cadf1db56f710d94b5ab176617ddf7800cbc3"
+    },
+    {
+      "name": "0065.go",
+      "url": "https://github.com/google/go-genproto/blob/54afdca5d873f7b529e2ce3def1a99df16feda90/googleapis/ads/googleads/v1/common/policy.pb.go#L587-L592",
+      "sha256": "f763722d81cbd891b87fb53a0b3f609eda072921c0c434636987c02ab905b48c"
+    },
+    {
+      "name": "0066.go",
+      "url": "https://github.com/google/go-genproto/blob/54afdca5d873f7b529e2ce3def1a99df16feda90/googleapis/cloud/automl/v1beta1/classification.pb.go#L486-L488",
+      "sha256": "06227fa0befd12dbcfb328d44d8e0788eec04398bba691b6afe78b5e4937a3d6"
+    },
+    {
+      "name": "0067.go",
+      "url": "https://github.com/google/go-genproto/blob/54afdca5d873f7b529e2ce3def1a99df16feda90/googleapis/cloud/talent/v4beta1/filters.pb.go#L1527-L1532",
+      "sha256": "3bb95adbbe80caa5db159abce7d6297003af5a741881f5608b52e7af6c1469d5"
+    },
+    {
+      "name": "0068.go",
+      "url": "https://github.com/gopasspw/gopass/blob/fe4e21d62182f0f2e4ef9a0ca8168d849dc52bd4/pkg/clipboard/unclip.go#L15-L45",
+      "sha256": "2c4d8647b951ce5990e85ac9e96eadc1745da9b817ca6721a76815eb7e51b83f"
+    },
+    {
+      "name": "0069.go",
+      "url": "https://github.com/gopherjs/webgl/blob/39bd6d41eeb587730fcaa65adf71978fb10675bc/webgl.go#L1008-L1010",
+      "sha256": "37cd60b868037c66c4ff3b38fe2d0ae8a59f4d4daa995e1237dc0d74bc9c2144"
+    },
+    {
+      "name": "0070.go",
+      "url": "https://github.com/gotk3/gotk3/blob/c89a2934a82722863fb6782d9245c4e7c3cf25f1/gtk/label.go#L45-L48",
+      "sha256": "3c040dce2b942a016eefc39eb946bcddc8dd1a70ba12656c1c3bf29623b08f57"
+    },
+    {
+      "name": "0071.go",
+      "url": "https://github.com/grokify/gotilla/blob/a89420864b4d1cc22c57bcc025cc960a91372b37/strconv/phonenumber/fictitiousgenerator.go#L49-L52",
+      "sha256": "92946fc0e99842fecfbefae3be4d42e95cd910d127093d58f20ea2e5e5c64eed"
+    },
+    {
+      "name": "0072.go",
+      "url": "https://github.com/grokify/gotilla/blob/a89420864b4d1cc22c57bcc025cc960a91372b37/time/timeutil/timeutil.go#L276-L283",
+      "sha256": "0324a513aa70eed12a9de34d4bb61eab8edc33ce8e7cee0101475e3a471abbbf"
+    },
+    {
+      "name": "0073.go",
+      "url": "https://github.com/hajimehoshi/ebiten/blob/3ce8babd9bd0470bd5683158cc320277cc04d5ed/internal/graphicsdriver/opengl/context_js.go#L248-L252",
+      "sha256": "a6a221aad0fecaddff2d1d469f6e9c049e9a518c8e6f6fcff758cd6ffcea6af6"
+    },
+    {
+      "name": "0074.go",
+      "url": "https://github.com/hashicorp/vault/blob/7e96d5c2b53ee9e22439f3bc0cb366d7e92f949b/sdk/physical/file/file.go#L350-L355",
+      "sha256": "cabeb46e561918178f53c3659550dcabeeaf52a27e72d5bf84fb40d41cbece95"
+    },
+    {
+      "name": "0075.go",
+      "url": "https://github.com/hoisie/web/blob/a498c022b2c0babab2bf9c0400754190b24c8c39/helpers.go#L47-L57",
+      "sha256": "4a580738d82bd44c56e8f3e7aeb8d16abb5e20b0c36f14ba4efa2218d183683a"
+    },
+    {
+      "name": "0076.go",
+      "url": "https://github.com/huandu/xstrings/blob/8bbcf2f9ccb55755e748b7644164cd4bdce94c1d/manipulate.go#L179-L217",
+      "sha256": "60d3689f52dbbf011b62877ceffe29a5a09a2ca62f74ef16f3b9ceeefd04add0"
+    },
+    {
+      "name": "0077.go",
+      "url": "https://github.com/hyperledger/burrow/blob/59993f5aad71a8e16ab6ed4e57e138e2398eae4e/vent/sqldb/adapters/postgres_adapter.go#L41-L84",
+      "sha256": "32eb72bfa144bdf3170915dd4563d2b308bea88d0bb20f6419720bf077882ed7"
+    },
+    {
+      "name": "0078.go",
+      "url": "https://github.com/hyperledger/fabric/blob/49f496925df1e66198d7ec794849536c9f8b104b/bccsp/sw/aes.go#L78-L98",
+      "sha256": "e221408921118f3b80098dbe76967288c2effbf6a6fc844e586c92a488dceaea"
+    },
+    {
+      "name": "0079.go",
+      "url": "https://github.com/hyperledger/fabric/blob/49f496925df1e66198d7ec794849536c9f8b104b/gossip/privdata/reconcile.go#L289-L311",
+      "sha256": "90614444531780d9e7729f7a7593ef5983d07a2659343a4ea60d7caae25eca68"
+    },
+    {
+      "name": "0080.go",
+      "url": "https://github.com/iikira/baidu-tools/blob/79c93d8033cdda61dd2278f0e4a75c5ea8388f3c/tieba/tiebautil/client_signature.go#L67-L73",
+      "sha256": "a667d3d3c9b484a588c71e1d9b558a7d90cd4455c2f3493f455ab7173103e8e9"
+    },
+    {
+      "name": "0081.go",
+      "url": "https://github.com/inverse-inc/packetfence/blob/f29912bde7974931d699aba60aa8fde1c5d9a826/go/dhcp/utils.go#L218-L236",
+      "sha256": "f5b8e68f46a39b430d8c7cc7d2ad42c81776cf3466170e450e583a1ebfd77e3e"
+    },
+    {
+      "name": "0082.go",
+      "url": "https://github.com/iron-io/functions/blob/d59d7d1c40b2ff26b1afee31bde64df444e96525/fn/app/app.go#L89-L101",
+      "sha256": "8df643cfd66ecc5b06d2e7583a021708ca998ec62cf7aa6a0cf74eea9288eeb8"
+    },
+    {
+      "name": "0083.go",
+      "url": "https://github.com/jdxcode/gode/blob/46ec1874bc6dce6e90fb1583a6d5110f7bc40ae1/zip.go#L10-L28",
+      "sha256": "360f72ba193a23740df58323c893f8fda7f8e86fd7ce18f251fab1b602d620a6"
+    },
+    {
+      "name": "0084.go",
+      "url": "https://github.com/jpfielding/gorets/blob/1fe0f2d805aec564b6a18e24909e0f544a71e0a3/pkg/util/metadata_conversion.go#L17-L31",
+      "sha256": "fc7ac340f20273afed927024f068450598c5590c6275838ea63b1baacb89c209"
+    },
+    {
+      "name": "0085.go",
+      "url": "https://github.com/json-iterator/go/blob/0ff49de124c6f76f8494e194af75bde0f1a49a29/config.go#L261-L264",
+      "sha256": "4b1484285388b5bf4c7cb0b9dab37c8b294527f6985ac5b92d6bf19ecc0fc760"
+    },
+    {
+      "name": "0086.go",
+      "url": "https://github.com/json-iterator/go/blob/0ff49de124c6f76f8494e194af75bde0f1a49a29/reflect.go#L44-L50",
+      "sha256": "7732640456de225ff10c8dd7f647a202fad980ce8dcacf08c4261651bcc6aa30"
+    },
+    {
+      "name": "0087.go",
+      "url": "https://github.com/karlseguin/expect/blob/ecc6aa3406d03d381160d52b8a76268abdb14321/runner.go#L275-L285",
+      "sha256": "2a114ce024a9eb6a1d3519f9294653e31c1e3918ee799be178c090078b43110c"
+    },
+    {
+      "name": "0088.go",
+      "url": "https://github.com/kataras/iris/blob/6aafc0b9d5e97d0c52e325d8c4b4d23d61eb3f9d/_examples/tutorial/caddy/server1/main.go#L41-L49",
+      "sha256": "078ad71ad66a7c8b29f79402a2349d2a1650aa950c92538f66821119c474b828"
+    },
+    {
+      "name": "0089.go",
+      "url": "https://github.com/kataras/iris/blob/6aafc0b9d5e97d0c52e325d8c4b4d23d61eb3f9d/context/context.go#L2767-L2770",
+      "sha256": "683e64e6508f6d12b6d7b9bfd8b58a8e9e47ad8e5c2db5b37d64cc673cb77dbd"
+    },
+    {
+      "name": "0090.go",
+      "url": "https://github.com/keybase/client/blob/b352622cd8cc94798cfacbcb56ada203c18e519e/go/kbfs/libhttpserver/content_type_utils.go#L54-L79",
+      "sha256": "0fd5e645f850a426b77f19e82655c9815e30ba4277615651f409efcb276e7b88"
+    },
+    {
+      "name": "0091.go",
+      "url": "https://github.com/keybase/client/blob/b352622cd8cc94798cfacbcb56ada203c18e519e/go/protocol/keybase1/home.go#L54-L73",
+      "sha256": "0a8aac1e447b43b9fcc85f35d763a12f79dd699b85606b8fa5759d27fe090689"
+    },
+    {
+      "name": "0092.go",
+      "url": "https://github.com/koron/go-dproxy/blob/fd990aff3734271e213a87f118319cf104bb2dd6/set.go#L90-L101",
+      "sha256": "5d3c731d489c90faf5cfcd1f0da575f6f7052614f6dbeadd0e8a3aac8de96c78"
+    },
+    {
+      "name": "0093.go",
+      "url": "https://github.com/kubernetes-retired/contrib/blob/89f6948e24578fed2a90a87871b2263729f90ac3/scale-demo/Godeps/_workspace/src/k8s.io/kubernetes/pkg/api/deep_copy_generated.go#L2724-L2726",
+      "sha256": "b80867ba2c91c67f3a0dd371563e984be9ab8f31219f664d5edd0b6c0b3cb65e"
+    },
+    {
+      "name": "0094.go",
+      "url": "https://github.com/kubernetes/kubernetes/blob/6a8a3682919652ae668c389ed2f60efb770eed03/pkg/volume/azure_dd/azure_mounter.go#L46-L59",
+      "sha256": "5e3f64bf69e7a2a8f1a483f0eb2add4283b87e6421397f3b023b90587a7d9309"
+    },
+    {
+      "name": "0095.go",
+      "url": "https://github.com/kubicorn/kubicorn/blob/c4a4b80994b4333709c0f8164faabd801866b986/cloud/amazon/public/resources/securitygroup.go#L375-L381",
+      "sha256": "824764d8f4b8621a39bff2b3855834f0b342a10e2809832aa7f9cf2ba2332d61"
+    },
+    {
+      "name": "0096.go",
+      "url": "https://github.com/labstack/echo/blob/5d2c33ad5dbb78540a56dd08d09d91f991bc3156/context.go#L402-L404",
+      "sha256": "b37a96ba6bfe07849b7b90e1aa9dd144e5112ae574579fc8135ab4f4c7f06a81"
+    },
+    {
+      "name": "0097.go",
+      "url": "https://github.com/layer-x/layerx-commons/blob/a9e7080c940208a2a089fd854ecf4831b3b3f78c/lxhttpclient/httpclient.go#L268-L272",
+      "sha256": "8ca89c297f36513bc22a333ce39170736019e46819bb2be20598379d633f2415"
+    },
+    {
+      "name": "0098.go",
+      "url": "https://github.com/leesper/go_rng/blob/5344a9259b21627d94279721ab1f27eb029194e7/binomial.go#L51-L65",
+      "sha256": "17c6f9ed72b3ae208f722769e2532503b096b0ecfc7a2a6b0b49fb3ec3f086ca"
+    },
+    {
+      "name": "0099.go",
+      "url": "https://github.com/lileio/lile/blob/becf404ea65c4dd7cbe6e8c6dd2a313d07359b4e/protoc-gen-lile-server/main.go#L159-L166",
+      "sha256": "4103f9b9609271aa6b264710bf5f453ed31b64cfe27eed24f19954fa55dbae71"
+    },
+    {
+      "name": "0100.go",
+      "url": "https://github.com/logrusorgru/aurora/blob/cea283e61946ad8227cc02a24201407a2c9e5182/wrap.go#L138-L143",
+      "sha256": "30eb5dce24ecb3aa24d4d284a5bce64b40c453400e4004a06226de3d0fae688a"
+    },
+    {
+      "name": "0101.go",
+      "url": "https://github.com/luci/luci-go/blob/f6cef429871eee3be7c6903af88d3ee884eaf683/common/retry/limited.go#L45-L76",
+      "sha256": "21e1237a7ce941fdc543b253a1e581f6040f4caf741aba4a5c72c2e8ce1dc7a1"
+    },
+    {
+      "name": "0102.go",
+      "url": "https://github.com/lxc/lxd/blob/7a41d14e4c1a6bc25918aca91004d594774dcdd3/lxd/networks_utils.go#L1016-L1025",
+      "sha256": "815ec8fe023ca6f4c743af1790bfc512f7521d4f38eb5f153e0b1d0cdead734c"
+    },
+    {
+      "name": "0103.go",
+      "url": "https://github.com/markcheno/go-talib/blob/cd53a9264d70bedcff891f59bf153275f524c100/talib.go#L5108-L5144",
+      "sha256": "103b10734396daf97ea2560066bccb63b5458c143419267bf835217e3a6429f1"
+    },
+    {
+      "name": "0104.go",
+      "url": "https://github.com/mattbaird/elastigo/blob/2fe47fd29e4b70353f852ede77a196830d2924ec/lib/searchfilter.go#L324-L328",
+      "sha256": "1e3862b6b043a1652f3ebb97d5ad65b3da8d2fd7a845ad84605214a7873757f2"
+    },
+    {
+      "name": "0105.go",
+      "url": "https://github.com/mc2soft/pq-types/blob/ada769d4011a027a5385b9c4e47976fe327350a6/int32_array.go#L77-L92",
+      "sha256": "d5bf88fc59c37a31eb2a75d818c88d6c93b23f3f7fad4663cbee9dd2e9041b90"
+    },
+    {
+      "name": "0106.go",
+      "url": "https://github.com/mesos/mesos-go/blob/ee67238bbd943c751ec0a5dffb09af2b0182d361/api/v0/mesosproto/mesos.pb.go#L4142-L4147",
+      "sha256": "a2cb1f6a5b3bfab5352335d1789e4ddef5defdc585589b4528774aa585eb1ce4"
+    },
+    {
+      "name": "0107.go",
+      "url": "https://github.com/miketheprogrammer/go-thrust/blob/6aa55589fcc4ec586d442e4f7ed315afe3dfcda9/lib/spawn/helper_windows.go#L51-L54",
+      "sha256": "869052a418ce48b727aa628d94183093e98cd7638face45fcd1e9358830e42ad"
+    },
+    {
+      "name": "0108.go",
+      "url": "https://github.com/minio/mc/blob/f0f156aca82e451c80b05d5be8eb01a04fee29dd/pkg/colorjson/encode.go#L615-L638",
+      "sha256": "8279ad64b13d54dd317dcfc1530d9c3e39d7d7e23c8b2830df3c639b102726af"
+    },
+    {
+      "name": "0109.go",
+      "url": "https://github.com/minio/minio/blob/4b858b562a0887e10bfd0414dc87e68f1af31c3a/cmd/healthcheck-handler.go#L102-L108",
+      "sha256": "99fde3946e25046c61b711e97fce686daa8d7eab5b27dd8f2d71d39715029657"
+    },
+    {
+      "name": "0110.go",
+      "url": "https://github.com/mkb218/gosndfile/blob/e0c9ef895ee23c154b6fe25b5261daf514df9941/sndfile/virtual.go#L83-L87",
+      "sha256": "413269914de647ca1200635b42207240469dba46be5daab0534d0f3fb0571522"
+    },
+    {
+      "name": "0111.go",
+      "url": "https://github.com/mmcdole/gofeed/blob/0e68beaf6fdf215bd1fe42a09f6de292c7032359/internal/shared/xmlbase.go#L212-L258",
+      "sha256": "3421b42d416f6f8d39f8e53a7ad495194c7f3655d990b258a9fb38fccce338e6"
+    },
+    {
+      "name": "0112.go",
+      "url": "https://github.com/moby/moby/blob/e516af6e5636023e85335ed8d9d0d824349dd6ff/errdefs/http_helpers.go#L14-L69",
+      "sha256": "9ce830dac519cdadec3d920e46411eab60bc7d13f85091549d4d4967de9f316e"
+    },
+    {
+      "name": "0113.go",
+      "url": "https://github.com/montanaflynn/stats/blob/38304a2645bb6bd10153d518e10a9b69190ff730/regression.go#L14-L47",
+      "sha256": "b14b015a21c796b1b90248fd33702209346cb9a354bd3317d540ffc4d0a11558"
+    },
+    {
+      "name": "0114.go",
+      "url": "https://github.com/moovweb/gokogiri/blob/a1a828153468a7518b184e698f6265904108d957/xml/node.go#L379-L384",
+      "sha256": "ac1fb22d0cfeaba7ee6933416f9ac739f6069599d24e44ed1174fe4e79558b70"
+    },
+    {
+      "name": "0115.go",
+      "url": "https://github.com/nanomsg/mangos-v1/blob/b213a8e043f6541ad45f946a2e1c5d3617987985/compat/compat.go#L335-L338",
+      "sha256": "785c11c5ed6c546b5cad357071fd2a087465e4ace553ffeb141bb104ef5fc402"
+    },
+    {
+      "name": "0116.go",
+      "url": "https://github.com/nlopes/slack/blob/65ea2b979a7ffe628676bdb6b924e2498d66c1bf/misc.go#L210-L219",
+      "sha256": "e4be9f81f16e9fa7b1172f0b4dc7190f190929f33ba4d7a9604b4fcb1b17dd09"
+    },
+    {
+      "name": "0117.go",
+      "url": "https://github.com/olivere/elastic/blob/0534a7b1bf47b1ccf57e905491a641709f8a623d/geo_point.go#L34-L36",
+      "sha256": "ae80d2dc2e277ae4b2379394b10b33f0f8840b49a4465468ab1cd952a23d123e"
+    },
+    {
+      "name": "0118.go",
+      "url": "https://github.com/openshift/origin/blob/00a7323a2f454c2ca26ab58e1f487dc81e30e19c/pkg/oauthserver/oauth/external/handler.go#L339-L341",
+      "sha256": "c5d938b43e352286a9fccd7c185b606316ef4d5f100019159662ec124967fc00"
+    },
+    {
+      "name": "0119.go",
+      "url": "https://github.com/openshift/origin/blob/00a7323a2f454c2ca26ab58e1f487dc81e30e19c/pkg/security/mcs/label.go#L202-L204",
+      "sha256": "2d323f17a73083a0edcd3d49aeb9d50b9b0d85d482e2a0960b1f2342382ab1ca"
+    },
+    {
+      "name": "0120.go",
+      "url": "https://github.com/ory/hydra/blob/67c246c177446daab64be00ba82b3aea1a546570/sdk/go/hydra/client/admin/get_json_web_key_parameters.go#L103-L106",
+      "sha256": "ad4cbcb07f631ede8d9dc2c608824724439414bdfe6a9846de6aef4830b50ba9"
+    },
+    {
+      "name": "0121.go",
+      "url": "https://github.com/otiai10/marmoset/blob/2adcf18928cbc73d640249eed0ac8e49ce4bdcb8/render.go#L27-L40",
+      "sha256": "a3b88e5c447407658558bce13fb9e4a694d7544f4d89f6c1a14267154edc185d"
+    },
+    {
+      "name": "0122.go",
+      "url": "https://github.com/pilosa/pilosa/blob/67d53f6b48a43f7fe090f48e35518ca8d024747c/encoding/proto/proto.go#L1136-L1145",
+      "sha256": "dd76c36020b820635b80e4563b49ec5819a522b339f56323080ededcd183b107"
+    },
+    {
+      "name": "0123.go",
+      "url": "https://github.com/pilosa/pilosa/blob/67d53f6b48a43f7fe090f48e35518ca8d024747c/fragment.go#L2136-L2166",
+      "sha256": "65a8bc92588d792e1c4417fee1cd1e10dd83aab1fffa53d7ca18b6ecabdaca74"
+    },
+    {
+      "name": "0124.go",
+      "url": "https://github.com/pivotal-cf/go-pivnet/blob/e68f8203b478c0c65b90f196471522949c002710/release_dependencies.go#L28-L53",
+      "sha256": "7a2f2d4b859de1efef68d52ac613d6b6dcca2a55f89774de2839d84d7aae38ac"
+    },
+    {
+      "name": "0125.go",
+      "url": "https://github.com/pivotal-pez/pezauth/blob/7c01f70760da2124e6fac36b569d9130552afea8/integrations/inventory.go#L146-L156",
+      "sha256": "05c2eedf4320c3cc4386c0ae0773531961fc990134db7aaab4a95bba3069aa09"
+    },
+    {
+      "name": "0126.go",
+      "url": "https://github.com/polds/imgbase64/blob/cb7bf37298b7c2d13bd2451f51674d6bbdb46e44/images.go#L78-L84",
+      "sha256": "b2d1c76599da00275c63732e7ecf010c27e97821e00c73ce711942e8d1e1c2ed"
+    },
+    {
+      "name": "0127.go",
+      "url": "https://github.com/qorio/maestro/blob/b3594982be16e2aeff0215d8d4a4d03fd563bdfb/pkg/yaml/yaml.go#L563-L585",
+      "sha256": "09a92914b947ab44fae62d6dd5a6ff0370bb01ef9d224ea4c2c63043744106b3"
+    },
+    {
+      "name": "0128.go",
+      "url": "https://github.com/rakyll/statik/blob/3bac566d30cdbeddef402a80f3d6305860e59f12/fs/fs.go#L55-L96",
+      "sha256": "2351499c2065524639db683428ed8f24ae2ce49bc09a17fe14d5ce1910f41213"
+    },
+    {
+      "name": "0129.go",
+      "url": "https://github.com/rivo/tview/blob/90b4da1bd64ceee13d2e7d782b315b819190f7bf/checkbox.go#L58-L61",
+      "sha256": "c0969a77dbeba3f6b5b1ddda08a9ea78b2a4fae862c8ab021a6ea84a12b69e2b"
+    },
+    {
+      "name": "0130.go",
+      "url": "https://github.com/robertkrimen/otto/blob/15f95af6e78dcd2030d8195a138bd88d4f403546/builtin_array.go#L114-L126",
+      "sha256": "71adcada0444f6c387096bdabf8f539d7b5ce943e554be5c8f63baa5b908dcb1"
+    },
+    {
+      "name": "0131.go",
+      "url": "https://github.com/robertkrimen/otto/blob/15f95af6e78dcd2030d8195a138bd88d4f403546/type_regexp.go#L121-L146",
+      "sha256": "ff721f446126a1c25684dd0f73ca9308633ea08f2511e65e8beaf6bfedcfb4f2"
+    },
+    {
+      "name": "0132.go",
+      "url": "https://github.com/rsc/pdf/blob/c47d69cf462f804ff58ca63c61a8fb2aed76587e/read.go#L793-L819",
+      "sha256": "896b26eda32cda6fb0d264cf234c3fec147faddaae6566307c9eedb08f94f2dc"
+    },
+    {
+      "name": "0133.go",
+      "url": "https://github.com/rsc/rsc/blob/fc62025902295658a9c7e89418e095fd598b2682/google/gmail/gmail.go#L275-L417",
+      "sha256": "fccfa623860dd045adc00706f1390f7244d6c9bf0fbc3f929c008c962455f1b8"
+    },
+    {
+      "name": "0134.go",
+      "url": "https://github.com/sclevine/agouti/blob/96599c91888f1b1cf2dccc7f1776ba7f511909e5/api/session.go#L139-L148",
+      "sha256": "f11b2ecfffae04f40aafef28598a2207e06c2c8d4a94afa936b619c7b7026cbb"
+    },
+    {
+      "name": "0135.go",
+      "url": "https://github.com/sclevine/agouti/blob/96599c91888f1b1cf2dccc7f1776ba7f511909e5/selection_actions.go#L114-L137",
+      "sha256": "938d105a494041c041140a0878b9bae29384b1c8685cc063f37592b08157d9c6"
+    },
+    {
+      "name": "0136.go",
+      "url": "https://github.com/segmentio/objconv/blob/7a1d7b8e6f3551b30751e6b2ea6bae500883870e/adapters/net/url/encode.go#L10-L13",
+      "sha256": "2f39101cf87e5ce25b09f023e3f3b98bd86998c24708f9f5a92e1f4af67399d9"
+    },
+    {
+      "name": "0137.go",
+      "url": "https://github.com/shutterstock/go-stockutil/blob/39a961cfa60878cca33570f9431c09db1600e4db/stringutil/stringutil.go#L203-L209",
+      "sha256": "fb1bd71dbea266fed7a34b933d87e029413779a56c8ec6cf619e1ca01a8144e4"
+    },
+    {
+      "name": "0138.go",
+      "url": "https://github.com/sjwhitworth/golearn/blob/82e59c89f5020c45292c68472908f2150a87422e/examples/trees/trees.go#L15-L148",
+      "sha256": "52d35e81c060303b2797e12d62384e605839cda6e93aae8932791ac74c2fe154"
+    },
+    {
+      "name": "0139.go",
+      "url": "https://github.com/softlayer/softlayer-go/blob/aa510384a41b6450fa6a50e943ed32f5e838fada/services/network.go#L14465-L14471",
+      "sha256": "82108ac23b366f6f90f43bffcd539f63d3faa51c3f8000c13196049f60386338"
+    },
+    {
+      "name": "0140.go",
+      "url": "https://github.com/thecodeteam/gorackhd/blob/66bd88ab29593b880ba59b35db2c17a4b4bab1f1/client/nodes/nodes_client.go#L147-L168",
+      "sha256": "b83fe2905a2701dd51a7ad3cc3593d452a0a8d733c07c9e73a0b5fef05506bf3"
+    },
+    {
+      "name": "0141.go",
+      "url": "https://github.com/thriftrw/thriftrw-go/blob/a9a6ad793beab07cc3385954d2e8af8abfaa83e2/gen/string.go#L84-L93",
+      "sha256": "0325aaed8663364a0f709c9eed36062763e6ce14af768f7a65f1bd2ba3e059a5"
+    },
+    {
+      "name": "0142.go",
+      "url": "https://github.com/twpayne/go-geom/blob/e21b3afba225b21d05fbcbeb8ece2c79c96554c5/xy/cga.go#L231-L248",
+      "sha256": "bae5778559f6e9ad54b9dc955ec26eda46085e4ab513e52119755c58190b0e29"
+    },
+    {
+      "name": "0143.go",
+      "url": "https://github.com/tylertreat/BoomFilters/blob/611b3dbe80e85df3a0a10a43997d4d5784e86245/topk.go#L70-L85",
+      "sha256": "7a0cb9af6aa76de4ef2fd74a807dfa41a57ea6108106b740403c861e2556becf"
+    },
+    {
+      "name": "0144.go",
+      "url": "https://github.com/uber-go/ratelimit/blob/c15da02342779cb6dc027fc95ee2277787698f36/internal/clock/clock.go#L66-L76",
+      "sha256": "6d909ff122cc3ce215668184ba587d09203d3a1833863663a98605b2cac334b1"
+    },
+    {
+      "name": "0145.go",
+      "url": "https://github.com/ugorji/go/blob/1d7ab5c50b36701116070c4c612259f93c262367/codec/json.go#L678-L690",
+      "sha256": "8461eb76e169de6574368d802eac9ea3e54991d314cafdb57bceb8301cba8fdf"
+    },
+    {
+      "name": "0146.go",
+      "url": "https://github.com/urandom/readeef/blob/63b79a7bde3f3da1f4b6b3224235c346a34906f0/content/repo/logging/extract.go#L27-L35",
+      "sha256": "6eb19eafc427cfb481a46f3cf929dfe5f1e72c0542437c637764142eb0fa309e"
+    },
+    {
+      "name": "0147.go",
+      "url": "https://github.com/urandom/readeef/blob/63b79a7bde3f3da1f4b6b3224235c346a34906f0/content/thumbnail/extract.go#L40-L70",
+      "sha256": "b93d388d126ade3d25da5ee48395123197e46c4c3b863ae009ea4a48a475bc77"
+    },
+    {
+      "name": "0148.go",
+      "url": "https://github.com/vaughan0/go-zmq/blob/425c333a2ab9e2615ff4ff7deced6e37730b544e/sockopts.go#L112-L114",
+      "sha256": "b8ff96a4117da1e714b1f4ae9129a1f575d9543cfb210dda068131083da51bf5"
+    },
+    {
+      "name": "0149.go",
+      "url": "https://github.com/vdobler/chart/blob/6627804132c7c237061d1c8fd2554e3206daecb6/example/samplecharts.go#L186-L233",
+      "sha256": "30810d251277df39d5a81b12ad8104894e2c90989062d0787fd62733211431b1"
+    },
+    {
+      "name": "0150.go",
+      "url": "https://github.com/vmware/govmomi/blob/fc3f0e9d2275df0e497a80917807a7c72d3c35bc/vim25/xml/typeinfo.go#L115-L228",
+      "sha256": "fe7cb88dc500a20ff9d4714daa038b3708e934605e5b94a8b566cd3c1e860372"
+    },
+    {
+      "name": "0151.go",
+      "url": "https://github.com/volatiletech/abcweb/blob/9e9ffe4fa86ed4e557dcc4b9d59ca5d3d91c6a66/abcsessions/middleware.go#L50-L60",
+      "sha256": "3cc5b0fbfdf022dc7fd6cb812a3a6ca6041f619c90bc09d3dc96ccdd752a820c"
+    },
+    {
+      "name": "0152.go",
+      "url": "https://github.com/wcharczuk/go-chart/blob/9852fce5a172598e72d16f4306f0f17a53d94eb4/matrix/matrix.go#L371-L387",
+      "sha256": "e06d90911bb71accb22aeaa1dd1d2be356d5799e1a1a98e48cd6a006fbd08877"
+    },
+    {
+      "name": "0153.go",
+      "url": "https://github.com/wcharczuk/go-chart/blob/9852fce5a172598e72d16f4306f0f17a53d94eb4/util/file_util.go#L17-L34",
+      "sha256": "8c3c2d207cac1a9979843fa83d81a3cae7ce3f501ba0d603fbeb1daa283b1524"
+    },
+    {
+      "name": "0154.go",
+      "url": "https://github.com/webx-top/com/blob/01419a9b4188b43cba46b7ae02136d01e4fccf9c/convert.go#L189-L205",
+      "sha256": "6b1dec77c557b14ae058807938415248f2b0d99dc5a139a4883d0a7a25f24cf5"
+    },
+    {
+      "name": "0155.go",
+      "url": "https://github.com/webx-top/com/blob/01419a9b4188b43cba46b7ae02136d01e4fccf9c/time.go#L116-L138",
+      "sha256": "3ae8aa07e0a3cf7a365b664bd61aa9a1f312872c2287318c998bae9fd20e6a52"
+    },
+    {
+      "name": "0156.go",
+      "url": "https://github.com/webx-top/webx/blob/800783e939f407b66b20848589b41d2bb1aeb024/lib/forms/fields/options.go#L183-L189",
+      "sha256": "dddc4fb5281472836dcc3653fe17741ed6cd9e0f2a2d58d7f7a29e9fcc326c4b"
+    },
+    {
+      "name": "0157.go",
+      "url": "https://github.com/wildducktheories/go-csv/blob/a843eda7bf0911b9acdfd11a9a41ed87282dcbdd/cmd/csv-to-json/main.go#L12-L26",
+      "sha256": "db4cef5a0aa5f0a5845bcebfef8ff30698eecd62caa1f1ee641d74e53ce2bdb8"
+    },
+    {
+      "name": "0158.go",
+      "url": "https://github.com/yosssi/ace/blob/2b21b56204aee785bf8d500c3f9dcbe3ed7d4515/helper_method_content.go#L16-L39",
+      "sha256": "73d8146297ae58aeec700db9d67c1e903b7accb6a90206087c030bfd589851c6"
+    },
+    {
+      "name": "0159.go",
+      "url": "https://github.com/yuin/gopher-lua/blob/8bfc7677f583b35a5663a9dd934c08f3b5774bbb/iolib.go#L131-L140",
+      "sha256": "a943efc3c4d8369672e81e9e518f99275395d179a904825d30e1b7135556ab95"
+    },
+    {
+      "name": "0160.go",
+      "url": "https://github.com/zorkian/go-datadog-api/blob/fcf4c3b6edfd28f3bf01965725f290489b10d1ec/datadog-accessors.go#L18618-L18623",
+      "sha256": "30e26bec20fd897219673746279c925c65bd5cb5d29140fe7f5d08e5355a09e3"
+    }
+  ],
+  "missing": ["https://github.com/control-center/serviced/blob/7028f598e6a224b4d421e09cb9b582ad7d000304/cli/api/logs.go#L511-L616", "https://github.com/control-center/serviced/blob/7028f598e6a224b4d421e09cb9b582ad7d000304/datastore/datastore.go#L170-L177", "https://github.com/signalfx/gateway/blob/60f8886d9dbf529d974d8f3c0b9e932d8a7570a0/config/config.go#L179-L187", "https://github.com/tideland/golib/blob/b56169c6bd620eeb7cfc4b9b4027fc10d2934c84/sml/reader.go#L230-L260"]
+}
